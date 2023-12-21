@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HidroProjekt\HumanResourcesController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+/**
+ * HIDRO-PROJEKT Routes
+ * All the routes related to HIDRO-PROJEKT company
+ */
+Route::prefix('hidro-projekt')
+    ->group(Function(){
+        Route::get('/', function () {
+            return "HIDRO-PROJEKT";
+        });
+
+        Route::controller(HumanResourcesController::class)
+            ->group(function(){
+                Route::get('/hr', 'index');
+                Route::get('payroll_labels_pdf','payrollLabels')->name('payrollLabels');
+            });
+    });
