@@ -36,6 +36,10 @@ Route::prefix('hidro-projekt')
         Route::controller(HumanResourcesController::class)
             ->group(function(){
                 Route::get('/hr', 'index');
+
+                Route::get('/hr/workers', 'allWorkers')->name('allWorkers');
+
+                //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('payrollLabels');
             });
     });

@@ -1,0 +1,36 @@
+.angry-grid {
+    display: grid;
+
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    grid-template-areas:
+        'label0 label1 label2 label3 label4 label5 label6 label7 label8 label9 label10 label11'
+        'label12 . . . . . . . . . . label43'
+        'label13 . . . . . . . . . . label42'
+        'label14 . . . . . . . . . . label41'
+        'label15 . . . . . . . . . . label40'
+        'label16 . . . . . . . . . . label39'
+        'label17 . . . . . . . . . . label38'
+        'label20 . . . . . . . . . . label35'
+        'label21 . . . . . . . . . . label34'
+        'label22 label23 label24 label25 label26 label27 label28 label29 label30 label31 label32 label33';
+
+    gap: 0px;
+    height: 100%;
+
+}
+
+.field {
+    position: relative;
+
+}
+
+.fieldInner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 15px;
+
+}
