@@ -14,7 +14,7 @@ class HumanResourcesController extends Controller
     }
 
     public function allWorkers(){
-        return view('hidro-projekt.HR.allWorkers',['workers' => WorkerModel::get()]);
+        return view('hidro-projekt.HR.allWorkers',['workers' => WorkerModel::simplePaginate(20)]);
     }
 
     public function payrollLabels(){

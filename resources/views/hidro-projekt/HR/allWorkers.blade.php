@@ -12,7 +12,12 @@
         </div>
     @endif
     <br>
+    <button class="btn btn-success btn-sm">NOVI RADNIK</button>
+    <a class="btn btn-dark btn-sm" style = "width: 50px" href="javascript: w=window.open('{{ route('payrollLabels') }}');">
+      <i class="bi bi-printer"></i>
+    </a>
     <div class="row">
+      
       <table class="table table-sm" style ="width: 350px">
         <thead>
           <tr>
@@ -33,7 +38,7 @@
 
         </tbody>
       </table>
+      {{ $workers->links() }}
     </div>
   </div>
-<a href="javascript: w=window.open('{{ route('payrollLabels') }}');">PRINTAJ TAJ PDF!!!</a>
 @endsection
