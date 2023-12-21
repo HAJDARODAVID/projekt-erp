@@ -18,7 +18,7 @@
     </a>
     <div class="row">
       
-      <table class="table table-sm" style ="width: 350px">
+      <table class="table table-sm" style ="width: 550px">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -38,7 +38,7 @@
 
         </tbody>
       </table>
-      {{ $workers->links() }}
+      {{ $workers->links() }}  
     </div>
   </div>
 @endsection
