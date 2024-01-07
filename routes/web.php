@@ -27,19 +27,21 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  * HIDRO-PROJEKT Routes
  * All the routes related to HIDRO-PROJEKT company
  */
-Route::prefix('hidro-projekt')
+Route::prefix('/')
     ->group(Function(){
-        Route::get('/', function () {
-            return "HIDRO-PROJEKT";
-        });
+        // Route::get('/', function () {
+        //     return "HIDRO-PROJEKT";
+        // });
 
         Route::controller(HumanResourcesController::class)
             ->group(function(){
                 Route::get('/hr', 'index');
 
-                Route::get('/hr/workers', 'allWorkers')->name('allWorkers');
+                Route::get('/hr/workers', 'allWorkers')->name('hp_allWorkers');
 
                 //PDF routes
-                Route::get('payroll_labels_pdf','payrollLabels')->name('payrollLabels');
+                Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
             });
+
+        
     });
