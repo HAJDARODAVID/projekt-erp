@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
+            return view('home');
+        }else{
+            return redirect(route('hp_allWorkers'));
+        }
+        
     }
 }

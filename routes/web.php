@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -15,23 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 /**
  * HIDRO-PROJEKT Routes
  * All the routes related to HIDRO-PROJEKT company
  */
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::prefix('/')
+    ->middleware(['auth','userRights'])
     ->group(Function(){
-        // Route::get('/', function () {
-        //     return "HIDRO-PROJEKT";
-        // });
+
+        Route::controller(AdminController::class)
+            ->group(function(){
+                Route::get('/admin/users', 'users')->name('hp_users');
+            });
 
         Route::controller(HumanResourcesController::class)
             ->group(function(){
