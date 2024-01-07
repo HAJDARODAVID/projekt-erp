@@ -9,11 +9,13 @@ use App\Services\HidroProjekt\HR\TcpdfPayrollLabelsGenerator;
 
 class HumanResourcesController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        dd($request->route());
         return view('hidro-projekt.HR.allWorkers');
     }
 
-    public function allWorkers(){
+    public function allWorkers(Request $request){
+        //dd($request->route()->getPrefix());
         return view('hidro-projekt.HR.allWorkers',['workers' => WorkerModel::simplePaginate(20)]);
     }
 

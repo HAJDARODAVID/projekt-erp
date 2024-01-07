@@ -96,6 +96,23 @@
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3 sidebar-sticky">
         {{-- <x-admin-menu-items></x-admin-menu-items> --}}
+        <div class="list-group mx-2" >
+          <a href="{{route('hp_allWorkers')}}" class="list-group-item list-group-item-action active">Admin modul</a>
+          <div class="list-group py-0" style="margin-bottom: 2px">
+            <a href="#" class="list-group-item list-group-item-action px-4 py-1" style="border-radius: 0px 0px"> - Korisnici</a>
+          </div>
+          <a href="#" class="list-group-item list-group-item-action ">Ljudski resursi</a>
+          <div class="list-group py-0">
+            <a href="#" class="list-group-item list-group-item-action px-4 py-1" style="border-radius: 0px 0px"> - Radnici</a>
+            <a href="#" class="list-group-item list-group-item-action px-4 py-1"> - Evidencija radnih sati</a>
+          </div>
+          <a href="#" class="list-group-item list-group-item-action">Raspored rada</a>
+          <div class="list-group py-0">
+            <a href="#" class="list-group-item list-group-item-action px-4 py-1" style="border-radius: 0px 0px"> - Groupe</a>
+          </div>
+          <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+        </div>
       </div>
     </nav>
 

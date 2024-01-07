@@ -34,10 +34,11 @@ Route::prefix('/')
             });
 
         Route::controller(HumanResourcesController::class)
+            ->prefix('/hr')
             ->group(function(){
-                Route::get('/hr', 'index');
+                Route::get('/', 'index');
 
-                Route::get('/hr/workers', 'allWorkers')->name('hp_allWorkers');
+                Route::get('/workers', 'allWorkers')->name('hp_allWorkers');
 
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');

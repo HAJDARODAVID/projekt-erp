@@ -28,7 +28,7 @@ class HomeController extends Controller
         if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
             return view('home');
         }else{
-            return redirect(route('hp_allWorkers'));
+            return view('hidro-projekt.admin');
         }
         
     }
