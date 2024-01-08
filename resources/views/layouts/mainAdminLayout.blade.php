@@ -76,7 +76,7 @@
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">{{ env('APP_NAME') }} - Admin module</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="{{route('home')}}">Hidro-projekt ERP</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -95,30 +95,11 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3 sidebar-sticky">
-        {{-- <x-admin-menu-items></x-admin-menu-items> --}}
-        <div class="list-group mx-2" >
-          <a href="{{route('hp_allWorkers')}}" class="list-group-item list-group-item-action active">Admin modul</a>
-          <div class="list-group py-0" style="margin-bottom: 2px">
-            <a href="#" class="list-group-item list-group-item-action px-4 py-1" style="border-radius: 0px 0px"> - Korisnici</a>
-          </div>
-          <a href="#" class="list-group-item list-group-item-action ">Ljudski resursi</a>
-          <div class="list-group py-0">
-            <a href="#" class="list-group-item list-group-item-action px-4 py-1" style="border-radius: 0px 0px"> - Radnici</a>
-            <a href="#" class="list-group-item list-group-item-action px-4 py-1"> - Evidencija radnih sati</a>
-          </div>
-          <a href="#" class="list-group-item list-group-item-action">Raspored rada</a>
-          <div class="list-group py-0">
-            <a href="#" class="list-group-item list-group-item-action px-4 py-1" style="border-radius: 0px 0px"> - Groupe</a>
-          </div>
-          <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-        </div>
+        <x-admin-module-menu-items></x-admin-module-menu-items>
       </div>
     </nav>
-
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        @yield('content')
-        
+        @yield('content')   
     </main>
   </div>
 </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
+use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +30,9 @@ Route::prefix('/')
     ->group(Function(){
 
         Route::controller(AdminController::class)
+            ->prefix('/adm')
             ->group(function(){
-                Route::get('/admin/users', 'users')->name('hp_users');
+                Route::get('/users', 'users')->name('hp_users');
             });
 
         Route::controller(HumanResourcesController::class)
@@ -43,6 +45,10 @@ Route::prefix('/')
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
             });
+
+        Route::get('test',function(){
+            AdminModuleMenuItemsService::getModuleInfo();
+        });
 
         
     });
