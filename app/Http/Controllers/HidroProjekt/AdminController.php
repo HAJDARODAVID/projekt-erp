@@ -11,6 +11,6 @@ class AdminController extends Controller
 {
 
     public function users(){
-        return dd(Route::currentRouteName());
+        return view('hidro-projekt.ADM.users');
     }
 }

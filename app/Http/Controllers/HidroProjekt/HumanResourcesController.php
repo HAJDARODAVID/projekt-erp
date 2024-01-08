@@ -10,7 +10,6 @@ use App\Services\HidroProjekt\HR\TcpdfPayrollLabelsGenerator;
 class HumanResourcesController extends Controller
 {
     public function index(Request $request){
-        dd($request->route());
         return view('hidro-projekt.HR.allWorkers');
     }
 
