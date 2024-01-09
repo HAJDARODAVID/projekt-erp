@@ -3,6 +3,8 @@
 
 <div class="list-group mx-2" >
   @foreach ($menu_items as $key => $menuItem)
+    {{-- BRIŠI KASNIJE --}}
+    {{ strtolower($menu_items[$key][0]['get_owner']['module_prefix']) }}
     <a 
       href="#" 
       id="{{ $key }}"
@@ -18,6 +20,8 @@
       @endforeach
     </div>
   @endforeach
+  {{-- BRIŠI KASNIJE --}}
+  {{ $currentRoute }} <br>
 </div>
 
 <script>
