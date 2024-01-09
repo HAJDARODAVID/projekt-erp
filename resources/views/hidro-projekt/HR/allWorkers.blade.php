@@ -17,6 +17,6 @@
       <i class="bi bi-printer"></i>
     </a>
     <hr>
-    <livewire:hidroProjekt.workers-table theme="bootstrap-5" />
+    <livewire:hidroProjekt.hr.workers-table theme="bootstrap-5" />
   </div>
 @endsection
