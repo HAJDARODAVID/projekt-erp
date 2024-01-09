@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
+use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,10 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
  Route::prefix('/bde')
     ->middleware(['auth'])
     ->group(Function(){
+        Route::controller(WorkDayRecordController::class)
+            ->group(function(){
+                Route::get('/','index')->name('hp_bdeHome');
+            });
 
     });
 

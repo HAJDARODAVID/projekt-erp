@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
-            return view('home');
+            return view('hidro-projekt.BDE.workDayRecord');
         }else{
             return view('hidro-projekt.admin');
         }
