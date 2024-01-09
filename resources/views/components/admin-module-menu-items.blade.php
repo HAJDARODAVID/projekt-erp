@@ -6,11 +6,11 @@
     <a 
       href="#" 
       id="{{ $key }}"
-      class="list-group-item list-group-item-action @if($currentRoute == '/'.strtolower($menu_items[$key])) active @endif" 
+      class="list-group-item list-group-item-action @if($currentRoute == '/'.strtolower($menu_items[$key][0]['get_owner']['module_prefix'])) active @endif" 
       onclick="showHideRoutes('{{ $key }}', '{{ $key }}_routes')" >
         {{ $key }}
     </a>
-    <div style="margin-bottom: 2px; display:@if($currentRoute == '/'.strtolower($menu_items[$key])) block @else none @endif" class="list-group py-0"  id="{{ $key }}_routes">
+    <div style="margin-bottom: 2px; display:@if($currentRoute == '/'.strtolower($menu_items[$key][0]['get_owner']['module_prefix'])) block @else none @endif" class="list-group py-0"  id="{{ $key }}_routes">
       @foreach ($menuItem as $item)
           @if (Route::has($item['route_name']))
             <a href="@isset($item['route_name']) {{ route($item['route_name']) }} @endisset" class="list-group-item list-group-item-action px-4 py-1" style="border-radius: 0px 0px"> - {{ $item['name'] }}</a>  
