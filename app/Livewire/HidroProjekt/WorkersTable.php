@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\HidroProjekt;
 
 use App\Models\WorkerModel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
