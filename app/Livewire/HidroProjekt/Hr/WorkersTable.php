@@ -20,8 +20,8 @@ class WorkersTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            // Column::make("Id", "id")
-            //     ->sortable(),
+            Column::make("Id", "id")
+                ->hideIf(true),
             Column::make("Ime", "firstName")
                 ->sortable()
                 ->searchable(),
@@ -35,6 +35,8 @@ class WorkersTable extends DataTableComponent
             Column::make("Datum zapošljavanja", "doe")
                 ->sortable(),
             BooleanColumn::make('Print naljepnice', 'print_label'),
+            Column::make('Test','print_label')
+                ->view('components.printLabelCheckbox'),
             Column::make("Komentar", "comment")
 
         ];
