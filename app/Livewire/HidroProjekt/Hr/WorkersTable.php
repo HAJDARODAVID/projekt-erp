@@ -34,8 +34,7 @@ class WorkersTable extends DataTableComponent
                 ->sortable(),
             Column::make("Datum zapošljavanja", "doe")
                 ->sortable(),
-            BooleanColumn::make('Print naljepnice', 'print_label'),
-            Column::make('Test','print_label')
+            Column::make('Print naljepnice','print_label')
                 ->view('components.printLabelCheckbox'),
             Column::make("Komentar", "comment")
 
