@@ -25,6 +25,22 @@ Auth::routes();
  */
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+/**
+ * BDE routes 
+ * BDE(betriebsdatenerfassung): de -> operational data collection
+ * All routes related to onside data
+ */
+ Route::prefix('/bde')
+    ->middleware(['auth'])
+    ->group(Function(){
+
+    });
+
+
+/**
+ * Administration and management routes
+ * All routes related to business monitoring and planning 
+ */
 Route::prefix('/')
     ->middleware(['auth','userRights'])
     ->group(Function(){
