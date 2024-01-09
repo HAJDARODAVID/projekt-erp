@@ -16,29 +16,7 @@
     <a class="btn btn-dark btn-sm" style = "width: 50px" href="javascript: w=window.open('{{ route('hp_payrollLabels') }}');">
       <i class="bi bi-printer"></i>
     </a>
-    <div class="row">
-      
-      <table class="table table-sm" style ="width: 550px">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Ime</th>
-            <th scope="col">Prezime</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($workers as $worker)
-            <tr>
-              <th class="col-md-1" scope="row">{{ $worker->id }}</th>
-              <td class="col-md-2">{{ $worker->firstName }}</td>
-              <td class="col-md-2">{{ $worker->lastName }}</td>
-            </tr>
-          @endforeach
-          
-
-        </tbody>
-      </table>
-      {{ $workers->links() }}  
-    </div>
+    <hr>
+    <livewire:hidroprojekt.hr.workers-table theme="bootstrap-5" />
   </div>
 @endsection
