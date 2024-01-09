@@ -2,7 +2,7 @@
 <?php $currentRoute = request()->route()->getPrefix() ?>
 
 <div class="list-group mx-2" >
-  @foreach ($menuItems as $key => $menuItem)
+  @foreach ($menu_items as $key => $menuItem)
     <a 
       href="#" 
       id="{{ $key }}"
