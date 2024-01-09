@@ -7,12 +7,12 @@ use Livewire\Component;
 
 class PrintLabelCheckbox extends Component
 {   
-    public $row;
+    public $id;
     public $value;
 
 
     public function updatedValue(){
-        WorkerService::updatePrintPayrollLabel($this->row,$this->value);
+        WorkerService::updatePrintPayrollLabel($this->id,$this->value);
     }
 
     public function render()
