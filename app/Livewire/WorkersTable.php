@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\Livewire;
 
 use App\Models\WorkerModel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
