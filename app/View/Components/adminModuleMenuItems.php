@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 
-class adminModuleMenuItems extends Component
+class AdminModuleMenuItems extends Component
 {
     public $menuItems;
     public $moduleItems;
