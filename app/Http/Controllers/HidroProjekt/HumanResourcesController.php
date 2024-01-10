@@ -18,11 +18,23 @@ class HumanResourcesController extends Controller
         return view('hidro-projekt.HR.allWorkers',['workers' => WorkerModel::simplePaginate(20)]);
     }
 
+    public function showWorker($id){
+        $worker = WorkerModel::where('id', $id)->first();
+        if(is_null(WorkerModel::where('id', $id)->first())){
+            return redirect()->route('hp_allWorkers');
+        }
+        return view('hidro-projekt.HR.showWorker', [
+            'worker' => WorkerModel::where('id', $id)->first(),
+        ]);
+    }
+
     public function payrollLabels(){
         $worker = WorkerModel::get();
         $pdf = new TcpdfPayrollLabelsGenerator();
         return $pdf->index($worker);
 
     }
+
+
 
 }

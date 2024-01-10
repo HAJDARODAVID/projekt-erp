@@ -13,6 +13,7 @@
     @endif
     <br>
     <button class="btn btn-success btn-sm">NOVI RADNIK</button>
+    <a href="{{ route('hp_showWorker', 2) }}" class="btn btn-success btn-sm">TEST</a>
     <a class="btn btn-dark btn-sm" style = "width: 50px" href="javascript: w=window.open('{{ route('hp_payrollLabels') }}');">
       <i class="bi bi-printer"></i>
     </a>

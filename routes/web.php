@@ -62,6 +62,7 @@ Route::prefix('/')
                 Route::get('/', 'index');
 
                 Route::get('/workers', 'allWorkers')->name('hp_allWorkers');
+                Route::get('/workers/{id}', 'showWorker')->name('hp_showWorker');
 
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
