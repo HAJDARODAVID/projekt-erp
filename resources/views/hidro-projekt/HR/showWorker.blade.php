@@ -5,7 +5,7 @@
     <h1 class="h3 mx-5 ">{{ $worker->firstName }} {{ $worker->lastName }}</h1>
     <div class="mx-5 ">
         <button class="btn btn-success" onclick="editworker()">UREDI</button>
-        <button class="btn btn-secondary">NATRAG</button>
+        <a href = "{{ route('hp_allWorkers') }}" class="btn btn-secondary">NATRAG</a>
     </div>
   </div>
   

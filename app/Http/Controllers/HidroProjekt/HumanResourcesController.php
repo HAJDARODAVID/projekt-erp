@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\WorkerModel;
 use App\Services\HidroProjekt\HR\TcpdfPayrollLabelsGenerator;
+use App\Services\HidroProjekt\HR\WorkerService;
 
 class HumanResourcesController extends Controller
 {
@@ -26,6 +27,31 @@ class HumanResourcesController extends Controller
         return view('hidro-projekt.HR.showWorker', [
             'worker' => WorkerModel::where('id', $id)->first(),
         ]);
+    }
+
+    public function newWorkerForm(){
+        return view('hidro-projekt.HR.newWorker',[
+            'todayDate' =>date("Y-m-d"),
+        ]);
+    }
+
+    public function addNewWorker(Request $request){
+        $validated = $request->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'working_place' => 'required',
+            'OIB' => 'required',
+        ]);
+
+       WorkerService::createNewUser($request);
+     
+        return redirect()->route('hp_allWorkers')->with('success', 'Radnik: uspješno dodan!');
+    }
+
+    public function deleteWorker($id){
+        $worker = WorkerModel::where('id',$id)->first();
+        $worker->delete();
+        return redirect()->route('hp_allWorkers')->with('success', 'Radnik: uspješno maknut!');
     }
 
     public function payrollLabels(){

@@ -5,7 +5,9 @@ namespace App\Livewire\HidroProjekt\Hr;
 use App\Models\WorkerModel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 
 class WorkersTable extends DataTableComponent
 {
@@ -38,7 +40,10 @@ class WorkersTable extends DataTableComponent
                 ->sortable(),
             Column::make('Print naljepnice','print_label')
                 ->view('components.print-label-checkbox'),
-            Column::make("Komentar", "comment")
+            Column::make("Komentar", "comment"),
+
+            Column::make('Actions','print_label')
+                ->view('components.worker-table-action-btn'),
 
         ];
     }

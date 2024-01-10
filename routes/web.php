@@ -62,7 +62,10 @@ Route::prefix('/')
                 Route::get('/', 'index');
 
                 Route::get('/workers', 'allWorkers')->name('hp_allWorkers');
+                Route::get('/workers/new', 'newWorkerForm')->name('hp_newWorkerForm');
+                Route::post('/workers/new', 'addNewWorker')->name('hp_addNewWorker');
                 Route::get('/workers/{id}', 'showWorker')->name('hp_showWorker');
+                Route::delete('/workers/{id}', 'deleteWorker')->name('hp_deleteWorker');
 
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
