@@ -23,6 +23,10 @@
                 <label for="workPlace">Radno mjesto</label>
                 <input type="text" class="form-control" id="workPlace" name="working_place" value="{{ $worker->working_place }}" disabled>
             </div>
+            <div class="form-group col-md-4">
+                <label for="workPlace">OIB</label>
+                <input type="text" class="form-control" id="workPlace" name="working_place" value="{{ $worker->OIB }}" disabled>
+            </div>
         </div>
         <div class="row mb-2">
           <div class="form-group col-md-2">
@@ -33,7 +37,24 @@
             <label for="inputPassword4">Istek ugovora</label>
             <input type="date" class="form-control" id="eoc"  name="eoc" value="{{ $worker->eoc }}" disabled>
           </div>
+          <div class="form-group col-md-4">
+            <label for="inputPassword4">Komentar</label> <br>
+            <input type="text" class="form-control" id="workPlace" name="working_place" disabled>
+          </div>
         </div>
+        <div class="row mb-2">
+            <div class="form-group col-md-1">
+              <label for="doe">Zaposlen</label> <br>
+              <input type="checkbox" disabled>
+            </div>
+            <div class="form-group col-md-1">
+              <label for="inputPassword4">Radnik</label> <br>
+              <input type="checkbox" disabled>
+            </div>
+          </div>
+
+
+        
 
         <h1 class="h6" style="margin-top: 25px">Adresa stanovanja</h1>
         <div class="row mb-2">
@@ -56,37 +77,19 @@
                 <input type="text" class="form-control" id="inputAddress" placeholder="Trnovec Bartolovecki" disabled>
             </div>
         </div>
+
+        <h1 class="h6" style="margin-top: 25px">Kontakt</h1>
+        <div class="row mb-2">
+            <div class="form-group col-md-4">
+                <label for="inputAddress">Mobitel</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="098966258" disabled>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputAddress">E-mail</label>
+                <input type="email" class="form-control" id="inputAddress" placeholder="joedoe.hidroprojekt@gmail.com" disabled>
+            </div>
+        </div>
         
-        <div class="form-group">
-          <label for="inputAddress2">Address 2</label>
-          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputState">State</label>
-            <select id="inputState" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-              Check me out
-            </label>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
       </form>
     
   </div>
