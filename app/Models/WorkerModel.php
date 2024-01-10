@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\WorkerAddress;
+use App\Models\WorkerContact;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class WorkerModel extends Model
 {
@@ -25,4 +28,12 @@ class WorkerModel extends Model
         'comment',
         'print_label',
     ];
+
+    public function getWorkerAddress():HasOne{
+        return $this->hasOne(WorkerAddress::class, 'worker_id','id');
+    }
+
+    public function getWorkerContact():HasOne{
+        return $this->hasOne(WorkerContact::class, 'worker_id','id');
+    }
 }

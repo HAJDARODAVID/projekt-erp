@@ -25,7 +25,7 @@ class HumanResourcesController extends Controller
             return redirect()->route('hp_allWorkers');
         }
         return view('hidro-projekt.HR.showWorker', [
-            'worker' => WorkerModel::where('id', $id)->first(),
+            'worker' => WorkerModel::where('id', $id)->with('getWorkerAddress', 'getWorkerContact')->first(),
         ]);
     }
 
@@ -43,7 +43,7 @@ class HumanResourcesController extends Controller
             'OIB' => 'required',
         ]);
 
-       WorkerService::createNewUser($request);
+        WorkerService::createNewUser($request);
      
         return redirect()->route('hp_allWorkers')->with('success', 'Radnik: uspješno dodan!');
     }
@@ -54,11 +54,19 @@ class HumanResourcesController extends Controller
         return redirect()->route('hp_allWorkers')->with('success', 'Radnik: uspješno maknut!');
     }
 
+    public function updateWorker(Request $request, $id){
+        $validated = $request->validate([
+            'working_place' => 'required',
+            'OIB' => 'required',
+        ]);
+        WorkerService::updateNewUser($request,$id);
+        return redirect()->route('hp_showWorker', $id)->with('success', 'Uspješno spremljene promjene!');
+    }
+
     public function payrollLabels(){
-        $worker = WorkerModel::get();
+        $worker = WorkerModel::where('print_label', 1)->get();
         $pdf = new TcpdfPayrollLabelsGenerator();
         return $pdf->index($worker);
-
     }
 
 

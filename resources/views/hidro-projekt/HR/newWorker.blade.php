@@ -46,8 +46,8 @@
             <input type="date" class="form-control" id="doe" name="doe" value="{{ $todayDate }}">
           </div>
           <div class="form-group col-md-2">
-            <label for="inputPassword4">Istek ugovora</label>
-            <input type="date" class="form-control" id="eoc"  name="eoc" >
+            <label for="ced">Istek ugovora</label>
+            <input type="date" class="form-control" id="ced"  name="ced" >
           </div>
           <div class="form-group col-md-4">
             <label for="comment">Komentar</label> <br>

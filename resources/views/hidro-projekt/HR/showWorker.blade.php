@@ -4,7 +4,9 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h3 mx-5 ">{{ $worker->firstName }} {{ $worker->lastName }}</h1>
     <div class="mx-5 ">
-        <button class="btn btn-success" onclick="editworker()">UREDI</button>
+        <button id="editBtn" class="btn btn-success" onclick="editworker();">UREDI</button>
+        <button id="saveBtn" class="btn btn-success" style="display: none" onclick="event.preventDefault(); document.getElementById('workerForm').submit();">SPREMI</button>
+        <a href="{{ route('hp_showWorker', $worker->id) }}" id="cancelBtn" class="btn btn-danger" style="display: none">OTKAŽI</a>
         <a href = "{{ route('hp_allWorkers') }}" class="btn btn-secondary">NATRAG</a>
     </div>
   </div>
@@ -16,7 +18,9 @@
         </div>
     @endif
 
-    <form id="workerForm">
+    <form id="workerForm" action="{{ route('hp_updateWorker', $worker->id) }}" method="POST">
+        @csrf
+        @method('PUT')
         <h1 class="h6">Informacije o radniku</h1>
         <div class="row mb-2">
             <div class="form-group col-md-4">
@@ -24,8 +28,8 @@
                 <input type="text" class="form-control" id="workPlace" name="working_place" value="{{ $worker->working_place }}" disabled>
             </div>
             <div class="form-group col-md-4">
-                <label for="workPlace">OIB</label>
-                <input type="text" class="form-control" id="workPlace" name="working_place" value="{{ $worker->OIB }}" disabled>
+                <label for="OIB">OIB</label>
+                <input type="text" class="form-control" id="OIB" name="OIB" value="{{ $worker->OIB }}" disabled>
             </div>
         </div>
         <div class="row mb-2">
@@ -34,12 +38,12 @@
             <input type="date" class="form-control" id="doe" name="doe" value="{{ $worker->doe }}" disabled>
           </div>
           <div class="form-group col-md-2">
-            <label for="inputPassword4">Istek ugovora</label>
-            <input type="date" class="form-control" id="eoc"  name="eoc" value="{{ $worker->eoc }}" disabled>
+            <label for="ced">Istek ugovora</label>
+            <input type="date" class="form-control" id="ced"  name="ced" value="{{ $worker->ced }}" disabled>
           </div>
           <div class="form-group col-md-4">
-            <label for="inputPassword4">Komentar</label> <br>
-            <input type="text" class="form-control" id="workPlace" name="working_place" disabled>
+            <label for="comment">Komentar</label> <br>
+            <input type="text" class="form-control" id="comment" name="comment" value="{{ $worker->comment }}" disabled>
           </div>
         </div>
         <div class="row mb-2">
@@ -59,34 +63,34 @@
         <h1 class="h6" style="margin-top: 25px">Adresa stanovanja</h1>
         <div class="row mb-2">
             <div class="form-group col-md-4">
-                <label for="inputAddress">Ulica</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" disabled>
+                <label for="street">Ulica</label>
+                <input type="text" class="form-control" id="street" name="street" placeholder="1234 Main St" value="{{ $worker->getWorkerAddress->street }}" disabled>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputAddress">Mjesto</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" disabled>
+                <label for="town">Mjesto</label>
+                <input type="text" class="form-control" id="town" name="town" placeholder="1234 Main St" value="{{ $worker->getWorkerAddress->town }}" disabled>
             </div>
         </div>
         <div class="row mb-2">
             <div class="form-group col-md-4">
                 <label for="zip">Poštanski broj</label>
-                <input type="text" class="form-control" id="zip" placeholder="42202" disabled>
+                <input type="text" class="form-control" id="zip"  name="zip" placeholder="42202" value="{{ $worker->getWorkerAddress->zip }}" disabled>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputAddress">Opčina</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Trnovec Bartolovecki" disabled>
+                <label for="county">Županija</label>
+                <input type="text" class="form-control" id="county" name="county" placeholder="Trnovec Bartolovecki" value="{{ $worker->getWorkerAddress->county }}" disabled>
             </div>
         </div>
 
         <h1 class="h6" style="margin-top: 25px">Kontakt</h1>
         <div class="row mb-2">
             <div class="form-group col-md-4">
-                <label for="inputAddress">Mobitel</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="098966258" disabled>
+                <label for="mob">Mobitel</label>
+                <input type="text" class="form-control" id="mob" name="mob" placeholder="098966258" value="{{ $worker->getWorkerContact->mob }}" disabled>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputAddress">E-mail</label>
-                <input type="email" class="form-control" id="inputAddress" placeholder="joedoe.hidroprojekt@gmail.com" disabled>
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="joedoe.hidroprojekt@gmail.com" value="{{ $worker->getWorkerContact->email }}" disabled>
             </div>
         </div>
         
@@ -101,6 +105,11 @@
         for (var i = 0, len = elements.length; i < len; ++i) {
             elements[i].disabled = false;
         }
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('cancelBtn').style.display = 'inline';
+        document.getElementById('saveBtn').style.display = 'inline';
+        
+
     }
 </script>
 @endsection

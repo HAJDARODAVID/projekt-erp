@@ -28,7 +28,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 /**
  * BDE routes 
- * BDE(betriebsdatenerfassung): de -> operational data collection
+ * BDE(betriebsdatenerfassung): DE --> operational data collection
  * All routes related to onside data
  */
  Route::prefix('/bde')
@@ -65,6 +65,7 @@ Route::prefix('/')
                 Route::get('/workers/new', 'newWorkerForm')->name('hp_newWorkerForm');
                 Route::post('/workers/new', 'addNewWorker')->name('hp_addNewWorker');
                 Route::get('/workers/{id}', 'showWorker')->name('hp_showWorker');
+                Route::put('/workers/{id}', 'updateWorker')->name('hp_updateWorker');
                 Route::delete('/workers/{id}', 'deleteWorker')->name('hp_deleteWorker');
 
                 //PDF routes
