@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HidroProjekt\AdminController;
+use App\Http\Controllers\HidroProjekt\AssetsController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
@@ -76,5 +77,15 @@ Route::prefix('/')
             AdminModuleMenuItemsService::getModuleInfo();
         });
 
+        Route::controller(AssetsController::class)
+            ->prefix('/assets')
+            ->group(function(){
+
+                Route::get('/fleet', 'companyCars')->name('hp_companyCars');
+                Route::get('/fleet/{plates}', 'showCompanyCar')->name('hp_showCompanyCar');
+                Route::post('/fleet', 'addCompanyCars')->name('hp_addCompanyCars');
+                Route::post('/fleet/carAvatar','uploadCarAvatarImage')->name('hp_uploadCarAvatarImage');
+
+            });
         
     });
