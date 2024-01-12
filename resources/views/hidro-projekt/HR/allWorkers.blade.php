@@ -18,5 +18,10 @@
     </a>
     <hr>
     <livewire:hidroProjekt.hr.workers-table theme="bootstrap-5" />
+    <button class="btn btn-success btn-sm" onclick="event.preventDefault(); document.getElementById('inputFieldFromFolder').click();">UČITAJ SLIKU</button>
+    <button class="btn btn-success btn-sm" onclick="event.preventDefault(); document.getElementById('inputFieldFromCamera').click();">SLIKAJ SLIKU</button>
+                    
+      <input id="inputFieldFromFolder" type="file" accept="image/*" />
+      <input id="inputFieldFromCamera" type="file" accept="image/*" capture="camera" />
   </div>
 @endsection
