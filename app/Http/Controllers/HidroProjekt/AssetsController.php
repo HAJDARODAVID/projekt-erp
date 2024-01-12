@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\HidroProjekt;
 
-use App\Http\Controllers\Controller;
-use App\Models\CompanyCarsModel;
 use Illuminate\Http\Request;
+use App\Models\CompanyCarsModel;
+use Jenssegers\Agent\Facades\Agent;
+use App\Http\Controllers\Controller;
 
 class AssetsController extends Controller
 {
@@ -24,6 +25,11 @@ class AssetsController extends Controller
     }
 
     public function showCompanyCar($plates){
-        dd($plates);
+        $isPhone = Agent::isPhone();
+        $carInfo = CompanyCarsModel::where('car_plates', $plates)->where('active', TRUE)->first();
+        return view('hidro-projekt.ASSETS.showCompanyCar', [
+            'carInfo' => $carInfo,
+            'isPhone' => $isPhone,
+        ]);
     }
 }

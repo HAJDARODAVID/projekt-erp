@@ -10,6 +10,6 @@
         <x-assets.add-new-car-btn></x-assets.add-new-car-btn>
         <hr>
         <livewire:hidroProjekt.assets.company-cars-table theme="bootstrap-5" />
-        <input type="file" accept="image/*" capture="camera" />
+
   </div>
 @endsection
