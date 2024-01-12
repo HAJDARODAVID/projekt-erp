@@ -18,5 +18,6 @@
     </a>
     <hr>
     <livewire:hidroProjekt.hr.workers-table theme="bootstrap-5" />
+    <input type="file" accept="image/*" capture="camera" />
   </div>
 @endsection
