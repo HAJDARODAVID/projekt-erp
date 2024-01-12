@@ -71,7 +71,7 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-success btn-sm">UČITAJ SLIKU</button>
+                    <button class="btn btn-success btn-sm" onclick="event.preventDefault(); document.getElementById('inputFieldFromFolder').click();">UČITAJ SLIKU</button>
                     <img src="{{ asset('images/assets/cars/car_default.png') }}" class="rounded mx-auto d-block" alt="...">
                 </div> 
                 
@@ -79,6 +79,8 @@
         </div>
         
       </form>
+
+      <input id="inputFieldFromFolder" type="file" accept="image/*" capture="camera" />
 
       <h1 class="h6">Troškovi vozila</h1>
     
