@@ -15,5 +15,7 @@ class CompanyCarsModel extends Model
         'brand',
         'model',
         'valid_to',
+        'active',
+        'avatar',
     ];
 }
