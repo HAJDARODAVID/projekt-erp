@@ -4,6 +4,7 @@ use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
+use App\Http\Controllers\HidroProjekt\WorkPlanningController;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,15 @@ Route::prefix('/')
                 Route::get('/fleet/{plates}', 'showCompanyCar')->name('hp_showCompanyCar');
                 Route::post('/fleet', 'addCompanyCars')->name('hp_addCompanyCars');
                 Route::post('/fleet/carAvatar','uploadCarAvatarImage')->name('hp_uploadCarAvatarImage');
+
+            });
+
+        Route::controller(WorkPlanningController::class)
+            ->prefix('/wp')
+            ->group(function(){
+
+                Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
+
 
             });
         
