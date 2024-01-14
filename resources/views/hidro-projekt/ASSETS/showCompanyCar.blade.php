@@ -95,8 +95,8 @@
 <form id="saveCarPicForm" action ="{{ route('hp_uploadCarAvatarImage') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('POST')
-    <input name ="carAvatarCamera" id="inputFieldFromCamera" type="file" onchange="readURL(this)" capture="camera" />
-    <input name ="carAvatarFolder" id="inputFieldFromFolder" type="file" onchange="readURL(this)" >
+    <input name ="carAvatarCamera" id="inputFieldFromCamera" type="file" onchange="readURL(this)" capture="camera" class="invisible"/>
+    <input name ="carAvatarFolder" id="inputFieldFromFolder" type="file" onchange="readURL(this)" class="invisible">
     <input type="hidden" name="plates" value="{{ $carInfo->car_plates }}">
     <input type="hidden" name="carId" value="{{ $carInfo->id }}">
 </form>
