@@ -25,25 +25,25 @@
         <div class="row mb-2">
             <div class="form-group col-md-4">
                 <label for="workPlace">Radno mjesto</label>
-                <input type="text" class="form-control" id="workPlace" name="working_place" value="{{ $worker->working_place }}" disabled>
+                <input type="text" class="form-control" id="workPlace" name="working_place" value="@isset($worker->working_place) {{ $worker->working_place }} @endisset" disabled>
             </div>
             <div class="form-group col-md-4">
                 <label for="OIB">OIB</label>
-                <input type="text" class="form-control" id="OIB" name="OIB" value="{{ $worker->OIB }}" disabled>
+                <input type="text" class="form-control" id="OIB" name="OIB" value="@isset($worker->OIB) {{ $worker->OIB }} @endisset" disabled>
             </div>
         </div>
         <div class="row mb-2">
           <div class="form-group col-md-2">
             <label for="doe">Datum zapošljenja</label>
-            <input type="date" class="form-control" id="doe" name="doe" value="{{ $worker->doe }}" disabled>
+            <input type="date" class="form-control" id="doe" name="doe" value="@isset($worker->doe) {{ $worker->doe }} @endisset" disabled>
           </div>
           <div class="form-group col-md-2">
             <label for="ced">Istek ugovora</label>
-            <input type="date" class="form-control" id="ced"  name="ced" value="{{ $worker->ced }}" disabled>
+            <input type="date" class="form-control" id="ced"  name="ced" value="@isset($worker->ced) {{ $worker->ced }} @endisset" disabled>
           </div>
           <div class="form-group col-md-4">
             <label for="comment">Komentar</label> <br>
-            <input type="text" class="form-control" id="comment" name="comment" value="{{ $worker->comment }}" disabled>
+            <input type="text" class="form-control" id="comment" name="comment" value="@isset($worker->comment) {{ $worker->comment }} @endisset" disabled>
           </div>
         </div>
         <div class="row mb-2">
@@ -64,21 +64,21 @@
         <div class="row mb-2">
             <div class="form-group col-md-4">
                 <label for="street">Ulica</label>
-                <input type="text" class="form-control" id="street" name="street" placeholder="1234 Main St" value="{{ $worker->getWorkerAddress->street }}" disabled>
+                <input type="text" class="form-control" id="street" name="street" placeholder="1234 Main St" value="@isset($worker->getWorkerAddress->street) {{ $worker->getWorkerAddress->street }} @endisset" disabled>
             </div>
             <div class="form-group col-md-4">
                 <label for="town">Mjesto</label>
-                <input type="text" class="form-control" id="town" name="town" placeholder="1234 Main St" value="{{ $worker->getWorkerAddress->town }}" disabled>
+                <input type="text" class="form-control" id="town" name="town" placeholder="1234 Main St" value="@isset($worker->getWorkerAddress->town) {{ $worker->getWorkerAddress->town }} @endisset" disabled>
             </div>
         </div>
         <div class="row mb-2">
             <div class="form-group col-md-4">
                 <label for="zip">Poštanski broj</label>
-                <input type="text" class="form-control" id="zip"  name="zip" placeholder="42202" value="{{ $worker->getWorkerAddress->zip }}" disabled>
+                <input type="text" class="form-control" id="zip"  name="zip" placeholder="42202" value="@isset($worker->getWorkerAddress->zip) {{ $worker->getWorkerAddress->zip }} @endisset" disabled>
             </div>
             <div class="form-group col-md-4">
                 <label for="county">Županija</label>
-                <input type="text" class="form-control" id="county" name="county" placeholder="Trnovec Bartolovecki" value="{{ $worker->getWorkerAddress->county }}" disabled>
+                <input type="text" class="form-control" id="county" name="county" placeholder="Trnovec Bartolovecki" value="@isset($worker->getWorkerAddress->county) {{ $worker->getWorkerAddress->county }} @endisset" disabled>
             </div>
         </div>
 
@@ -86,11 +86,11 @@
         <div class="row mb-2">
             <div class="form-group col-md-4">
                 <label for="mob">Mobitel</label>
-                <input type="text" class="form-control" id="mob" name="mob" placeholder="098966258" value="{{ $worker->getWorkerContact->mob }}" disabled>
+                <input type="text" class="form-control" id="mob" name="mob" placeholder="098966258" value="@isset($worker->getWorkerContact->mob) {{ $worker->getWorkerContact->mob }} @endisset" disabled>
             </div>
             <div class="form-group col-md-4">
                 <label for="email">E-mail</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="joedoe.hidroprojekt@gmail.com" value="{{ $worker->getWorkerContact->email }}" disabled>
+                <input type="email" class="form-control" id="email" name="email" placeholder="joedoe.hidroprojekt@gmail.com" value="@isset($worker->getWorkerContact->email) {{ $worker->getWorkerContact->email }} @endisset" disabled>
             </div>
         </div>
         
