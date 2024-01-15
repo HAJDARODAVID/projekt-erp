@@ -20,13 +20,14 @@ class WorkerModel extends Model
         'firstName',
         'lastName',
         'company',
-        'employed',
         'OIB',
         'working_place',
         'doe',
         'ced',
         'comment',
         'print_label',
+        'status',
+        'is_worker',
     ];
 
     public function getWorkerAddress():HasOne{
