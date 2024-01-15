@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\WorkingDayRecordModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','emptyWorkingDay']);
     }
 
     /**
@@ -26,7 +27,9 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
-            return view('hidro-projekt.BDE.bdeIndex');
+            return view('hidro-projekt.BDE.bdeIndex',[
+                'myRecords' => WorkingDayRecordModel::where('id', Auth::user()->id)->where('date', date('Y-m-d'))->get(),
+            ]);
         }else{
             return view('hidro-projekt.admin');
         }

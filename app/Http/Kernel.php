@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckIfAllWorkingDayHaveConstSite;
 use App\Http\Middleware\UserRights;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'userRights' => UserRights::class,
+        'emptyWorkingDay' => CheckIfAllWorkingDayHaveConstSite::class,
     ];
 }
