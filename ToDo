@@ -2,3 +2,6 @@
     - construction_sites table -> action buttons
 
     - need to check if the "check worker" part of the workingDayEntry function in WorkDayRecordController is i.O
+
+    - after adding new construction site retrn
+    - opcenito dovrši taj modul za gradilista

@@ -23,17 +23,10 @@
                     </div> 
                     <hr>
 
-                    <h1 class="h6"><b>Gradilište</b></h1>
-                    <select class="form-select form-select-sm mb-2" style="display:inline">
-                        <option selected>Odaberi gradilište</option>
-                        <option value="1">Mirogoj</option>
-                        <option value="2">Njivice - kamp</option>
-                        <option value="3">Minerva - bazen</option>
-                    </select><br>
-
-                    {{ __('Adresa: ') }} 
-                    <a href="https://www.google.com/maps/place/Plitvička ulica 33 Šemovec">Plitvička ulica 33 Šemovec</a>
-                    <hr>
+                    @livewire('hidroprojekt.bde-select-construction-site', [
+                        'record' => $record,
+                        ])
+                    
 
                     @livewire('hidroprojekt.bde-select-car',[
                         'selectedCar' => $record->car_id,
