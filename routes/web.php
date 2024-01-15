@@ -39,6 +39,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
         Route::controller(WorkDayRecordController::class)
             ->group(function(){
                 Route::get('/','index')->name('hp_bdeHome');
+                Route::get('/newEntry','newWorkingDayEntry')->name('hp_newWorkingDayEntry');
             });
 
     });

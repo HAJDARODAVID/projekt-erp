@@ -13,6 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <x-bde.working-day-entry-card></x-bde.working-day-entry-card>
                     <div class="d-flex justify-content-center mb-2" id="test2" onclick="location.href='{{ route('hp_bdeHome') }}';" style="cursor: pointer;">   
                         <div clas="panel-body" style="height: 65px; width: 230px;border-radius: 5px;background: rgb(34,195,39);
                         background: linear-gradient(333deg, rgba(34,195,39,1) 0%, rgba(45,253,48,1) 100%);">
@@ -56,7 +57,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center mb-2">   
-                        <button class="btn btn-success" style="height: 65px; width: 230px"><b>+ DODAJ NOVI ZAPIS</b></button>
+                        <button class="btn btn-success" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button>
                     </div>
 
                 </div>

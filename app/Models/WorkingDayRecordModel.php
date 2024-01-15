@@ -12,17 +12,11 @@ class WorkingDayRecordModel extends Model
     protected $table ="working_day_record";
 
     protected $fillable = [
-        'firstName',
-        'lastName',
-        'company',
-        'OIB',
-        'working_place',
-        'doe',
-        'ced',
-        'comment',
-        'print_label',
-        'status',
-        'is_worker',
+        'user_id',
+        'construction_site_id',
+        'car_id',
+        'date',
+        'work_description',
     ];
 
 }
