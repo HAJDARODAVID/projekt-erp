@@ -15,13 +15,27 @@ class WorkDayRecordController extends Controller
 
     public function newWorkingDayEntry(){
         if(Auth::user()->type == 3){
-            WorkingDayRecordModel::create([
+            $newRecord=WorkingDayRecordModel::create([
                 'user_id' => Auth::user()->id,
                 'date' => date('Y-m-d'),
             ]);
-            return redirect()->route('home');
+            return redirect()->route('hp_workingDayEntry', $newRecord->id);
         }else{
             return redirect()->route('home');
         }
     }
+
+    public function workingDayEntry($id){
+        $record = WorkingDayRecordModel::where('id', $id)->first();
+        if(is_null($record)){
+            return redirect()->route('home');   
+        }
+        if($record->user_id != Auth::user()->id){
+            return redirect()->route('home');
+        }
+        return view('hidro-projekt.BDE.workDayRecord',[
+            'record' => $record,
+        ]);
+    }
+
 }

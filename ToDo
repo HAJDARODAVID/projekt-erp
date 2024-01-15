@@ -1,2 +1,4 @@
     - public\images\assets\cars ->need to change permissions
     - construction_sites table -> action buttons
+
+    - need to check if the "check worker" part of the workingDayEntry function in WorkDayRecordController is i.O

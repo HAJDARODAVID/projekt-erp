@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Evidencija radnog dana: 09.01.2024') }}</div>
+                <div class="card-header">{{ __('Evidencija radnog dana: ') }}{{ $record->date }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,47 +13,64 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    
 
-                    {{ __('Poslovođa: Tomislav Šoštarek') }} <br> <br>
 
-                    {{ __('Gradilište: ') }} <select class="form-select form-select-sm" style="width: 220px;display:inline">
-                        <option selected>Katedrala zagreb</option>
+                    <h1 class="h6 d-flex align-items-center"><b>Radni sati na gradilištu</b></h1> 
+
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    </div> 
+                    <hr>
+
+                    <h1 class="h6"><b>Gradilište</b></h1>
+                    <select class="form-select form-select-sm mb-2" style="display:inline">
+                        <option selected>Odaberi gradilište</option>
                         <option value="1">Mirogoj</option>
                         <option value="2">Njivice - kamp</option>
                         <option value="3">Minerva - bazen</option>
-                      </select> <br>
+                    </select><br>
 
                     {{ __('Adresa: ') }} 
-                    <a href="https://www.google.com/maps/place/Plitvička ulica 33 Šemovec">Plitvička ulica 33 Šemovec</a><br> <br>
+                    <a href="https://www.google.com/maps/place/Plitvička ulica 33 Šemovec">Plitvička ulica 33 Šemovec</a>
+                    <hr>
 
-                    {{ __('Registracija vozila: ') }} <select class="form-select form-select-sm" style="width: 120px;display:inline">
-                        <option selected>VŽ-999-HP</option>
+                    <h1 class="h6"><b>Vozilo</b></h1>
+                    {{ __('Registracija vozila: ') }} 
+                    <select class="form-select form-select-sm" style="width: 150px;display:inline">
+                        <option selected>Odaberi vozilo</option>
                         <option value="1">VŽ-999-HP</option>
                         <option value="2">VŽ-999-HP</option>
                         <option value="3">VŽ-999-HP</option>
-                      </select><br>
+                    </select>
+                    <hr>
 
-                      {{ __('Početni kilometri - Završni kilometri') }} <br>
-                      <input type="text"style="width: 110px"> - <input type="text" style="width: 110px;display:inline"><br><br>
+                    <h1 class="h6"><b>Vrsta terena</b></h1>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">Doma</div>
+                            <div class="col d-flex justify-content-center">Teren</div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <input type="checkbox" name="vales" id="">
+                            </div>
+                            <div class="col d-flex justify-content-center">
+                                <input type="checkbox" name="" id="">
+                            </div>
+                        </div>
+                    <hr>
+                    
+                    <h1 class="h6"><b>Radnici na gradilištu</b></h1>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center"><i class="bi bi-people-fill"></i>&nbsp : &nbsp<b>8</b></div>
+                        <div class="col d-flex justify-content-center"> <button class="btn btn-success btn-sm">POPIS RADNIKA</button></div>
+                    </div>
+                    <hr>
 
-                      {{ __('Terenski rad: ') }} <input type="checkbox" name="" id=""><br> 
-                      {{ __('Radni sati na gradilištu: ') }} <input type="text" name="" id="" placeholder="8" style="width: 80px;display:inline">
+                    <div class="col d-flex justify-content-center"> <button class="btn btn-dark "><i class="bi bi-book"></i> DNEVNIK RADOVA</button></div>
 
-                      {{ __('Popis radnika: ') }} <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
-                      <table>
-                        <tr>
-                            <td>Ime prezime</td>
-                            <td>Radni sati</td>
-                        </tr>
-                        <tr>
-                            <td>David Hajdarovic</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td>Lucija Sostarek</td>
-                            <td>8</td>
-                        </tr>
-                      </table>
+
+
 
                 </div>
             </div>
