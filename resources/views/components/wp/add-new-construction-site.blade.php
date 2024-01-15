@@ -13,31 +13,34 @@
                     @csrf
                     @method('POST')
                     <div class="form-group mb-2">
-                      <label for="car_plates">Naziv gradilišta</label>
-                      <input type="text" class="form-control @error('car_plates')is-invalid @enderror" id="car_plates" name="car_plates" placeholder="VŽ-999-HP" required>
+                      <label for="name">Naziv gradilišta</label>
+                      <input type="text" class="form-control @error('name')is-invalid @enderror" id="name" name="name" placeholder="Mimara" required>
                     </div>
-                    <h1 class="h6 mt-3">Adresa</h1>
+                    <hr>
+                    <h1 class="h6">Adresa</h1>
                     <div class="row mb-2">
                         <div class="form-group col">
-                            <label for="brand">Ulica</label>
-                            <input type="text" class="form-control @error('brand')is-invalid @enderror" id="brand" name="brand" placeholder="Peugeot">
+                            <label for="street">Ulica</label>
+                            <input type="text" class="form-control @error('street')is-invalid @enderror" id="street" name="street" placeholder="">
                         </div>
                         <div class="form-group col">
-                            <label for="model">Mjesto</label>
-                            <input type="text" class="form-control @error('model')is-invalid @enderror" id="model"  name="model" placeholder="Boxer 2.2 HDi">
+                            <label for="town">Mjesto</label>
+                            <input type="text" class="form-control @error('town')is-invalid @enderror" id="town"  name="town" placeholder="">
                         </div>
                     </div>
-                    <h1 class="h6 mt-3">Vremenski period radova</h1>
+                    <hr>
+                    <h1 class="h6">Vremenski period radova</h1>
                     <div class="row mb-2">
                         <div class="form-group col">
-                            <label for="valid_to">Planirani početak radova</label>
-                            <input type="date" class="form-control @error('valid_to')is-invalid @enderror" id="valid_to" name="valid_to" placeholder="Boxer 2.2 HDi">
+                            <label for="start_date">Planirani početak radova</label>
+                            <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="start_date" name="start_date">
                         </div>
                         <div class="form-group col">
-                            <label for="valid_to">Planirani završetak radova</label>
-                            <input type="date" class="form-control @error('valid_to')is-invalid @enderror" id="valid_to" name="valid_to" placeholder="Boxer 2.2 HDi">
+                            <label for="end_date">Planirani završetak radova</label>
+                            <input type="date" class="form-control @error('end_date')is-invalid @enderror" id="end_date" name="end_date">
                         </div>
                     </div>
+                    <hr>
                     <div class="row mb-2">
                         <div class="form-group col">
                             <label for="brand">Opis poslova</label>
