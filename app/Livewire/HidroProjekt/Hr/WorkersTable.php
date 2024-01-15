@@ -40,6 +40,8 @@ class WorkersTable extends DataTableComponent
                 ->sortable(),
             Column::make('Print naljepnice','print_label')
                 ->view('components.print-label-checkbox'),
+            Column::make('Radnik','is_worker')
+                ->view('components.is-worker-checkbox'),
             Column::make("Komentar", "comment"),
 
             Column::make('Actions','print_label')

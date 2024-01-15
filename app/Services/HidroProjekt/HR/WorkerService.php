@@ -17,6 +17,12 @@ class WorkerService
         ]);
     }
 
+    public static function updateIsWorker($worker, $value){
+        WorkerModel::where('id', $worker)->update([
+            'is_worker' => $value,
+        ]);
+    }
+
     public static function createNewUser($request){
         $newWorker = WorkerModel::create([
             'firstName' => $request['firstName'],
