@@ -12,8 +12,7 @@
                     <div class="col d-flex justify-content-center">
                         <i class="bi bi-clock"></i> : 10
                     </div>
-                    <div class="col d-flex justify-content-center">
-                        
+                    <div class="col d-flex justify-content-center">             
                     </div>
                 </div>
             </div>
