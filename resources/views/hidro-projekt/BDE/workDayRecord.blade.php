@@ -35,15 +35,10 @@
                     <a href="https://www.google.com/maps/place/Plitvička ulica 33 Šemovec">Plitvička ulica 33 Šemovec</a>
                     <hr>
 
-                    <h1 class="h6"><b>Vozilo</b></h1>
-                    {{ __('Registracija vozila: ') }} 
-                    <select class="form-select form-select-sm" style="width: 150px;display:inline">
-                        <option selected>Odaberi vozilo</option>
-                        <option value="1">VŽ-999-HP</option>
-                        <option value="2">VŽ-999-HP</option>
-                        <option value="3">VŽ-999-HP</option>
-                    </select>
-                    <hr>
+                    @livewire('hidroprojekt.bde-select-car',[
+                        'selectedCar' => $record->car_id,
+                        'record' => $record,
+                        ])
 
                     <h1 class="h6"><b>Vrsta terena</b></h1>
                         <div class="row">
