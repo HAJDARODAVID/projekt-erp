@@ -7,6 +7,10 @@
   
   <div class="container">
     <x-wp.add-new-construction-site></x-wp.add-new-construction-site>
+    <hr>
+    <livewire:hidroProjekt.wp.construction-sites-table theme="bootstrap-5" />
+
+
 
   </div>
 @endsection

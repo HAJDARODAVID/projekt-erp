@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('construction_sites', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('address');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->boolean('active');
+            $table->string('town')->nullable();
+            $table->string('street')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->unsignedBigInteger('status')->unsigned()->default(1);
+            $table->string('job_description');
             $table->timestamps();
         });
     }

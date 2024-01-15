@@ -9,7 +9,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Novo gradilište</h5>
             </div>
             <div class="modal-body">
-                <form  id="addNewCarForm" method="POST" action="{{ route('hp_addCompanyCars') }}">
+                <form  id="addNewCarForm" method="POST" action="{{ route('hp_addNewConstructionSites') }}">
                     @csrf
                     @method('POST')
                     <div class="form-group mb-2">
@@ -43,8 +43,8 @@
                     <hr>
                     <div class="row mb-2">
                         <div class="form-group col">
-                            <label for="brand">Opis poslova</label>
-                            <textarea class="form-control" id="textAreaExample1" rows="4"></textarea>
+                            <label for="job_description">Opis poslova</label>
+                            <textarea class="form-control @error('job_description')is-invalid @enderror" id="job_description" rows="4" name="job_description"></textarea>
                         </div>
                     </div>
                     

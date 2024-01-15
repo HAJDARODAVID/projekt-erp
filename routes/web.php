@@ -94,6 +94,7 @@ Route::prefix('/')
             ->group(function(){
 
                 Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
+                Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
 
 
             });
