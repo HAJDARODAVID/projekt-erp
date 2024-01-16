@@ -15,6 +15,10 @@ class BdeGroupLeaderHours extends Component
         $this->workHours = $this->setHours();
     }
 
+    public function updatedWorkHours(){
+        WorkerAttendanceService::setWorkerAttendance(Auth::user()->id,$this->record,$this->workHours);
+    }
+
     public function render()
     {
         return view('livewire.hidroprojekt.bde.bde-group-leader-hours');
@@ -22,8 +26,6 @@ class BdeGroupLeaderHours extends Component
 
     private function setHours(){
         $attendance = WorkerAttendanceService::getAttendanceForWorkingDayEntry(Auth::user()->id,$this->record->id);
-        
-
         if(is_null($attendance)){
             return $this->workHours = NULL;
         }else{
