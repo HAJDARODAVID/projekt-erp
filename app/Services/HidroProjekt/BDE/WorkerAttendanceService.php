@@ -20,22 +20,21 @@ class WorkerAttendanceService
         }
     }
 
-    public static function setWorkerAttendance($worker, $workDayEntry,$hours=0){
+    public static function setWorkerAttendance($worker, $workDayEntry,$hours){
         $attendance = AttendanceModel::where('worker_id',$worker)
         ->where('working_day_record_id',$workDayEntry->id)->first();
-
         if(is_null($attendance)){
             AttendanceModel::create([
                 'worker_id' => $worker,
                 'working_day_record_id' => $workDayEntry->id,
                 'type' => $workDayEntry->work_type,
-                'work_hours' => $hours,
+                'work_hours' => $hours == "" ? NULL : $hours,
                 'absence_reason' => NULL,
                 'date' => $workDayEntry->date,
             ]);
         }else{
             $attendance->update([
-                'work_hours' => $hours,
+                'work_hours' => $hours == "" ? NULL : $hours,
             ]);
         }
     }
