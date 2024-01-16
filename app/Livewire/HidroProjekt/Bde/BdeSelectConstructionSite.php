@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Hidroprojekt;
+namespace App\Livewire\Hidroprojekt\Bde;
 
 use App\Models\ConstructionSiteModel;
 use Livewire\Component;
@@ -27,6 +27,6 @@ class BdeSelectConstructionSite extends Component
 
     public function render()
     {
-        return view('livewire.hidroprojekt.bde-select-construction-site');
+        return view('livewire.hidroprojekt.bde.bde-select-construction-site');
     }
 }

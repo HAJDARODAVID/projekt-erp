@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Hidroprojekt;
+namespace App\Livewire\Hidroprojekt\Bde;
 
 use App\Models\CompanyCarsModel;
 use Livewire\Component;
@@ -28,6 +28,6 @@ class BdeSelectCar extends Component
     }
     public function render()
     {
-        return view('livewire.hidroprojekt.bde-select-car');
+        return view('livewire.hidroprojekt.bde.bde-select-car');
     }
 }

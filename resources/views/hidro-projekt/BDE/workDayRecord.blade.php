@@ -22,12 +22,12 @@
                     </div> 
                     <hr>
 
-                    @livewire('hidroprojekt.bde-select-construction-site', [
+                    @livewire('hidroprojekt.bde.bde-select-construction-site', [
                         'record' => $record,
                         ])
                     
 
-                    @livewire('hidroprojekt.bde-select-car',[
+                    @livewire('hidroprojekt.bde.bde-select-car',[
                         'selectedCar' => $record->car_id,
                         'record' => $record,
                         ])
