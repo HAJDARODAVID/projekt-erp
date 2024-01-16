@@ -9,7 +9,9 @@
     </div>
 
     <div  id="attendaceModule" style="display: none">
-        JA SAM POPIS RADNIKA
+        <b>Evidencija radnih sati radnika</b>
+        <button class="btn btn-success btn-sm">NATRAG</button>
+        <hr>
     </div>
 
 
