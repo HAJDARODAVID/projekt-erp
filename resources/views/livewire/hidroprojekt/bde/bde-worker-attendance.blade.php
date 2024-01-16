@@ -9,9 +9,40 @@
     </div>
 
     <div  id="attendaceModule" style="display: none">
-        <b>Evidencija radnih sati radnika</b>
-        <button class="btn btn-success btn-sm">NATRAG</button>
+        <h1 class="h5"><b class="">Radni sati radnika</b></h1>
+            
         <hr>
+        <h1 class="h6"><b>Poslovođa:</b></h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="row">Ime prezime</th>
+                    <td>Sati</td>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">Tomislav Šoštarek</td>
+                <td><input type="number" name="" id="" style="width: 50px"></td>
+              </tr>
+            </tbody>
+          </table>
+
+        <h1 class="h6"><b>Radnici:</b></h1>
+
+        {{-- <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">{{ Auth::user()->name }} Šoštttarek</th>
+                <td>
+                    <input type="text" name="" id="" style="width: 50px">
+                    
+                </td>
+              </tr>
+            </tbody>
+          </table> --}}
+        
     </div>
 
 
