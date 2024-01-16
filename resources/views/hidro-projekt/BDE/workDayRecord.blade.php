@@ -20,12 +20,12 @@
                         ])
                     
 
-                        @livewire('hidroprojekt.bde.bde-select-car',[
+                        @livewire('hidroProjekt.bde.bde-select-car',[
                             'selectedCar' => $record->car_id,
                             'record' => $record,
                             ])
 
-                        @livewire('hidroprojekt.bde.bde-work-type-selector',[
+                        @livewire('hidroProjekt.bde.bde-work-type-selector',[
                             'record' => $record,
                             ])
                     </div>
