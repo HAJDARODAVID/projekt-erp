@@ -24,7 +24,7 @@
             <tbody>
               <tr>
                 <td scope="row">Tomislav Šoštarek</td>
-                <td>@livewire('hidroProjekt.bde.bde.bde-group-leader-hours')</td>
+                <td>@livewire('hidroProjekt.bde.bde-group-leader-hours')</td>
               </tr>
             </tbody>
           </table>
