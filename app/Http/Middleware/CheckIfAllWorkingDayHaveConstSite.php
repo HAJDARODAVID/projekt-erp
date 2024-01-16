@@ -19,7 +19,9 @@ class CheckIfAllWorkingDayHaveConstSite
     public function handle(Request $request, Closure $next): Response
     {
         $workDayRecord = WorkingDayRecordModel::where('user_id', Auth::user()->id)
-            ->where('construction_site_id', NULL)->first();  
+            ->where('construction_site_id', NULL)
+            ->where('date', date("Y-m-d"))
+            ->first();  
         if(Auth::user()->type == 3 && !is_null($workDayRecord) && $request->route()->getName() !='hp_workingDayEntry'){
             return redirect()->route('hp_workingDayEntry', $workDayRecord->id);
         }
