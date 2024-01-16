@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Hidroprojekt\Bde;
+namespace App\Livewire\HidroProjekt\Bde;
 
 use Livewire\Component;
 

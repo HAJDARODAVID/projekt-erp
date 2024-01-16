@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Hidroprojekt;
+namespace App\Livewire\HidroProjekt;
 
 use Livewire\Component;
 use App\Services\HidroProjekt\HR\WorkerService;
