@@ -15,7 +15,7 @@
                     @endif
                     
                     <div id="mainBdeComponents">
-                        @livewire('hidroprojekt.bde.bde-select-construction-site', [
+                        @livewire('hidroProjekt.bde.bde-select-construction-site', [
                         'record' => $record,
                         ])
                     
