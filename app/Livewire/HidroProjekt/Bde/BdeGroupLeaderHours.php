@@ -16,7 +16,7 @@ class BdeGroupLeaderHours extends Component
     }
 
     public function updatedWorkHours(){
-        WorkerAttendanceService::setWorkerAttendance(Auth::user()->id,$this->record,$this->workHours);
+        WorkerAttendanceService::setWorkerAttendance(Auth::user()->worker_id,$this->record,$this->workHours);
     }
 
     public function render()
