@@ -32,7 +32,9 @@
 
                     
 
-                    @livewire('hidroProjekt.bde.bde-worker-attendance')
+                    @livewire('hidroProjekt.bde.bde-worker-attendance',[
+                        'record' => $record,
+                    ])
 
                     <div id="workLog" >
                         <div class="col d-flex justify-content-center"> 
