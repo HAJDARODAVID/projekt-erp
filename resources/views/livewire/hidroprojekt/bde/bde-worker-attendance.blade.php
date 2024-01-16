@@ -30,8 +30,12 @@
               </tr>
             </tbody>
           </table>
-
-        <h1 class="h6"><b>Radnici:</b></h1>
+        <hr>
+        <div class="row">
+          <div class="col"><h1 class="h6"><b>Radnici:</b></h1></div>
+          <div class="col"><button class="btn btn-success btn-sm">DODAJ RADNIKA</button></h1></div>
+        </div>
+        
 
         {{-- <table class="table">
             <tbody>

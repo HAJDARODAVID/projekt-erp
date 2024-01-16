@@ -15,7 +15,9 @@ class WorkersTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setDebugEnabled();
+        $this->setPrimaryKey('id')
+        ->setReorderEnabled();
         $this->setSearchVisibilityStatus(true);
     }
 
@@ -23,13 +25,12 @@ class WorkersTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")
-                ->hideIf(true),
+                ->hideIf(false),
             Column::make("Ime", "firstName")
                 ->sortable()
                 ->searchable(),
             Column::make("Prezime", "lastName")
-                ->sortable()
-                ->searchable(),
+                ->sortable(),
             Column::make("OIB", "oib")
                 ->sortable(),
             Column::make("Radno Mjesto", "working_place")

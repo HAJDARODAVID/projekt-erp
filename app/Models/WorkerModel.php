@@ -30,11 +30,11 @@ class WorkerModel extends Model
         'is_worker',
     ];
 
-    public function getWorkerAddress():HasOne{
-        return $this->hasOne(WorkerAddress::class, 'worker_id','id');
-    }
+    // public function getWorkerAddress():HasOne{
+    //     return $this->hasOne(WorkerAddress::class, 'worker_id','id');
+    // }
 
-    public function getWorkerContact():HasOne{
-        return $this->hasOne(WorkerContact::class, 'worker_id','id');
-    }
+    // public function getWorkerContact():HasOne{
+    //     return $this->hasOne(WorkerContact::class, 'worker_id','id');
+    // }
 }
