@@ -32,20 +32,9 @@
                         'record' => $record,
                         ])
 
-                    <h1 class="h6"><b>Vrsta terena</b></h1>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">Doma</div>
-                            <div class="col d-flex justify-content-center">Teren</div>
-                        </div>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <input type="checkbox" name="vales" id="">
-                            </div>
-                            <div class="col d-flex justify-content-center">
-                                <input type="checkbox" name="" id="">
-                            </div>
-                        </div>
-                    <hr>
+                    @livewire('hidroprojekt.bde.bde-work-type-selector',[
+                        'record' => $record,
+                        ])
                     
                     <h1 class="h6"><b>Radnici na gradilištu</b></h1>
                     <div class="row">
