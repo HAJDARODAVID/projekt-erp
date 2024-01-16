@@ -1,3 +1,3 @@
-<div class="">
-    <input class="form-control " type="number" style="width: 45px" wire:model='workHours'>
+<div>
+    <input class="form-control " type="number" style="width: 50px" wire:model.live='workHours'>
 </div>
