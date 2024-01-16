@@ -17,7 +17,6 @@
 
 
                     <h1 class="h6 d-flex align-items-center"><b>Radni sati na gradilištu</b></h1> 
-
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                     </div> 
