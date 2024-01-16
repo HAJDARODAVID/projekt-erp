@@ -9,6 +9,14 @@ class WorkingDayRecordModel extends Model
 {
     use HasFactory;
 
+    const WORK_TYPE_HOME = 1;
+    const WORK_TYPE_FIELD_WORK = 2;
+
+    const WORK_TYPE = array(
+        self::WORK_TYPE_HOME => 'Doma',
+        self::WORK_TYPE_FIELD_WORK => 'Teren',
+    );
+
     protected $table ="working_day_record";
 
     protected $fillable = [
@@ -17,6 +25,7 @@ class WorkingDayRecordModel extends Model
         'car_id',
         'date',
         'work_description',
+        'work_type',
     ];
 
 }
