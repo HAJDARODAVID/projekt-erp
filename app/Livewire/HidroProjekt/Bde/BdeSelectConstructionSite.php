@@ -27,6 +27,6 @@ class BdeSelectConstructionSite extends Component
 
     public function render()
     {
-        return view('livewire.hidroProjekt.bde.bde-select-construction-site');
+        return view('livewire.hidroprojekt.bde.bde-select-construction-site');
     }
 }
