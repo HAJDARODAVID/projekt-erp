@@ -27,7 +27,6 @@ class BdeAddWorkerToAttendanceBtn extends Component
 
     private function setShowBtn(){
         $attendance = WorkerAttendanceService::getWorkerAttendanceForEntry($this->worker,$this->workingDayEntry);
-        dump([$this->worker,$this->workingDayEntry]);
         if(!is_null($attendance)){
             $this->showBtn = false;
         }else{
