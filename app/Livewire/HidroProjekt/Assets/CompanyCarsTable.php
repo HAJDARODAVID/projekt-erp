@@ -21,7 +21,8 @@ class CompanyCarsTable extends DataTableComponent
             Column::make("Id", "id")
                 ->hideIf(true),
             Column::make("Car plates", "car_plates")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Brand", "brand")
                 ->sortable(),
             Column::make("Model", "model")
