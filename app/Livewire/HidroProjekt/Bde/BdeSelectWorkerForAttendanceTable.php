@@ -13,6 +13,10 @@ class BdeSelectWorkerForAttendanceTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->setPerPageAccepted([5]);
+        $this->setPerPage(5);
+        $this->setPerPageVisibilityDisabled();
+        $this->setColumnSelectDisabled();
     }
 
     public function columns(): array
@@ -20,10 +24,12 @@ class BdeSelectWorkerForAttendanceTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->hideIf(true),
-            Column::make("Name at", "firstName")
+            Column::make("Ime", "firstName")
                 ->searchable(),
-            Column::make("Last name", "lastName")
+            Column::make("Prezime", "lastName")
                 ->searchable(),
+            Column::make("", "id")
+                ->view('components.bde.add-worker-to-attendance'),
         ];
     }
 }

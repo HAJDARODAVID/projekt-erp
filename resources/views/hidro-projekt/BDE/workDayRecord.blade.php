@@ -5,7 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Evidencija radnog dana: ') }}{{ $record->date }}</div>
+                <div class="card-header">
+                    <div class="">
+                        <div class="modal-header">
+                            <span class="modal-title">Evidencija radnog dana: {{ $record->date }}</span>
+                            <button class="btn btn-dark btn-sm">
+                                <i class="bi bi-arrow-return-left"></i>
+                            </button>
+                        </div>
+                    </div>   
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))

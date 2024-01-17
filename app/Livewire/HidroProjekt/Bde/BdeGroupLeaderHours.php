@@ -9,7 +9,7 @@ use App\Services\HidroProjekt\BDE\WorkerAttendanceService;
 class BdeGroupLeaderHours extends Component
 {   
     public $record;
-    public $workHours;
+    public $workHours = 8;
 
     public function mount(){
         $this->workHours = $this->setHours();
@@ -25,7 +25,7 @@ class BdeGroupLeaderHours extends Component
     }
 
     private function setHours(){
-        $attendance = WorkerAttendanceService::getAttendanceForWorkingDayEntry(Auth::user()->id,$this->record->id);
+        $attendance = WorkerAttendanceService::getAttendanceForWorkingDayEntry(Auth::user()->worker_id,$this->record->id);
         if(is_null($attendance)){
             return $this->workHours = NULL;
         }else{
