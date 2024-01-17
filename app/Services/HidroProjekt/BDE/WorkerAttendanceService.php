@@ -66,4 +66,9 @@ class WorkerAttendanceService
         return WorkingDayRecordModel::find($id);
     }
 
+    public static function getWorkerAttendanceForEntry($worker,$entry){
+        return AttendanceModel::where('worker_id',$worker)
+        ->where('working_day_record_id',$entry)->first();
+    }
+
 }

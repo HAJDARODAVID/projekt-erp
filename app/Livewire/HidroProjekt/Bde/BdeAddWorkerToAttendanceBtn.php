@@ -9,10 +9,10 @@ class BdeAddWorkerToAttendanceBtn extends Component
 {
     public $worker;
     public $workingDayEntry;
-    public $showBtn = true;
+    public $showBtn;
 
     public function mount(){
-
+        $this->setShowBtn();
     }
 
     public function addWorkerToAttendance(){
@@ -23,5 +23,15 @@ class BdeAddWorkerToAttendanceBtn extends Component
     public function render()
     {
         return view('livewire.hidroprojekt.bde.bde-add-worker-to-attendance-btn');
+    }
+
+    private function setShowBtn(){
+        $attendance = WorkerAttendanceService::getWorkerAttendanceForEntry($this->worker,$this->workingDayEntry);
+        dump([$this->worker,$this->workingDayEntry]);
+        if(!is_null($attendance)){
+            $this->showBtn = false;
+        }else{
+            $this->showBtn = true;
+        }
     }
 }
