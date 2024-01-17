@@ -41,8 +41,6 @@
     </div>
   </div>
 
-
-
           <!-- Modal -->
   <div class="modal" id="addWorkerToAttendance" style="display: none">
     <div class="modal-dialog" role="document">
@@ -51,7 +49,8 @@
           <h5 class="modal-title" id="exampleModalLabel">Popis radnika</h5>
         </div>
         <div class="modal-body">
-          <livewire:hidroProjekt.bde.bde-select-worker-for-attendance-table theme="bootstrap-5" />
+          @livewire('hidroProjekt.bde.bde-select-worker-for-attendance-table', [
+            'theme' => "bootstrap-5"])
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" onclick="closeAddWorkerToAddendanceModal()">ZATVORI</button>

@@ -3,6 +3,8 @@
 namespace App\Services\HidroProjekt\BDE;
 
 use App\Models\AttendanceModel;
+use Illuminate\Support\Facades\Auth;
+use App\Models\WorkingDayRecordModel;
 
 /**
  * Class WorkerAttendanceService.
@@ -20,9 +22,24 @@ class WorkerAttendanceService
         }
     }
 
-    public static function setWorkerAttendance($worker, $workDayEntry,$hours){
+    public static function setWorkerAttendance($worker, $workDayEntry,$hours=999){
+        
+        if(!is_object($workDayEntry)){
+            $workDayEntry = self::getWorkDayEntry($workDayEntry);
+        }
+
+        if($hours==999){
+            $groupLeaderHours = AttendanceModel::where('worker_id',Auth::user()->worker_id)->where('working_day_record_id',$workDayEntry->id)->first();
+            if(is_null($groupLeaderHours->work_hours)){
+                $hours="";
+            }else{
+                $hours = $groupLeaderHours->work_hours;
+            }
+        }
+        
         $attendance = AttendanceModel::where('worker_id',$worker)
         ->where('working_day_record_id',$workDayEntry->id)->first();
+        
         if(is_null($attendance)){
             AttendanceModel::create([
                 'worker_id' => $worker,
@@ -37,6 +54,16 @@ class WorkerAttendanceService
                 'work_hours' => $hours == "" ? NULL : $hours,
             ]);
         }
+
+    }
+
+    public static function addNewWorkerToAttendance($workDayEntry){
+        
+
+    }
+
+    private static function getWorkDayEntry($id){
+        return WorkingDayRecordModel::find($id);
     }
 
 }

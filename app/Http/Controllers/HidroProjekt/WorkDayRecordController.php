@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\WorkingDayRecordModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class WorkDayRecordController extends Controller
 {
@@ -33,6 +34,7 @@ class WorkDayRecordController extends Controller
         if($record->user_id != Auth::user()->id){
             return redirect()->route('home');
         }
+        Session::put('entryID', $record->id);
         return view('hidro-projekt.BDE.workDayRecord',[
             'record' => $record,
         ]);

@@ -8,6 +8,7 @@ use App\Models\WorkersOnlyViewModel;
 
 class BdeSelectWorkerForAttendanceTable extends DataTableComponent
 {
+
     protected $model = WorkersOnlyViewModel::class;
 
     public function configure(): void
@@ -29,7 +30,7 @@ class BdeSelectWorkerForAttendanceTable extends DataTableComponent
             Column::make("Prezime", "lastName")
                 ->searchable(),
             Column::make("", "id")
-                ->view('components.bde.add-worker-to-attendance'),
+                ->view('components.bde.add-worker-to-attendance')
         ];
     }
 }
