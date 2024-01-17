@@ -30,11 +30,15 @@ class WorkerAttendanceService
 
         if($hours==999){
             $groupLeaderHours = AttendanceModel::where('worker_id',Auth::user()->worker_id)->where('working_day_record_id',$workDayEntry->id)->first();
-            if(is_null($groupLeaderHours->work_hours) || !isset($groupLeaderHours)){
-                $hours="";
+            if(isset($groupLeaderHours)){
+                if(is_null($groupLeaderHours->work_hours) || !isset($groupLeaderHours)){
+                    $hours="";
+                }else{
+                    $hours = $groupLeaderHours->work_hours;
+                }
             }else{
-                $hours = $groupLeaderHours->work_hours;
-            }
+                $hours="";
+            }        
         }
         
         $attendance = AttendanceModel::where('worker_id',$worker)
