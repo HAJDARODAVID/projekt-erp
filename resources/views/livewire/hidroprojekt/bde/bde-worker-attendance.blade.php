@@ -35,6 +35,8 @@
           <div class="col"><h1 class="h6"><b>Radnici:</b></h1></div>
           <div class="col"><button class="btn btn-success btn-sm">DODAJ RADNIKA</button></h1></div>
         </div>
+
+        {{-- <livewire:hidroProjekt.bde.bde-select-worker-for-attendance-table theme="bootstrap-5" /> --}}
         
 
         {{-- <table class="table">
