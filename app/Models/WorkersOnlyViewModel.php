@@ -9,5 +9,5 @@ class WorkersOnlyViewModel extends Model
 {
     use HasFactory;
 
-    protected $table = "workersonlyview";
+    protected $table = "workers_only_view";
 }

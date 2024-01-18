@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement("
-            CREATE VIEW workersOnlyView AS
+            CREATE VIEW workers_only_view AS
             (
                 SELECT id, firstName, lastName
                 FROM `workers`
