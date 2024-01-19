@@ -13,8 +13,8 @@
                     <td>{{ $worker->getWorkerInfo->firstName }} {{ $worker->getWorkerInfo->lastName }}</td>
                     <td>
                         <input wire:model.blur='workHours.{{ $worker->worker_id }}' class="form-control " type="number" style="display: inline;width: 50px" >
-                        <button class="btn btn-secondary btn-sm" style="display: inline">GO</button>
-                        <button class="btn btn-secondary btn-sm" style="display: inline">BO</button>
+                        <button wire:click='addAbsenceReason("GO",{{ $worker->worker_id }})' class="btn btn-secondary btn-sm" style="display: inline">GO</button>
+                        <button wire:click='addAbsenceReason("BO",{{ $worker->worker_id }})'class="btn btn-secondary btn-sm" style="display: inline">BO</button>
                         <button wire:click='removeWorker({{ $worker->worker_id }})' class="btn btn-danger btn-sm" style="display: inline">X</button>
                     </td>
                 </tr>

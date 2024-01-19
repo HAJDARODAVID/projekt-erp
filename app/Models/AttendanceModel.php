@@ -10,6 +10,14 @@ class AttendanceModel extends Model
 {
     use HasFactory;
 
+    const ABSENCE_REASON_SICK_LEAVE = 10;
+    const ABSENCE_REASON_PAID_LEAVE = 20;
+
+    const ABSENCE_REASON = array(
+        self::ABSENCE_REASON_SICK_LEAVE => 'Sick leave',
+        self::ABSENCE_REASON_PAID_LEAVE => 'Paid leave',
+    );
+
     protected $table = 'attendance';
 
     protected $fillable = [

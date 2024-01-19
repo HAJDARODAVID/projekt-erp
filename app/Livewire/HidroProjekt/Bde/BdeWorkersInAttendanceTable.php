@@ -23,6 +23,11 @@ class BdeWorkersInAttendanceTable extends Component
         $this->dispatch('refreshWorkersInAttendanceTable')->self();
     }
 
+    public function addAbsenceReason($reason, $id){
+        WorkerAttendanceService::addAbsenceReasonToWorker($reason,$id, $this->record->id);
+        $this->dispatch('refreshWorkersInAttendanceTable')->self();
+    }
+
     public function render()
     {
         return view('livewire.hidroprojekt.bde.bde-workers-in-attendance-table');

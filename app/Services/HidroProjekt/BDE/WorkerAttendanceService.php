@@ -96,4 +96,19 @@ class WorkerAttendanceService
             ->delete(); 
     }
 
+    public static function addAbsenceReasonToWorker($reason,$id,$entry){
+        if($reason == 'BO'){
+            $reasonId = AttendanceModel::ABSENCE_REASON_SICK_LEAVE;
+        }
+        if($reason == 'GO'){
+            $reasonId = AttendanceModel::ABSENCE_REASON_PAID_LEAVE;
+        }
+        return AttendanceModel::where('working_day_record_id',$entry)
+            ->where('worker_id', $id)
+            ->update([
+                'work_hours' => NULL,
+                'absence_reason' => $reasonId,
+            ]); 
+    }
+
 }
