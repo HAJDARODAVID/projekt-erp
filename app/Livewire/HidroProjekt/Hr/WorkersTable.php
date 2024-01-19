@@ -15,17 +15,16 @@ class WorkersTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setDebugEnabled();
-        $this->setPrimaryKey('id')
-        ->setReorderEnabled();
+        $this->setPrimaryKey('id');
         $this->setSearchVisibilityStatus(true);
+        $this->setSearchDebounce(300);
     }
 
     public function columns(): array
     {
         return [
             Column::make("Id", "id")
-                ->hideIf(false),
+                ->hideIf(true),
             Column::make("Ime", "firstName")
                 ->sortable()
                 ->searchable(),
@@ -47,6 +46,11 @@ class WorkersTable extends DataTableComponent
 
             Column::make('Actions','print_label')
                 ->view('components.worker-table-action-btn'),
+
+            // Column::make('My one off column')
+            //     ->label(
+            //         fn($row, Column $column) => view('components.worker-table-action-btn')->withRow($row)
+            //     ),
 
         ];
     }

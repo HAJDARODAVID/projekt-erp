@@ -4,7 +4,7 @@ namespace App\Livewire\HidroProjekt\Bde;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\WorkersOnlyViewModel;
+use App\Models\Views\WorkersOnlyViewModel;
 
 class BdeSelectWorkerForAttendanceTable extends DataTableComponent
 {
