@@ -9,9 +9,9 @@
                     <div class="">
                         <div class="modal-header">
                             <span class="modal-title">Evidencija radnog dana: {{ $record->date }}</span>
-                            <button class="btn btn-dark btn-sm" style="display:none" id="goToMainModul" onclick="backToMainModule()">
+                            <a class="btn btn-dark btn-sm" style="display:none" id="goToMainModul" href="{{ route('hp_workingDayEntry',$record->id) }}">
                                 <i class="bi bi-arrow-return-left"></i>
-                            </button>
+                            </a>
                             <a class="btn btn-dark btn-sm" style="display:block" id="goToHome" href="{{ route('home') }}">
                                 <i class="bi bi-arrow-return-left"></i>
                             </a>
