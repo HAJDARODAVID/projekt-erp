@@ -3,17 +3,19 @@
 namespace App\View\Components\bde;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use App\Models\WorkingDayRecordModel;
 
 class WorkingDayEntryCard extends Component
 {
+    public $entry;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($entry)
     {
-        //
+        $this->entry = $entry;
     }
 
     /**

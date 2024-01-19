@@ -12,8 +12,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <x-bde.working-day-entry-card></x-bde.working-day-entry-card>
-                    <div class="d-flex justify-content-center mb-2" id="test2" onclick="location.href='{{ route('hp_bdeHome') }}';" style="cursor: pointer;">   
+                    @foreach($myRecords as $entry)
+                        <x-bde.working-day-entry-card :entry="$entry"></x-bde.working-day-entry-card>
+                    @endforeach
+                    
+                    {{-- <div class="d-flex justify-content-center mb-2" id="test2" onclick="location.href='{{ route('hp_bdeHome') }}';" style="cursor: pointer;">   
                         <div clas="panel-body" style="height: 65px; width: 230px;border-radius: 5px;background: rgb(0,208,3);
                         background: linear-gradient(121deg, rgba(0,208,3,1) 0%, rgba(18,171,23,1) 100%);">
                             <div class="p-2">
@@ -53,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="d-flex justify-content-center mb-2">   
                         <button class="btn btn-success" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button>
