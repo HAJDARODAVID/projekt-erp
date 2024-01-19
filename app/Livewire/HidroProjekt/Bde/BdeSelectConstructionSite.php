@@ -20,6 +20,13 @@ class BdeSelectConstructionSite extends Component
 
     public function updatedSelectedConstructionSite(){
         $this->address = ConstructionSiteModel::where('id', $this->selectedConstructionSite)->first();
+        if($this->selectedConstructionSite==0){
+            $this->selectedConstructionSite=NULL;
+            $this->record->update([
+                'construction_site_id' =>$this->selectedConstructionSite,
+            ]);
+            return;
+        } 
         $this->record->update([
             'construction_site_id' =>$this->selectedConstructionSite,
         ]);

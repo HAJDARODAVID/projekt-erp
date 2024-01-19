@@ -9,9 +9,12 @@
                     <div class="">
                         <div class="modal-header">
                             <span class="modal-title">Evidencija radnog dana: {{ $record->date }}</span>
-                            <button class="btn btn-dark btn-sm">
+                            <button class="btn btn-dark btn-sm" style="display:none" id="goToMainModul" onclick="backToMainModule()">
                                 <i class="bi bi-arrow-return-left"></i>
                             </button>
+                            <a class="btn btn-dark btn-sm" style="display:block" id="goToHome" href="{{ route('home') }}">
+                                <i class="bi bi-arrow-return-left"></i>
+                            </a>
                         </div>
                     </div>   
                 </div>
@@ -63,10 +66,21 @@
 </div>
 <script>
     function showAddWorkersModule(){
+        document.getElementById('goToHome').style.display = "none";
         document.getElementById('workLog').style.display = "none";
         document.getElementById('mainBdeComponents').style.display = "none";
         document.getElementById('attendanceComponent').style.display = "none";     
         document.getElementById('attendaceModule').style.display = "block";
+        document.getElementById('goToMainModul').style.display = "block";  
+    }
+
+    function backToMainModule(){
+        document.getElementById('goToHome').style.display = "block";
+        document.getElementById('attendaceModule').style.display = "none";
+        document.getElementById('mainBdeComponents').style.display = "block";
+        document.getElementById('goToMainModul').style.display = "none"; 
+        document.getElementById('attendanceComponent').style.display = "block";
+        document.getElementById('workLog').style.display = "block"; 
     }
 </script>
 @endsection
