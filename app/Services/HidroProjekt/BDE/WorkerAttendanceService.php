@@ -111,4 +111,11 @@ class WorkerAttendanceService
             ]); 
     }
 
+    public static function getAbsenceReason($id,$entry){
+        $reason = AttendanceModel::where('working_day_record_id',$entry)
+        ->where('worker_id', $id)->first();
+
+        return new AbsenceReasonDto($reason->absence_reason);
+    }
+
 }

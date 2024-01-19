@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Bde;
 
+use App\Models\AttendanceModel;
 use App\Services\HidroProjekt\BDE\WorkerAttendanceService;
 use Livewire\Component;
 use Livewire\Attributes\On; 
@@ -11,6 +12,7 @@ class BdeWorkersInAttendanceTable extends Component
     public $record;
     public $allWorkers;
     public $workHours = [];
+    public $absenceReasonShtTxt = AttendanceModel::ABSENCE_REASON_SHT_TXT;
 
     #[On('refreshWorkersInAttendanceTable')] 
     public function mount(){

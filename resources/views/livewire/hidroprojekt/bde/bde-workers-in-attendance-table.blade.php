@@ -12,10 +12,16 @@
                 <tr>
                     <td>{{ $worker->getWorkerInfo->firstName }} {{ $worker->getWorkerInfo->lastName }}</td>
                     <td>
-                        <input wire:model.blur='workHours.{{ $worker->worker_id }}' class="form-control " type="number" style="display: inline;width: 50px" >
-                        <button wire:click='addAbsenceReason("GO",{{ $worker->worker_id }})' class="btn btn-secondary btn-sm" style="display: inline">GO</button>
-                        <button wire:click='addAbsenceReason("BO",{{ $worker->worker_id }})'class="btn btn-secondary btn-sm" style="display: inline">BO</button>
-                        <button wire:click='removeWorker({{ $worker->worker_id }})' class="btn btn-danger btn-sm" style="display: inline">X</button>
+                        @if($worker->absence_reason)    
+                            <input class="form-control " type ="text" style="display: inline;width: 50px" disabled
+                                value ="{{$absenceReasonShtTxt[$worker->absence_reason]}}">
+                        @else
+                            <input wire:model.blur='workHours.{{ $worker->worker_id }}' class="form-control " type="number" style="display: inline;width: 50px" >   
+                        @endif
+                        
+                        <button wire:click.prevent='addAbsenceReason("GO",{{ $worker->worker_id }})' class="btn btn-info btn-sm" style="display: inline">GO</button>
+                        <button wire:click.prevent='addAbsenceReason("BO",{{ $worker->worker_id }})'class="btn btn-warning btn-sm" style="display: inline">BO</button>
+                        <button wire:click.prevent='removeWorker({{ $worker->worker_id }})' class="btn btn-danger btn-sm" style="display: inline">X</button>
                     </td>
                 </tr>
             @endforeach

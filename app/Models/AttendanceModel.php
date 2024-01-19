@@ -18,6 +18,11 @@ class AttendanceModel extends Model
         self::ABSENCE_REASON_PAID_LEAVE => 'Paid leave',
     );
 
+    const ABSENCE_REASON_SHT_TXT = array(
+        self::ABSENCE_REASON_SICK_LEAVE => 'BO',
+        self::ABSENCE_REASON_PAID_LEAVE => 'GO',
+    );
+
     protected $table = 'attendance';
 
     protected $fillable = [
