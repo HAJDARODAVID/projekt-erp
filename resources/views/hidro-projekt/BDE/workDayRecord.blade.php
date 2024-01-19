@@ -42,8 +42,6 @@
                             ])
                     </div>
 
-                    
-
                     @livewire('hidroProjekt.bde.bde-worker-attendance',[
                         'record' => $record,
                     ])

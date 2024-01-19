@@ -77,4 +77,8 @@ class WorkerAttendanceService
         ->where('working_day_record_id',$entry)->first();
     }
 
+    public static function getWorkerCount($entry){
+        return AttendanceModel::where('working_day_record_id',$entry)->pluck('id')->count();
+    }
+
 }
