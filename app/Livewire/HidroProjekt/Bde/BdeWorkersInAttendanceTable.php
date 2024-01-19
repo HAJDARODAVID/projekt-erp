@@ -18,6 +18,11 @@ class BdeWorkersInAttendanceTable extends Component
         $this->setWorkerHourArray();
     }
 
+    public function removeWorker($id){
+        WorkerAttendanceService::removeWorkerFromAttendance($id, $this->record->id);
+        $this->dispatch('refreshWorkersInAttendanceTable')->self();
+    }
+
     public function render()
     {
         return view('livewire.hidroprojekt.bde.bde-workers-in-attendance-table');

@@ -87,8 +87,13 @@ class WorkerAttendanceService
             ->where('working_day_record_id',$entry)
             ->with('getWorkerInfo')->get();
         }
-        return AttendanceModel::where('working_day_record_id',$entry)->with('getWorkerInfo')->get();
-        
+        return AttendanceModel::where('working_day_record_id',$entry)->with('getWorkerInfo')->get(); 
+    }
+
+    public static function removeWorkerFromAttendance($id,$entry){
+        return AttendanceModel::where('working_day_record_id',$entry)
+            ->where('worker_id', $id)
+            ->delete(); 
     }
 
 }
