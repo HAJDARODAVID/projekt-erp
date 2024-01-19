@@ -17,7 +17,7 @@ class WorkersTable extends DataTableComponent
     {
         $this->setPrimaryKey('id');
         $this->setSearchVisibilityStatus(true);
-        $this->setSearchDebounce(500);
+        $this->setSearchBlur();
     }
 
     public function columns(): array
