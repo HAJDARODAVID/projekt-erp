@@ -44,6 +44,10 @@
     </div>
   </div>
 
+  @livewire('hidroProjekt.bde.bde-workers-in-attendance-table', [
+    'record' => $record,
+  ])
+
           <!-- Modal -->
   <div class="modal" id="addWorkerToAttendance" style="display: none">
     <div class="modal-dialog" role="document">

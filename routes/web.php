@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\HidroProjekt\AdminController;
-use App\Http\Controllers\HidroProjekt\AssetsController;
-use App\Http\Controllers\HidroProjekt\HumanResourcesController;
-use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
-use App\Http\Controllers\HidroProjekt\WorkPlanningController;
-use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\HidroProjekt\AdminController;
+use App\Http\Controllers\HidroProjekt\AssetsController;
+use App\Services\HidroProjekt\AdminModuleMenuItemsService;
+use App\Http\Controllers\HidroProjekt\WorkPlanningController;
+use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
+use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,4 +102,13 @@ Route::prefix('/')
 
             });
         
+    });
+
+    Route::get('/clear', function() {
+        Artisan::call('cache:clear');
+        Artisan::call('route:cache');
+        Artisan::call('view:clear');
+        Artisan::call('config:cache');
+        return  "all cleared ...";
+    
     });

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AttendanceModel extends Model
 {
@@ -19,4 +20,10 @@ class AttendanceModel extends Model
         'absence_reason',
         'date',
     ];
+
+    public function getWorkerInfo():HasOne{
+        return $this->hasOne(WorkerModel::class, 'id','worker_id');
+    }
+
+
 }

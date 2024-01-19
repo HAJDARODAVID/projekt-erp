@@ -18,6 +18,7 @@ class BdeAddWorkerToAttendanceBtn extends Component
     public function addWorkerToAttendance(){
         WorkerAttendanceService::setWorkerAttendance($this->worker,$this->workingDayEntry);
         $this->showBtn = false;
+        $this->dispatch('refreshWorkersInAttendanceTable')->to(BdeWorkersInAttendanceTable::class);
     }
 
     public function render()

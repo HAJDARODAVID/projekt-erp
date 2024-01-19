@@ -81,4 +81,14 @@ class WorkerAttendanceService
         return AttendanceModel::where('working_day_record_id',$entry)->pluck('id')->count();
     }
 
+    public static function getAllWorkersForEntry($entry, $onlyWorkers=false){
+        if($onlyWorkers){
+            return AttendanceModel::where('worker_id', '!=', Auth::user()->worker_id )
+            ->where('working_day_record_id',$entry)
+            ->with('getWorkerInfo')->get();
+        }
+        return AttendanceModel::where('working_day_record_id',$entry)->with('getWorkerInfo')->get();
+        
+    }
+
 }
