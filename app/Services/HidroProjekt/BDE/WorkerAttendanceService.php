@@ -32,9 +32,16 @@ class WorkerAttendanceService
             $groupLeaderHours = AttendanceModel::where('worker_id',Auth::user()->worker_id)->where('working_day_record_id',$workDayEntry->id)->first();
             if(isset($groupLeaderHours)){
                 if(is_null($groupLeaderHours->work_hours) || !isset($groupLeaderHours)){
+                    //IF Group leader has NULL as work hours set my value as NULL
                     $hours="";
                 }else{
-                    $hours = $groupLeaderHours->work_hours;
+                    /**
+                     * ELSE set my hours as the Group leaders
+                     * Update 19.01.2024: no matter what set the hours to NULL
+                     * -->Requested by: Lucija Šoštarek
+                     */
+                    //$hours = $groupLeaderHours->work_hours;
+                    $hours="";
                 }
             }else{
                 $hours="";
@@ -58,11 +65,6 @@ class WorkerAttendanceService
                 'work_hours' => $hours == "" ? NULL : $hours,
             ]);
         }
-
-    }
-
-    public static function addNewWorkerToAttendance($workDayEntry){
-        
 
     }
 
