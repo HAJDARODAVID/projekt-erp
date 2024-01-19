@@ -7,6 +7,7 @@
             </tr>
         </thead>
         <tbody>
+            <form>
             @foreach ($allWorkers as $worker)
                 <tr>
                     <td>{{ $worker->getWorkerInfo->firstName }} {{ $worker->getWorkerInfo->lastName }}</td>
@@ -18,7 +19,7 @@
                     </td>
                 </tr>
             @endforeach
-            
+            </form>
         </tbody>
     </table>
 </div>
