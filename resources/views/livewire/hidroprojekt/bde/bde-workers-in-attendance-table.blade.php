@@ -13,8 +13,9 @@
                     <td>{{ $worker->getWorkerInfo->firstName }} {{ $worker->getWorkerInfo->lastName }}</td>
                     <td>
                         @if($worker->absence_reason)    
-                            <input class="form-control " type ="text" style="display: inline;width: 50px" disabled
-                                value ="{{$absenceReasonShtTxt[$worker->absence_reason]}}">
+                            <div style="margin-right:30px; display:inline">
+                                <b>{{$absenceReasonShtTxt[$worker->absence_reason]}}</b>
+                            </div>
                         @else
                             <input wire:model.blur='workHours.{{ $worker->worker_id }}' class="form-control " type="number" style="display: inline;width: 50px" >   
                         @endif

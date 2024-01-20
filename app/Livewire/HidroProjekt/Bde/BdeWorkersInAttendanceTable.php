@@ -18,10 +18,12 @@ class BdeWorkersInAttendanceTable extends Component
     public function mount(){
         $this->allWorkers = WorkerAttendanceService::getAllWorkersForEntry($this->record->id,true);
         $this->setWorkerHourArray();
+        
     }
 
     public function removeWorker($id){
         WorkerAttendanceService::removeWorkerFromAttendance($id, $this->record->id);
+        $this->dispatch('refreshAddWorkersInAttendanceTable');
         $this->dispatch('refreshWorkersInAttendanceTable')->self();
     }
 

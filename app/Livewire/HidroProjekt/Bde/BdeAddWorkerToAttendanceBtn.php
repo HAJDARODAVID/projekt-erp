@@ -4,6 +4,7 @@ namespace App\Livewire\HidroProjekt\Bde;
 
 use App\Services\HidroProjekt\BDE\WorkerAttendanceService;
 use Livewire\Component;
+use Livewire\Attributes\On; 
 
 class BdeAddWorkerToAttendanceBtn extends Component
 {
@@ -11,6 +12,7 @@ class BdeAddWorkerToAttendanceBtn extends Component
     public $workingDayEntry;
     public $showBtn;
 
+    #[On('refreshAddWorkersInAttendanceTable')] 
     public function mount(){
         $this->setShowBtn();
     }
