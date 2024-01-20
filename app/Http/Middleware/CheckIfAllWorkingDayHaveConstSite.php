@@ -22,6 +22,9 @@ class CheckIfAllWorkingDayHaveConstSite
             ->where('construction_site_id', NULL)
             ->where('date', date("Y-m-d"))
             ->first();  
+        if($request->route()->getName() =='hp_deleteWorkingDayEntry'){
+            return $next($request);
+        }
         if(Auth::user()->type == 3 && !is_null($workDayRecord) && $request->route()->getName() !='hp_workingDayEntry'){
             return redirect()->route('hp_workingDayEntry', $workDayRecord->id);
         }

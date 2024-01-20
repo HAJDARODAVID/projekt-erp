@@ -48,15 +48,24 @@
 
                     <div id="workLog" >
                         <div class="col d-flex justify-content-center"> 
-                            <button class="btn btn-dark ">
+                            <button class="btn btn-dark " style="width: 175px">
                                 <i class="bi bi-book"></i> DNEVNIK RADOVA
                             </button>
                         </div>
                     </div>
 
-
-
-
+                    <div id="deleteEntry" class="mt-2">
+                        <div class="col d-flex justify-content-center"> 
+                            <button class="btn btn-danger " onclick="deleteEntryConfirmation ()" style="width: 175px">
+                                <i class="bi bi-trash"></i> OBRIŠI ZAPIS
+                            </button>
+                        </div>
+                        <form action="{{route('hp_deleteWorkingDayEntry', $record->id)}}" method="POST" id="deleteThisEntry">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="delete" value="true">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,7 +78,8 @@
         document.getElementById('mainBdeComponents').style.display = "none";
         document.getElementById('attendanceComponent').style.display = "none";     
         document.getElementById('attendaceModule').style.display = "block";
-        document.getElementById('goToMainModul').style.display = "block";  
+        document.getElementById('goToMainModul').style.display = "block";
+        document.getElementById('deleteEntry').style.display = "none";  
     }
 
     function backToMainModule(){
@@ -79,6 +89,17 @@
         document.getElementById('goToMainModul').style.display = "none"; 
         document.getElementById('attendanceComponent').style.display = "block";
         document.getElementById('workLog').style.display = "block"; 
+        document.getElementById('deleteEntry').style.display = "block";  
+        
+    }
+</script>
+
+<script>
+    function deleteEntryConfirmation () {
+      let text = "Izbriši ovaj zapis??.";
+      if (confirm(text) == true) {
+        document.getElementById('deleteThisEntry').submit();
+      }
     }
 </script>
 @endsection

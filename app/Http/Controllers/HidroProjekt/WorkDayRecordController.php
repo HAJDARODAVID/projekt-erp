@@ -5,6 +5,7 @@ namespace App\Http\Controllers\HidroProjekt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\WorkingDayRecordModel;
+use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -38,6 +39,11 @@ class WorkDayRecordController extends Controller
         return view('hidro-projekt.BDE.workDayRecord',[
             'record' => $record,
         ]);
+    }
+
+    public function deleteWorkingDayEntry($id){
+        WorkingDayRecordService::deleteEntry($id);
+        return redirect()->route('home');
     }
 
 }

@@ -1,5 +1,5 @@
 <div>
-    <div class="d-flex justify-content-center mb-2" id="test2" onclick="location.href='{{ route('hp_bdeHome') }}';" style="cursor: pointer;">   
+    <div class="d-flex justify-content-center mb-2" id="test2" onclick="location.href='{{ route('hp_workingDayEntry', $entry->id) }}';" style="cursor: pointer;">   
         <div clas="panel-body" style="height: 65px; width: 230px;border-radius: 5px;background: rgb(0,208,3);
         background: linear-gradient(121deg, rgba(0,208,3,1) 0%, rgba(18,171,23,1) 100%);">
             <div class="p-2">
