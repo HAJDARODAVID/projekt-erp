@@ -46,13 +46,9 @@
                         'record' => $record,
                     ])
 
-                    <div id="workLog" >
-                        <div class="col d-flex justify-content-center"> 
-                            <button class="btn btn-dark " style="width: 175px">
-                                <i class="bi bi-book"></i> DNEVNIK RADOVA
-                            </button>
-                        </div>
-                    </div>
+                    @livewire('hidroProjekt.bde.bde-working-day-log',[
+                        'record' => $record,
+                    ])
 
                     <div id="deleteEntry" class="mt-2">
                         <div class="col d-flex justify-content-center"> 
@@ -80,6 +76,16 @@
         document.getElementById('attendaceModule').style.display = "block";
         document.getElementById('goToMainModul').style.display = "block";
         document.getElementById('deleteEntry').style.display = "none";  
+    }
+
+    function showWorkLogModule(){
+        document.getElementById('goToHome').style.display = "none";
+        document.getElementById('workLog').style.display = "none";
+        document.getElementById('mainBdeComponents').style.display = "none";
+        document.getElementById('attendanceComponent').style.display = "none";     
+        document.getElementById('goToMainModul').style.display = "block";
+        document.getElementById('deleteEntry').style.display = "none"; 
+        document.getElementById('workLogForm').style.display = "block";
     }
 
     function backToMainModule(){

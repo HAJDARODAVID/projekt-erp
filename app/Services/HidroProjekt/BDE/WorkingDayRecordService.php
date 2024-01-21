@@ -3,6 +3,7 @@
 namespace App\Services\HidroProjekt\BDE;
 
 use App\Models\AttendanceModel;
+use App\Models\WorkingDayLogModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WorkingDayRecordModel;
 
@@ -43,6 +44,15 @@ class WorkingDayRecordService
                 'cardStyle' => self::ENTRY_INCOMPLETE,
             ];
         }
+    }
+
+    public static function addNewLog($log, $entry){
+        WorkingDayLogModel::create([
+            'working_day_record_id' => $entry->id,
+            'construction_site_id' => $entry->construction_site_id,
+            'log' => $log,
+        ]);
+
     }
 
 }

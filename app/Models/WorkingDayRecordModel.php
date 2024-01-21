@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WorkingDayRecordModel extends Model
 {
@@ -33,5 +34,8 @@ class WorkingDayRecordModel extends Model
         return $this->hasOne(ConstructionSiteModel::class, 'id','construction_site_id');
     }
 
+    public function getLogs():HasMany{
+        return $this->hasMany(WorkingDayLogModel::class, 'working_day_record_id', 'id');
+    }
 
 }
