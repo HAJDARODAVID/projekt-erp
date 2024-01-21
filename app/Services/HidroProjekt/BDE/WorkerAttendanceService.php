@@ -118,4 +118,16 @@ class WorkerAttendanceService
         return new AbsenceReasonDto($reason->absence_reason);
     }
 
+    public static function isAttendanceComplete($entry){
+        $isComplete = TRUE;
+        $workersInAttendance = self::getAllWorkersForEntry($entry);
+        foreach ($workersInAttendance as $worker) {
+            if(is_null($worker->work_hours) && is_null($worker->absence_reason)){
+                $isComplete = FALSE;    
+            }
+        }
+        
+        return $isComplete;
+    }
+
 }
