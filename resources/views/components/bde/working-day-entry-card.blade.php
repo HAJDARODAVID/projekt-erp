@@ -5,7 +5,7 @@
                 <b class="d-inline-block text-truncate" style="max-width: 215px;">{{$entry->getConstructionSite->name}}</b><br>
                 <div class="row">
                     <div class="col d-flex justify-content-center">
-                        <i class="bi bi-people-fill"></i> : {{ $worker_count }}
+                        <i class="bi bi-people-fill"></i> : {{ $WorkerCount }}
                     </div>
                     <div class="col d-flex justify-content-center">
                         {{-- <i class="bi bi-clock"></i> : 10 --}}
