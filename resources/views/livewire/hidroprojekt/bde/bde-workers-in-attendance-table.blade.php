@@ -19,7 +19,6 @@
                         @else
                             <input wire:model.blur='workHours.{{ $worker->worker_id }}' class="form-control " type="number" style="display: inline;width: 50px" >   
                         @endif
-                        
                         <button wire:click.prevent='addAbsenceReason("GO",{{ $worker->worker_id }})' class="btn btn-info btn-sm" style="display: inline">GO</button>
                         <button wire:click.prevent='addAbsenceReason("BO",{{ $worker->worker_id }})'class="btn btn-warning btn-sm" style="display: inline">BO</button>
                         <button wire:click.prevent='removeWorker({{ $worker->worker_id }})' class="btn btn-danger btn-sm" style="display: inline">X</button>

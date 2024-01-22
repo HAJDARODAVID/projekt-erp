@@ -55,4 +55,14 @@ class WorkingDayRecordService
 
     }
 
+    public static function getAllLogsForEntry($entry){
+        return WorkingDayLogModel::where('working_day_record_id', $entry)
+            ->orderBy('id', 'desc')
+            ->get();
+    }
+
+    public static function deleteLog($id){
+        WorkingDayLogModel::where('id', $id)->delete();
+    }
+
 }
