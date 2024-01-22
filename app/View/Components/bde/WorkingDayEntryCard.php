@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 use App\Models\WorkingDayRecordModel;
-use App\Services\HidroProjekt\Bde\WorkerAttendanceService;
+use App\Services\Hidroprojekt\Bde\WorkerAttendanceService;
 use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
 
 class WorkingDayEntryCard extends Component
