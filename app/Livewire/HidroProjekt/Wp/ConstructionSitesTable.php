@@ -9,6 +9,7 @@ use App\Models\ConstructionSiteModel;
 class ConstructionSitesTable extends DataTableComponent
 {
     protected $model = ConstructionSiteModel::class;
+    //test
 
     public function configure(): void
     {
