@@ -21,6 +21,8 @@ class WorkingDayEntryCard extends Component
     public function __construct($entry)
     {
         $this->entry = $entry;
+
+        dd( $this->entry);
         $this->workerCount = WorkerAttendanceService::getWorkerCount($this->entry->id);
         $this->isAttendanceComplete = WorkerAttendanceService::isAttendanceComplete($this->entry->id);
         $this->isEntryComplete = WorkingDayRecordService::isEntryComplete([$this->isAttendanceComplete]);
