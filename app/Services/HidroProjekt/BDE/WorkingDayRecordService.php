@@ -60,6 +60,17 @@ class WorkingDayRecordService
             ->orderBy('id', 'desc')
             ->get();
     }
+    public static function getLogById($id){
+        return WorkingDayLogModel::where('id', $id)
+            ->first();
+    }
+
+    public static function updateLog($logId, $newLog){
+        WorkingDayLogModel::where('id', $logId)
+            ->update([
+                'log' => $newLog,
+            ]);
+    }
 
     public static function deleteLog($id){
         WorkingDayLogModel::where('id', $id)->delete();

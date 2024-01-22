@@ -9,16 +9,22 @@ use Livewire\Attributes\On;
 class BdeWorkingDayLogForm extends Component
 {
     public $record;
-    public $log;
+    public $log = "";
     public $allLogs;
+    public $logId = NULL;
 
     #[On('refreshLogsComponent')] 
     public function mount(){
-        $this->log = "";
         $this->allLogs = WorkingDayRecordService::getAllLogsForEntry($this->record->id);
     }
 
     public function saveLog(){
+        if($this->logId){
+            WorkingDayRecordService::updateLog($this->logId,$this->log);
+            $this->log = "";
+            $this->logId = NULL;
+            return $this->dispatch('refreshLogsComponent')->self();
+        }
         if($this->log == ""){
             return;
         };
@@ -29,6 +35,13 @@ class BdeWorkingDayLogForm extends Component
 
     public function deleteLog($id){
         WorkingDayRecordService::deleteLog($id);
+        $this->dispatch('refreshLogsComponent')->self();
+    }
+
+    public function editLog($logId){
+        $log = WorkingDayRecordService::getLogById($logId);
+        $this->log = $log->log;
+        $this->logId = $log->id;
         $this->dispatch('refreshLogsComponent')->self();
     }
 

@@ -1,9 +1,9 @@
 <div>
-    <div class="form-group mb-2" wire:loading.remove>
+    <div class="form-group mb-2">
         <label for="exampleFormControlTextarea1">Dnevnik radova</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" wire:model.blur="log"></textarea>
     </div>
-    <div class="row" wire:loading.remove> 
+    <div class="row"> 
         <div class="col d-flex justify-content-center">
             <button type="submit" class="btn btn-success" wire:click.prevet="saveLog()">SPREMI</button>
         </div>
@@ -21,7 +21,7 @@
                                 <div class="modal-header">
                                     <span class="modal-title">{{ date("h:i:sa", strtotime($oneLog->created_at)) }}</span>
                                     <div>
-                                        <button class="btn btn-primary btn-sm">
+                                        <button class="btn btn-primary btn-sm" wire:click='editLog({{ $oneLog->id }})'>
                                             <i class="bi bi-pencil"></i>
                                         </button>
                                         <button class="btn btn-danger btn-sm" wire:click='deleteLog({{ $oneLog->id }})'>
