@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\bde;
+namespace App\View\Components\Bde;
 
 use Closure;
 use Illuminate\View\Component;
@@ -12,7 +12,7 @@ use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
 class WorkingDayEntryCard extends Component
 {
     public $entry;
-    public $WorkerCount = NULL;
+    public $workerCount = NULL;
     public $isAttendanceComplete;
     public $isEntryComplete;
     /**
@@ -21,7 +21,7 @@ class WorkingDayEntryCard extends Component
     public function __construct($entry)
     {
         $this->entry = $entry;
-        $this->WorkerCount = WorkerAttendanceService::getWorkerCount($this->entry->id);
+        $this->workerCount = WorkerAttendanceService::getWorkerCount($this->entry->id);
         $this->isAttendanceComplete = WorkerAttendanceService::isAttendanceComplete($this->entry->id);
         $this->isEntryComplete = WorkingDayRecordService::isEntryComplete([$this->isAttendanceComplete]);
     }
