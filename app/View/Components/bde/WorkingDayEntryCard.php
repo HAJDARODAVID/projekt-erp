@@ -12,7 +12,7 @@ use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
 class WorkingDayEntryCard extends Component
 {
     public $entry;
-    public $workerCount = NULL;
+    public $worker_count = NULL;
     public $isAttendanceComplete;
     public $isEntryComplete;
     /**
@@ -21,7 +21,7 @@ class WorkingDayEntryCard extends Component
     public function __construct($entry)
     {
         $this->entry = $entry;
-        $this->workerCount = WorkerAttendanceService::getWorkerCount($this->entry->id);
+        $this->worker_count = WorkerAttendanceService::getWorkerCount($this->entry->id);
         $this->isAttendanceComplete = WorkerAttendanceService::isAttendanceComplete($this->entry->id);
         $this->isEntryComplete = WorkingDayRecordService::isEntryComplete([$this->isAttendanceComplete]);
     }
