@@ -37,7 +37,6 @@ class ConstructionSitesTable extends DataTableComponent
                 ->sortable(),
             Column::make("Status", "status")
                 ->sortable(),
-
         ];
     }
 }
