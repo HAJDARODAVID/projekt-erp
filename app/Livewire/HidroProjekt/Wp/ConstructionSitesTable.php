@@ -12,14 +12,17 @@ class ConstructionSitesTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+        ->setTableRowUrl(function($row) {
+            return route('hp_showWorker', $row->id);
+        });
     }
 
     public function columns(): array
     {
         return [
             Column::make("Id", "id")
-                ->sortable(),
+                ->hideIf(TRUE),
             Column::make("Name", "name")
                 ->sortable(),
             Column::make("Street", "street")

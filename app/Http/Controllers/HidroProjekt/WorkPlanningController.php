@@ -19,5 +19,6 @@ class WorkPlanningController extends Controller
         ]);
 
         ConstructionSiteService::addNewConstructionSites($request->all());
+        return redirect()->route('hp_constructionSites')->with('success', 'Gradilište uspješno dodan!');
     }
 }
