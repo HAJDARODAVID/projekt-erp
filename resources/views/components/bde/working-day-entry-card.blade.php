@@ -4,7 +4,7 @@
             <div class="p-2">
                 <b class="d-inline-block text-truncate" style="max-width: 215px;">{{$entry->getConstructionSite->name}}</b><br>
                 <div class="row">
-                    <div class="col d-flex justify-content-center" @isset($isAttendanceComplete) style="color: rgb(168, 0, 0);" @isset>
+                    <div class="col d-flex justify-content-center">
                         <i class="bi bi-people-fill"></i> : {{$workerCount}}
                     </div>
                     <div class="col d-flex justify-content-center">
