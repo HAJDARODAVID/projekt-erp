@@ -20,16 +20,13 @@
     <div class="row">
         <div class="col">
             <h1 class="h6">Informacije gradilišta</h1>
-            <div class="row mb-2">
-                <div class="form-group col">
-                    <label for="street">Ulica</label>
-                    <input type="text" class="form-control @error('street')is-invalid @enderror" id="street" name="street" placeholder="">
-                </div>
-                <div class="form-group col">
-                    <label for="town">Mjesto</label>
-                    <input type="text" class="form-control @error('town')is-invalid @enderror" id="town"  name="town" placeholder="">
-                </div>
-            </div>
+
+            @livewire('hidroProjekt.wp.construction-site-address',[
+                'town' =>$constructionSite->town,
+                'street' =>$constructionSite->street,
+                'constId' => $constructionSite->id,
+            ])
+            
             @livewire('hidroProjekt.wp.construction-site-from-to-dates', [
                 'start_date' =>$constructionSite->start_date,
                 'end_date' =>$constructionSite->end_date,
