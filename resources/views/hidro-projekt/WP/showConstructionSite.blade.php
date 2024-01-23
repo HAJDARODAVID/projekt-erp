@@ -2,11 +2,23 @@
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    
-    @livewire('hidroProjekt.wp.change-header-name-input-box',[
+    <div class="d-flex flex-row">
+        @livewire('hidroProjekt.wp.change-header-name-input-box',[
         'headerName' => $constructionSite->name,
         'headerId' => $constructionSite->id,
         ])
+        &nbsp;&nbsp;&nbsp;
+        @livewire('hidroProjekt.wp.change-construction-site-status',[
+            'status' => $constructionSite->status,
+            'constId' => $constructionSite->id,
+        ])
+        
+
+        
+        
+
+    </div>
+    
     
   </div>
   

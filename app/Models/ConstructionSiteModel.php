@@ -9,6 +9,16 @@ class ConstructionSiteModel extends Model
 {
     use HasFactory;
 
+    const CONSTRUCTION_STATUS_DISABLED = -1;
+    const CONSTRUCTION_STATUS_ACTIVE = 1;
+    const CONSTRUCTION_STATUS_DONE = 2;
+
+    const CONSTRUCTION_STATUS = array(
+        self::CONSTRUCTION_STATUS_DISABLED => 'Storno',
+        self::CONSTRUCTION_STATUS_ACTIVE => 'Aktivno',
+        self::CONSTRUCTION_STATUS_DONE => 'Završeno',
+    );
+
     protected $table = 'construction_sites';
 
     protected $fillable = [

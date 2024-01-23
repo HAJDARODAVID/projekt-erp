@@ -24,7 +24,7 @@ class ChangeHeaderNameInputBox extends Component
         if($this->headerName == ""){
             return;
         }else{
-            $this->constSiteService->updateConstructionSite(2,[
+            $this->constSiteService->updateConstructionSite($this->headerId,[
                 'name' => $this->headerName
             ]);
         }
