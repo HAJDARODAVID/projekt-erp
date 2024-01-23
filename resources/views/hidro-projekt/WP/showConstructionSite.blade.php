@@ -45,12 +45,12 @@
         <div class="col">
             <h1 class="h6">Evidencija radova:</h1>
 
-            <b style="font-size: 15px"> Kumulativno izvršeni radni sati: 150</b>   
+            <b style="font-size: 15px"> Kumulativno izvršeni radni sati: {{$cumulativelyHours}}</b>   
     
         </div>
         <div class="col">
             <h1 class="h6">Dnevnik radova:</h1>
-            <textarea class="form-control" id="job_description" rows="18" style="resize: none;" disabled></textarea>
+            <textarea class="form-control" id="job_description" rows="18" style="resize: none;" disabled>{{$allLogsForConstructionSite}}</textarea>
         </div>
     </div>
     

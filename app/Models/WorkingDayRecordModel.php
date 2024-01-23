@@ -38,4 +38,8 @@ class WorkingDayRecordModel extends Model
         return $this->hasMany(WorkingDayLogModel::class, 'working_day_record_id', 'id');
     }
 
+    public function getAttendance():HasMany{
+        return $this->hasMany(AttendanceModel::class, 'working_day_record_id', 'id');
+    }
+
 }
