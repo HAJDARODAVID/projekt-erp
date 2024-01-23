@@ -98,6 +98,7 @@ Route::prefix('/')
             ->group(function(){
 
                 Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
+                Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
                 Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
 
 

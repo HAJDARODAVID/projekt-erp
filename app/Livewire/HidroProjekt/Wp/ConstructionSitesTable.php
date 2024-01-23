@@ -14,7 +14,7 @@ class ConstructionSitesTable extends DataTableComponent
     {
         $this->setPrimaryKey('id')
         ->setTableRowUrl(function($row) {
-            return route('hp_showWorker', $row->id);
+            return route('hp_showConstructionSite', $row->id);
         });
     }
 
@@ -22,7 +22,7 @@ class ConstructionSitesTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")
-                ->hideIf(TRUE),
+                ->hideIf(false),
             Column::make("Name", "name")
                 ->sortable(),
             Column::make("Street", "street")

@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class WorkPlanningController extends Controller
 {
+    private $constSiteService;
+    public function __construct()
+    {
+        $this->constSiteService = new ConstructionSiteService;
+    }
     public function constructionSites(){
         return view('hidro-projekt.WP.constructionSites');
     }
@@ -20,5 +25,12 @@ class WorkPlanningController extends Controller
 
         ConstructionSiteService::addNewConstructionSites($request->all());
         return redirect()->route('hp_constructionSites')->with('success', 'Gradilište uspješno dodan!');
+    }
+
+    public function showConstructionSite($id){
+        return view('hidro-projekt.WP.showConstructionSite', [
+            'constructionSite' => $this->constSiteService->getConstructionSite($id),
+        ]);
+
     }
 }
