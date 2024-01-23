@@ -30,16 +30,11 @@
                     <input type="text" class="form-control @error('town')is-invalid @enderror" id="town"  name="town" placeholder="">
                 </div>
             </div>
-            <div class="row mb-2">
-                <div class="form-group col">
-                    <label for="start_date">Planirani početak radova</label>
-                    <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="start_date" name="start_date">
-                </div>
-                <div class="form-group col">
-                    <label for="end_date">Planirani završetak radova</label>
-                    <input type="date" class="form-control @error('end_date')is-invalid @enderror" id="end_date" name="end_date">
-                </div>
-            </div>
+            @livewire('hidroProjekt.wp.construction-site-from-to-dates', [
+                'start_date' =>$constructionSite->start_date,
+                'end_date' =>$constructionSite->end_date,
+                'constId' => $constructionSite->id,
+            ])
         </div>
         <div class="col">
             @livewire('hidroProjekt.wp.construction-site-job-description-textarea',[
