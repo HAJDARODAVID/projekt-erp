@@ -13,7 +13,7 @@ class BdeSelectConstructionSite extends Component
     public $address;
 
     public function mount(){
-        $this->constructionSites=ConstructionSiteModel::get();
+        $this->constructionSites=ConstructionSiteModel::where('status', ConstructionSiteModel::CONSTRUCTION_STATUS_ACTIVE)->get();
         $this->selectedConstructionSite = $this->record->construction_site_id;
         $this->address = ConstructionSiteModel::where('id', $this->selectedConstructionSite)->first();
     }
