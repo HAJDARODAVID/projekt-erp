@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\WorkingDayRecordModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class WorkingDayLogModel extends Model
 {
@@ -16,4 +18,8 @@ class WorkingDayLogModel extends Model
         'construction_site_id',
         'log',
     ];
+
+    public function getWorkingDayRecord():HasOne{
+        return $this->hasOne(WorkingDayRecordModel::class, 'id','working_day_record_id');
+    }
 }
