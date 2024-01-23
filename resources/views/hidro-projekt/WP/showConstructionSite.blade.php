@@ -19,7 +19,7 @@
   <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="h6">Informacije gradilišta</h1>
+            <h1 class="h6">Informacije gradilišta:</h1>
 
             @livewire('hidroProjekt.wp.construction-site-address',[
                 'town' =>$constructionSite->town,
@@ -38,6 +38,19 @@
                 'description' => $constructionSite->job_description,
                 'constId' => $constructionSite->id,
             ])
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h1 class="h6">Evidencija radova:</h1>
+
+            <b style="font-size: 15px"> Kumulativno izvršeni radni sati: 150</b>   
+    
+        </div>
+        <div class="col">
+            <h1 class="h6">Dnevnik radova:</h1>
+            <textarea class="form-control" id="job_description" rows="18" style="resize: none;" disabled></textarea>
         </div>
     </div>
     
