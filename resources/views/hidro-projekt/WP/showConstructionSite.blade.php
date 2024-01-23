@@ -12,11 +12,6 @@
             'status' => $constructionSite->status,
             'constId' => $constructionSite->id,
         ])
-        
-
-        
-        
-
     </div>
     
     
