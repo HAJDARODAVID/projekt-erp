@@ -19,6 +19,12 @@ class ConstructionSiteModel extends Model
         self::CONSTRUCTION_STATUS_DONE => 'Završeno',
     );
 
+    const CONSTRUCTION_STATUS_COLOR = array(
+        self::CONSTRUCTION_STATUS_DISABLED => 'red',
+        self::CONSTRUCTION_STATUS_ACTIVE => 'black',
+        self::CONSTRUCTION_STATUS_DONE => 'green',
+    );
+
     protected $table = 'construction_sites';
 
     protected $fillable = [

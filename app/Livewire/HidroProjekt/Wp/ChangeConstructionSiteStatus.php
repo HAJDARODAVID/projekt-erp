@@ -11,12 +11,14 @@ class ChangeConstructionSiteStatus extends Component
     public $status;
     public $constId;
     public $allStatuses;
+    public $statusColor;
     private $constSiteService;
 
     public function mount($status, $constId){
         $this->status = $status;
         $this->constId = $constId;
-        $this->allStatuses = ConstructionSiteModel::CONSTRUCTION_STATUS;    
+        $this->allStatuses = ConstructionSiteModel::CONSTRUCTION_STATUS;  
+        $this->statusColor = ConstructionSiteModel::CONSTRUCTION_STATUS_COLOR;   
     }
 
     public function updatedStatus(){
