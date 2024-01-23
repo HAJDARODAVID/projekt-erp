@@ -13,8 +13,7 @@
             'constId' => $constructionSite->id,
         ])
     </div>
-    
-    
+    <a href = "{{ route('hp_constructionSites') }}" class="btn btn-secondary">NATRAG</a>
   </div>
   
   <div class="container">
