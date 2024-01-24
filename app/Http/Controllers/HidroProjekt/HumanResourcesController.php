@@ -69,6 +69,10 @@ class HumanResourcesController extends Controller
         return $pdf->index($worker);
     }
 
+    public function allWorkHours(){
+        return view('hidro-projekt.HR.allWorkHours');
+    }
+
 
 
 }

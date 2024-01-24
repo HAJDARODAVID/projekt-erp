@@ -74,6 +74,8 @@ Route::prefix('/')
                 Route::put('/workers/{id}', 'updateWorker')->name('hp_updateWorker');
                 Route::delete('/workers/{id}', 'deleteWorker')->name('hp_deleteWorker');
 
+                Route::get('work_hours', 'allWorkHours')->name('hp_allWorkHours');
+
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
             });
