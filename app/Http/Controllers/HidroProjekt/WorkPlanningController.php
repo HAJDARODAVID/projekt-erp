@@ -31,7 +31,7 @@ class WorkPlanningController extends Controller
         return view('hidro-projekt.WP.showConstructionSite', [
             'constructionSite' => $this->constSiteService->getConstructionSite($id),
             'cumulativelyHours' => $this->constSiteService->getHoursCumulatively($id),
-            'allLogsForConstructionSite' => "ovo je test \n da vidimo dali radi",
+            'allLogsForConstructionSite' => $this->constSiteService->getAllLogsForConstructionSiteString($id),
         ]);
 
     }

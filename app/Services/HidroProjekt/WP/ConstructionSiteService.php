@@ -36,15 +36,18 @@ class ConstructionSiteService
     }
 
     public function getAllLogsForConstructionSiteString($constSite){
-        $wdrModel=WorkingDayRecordModel::where('construction_site_id', $constSite)->with('getLogs')->get();
+        $wdrModel=WorkingDayRecordModel::where('construction_site_id', $constSite)->with('getLogs', 'getUser.getWorker')->get();
         $stringLog="";
-        foreach ($wdrModel as $workigDay) {
-            foreach ($workigDay->getLogs as $logs) {
-                $stringLog += "Ime prezime" . " - ";
-                $stringLog += "Ime prezime" . " - ";
-
+        //dd($wdrModel);
+        foreach ($wdrModel as $workingDay) {
+            foreach ($workingDay->getLogs as $logs) {
+                $stringLog .= "[" . $workingDay->getUser->getWorker->firstName . " ";
+                $stringLog .= $workingDay->getUser->getWorker->lastName . " - ";
+                $stringLog .= $logs->created_at . "]\n";
+                $stringLog .= $logs->log . "\n";
+                $stringLog .= "\n";
             }
         }
-
+       return $stringLog;
     }
 }

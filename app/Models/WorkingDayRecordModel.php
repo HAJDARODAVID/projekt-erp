@@ -34,8 +34,12 @@ class WorkingDayRecordModel extends Model
         return $this->hasOne(ConstructionSiteModel::class, 'id','construction_site_id');
     }
 
+    public function getUser():HasOne{
+        return $this->hasOne(User::class, 'id','user_id');
+    }
+
     public function getLogs():HasMany{
-        return $this->hasMany(WorkingDayLogModel::class, 'working_day_record_id', 'id');
+        return $this->hasMany(WorkingDayLogModel::class, 'working_day_record_id', 'id')->orderBy('id','desc');
     }
 
     public function getAttendance():HasMany{

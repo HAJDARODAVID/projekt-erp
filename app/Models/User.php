@@ -64,4 +64,9 @@ class User extends Authenticatable
     // public function getWorkerEntry():HasOne{
     //     return $this->hasOne(WorkerModel::class, 'worker_id','id');
     // }
+
+    public function getWorker():HasOne{
+        return $this->hasOne(WorkerModel::class, 'id','worker_id');
+    }
+
 }
