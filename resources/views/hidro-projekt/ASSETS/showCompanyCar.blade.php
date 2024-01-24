@@ -29,7 +29,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="workPlace">Registracijske oznake</label>
-                            <input type="text" class="form-control" id="workPlace" name="working_place" value="MERCEDENZ FRAŽJI BENZ YO" disabled>
+                            <input type="text" class="form-control" id="workPlace" name="working_place"  disabled>
                         </div> 
                     </div>
                     <div class="col">
@@ -43,7 +43,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="workPlace">Marka</label>
-                            <input type="text" class="form-control" id="workPlace" name="working_place" value="MERCEDENZ FRAŽJI BENZ YO" disabled>
+                            <input type="text" class="form-control" id="workPlace" name="working_place" disabled>
                         </div> 
                     </div>
                     <div class="col">
@@ -57,7 +57,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="workPlace">Godište</label>
-                            <input type="text" class="form-control" id="workPlace" name="working_place" value="MERCEDENZ FRAŽJI BENZ YO" disabled>
+                            <input type="text" class="form-control" id="workPlace" name="working_place" disabled>
                         </div> 
                     </div>
                     <div class="col">

@@ -44,13 +44,10 @@ class WorkersTable extends DataTableComponent
                 ->view('components.is-worker-checkbox'),
             Column::make("Komentar", "comment"),
 
-            Column::make('Actions','print_label')
-                ->view('components.worker-table-action-btn'),
-
-            // Column::make('My one off column')
-            //     ->label(
-            //         fn($row, Column $column) => view('components.worker-table-action-btn')->withRow($row)
-            //     ),
+            Column::make('Actions')
+                ->label(
+                    fn($row, Column $column) => view('components.worker-table-action-btn')->withRow($row)
+                ),
 
         ];
     }
