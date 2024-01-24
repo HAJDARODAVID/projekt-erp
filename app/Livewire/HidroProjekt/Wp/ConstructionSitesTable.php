@@ -16,15 +16,17 @@ class ConstructionSitesTable extends DataTableComponent
         ->setTableRowUrl(function($row) {
             return route('hp_showConstructionSite', $row->id);
         });
+        $this->setSearchBlur();
     }
 
     public function columns(): array
     {
         return [
             Column::make("Id", "id")
-                ->hideIf(false),
+                ->hideIf(true),
             Column::make("Name", "name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Street", "street")
                 ->sortable(),
             Column::make("Town", "town")
