@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HidroProjekt;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConstructionSiteModel;
 use App\Services\HidroProjekt\WP\ConstructionSiteService;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class WorkPlanningController extends Controller
             'name' => 'required',
             'job_description' => 'required',
         ]);
-
+        $request['status']= ConstructionSiteModel::CONSTRUCTION_STATUS_ACTIVE;
         ConstructionSiteService::addNewConstructionSites($request->all());
         return redirect()->route('hp_constructionSites')->with('success', 'Gradilište uspješno dodan!');
     }
