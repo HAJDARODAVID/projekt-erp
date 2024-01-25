@@ -13,6 +13,7 @@ class WorkHoursReport extends Component
     public $selectedMonth;
     public $daysOfMonth;
     public $completeAttendance;
+    public $daySum;
 
     #[On('refreshWorkHoursComponent')] 
     public function mount(){

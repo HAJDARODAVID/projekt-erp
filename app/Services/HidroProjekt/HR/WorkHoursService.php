@@ -35,17 +35,21 @@ class WorkHoursService
             $completeAttendance[$key]['name'] = $worker;
 
             foreach($daysOfTheMonth as $day){
-                $hours = $attendance->where('worker_id', $key)->where('date', $day);
-                $workerHours=$hours->sum('work_hours');
-                if(is_null($hours->sum('work_hours'))){
-                    if(is_null($hours->absence_reason)){
-                        $workerHours ="";
-                    }else{
-                    $workerHours = $hours->absence_reason;
+                $attendanceInfo = $attendance->where('worker_id', $key)->where('date', $day);
+                $workerAttendanceInfo = NULL;
+                if(!is_null($attendanceInfo)){
+                    //absence
+                    foreach ($attendanceInfo as $absence) {
+                        if(!is_null($absence->absence_reason)){
+                            $workerAttendanceInfo = AttendanceModel::ABSENCE_REASON_SHT_TXT[$absence->absence_reason];
+                        }
+                    }
+
+                    if(is_null($workerAttendanceInfo)){
+                        $workerAttendanceInfo = $attendanceInfo->sum('work_hours') == NULL ? "" : $attendanceInfo->sum('work_hours');
                     }
                 }
-                //dd($hours);
-                $completeAttendance[$key]['attendance'][$day]=$workerHours;
+                $completeAttendance[$key]['attendance'][$day]=$workerAttendanceInfo;
             }
 
         }
