@@ -25,14 +25,24 @@ class WorkHoursService
         return $attendanceWorker;
     }
 
-    public static function getAllAttendanceForMonth($month){
+    public static function getAllAttendanceForMonthReport($month, $planedHours){
         $workers = self::getAllAttendanceWorkers();
         $attendance = AttendanceModel::whereMonth('date', '=', $month)->get();
         $completeAttendance=[];
+        $cumulativeHours['planedHours']=0;
+        $cumulativeHours['workHours']=0;
+        $cumulativeHours['overTime']=0;
+        $cumulativeHours['dates']=[];
+        $workerCount=0;
         $daysOfTheMonth = Months::dayOfMonth($month);
 
         foreach ($workers as $key => $worker) {
+            $completeAttendance[$key]['id'] = $key;
             $completeAttendance[$key]['name'] = $worker;
+
+            $monthlyHours=0;
+            $overTimeHours = 0;
+            
 
             foreach($daysOfTheMonth as $day){
                 $attendanceInfo = $attendance->where('worker_id', $key)->where('date', $day);
@@ -42,22 +52,71 @@ class WorkHoursService
                     foreach ($attendanceInfo as $absence) {
                         if(!is_null($absence->absence_reason)){
                             $workerAttendanceInfo = AttendanceModel::ABSENCE_REASON_SHT_TXT[$absence->absence_reason];
+                            if($absence->absence_reason == AttendanceModel::ABSENCE_REASON_PAID_LEAVE){
+                                $monthlyHours += 8;
+                            }
                         }
                     }
 
                     if(is_null($workerAttendanceInfo)){
                         $workerAttendanceInfo = $attendanceInfo->sum('work_hours') == NULL ? "" : $attendanceInfo->sum('work_hours');
+                        $monthlyHours += $workerAttendanceInfo == "" ? 0 : $workerAttendanceInfo;
+                        if($workerAttendanceInfo != ""){
+                            if($workerAttendanceInfo > 8 || date("N", strtotime($day))>5){
+                                if (date("N", strtotime($day))>5) {
+                                    $overTimeHours += $workerAttendanceInfo;
+                                }else{
+                                    $overTimeHours += $workerAttendanceInfo - 8;
+                                }
+                            }
+                        }
                     }
                 }
                 $completeAttendance[$key]['attendance'][$day]=$workerAttendanceInfo;
+                $dayHours=NULL;
+                if(!is_int($workerAttendanceInfo)){
+                    if($workerAttendanceInfo == 'GO'){
+                        $dayHours = 8;
+                    }
+                }else{
+                    $dayHours = $workerAttendanceInfo;
+                }
+                
+                if(!isset($cumulativeHours['dates'][$day])){
+                    $cumulativeHours['dates'][$day] = $dayHours;
+                }else{
+                    $cumulativeHours['dates'][$day] += $dayHours;
+                }
             }
 
+            $completeAttendance[$key]['monthlyHours'] = $monthlyHours;
+            $completeAttendance[$key]['overTime'] = $overTimeHours;
+
+            $cumulativeHours['workHours'] += $monthlyHours;
+            $cumulativeHours['overTime'] += $overTimeHours;
+
+            $workerCount++;
         }
 
+        $cumulativeHours['planedHours'] = $workerCount * $planedHours;
+
+        $completeAttendance = [
+            'attendance' => $completeAttendance,
+            'cumulative' => $cumulativeHours
+        ];
         //dd($completeAttendance);
-
         return $completeAttendance;
+    }
 
+    public static function getPlanedHoursForMonth($month){
+        $daysOfTheMonth = Months::dayOfMonth($month);
+        $planedHours = 0;
+        foreach ($daysOfTheMonth as $day) {
+            if(date("N", strtotime($day)) < 6){
+                $planedHours += 8; 
+            }
+        }
+        return $planedHours;
     }
 
     

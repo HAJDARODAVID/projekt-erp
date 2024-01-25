@@ -14,11 +14,17 @@ class WorkHoursReport extends Component
     public $daysOfMonth;
     public $completeAttendance;
     public $daySum;
+    public $planedHours;
+    public $attendanceReport;
+    public $cumulative;
 
     #[On('refreshWorkHoursComponent')] 
     public function mount(){
         $this->daysOfMonth=Months::dayOfMonth($this->selectedMonth);
-        $this->completeAttendance=WorkHoursService::getAllAttendanceForMonth($this->selectedMonth);
+        $this->planedHours = WorkHoursService::getPlanedHoursForMonth($this->selectedMonth);
+        $this->attendanceReport = WorkHoursService::getAllAttendanceForMonthReport($this->selectedMonth, $this->planedHours);
+        $this->completeAttendance= $this->attendanceReport['attendance'];
+        $this->cumulative = $this->attendanceReport['cumulative']; 
     }
     public function updatedSelectedMonth(){
         $this->dispatch('refreshWorkHoursComponent')->self();

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\WorkerModel;
 use App\Services\HidroProjekt\HR\TcpdfPayrollLabelsGenerator;
 use App\Services\HidroProjekt\HR\WorkerService;
+use App\Services\HidroProjekt\HR\WorkHoursService;
 
 class HumanResourcesController extends Controller
 {
@@ -70,7 +71,11 @@ class HumanResourcesController extends Controller
     }
 
     public function allWorkHours(){
-        return view('hidro-projekt.HR.allWorkHours');
+        $workHoursService = new WorkHoursService;
+        //dd($workHoursService);
+        return view('hidro-projekt.HR.allWorkHours',[
+            'workHoursService' =>  $workHoursService,
+        ]);
     }
 
 

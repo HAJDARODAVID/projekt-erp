@@ -22,9 +22,9 @@
             <thead style="border-bottom: 1.5px solid #000000;">
                 <tr>
                     <td scope="col"><b>Ime i prezime</b></td>
-                    <td scope="col">PS</td>
-                    <td scope="col">OS</td>
-                    <td scope="col" style="border-right: 1.5px solid #000000;">PV</td>
+                    <td scope="col"><abbr title="Planirani radni sati u mjesecu">PS</abbr></td>
+                    <td scope="col"><abbr title="Ostvareni radni sati u mjesecu">OS</abbr></td>
+                    <td scope="col" style="border-right: 1.5px solid #000000;"><abbr title="Prekovremeni radni sati u mjesecu">PV</abbr></td>
                     @foreach ($daysOfMonth as $day)
                         <?php 
                             $daynum = date("N", strtotime($day));
@@ -32,17 +32,15 @@
                         ?>
                         <td scope="col" style="width: 35px;<?=$weekEndStyle?>">{{ date("d",strtotime($day)) }}</td>
                     @endforeach
-                    <td scope="col" style="width: 35px">Sum</td>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($completeAttendance as $worker)
                     <tr>
                         <td>{{ $worker['name'] }}</td>
-                        <td>160</td>
-                        <td>30</td>
-                        <td style="border-right: 1.5px solid #000000;">30</td>
-                        <?php $monthSum = 0 ?>
+                        <td>{{ $planedHours }}</td>
+                        <td>{{ $worker['monthlyHours'] }}</td>
+                        <td style="border-right: 1.5px solid #000000;">{{ $worker['overTime'] }}</td>
                         @foreach ($worker['attendance'] as $key => $attendance)
                             <?php 
                                 $daynum = date("N", strtotime($key));
@@ -64,11 +62,18 @@
                                 }
                             ?>
                             <td style="<?=$cellStyle?>">{{ $attendance }}</td>
-                            <?php $monthSum += is_int($attendance) ? $attendance : 0 ?>
                         @endforeach
-                        <td style="border-left: 1.5px solid #000000;"><?php echo $monthSum  ?></td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td style="border-top: 1.5px solid #000000;"><b>Sum</b></td>
+                    <td style="border-top: 1.5px solid #000000;">{{ $cumulative['planedHours'] }}</td>
+                    <td style="border-top: 1.5px solid #000000;">{{ $cumulative['workHours'] }}</td>
+                    <td style="border-top: 1.5px solid #000000; border-right: 1.5px solid #000000;">{{ $cumulative['overTime'] }}</td>
+                    @foreach ($cumulative['dates'] as $day)
+                        <td style="border-top: 1.5px solid #000000;">{{ $day }}</td>
+                    @endforeach
+                </tr>
             </tbody>
         </table>
     </div>
