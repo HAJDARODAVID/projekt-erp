@@ -1,5 +1,5 @@
 <div>
-    <button class="btn btn-success btn-sm" onclick="showModal('addNewConstructionSiteModal')">NOVO GRADILITE</button>
+    <button class="btn btn-success btn-sm" onclick="showModal('addNewConstructionSiteModal')">NOVO GRADILIŠTE</button>
 
     <!-- Modal -->
     <div class="modal" id="addNewConstructionSiteModal" style="display:  @if (Session::has('errors')) block @else none @endif">

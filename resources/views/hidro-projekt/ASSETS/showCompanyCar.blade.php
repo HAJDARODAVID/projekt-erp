@@ -76,9 +76,9 @@
                     <a class="btn btn-dark btn-sm" style = "width: 50px" onclick="event.preventDefault();resetInputs(); document.getElementById('inputFieldFromFolder').click();">
                         <i class="bi bi-folder"></i>
                     </a>
-                    <a class="btn btn-dark btn-sm" style = "width: 50px" onclick="event.preventDefault();resetInputs(); document.getElementById('inputFieldFromCamera').click();">
+                    {{-- <a class="btn btn-dark btn-sm" style = "width: 50px" onclick="event.preventDefault();resetInputs(); document.getElementById('inputFieldFromCamera').click();">
                         <i class="bi bi-camera"></i>
-                    </a>
+                    </a> --}}
                     <img src="@if (is_Null($carInfo->avatar)){{ asset('images/assets/cars/car_default.png') }} @else {{ asset('images/assets/cars/'.$carInfo->avatar) }} @endif" class="rounded mx-auto d-block mt-2" alt="..." id="currentCarPic" style="height:250px; width:auto;max-width: 444px">
                 </div>
                 

@@ -13,7 +13,7 @@
     @endif
     
     @livewire('hidroProjekt.hr.work-hours-report',[
-        'selectedMonth' => date('m'),
+        'selectedMonth' => date('m')*1,
     ])
 
 
