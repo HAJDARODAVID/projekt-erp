@@ -8,6 +8,9 @@
     </select><br>
 
     {{ __('Adresa: ') }} 
-    <a href="https://www.google.com/maps/place/{{$address->street . ' ' . $address->town}}">{{$address->street . ' ' . $address->town}}</a>
+    @if(isset($address->street) && isset($address->town))
+        <a href="https://www.google.com/maps/place/{{$address->street . ' ' . $address->town}}">{{$address->street . ' ' . $address->town}}</a>   
+    @endif
+    
     <hr>
 </div>
