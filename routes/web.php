@@ -76,6 +76,13 @@ Route::prefix('/')
 
                 Route::get('work_hours', 'allWorkHours')->name('hp_allWorkHours');
 
+                Route::get('/cooperators', 'cooperators')->name('hp_cooperators');
+                Route::post('/cooperators', 'newCooperators')->name('hp_newCooperators');
+                Route::get('/cooperators/{id}', 'showCooperators')->name('hp_showCooperators');
+                Route::post('/cooperators_worker', 'newCooperatorWorker')->name('hp_newCooperatorWorker');
+                Route::put('/cooperators_worker/{id}', 'deactivateCooperatorWorker')->name('hp_deactivateCooperatorWorker');
+
+
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
             });

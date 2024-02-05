@@ -4,6 +4,8 @@ namespace App\Http\Controllers\HidroProjekt;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\CooperatorsModel;
+use App\Models\CooperatorWorkersModel;
 use App\Models\WorkerModel;
 use App\Services\HidroProjekt\HR\TcpdfPayrollLabelsGenerator;
 use App\Services\HidroProjekt\HR\WorkerService;
@@ -78,6 +80,45 @@ class HumanResourcesController extends Controller
         ]);
     }
 
+    public function cooperators(){
+        return view('hidro-projekt.HR.cooperators');
+    }
 
+    public function newCooperators(Request $request){
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+        $request['status'] = CooperatorsModel::COOPERATORS_STATUS_ACTIVE;
+        $newCooperator=CooperatorsModel::create([
+            'name' => $request['name'],
+            'status' => $request['status'],
+        ]);
+        return redirect()->route('hp_showCooperators', $newCooperator->id)->with('success', 'Uspješno kreiran novi kooperant! Dodijeli radnike u ovu grupu!');
+    }
+
+    public function showCooperators($id){
+        $cooperator = CooperatorsModel::where('id', $id)->with('getAllWorkers')->first();
+        return view('hidro-projekt.HR.showCooperator', [
+            'cooperator' => $cooperator,
+        ]);
+    }
+
+    public function newCooperatorWorker(Request $request){
+        $validated = $request->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+        ]);
+        $request['status'] = 1;
+        CooperatorWorkersModel::create($request->all());
+        return redirect()->route('hp_showCooperators', $request['cooperator_id'])->with('success', 'Uspješno dodan novi radnik kooperantu!');
+    }
+
+    public function deactivateCooperatorWorker($id){
+        $worker = CooperatorWorkersModel::where('id', $id);
+        $worker->update([
+            'status' => 0,
+        ]);
+        return redirect()->back()->with('success', 'Uspješno uklonjen radnik!');
+    }
 
 }

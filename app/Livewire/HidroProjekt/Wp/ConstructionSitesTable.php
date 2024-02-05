@@ -45,8 +45,7 @@ class ConstructionSitesTable extends DataTableComponent
         ];
     }
 
-    public function filters(): array
-{
+    public function filters(): array{
     return [
         SelectFilter::make('Status', 'status')
             ->options(ConstructionSiteModel::CONSTRUCTION_STATUS)
@@ -54,6 +53,6 @@ class ConstructionSitesTable extends DataTableComponent
                 $builder->where('status', $value);
             }),
 
-    ];
-}
+        ];
+    }
 }
