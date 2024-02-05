@@ -10,17 +10,20 @@ class ConstructionSiteModel extends Model
     use HasFactory;
 
     const CONSTRUCTION_STATUS_DISABLED = -1;
+    const CONSTRUCTION_STATUS_INITIALIZED = 0;
     const CONSTRUCTION_STATUS_ACTIVE = 1;
     const CONSTRUCTION_STATUS_DONE = 2;
 
     const CONSTRUCTION_STATUS = array(
         self::CONSTRUCTION_STATUS_DISABLED => 'Storno',
+        self::CONSTRUCTION_STATUS_INITIALIZED => 'Ugovoreno',
         self::CONSTRUCTION_STATUS_ACTIVE => 'Aktivno',
         self::CONSTRUCTION_STATUS_DONE => 'Završeno',
     );
 
     const CONSTRUCTION_STATUS_COLOR = array(
         self::CONSTRUCTION_STATUS_DISABLED => 'red',
+        self::CONSTRUCTION_STATUS_INITIALIZED => 'black',
         self::CONSTRUCTION_STATUS_ACTIVE => 'black',
         self::CONSTRUCTION_STATUS_DONE => 'green',
     );

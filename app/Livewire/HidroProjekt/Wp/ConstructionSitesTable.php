@@ -49,21 +49,9 @@ class ConstructionSitesTable extends DataTableComponent
 {
     return [
         SelectFilter::make('Status', 'status')
-            ->options([
-                '1' => 'Aktivno',
-                '2' => 'Završeno',
-                '-1' => 'Storno'
-            ])
+            ->options(ConstructionSiteModel::CONSTRUCTION_STATUS)
             ->filter(function(Builder $builder, string $value) {
-                if ($value === '1') {
-                    $builder->where('status', 1);
-                }
-                if ($value === '2') {
-                    $builder->where('status', 2);
-                }
-                if ($value === '-1') {
-                    $builder->where('status', -1);
-                }
+                $builder->where('status', $value);
             }),
 
     ];
