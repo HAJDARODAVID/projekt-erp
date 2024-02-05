@@ -32,6 +32,8 @@ class WorkHoursService
         $cumulativeHours['planedHours']=0;
         $cumulativeHours['workHours']=0;
         $cumulativeHours['overTime']=0;
+        $cumulativeHours['sickLeave']=0;
+        $cumulativeHours['paidLeave']=0;
         $cumulativeHours['dates']=[];
         $workerCount=0;
         $daysOfTheMonth = Months::dayOfMonth($month);
@@ -92,6 +94,9 @@ class WorkHoursService
             $completeAttendance[$key]['monthlyHours'] = $monthlyHours;
             $completeAttendance[$key]['overTime'] = $overTimeHours;
 
+            $completeAttendance[$key]['paidLeave'] = self::getPaidLeaveForMonthAndWorker($key, $month);
+            $completeAttendance[$key]['sickLeave'] = self::getSickLeaveForMonthAndWorker($key, $month);
+
             $cumulativeHours['workHours'] += $monthlyHours;
             $cumulativeHours['overTime'] += $overTimeHours;
 
@@ -99,6 +104,8 @@ class WorkHoursService
         }
 
         $cumulativeHours['planedHours'] = $workerCount * $planedHours;
+        $cumulativeHours['paidLeave'] += self::getPaidLeaveForMonth($month);
+        $cumulativeHours['sickLeave'] += self::getSickLeaveForMonth($month);
 
         $completeAttendance = [
             'attendance' => $completeAttendance,
@@ -117,6 +124,44 @@ class WorkHoursService
             }
         }
         return $planedHours;
+    }
+
+    private static function getSickLeaveForMonthAndWorker($workerId, $month){
+        $sickLeaveCount = AttendanceModel::where('worker_id', $workerId)
+            ->where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)
+            ->whereMonth('date','=',$month)
+            ->pluck('absence_reason')
+            ->count();       
+        //dd($sickLeaveCount);
+        return $sickLeaveCount;
+    }
+
+    private static function getSickLeaveForMonth($month){
+        $sickLeaveCount = AttendanceModel::where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)
+            ->whereMonth('date','=',$month)
+            ->pluck('absence_reason')
+            ->count();       
+        //dd($sickLeaveCount);
+        return $sickLeaveCount;
+    }
+
+    private static function getPaidLeaveForMonthAndWorker($workerId, $month){
+        $sickLeaveCount = AttendanceModel::where('worker_id', $workerId)
+            ->where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)
+            ->whereMonth('date','=',$month)
+            ->pluck('absence_reason')
+            ->count();       
+        //dd($sickLeaveCount);
+        return $sickLeaveCount;
+    }
+
+    private static function getPaidLeaveForMonth($month){
+        $sickLeaveCount = AttendanceModel::where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)
+            ->whereMonth('date','=',$month)
+            ->pluck('absence_reason')
+            ->count();       
+        //dd($sickLeaveCount);
+        return $sickLeaveCount;
     }
 
     

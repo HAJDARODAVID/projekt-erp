@@ -24,7 +24,8 @@
                     <td scope="col"><b>Ime i prezime</b></td>
                     <td scope="col"><abbr title="Planirani radni sati u mjesecu">PS</abbr></td>
                     <td scope="col"><abbr title="Ostvareni radni sati u mjesecu">OS</abbr></td>
-                    <td scope="col" style="border-right: 1.5px solid #000000;"><abbr title="Prekovremeni radni sati u mjesecu">PV</abbr></td>
+                    <td scope="col"><abbr title="Godišnji u mjesecu (dani)">GO</abbr></td>
+                    <td scope="col" style="border-right: 1.5px solid #000000;"><abbr title="Bolovanja u mjesecu (dani)">BO</abbr></td>
                     @foreach ($daysOfMonth as $day)
                         <?php 
                             $daynum = date("N", strtotime($day));
@@ -40,7 +41,8 @@
                         <td>{{ $worker['name'] }}</td>
                         <td>{{ $planedHours }}</td>
                         <td>{{ $worker['monthlyHours'] }}</td>
-                        <td style="border-right: 1.5px solid #000000;">{{ $worker['overTime'] }}</td>
+                        <td>{{ $worker['paidLeave'] }}</td>
+                        <td style="border-right: 1.5px solid #000000;">{{ $worker['sickLeave'] }}</td>
                         @foreach ($worker['attendance'] as $key => $attendance)
                             <?php 
                                 $daynum = date("N", strtotime($key));
@@ -69,7 +71,8 @@
                     <td style="border-top: 1.5px solid #000000;"><b>Sum</b></td>
                     <td style="border-top: 1.5px solid #000000;">{{ $cumulative['planedHours'] }}</td>
                     <td style="border-top: 1.5px solid #000000;">{{ $cumulative['workHours'] }}</td>
-                    <td style="border-top: 1.5px solid #000000; border-right: 1.5px solid #000000;">{{ $cumulative['overTime'] }}</td>
+                    <td style="border-top: 1.5px solid #000000;">{{ $cumulative['paidLeave'] }}</td>
+                    <td style="border-top: 1.5px solid #000000; border-right: 1.5px solid #000000;">{{ $cumulative['sickLeave'] }}</td>
                     @foreach ($cumulative['dates'] as $day)
                         <td style="border-top: 1.5px solid #000000;">{{ $day }}</td>
                     @endforeach
