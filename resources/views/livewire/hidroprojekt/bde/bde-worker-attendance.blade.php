@@ -26,7 +26,7 @@
     </thead>
     <tbody>
       <tr>
-        <td scope="row">Tomislav Šoštarek</td>
+        <td scope="row">{{ $groupLeader->getWorker->firstName }} {{ $groupLeader->getWorker->lastName }}</td>
         <td>@livewire('hidroProjekt.bde.bde-group-leader-hours',[
         'record' => $record,
         ])</td>
@@ -37,10 +37,15 @@
   <hr>
   <div class="row">
     <div class="col">
-      <h1 class="h6"><b>Radnici:</b></h1>
+      <h1 class="h6"><b>Radnici[Hidro-Projekt]:</b></h1>
     </div>
+  </div>
+  <div class="row">
     <div class="col">
       <button class="btn btn-success btn-sm" onclick="showAddWorkerToAddendanceModal()">DODAJ RADNIKA</button>
+    </div>
+    <div class="col">
+      <button class="btn btn-secondary btn-sm" onclick="hideShowTable('hidroWorkersTableBody','hidroToggleBtn')" id="hidroToggleBtn">SAKRIJ RADNIKE</button>
     </div>
   </div>
 
@@ -75,6 +80,20 @@
 
   function closeAddWorkerToAddendanceModal(){
     document.getElementById('addWorkerToAttendance').style.display = "none";
+  }
+
+  function hideShowTable(idTable, idBtn){
+    let element = document.getElementById(idTable); 
+    let btnToggle = document.getElementById(idBtn); 
+    if(element.style.display == ""){
+      element.style.display = "none";
+      btnToggle.innerHTML = "PRIKAŽI RADNIKE"
+    }else{
+      element.removeAttribute("style");
+      btnToggle.innerHTML = "SAKRIJ RADNIKE"
+    }
+    
+    
   }
 </script>
 

@@ -15,9 +15,14 @@
                 <h5 class="modal-title" id="exampleModalLabel">Promjena informacija radnika</h5>
             </div>
             <div class="modal-body">
-                <form  id="addNewCooperatorWorkerForm" method="POST" action="{{ route('hp_newCooperatorWorker') }}">
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-danger" id="alert">
+                        <p>Polja za ime i prezime moraju biti popunjena!</p>
+                    </div>
+                @endif
+                <form  id="updateCooperatorWorkerForm-{{ $row->id }}" method="POST" action="{{ route('hp_updateCooperatorWorker', $row->id) }}">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
                     <div class="form-group mb-2">
                       <label for="car_plates">Ime</label>
                       <input type="text" class="form-control @error('firstName')is-invalid @enderror" id="firstName" name="firstName" value="{{ $row->firstName }}" required>
@@ -29,12 +34,20 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('updateCooperatorWorker-{{ $row->id }}')">ZATVORI</button>
-                <button type="button" class="btn btn-primary" onclick="submitForm('addNewCooperatorWorkerForm')">SPREMI</button>
+                <a type="button" class="btn btn-secondary" href="{{ route('hp_showCooperators', $row->cooperator_id) }}">ZATVORI</a>
+                <button type="button" class="btn btn-primary" onclick="submitForm('updateCooperatorWorkerForm-{{ $row->id }}')">SPREMI</button>
             </div>
             </div>
         </div>
     </div>
+
+    @if ($message = Session::get('error'))
+        {{-- <div class="alert alert-success">
+        <p>{{ $message['workerId'] }}</p>
+        </div> --}}
+        <script>showModal('updateCooperatorWorker-{{ $message['workerId'] }}')</script>
+    @endif
+    
     <script>
         function showModal(modal) {
             document.getElementById(modal).style.display = 'block';

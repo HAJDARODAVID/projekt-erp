@@ -46,6 +46,10 @@
                         'record' => $record,
                     ])
 
+                    @livewire('hidroprojekt.bde.bde-cooperators-attendance',[
+                        'record' => $record,
+                    ])
+
                     @livewire('hidroProjekt.bde.bde-working-day-log',[
                         'record' => $record,
                     ])
@@ -75,7 +79,21 @@
         document.getElementById('attendanceComponent').style.display = "none";     
         document.getElementById('attendaceModule').style.display = "block";
         document.getElementById('goToMainModul').style.display = "block";
-        document.getElementById('deleteEntry').style.display = "none";  
+        document.getElementById('deleteEntry').style.display = "none";
+        document.getElementById('cooperatorsComponent').style.display = "none"; 
+        document.getElementById('cooperatorsModule').style.display = "none"; 
+    }
+
+    function showAddCooperatorsModule(){
+        document.getElementById('goToHome').style.display = "none";
+        document.getElementById('workLog').style.display = "none";
+        document.getElementById('mainBdeComponents').style.display = "none";
+        document.getElementById('attendanceComponent').style.display = "none";     
+        document.getElementById('attendaceModule').style.display = "none";
+        document.getElementById('goToMainModul').style.display = "block";
+        document.getElementById('deleteEntry').style.display = "none";
+        document.getElementById('cooperatorsComponent').style.display = "none";
+        document.getElementById('cooperatorsModule').style.display = "block";   
     }
 
     function showWorkLogModule(){
@@ -86,6 +104,7 @@
         document.getElementById('goToMainModul').style.display = "block";
         document.getElementById('deleteEntry').style.display = "none"; 
         document.getElementById('workLogForm').style.display = "block";
+        document.getElementById('cooperatorsComponent').style.display = "none";
     }
 
     function backToMainModule(){
@@ -96,6 +115,7 @@
         document.getElementById('attendanceComponent').style.display = "block";
         document.getElementById('workLog').style.display = "block"; 
         document.getElementById('deleteEntry').style.display = "block";  
+        document.getElementById('cooperatorsComponent').style.display = "block";
         
     }
 </script>

@@ -6,7 +6,7 @@
                 <td>Sati</td>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="hidroWorkersTableBody">
             <form>
             @foreach ($allWorkers as $worker)
                 <tr>

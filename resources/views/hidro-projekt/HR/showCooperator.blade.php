@@ -10,9 +10,10 @@
   
 <div class="container">
   @if ($message = Session::get('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success" id="alert">
       <p>{{ $message }}</p>
     </div>
+    <script>fadeAway('alert');</script>
   @endif
 
   <x-hr.add-new-cooperator-worker :cooperatorId="$cooperator->id"></x-hr.add-new-cooperator-worker>

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\HidroProjekt;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\CooperatorsModel;
-use App\Models\CooperatorWorkersModel;
 use App\Models\WorkerModel;
-use App\Services\HidroProjekt\HR\TcpdfPayrollLabelsGenerator;
+use Illuminate\Http\Request;
+use App\Models\CooperatorsModel;
+use App\Http\Controllers\Controller;
+use App\Models\CooperatorWorkersModel;
+use Illuminate\Support\Facades\Session;
 use App\Services\HidroProjekt\HR\WorkerService;
 use App\Services\HidroProjekt\HR\WorkHoursService;
+use App\Services\HidroProjekt\HR\TcpdfPayrollLabelsGenerator;
 
 class HumanResourcesController extends Controller
 {
@@ -119,6 +120,27 @@ class HumanResourcesController extends Controller
             'status' => 0,
         ]);
         return redirect()->back()->with('success', 'Uspješno uklonjen radnik!');
+    }
+
+    public function updateCooperatorWorker(Request $request, $id){
+        $error = [];
+        $error['workerId'] = $id;
+        if ($request['firstName'] == "" || $request['lastName'] == "") {
+            if($request['firstName'] == ""){
+                $error['firstName'] = 'Obavezno upisati ime!!';
+            }
+            if($request['lastName'] == ""){
+                $error['lastName'] = 'Obavezno upisati prezime!!';
+            }
+            Session::flash('error', $error);
+            return redirect()->back();
+        }
+        $worker = CooperatorWorkersModel::where('id', $id);
+        $worker->update([
+            'firstName' => $request['firstName'],
+            'lastName' => $request['lastName'],
+        ]);
+        return redirect()->back()->with('success', 'Uspješno spremljen radnik!');
     }
 
 }

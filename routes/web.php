@@ -81,6 +81,7 @@ Route::prefix('/')
                 Route::get('/cooperators/{id}', 'showCooperators')->name('hp_showCooperators');
                 Route::post('/cooperators_worker', 'newCooperatorWorker')->name('hp_newCooperatorWorker');
                 Route::put('/cooperators_worker/{id}', 'deactivateCooperatorWorker')->name('hp_deactivateCooperatorWorker');
+                Route::put('/cooperators_update_worker/{id}', 'updateCooperatorWorker')->name('hp_updateCooperatorWorker');
 
 
                 //PDF routes
