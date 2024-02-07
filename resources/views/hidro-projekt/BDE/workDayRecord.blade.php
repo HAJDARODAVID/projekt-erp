@@ -46,7 +46,7 @@
                         'record' => $record,
                     ])
 
-                    @livewire('hidroprojekt.bde.bde-cooperators-attendance',[
+                    @livewire('hidroProjekt.bde.bde-cooperators-attendance',[
                         'record' => $record,
                     ])
 
