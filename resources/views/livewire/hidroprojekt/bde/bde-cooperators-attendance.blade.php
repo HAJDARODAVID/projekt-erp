@@ -29,6 +29,12 @@
         </div>
         <hr>
 
+        @livewire('hidroProjekt.bde.bde-co-op-attendance-table',[
+            'record' => $record,
+        ])
+        
+
+
         <!-- Modal => add cooperators -->
         <div class="modal" id="addCooperatorsToAttendance" style="display: none">
             <div class="modal-dialog" role="document">
@@ -66,9 +72,7 @@
           }else{
             element.removeAttribute("style");
             btnToggle.innerHTML = "SAKRIJ RADNIKE"
-          }
-          
-          
+          } 
         }
-      </script>
+    </script>
 </div>
