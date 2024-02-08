@@ -9,6 +9,12 @@ use Livewire\Component;
 class BdeCooperatorsAttendance extends Component
 {
     public $record;
+    public $workerCount;
+
+    public function mount(){
+        $this->workerCount = CooperatorsAttendanceService::getWorkerCount($this->record->id);
+    }
+
 
     public function render()
     {

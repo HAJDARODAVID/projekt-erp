@@ -3,6 +3,8 @@
         <h1 class="h6"><b>Kooperanti na gradilištu</b></h1>
         <div class="row">
             <div class="col d-flex justify-content-center">
+                <i class="bi bi-people-fill" style="color: red;"></i>&nbsp : &nbsp
+                <b style="color: red;">{{ $workerCount }}</b>
             </div>
             <div class="col d-flex justify-content-center"> <button class="btn btn-success btn-sm" onclick="showAddCooperatorsModule()">POPIS RADNIKA</button></div>
         </div>
@@ -13,19 +15,10 @@
 
         <h1 class="h5"><b class="">Radni sati kooperanta</b></h1>
         <hr>
-
-        <div class="row">
-            <div class="col">
-                <h1 class="h6"><b>Radnici[kooperanti]:</b></h1>
-            </div>
-        </div>
         <div class="row">
             <div class="col col-md-5">
                 <button class="btn btn-success btn-sm" onclick="showAddCooperatorsToAddendanceModal()">DODAJ KOOPERANTA</button>
             </div>
-            {{-- <div class="col">
-                <button class="btn btn-secondary btn-sm" onclick="hideShowTable('hidroWorkersTableBody','hidroToggleBtn')" id="hidroToggleBtn">SAKRIJ RADNIKE</button>
-            </div> --}}
         </div>
         <hr>
 

@@ -78,6 +78,37 @@ class CooperatorsAttendanceService
         return $sortedByGroup;
     }
 
+    public static function removeGroupFromAttendance($groupItems){
+        foreach ($groupItems as $wrkInAtt) {
+            AttendanceCoOpModel::find($wrkInAtt['id'])->delete();
+        }
+        return;
+    }
+
+    public static function getWorkerHoursForEntry($wrk, $entry){
+        return AttendanceCoOpModel::where('id', $wrk)
+                    ->where('working_day_record_id', $entry)
+                    ->pluck('work_hours')->first();
+    }
+
+    public static function updateWorkerHours($att, $hours){
+        $attendance = AttendanceCoOpModel::find($att);
+        $attendance->update([
+            'work_hours' => $hours == "" ? NULL : $hours,
+        ]);
+        return;
+    } 
+
+    public static function removeWorkerFromAttendance($att){
+        $attendance = AttendanceCoOpModel::find($att);
+        $attendance->delete();
+        return;
+    }
+
+    public static function getWorkerCount($att){
+        return AttendanceCoOpModel::where('working_day_record_id',$att)->pluck('id')->count();
+    }
+
 
 
 }
