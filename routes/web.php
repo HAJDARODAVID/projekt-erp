@@ -57,17 +57,20 @@ Route::prefix('/')
     ->middleware(['auth','userRights'])
     ->group(Function(){
 
-        Route::controller(AdminController::class)
-            ->prefix('/adm')
+        /**
+         * Admin routes
+         */
+        Route::prefix('/adm')
             ->group(function(){
-                Route::get('/users', 'users')->name('hp_users');
-            });
-
-        Route::controller(TicketController::class)
-            ->prefix('/adm')
-            ->group(function(){
-                Route::get('/tickets', 'tickets')->name('hp_tickets');
-                Route::post('/new_tickets', 'newTicket')->name('hp_newTicket');
+                Route::controller(AdminController::class)
+                    ->group(function(){
+                        Route::get('/users', 'users')->name('hp_users');
+                    });
+                Route::controller(TicketController::class)
+                    ->group(function(){
+                        Route::get('/tickets', 'tickets')->name('hp_tickets');
+                        Route::post('/new_tickets', 'newTicket')->name('hp_newTicket');
+                    });
             });
 
         Route::controller(HumanResourcesController::class)
