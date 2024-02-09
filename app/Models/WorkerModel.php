@@ -14,6 +14,10 @@ class WorkerModel extends Model
 
     const DEFAULT_COMPANY = 'HIDRO-PROJEKT';
 
+    const WORKER_STATUS_EMPLOYED = 1;
+    const WORKER_STATUS_EX_EMPLOYEE = -1;
+
+
     protected $table = 'workers';
 
     protected $fillable = [

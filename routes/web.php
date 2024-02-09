@@ -84,7 +84,7 @@ Route::prefix('/')
                 Route::post('/workers/new', 'addNewWorker')->name('hp_addNewWorker');
                 Route::get('/workers/{id}', 'showWorker')->name('hp_showWorker');
                 Route::put('/workers/{id}', 'updateWorker')->name('hp_updateWorker');
-                Route::delete('/workers/{id}', 'deleteWorker')->name('hp_deleteWorker');
+                Route::put('/workers/disable/{id}', 'disableWorker')->name('hp_disableWorker');
 
                 Route::get('work_hours', 'allWorkHours')->name('hp_allWorkHours');
 

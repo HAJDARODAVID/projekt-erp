@@ -52,9 +52,11 @@ class HumanResourcesController extends Controller
         return redirect()->route('hp_allWorkers')->with('success', 'Radnik: uspješno dodan!');
     }
 
-    public function deleteWorker($id){
+    public function disableWorker($id){
         $worker = WorkerModel::where('id',$id)->first();
-        $worker->delete();
+        $worker->update([
+            'status' => WorkerModel::WORKER_STATUS_EX_EMPLOYEE,
+        ]);
         return redirect()->route('hp_allWorkers')->with('success', 'Radnik: uspješno maknut!');
     }
 

@@ -1,9 +1,11 @@
-<div style="display: inline">
-    <a href="{{ route('hp_showWorker', $row->id) }}" class="btn btn-primary btn-sm">PRIKAZ</a>
-    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); document.getElementById('deleteUser_{{ $row->id }}').submit();">X</button>
-    <form action="{{ route('hp_deleteWorker', $row->id) }}" method="post" id="deleteUser_{{ $row->id }}">
+<div class="d-flex flex-row">
+    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); document.getElementById('deleteUser_{{ $row->id }}').submit();" >X</button>
+    &nbsp;
+    <form action="{{ route('hp_disableWorker', $row->id) }}" method="post" id="deleteUser_{{ $row->id }}">
         @csrf
-        @method('DELETE')
-        
+        @method('PUT') 
     </form>
+    @livewire('hidroprojekt.hr.create-new-user-from-worker-btn', [
+        'worker' => $row,
+    ], key($row->id))
 </div>
