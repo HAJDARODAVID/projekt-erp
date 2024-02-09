@@ -26,4 +26,10 @@ class TicketController extends Controller
         $newTicket = $this->ticketService->createNewTicket($request->all());
         return redirect()->back()->with('success', 'Ticket #'.$newTicket->id.'  uspješno kreiran!');
     }
+
+    public function showTicket($id){
+        return view('hidro-projekt.ADM.showTicket',[
+            'ticketInfo' => $this->ticketService->getTicketInfo($id)
+        ]);
+    }
 }

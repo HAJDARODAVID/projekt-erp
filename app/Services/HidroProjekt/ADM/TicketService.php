@@ -15,4 +15,15 @@ class TicketService
         return $newTicket;
     }
 
+    public function getTicketInfo($ticket){
+        $ticket= TicketModel::find($ticket);
+        return $ticket;
+    }
+
+    public function updateTicketInfo($ticket, $data){
+        $ticket= TicketModel::find($ticket);
+        $ticket->update($data);
+        return;
+    }
+
 }

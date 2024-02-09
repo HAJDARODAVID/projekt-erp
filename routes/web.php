@@ -69,6 +69,7 @@ Route::prefix('/')
                 Route::controller(TicketController::class)
                     ->group(function(){
                         Route::get('/tickets', 'tickets')->name('hp_tickets');
+                        Route::get('/tickets/{id}', 'showTicket')->name('hp_showTicket');
                         Route::post('/new_tickets', 'newTicket')->name('hp_newTicket');
                     });
             });

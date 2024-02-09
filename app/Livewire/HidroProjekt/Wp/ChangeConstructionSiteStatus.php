@@ -23,11 +23,9 @@ class ChangeConstructionSiteStatus extends Component
 
     public function updatedStatus(){
         $this->constSiteService = new ConstructionSiteService;
-        //dd($this->status, $this->constId);
         $this->constSiteService->updateConstructionSite($this->constId,[
             'status' => $this->status
         ]);
-    //    ConstructionSiteModel::where('id', $this->constId)->update(['status' => $this->status]);
     }
 
     public function render()

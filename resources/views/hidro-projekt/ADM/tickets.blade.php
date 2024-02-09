@@ -16,5 +16,9 @@
   
 <div class="container">
     <x-adm.create-new-ticket></x-adm.create-new-ticket>
+    <hr>
+    @livewire('hidroProjekt.adm.tickets-table', [
+      'theme' => "bootstrap-5",
+    ])
 </div>
 @endsection
