@@ -9,6 +9,7 @@ use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 use App\Http\Controllers\HidroProjekt\WorkPlanningController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
+use App\Http\Controllers\HidroProjekt\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,13 @@ Route::prefix('/')
             ->prefix('/adm')
             ->group(function(){
                 Route::get('/users', 'users')->name('hp_users');
+            });
+
+        Route::controller(TicketController::class)
+            ->prefix('/adm')
+            ->group(function(){
+                Route::get('/tickets', 'tickets')->name('hp_tickets');
+                Route::post('/new_tickets', 'newTicket')->name('hp_newTicket');
             });
 
         Route::controller(HumanResourcesController::class)
