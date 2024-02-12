@@ -47,11 +47,11 @@ class WorkersTable extends DataTableComponent
             Column::make('Radnik','is_worker')
                 ->view('components.is-worker-checkbox'),
 
-            // Column::make('Actions')
-            //     ->label(
-            //         fn($row, Column $column) => view('components.worker-table-action-btn')->withRow($row)
-            //     )
-            //     ->unclickable(),
+            Column::make('Actions')
+                ->label(
+                    fn($row, Column $column) => view('components.worker-table-action-btn')->withRow($row)
+                )
+                ->unclickable(),
 
         ];
     }
