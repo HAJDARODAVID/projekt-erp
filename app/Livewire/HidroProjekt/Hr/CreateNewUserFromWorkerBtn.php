@@ -40,8 +40,8 @@ class CreateNewUserFromWorkerBtn extends Component
         $service->createNewUser([
             'name' => $this->worker->firstName,
             'email'=> $this->email,
-            'password' =>Hash::make(User::DEFAULT_PASSWORD),
-            'type' =>User::USER_TYPE_GROUP_LEADER,
+            'password' => Hash::make(User::DEFAULT_PASSWORD),
+            'type' => User::USER_TYPE_GROUP_LEADER,
             'worker_id' => $this->worker->id,
         ]);
     }
