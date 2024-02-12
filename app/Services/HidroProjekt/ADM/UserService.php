@@ -15,6 +15,7 @@ class UserService
     }
 
     public function createNewUser($data){
-        dd($data);
+        User::create($data);
+        return redirect()->route('hp_users');
     }
 }

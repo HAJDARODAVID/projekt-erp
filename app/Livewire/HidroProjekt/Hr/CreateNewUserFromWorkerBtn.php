@@ -38,7 +38,7 @@ class CreateNewUserFromWorkerBtn extends Component
     public function createUser(){
         $service = new UserService;
         $service->createNewUser([
-            'name' => $this->worker->fistName,
+            'name' => $this->worker->firstName,
             'email'=> $this->email,
             'password' =>Hash::make(User::DEFAULT_PASSWORD),
             'type' =>User::USER_TYPE_GROUP_LEADER,

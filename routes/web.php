@@ -65,6 +65,7 @@ Route::prefix('/')
                 Route::controller(AdminController::class)
                     ->group(function(){
                         Route::get('/users', 'users')->name('hp_users');
+                        //Route::get('/users', 'users')->name('hp_users');
                     });
                 Route::controller(TicketController::class)
                     ->group(function(){
