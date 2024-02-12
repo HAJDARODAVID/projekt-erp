@@ -5,7 +5,7 @@
         @csrf
         @method('PUT') 
     </form>
-    @livewire('hidroprojekt.hr.create-new-user-from-worker-btn', [
+    @livewire('hidroProjekt.hr.create-new-user-from-worker-btn', [
         'worker' => $row,
     ], key($row->id))
 </div>
