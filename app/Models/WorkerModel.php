@@ -17,6 +17,9 @@ class WorkerModel extends Model
     const WORKER_STATUS_EMPLOYED = 1;
     const WORKER_STATUS_EX_EMPLOYEE = -1;
 
+    protected $attributes = [
+        'status' => self::WORKER_STATUS_EMPLOYED,
+    ];
 
     protected $table = 'workers';
 
