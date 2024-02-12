@@ -25,7 +25,12 @@ class User extends Authenticatable
         self::USER_TYPE_SUPER_ADMIN => 'Super admin',
     );
 
-    const DEFAULT_PASSWORD = 123456;   
+    const DEFAULT_PASSWORD = 123456;
+
+    protected $attributes = [
+        'type' => self::USER_TYPE_ADMIN_STAFF,
+    ];
+   
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +41,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type',
     ];
 
     /**
