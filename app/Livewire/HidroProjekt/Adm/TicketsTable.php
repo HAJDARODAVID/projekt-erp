@@ -37,6 +37,7 @@ class TicketsTable extends DataTableComponent
 
     public function builder(): Builder{
         return TicketModel::query()
-            ->where('status', '!=', -1);
+            ->where('status', '!=', -1)
+            ->orderBy('id', 'desc');
     }
 }
