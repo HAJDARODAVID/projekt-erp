@@ -2,9 +2,10 @@
 
 namespace App\Livewire\HidroProjekt\Assets;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\CompanyCarsModel;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class CompanyCarsTable extends DataTableComponent
 {
@@ -12,7 +13,10 @@ class CompanyCarsTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+            ->setTableRowUrl(function($row) {
+                return route('hp_showCompanyCar', $row->car_plates);
+            });
     }
 
     public function columns(): array
@@ -31,6 +35,12 @@ class CompanyCarsTable extends DataTableComponent
                 ->sortable(),
             Column::make("Id", "id")
                 ->view('components.assets.company-cars-table-action-btn')
+                ->unclickable(),
         ];
+    }
+
+    public function builder(): Builder{
+        return CompanyCarsModel::query()
+            ->where('active', '!=', -1);
     }
 }

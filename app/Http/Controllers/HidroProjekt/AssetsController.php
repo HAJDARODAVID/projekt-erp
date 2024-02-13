@@ -7,6 +7,7 @@ use Intervention\Image\Image;
 use App\Models\CompanyCarsModel;
 use Jenssegers\Agent\Facades\Agent;
 use App\Http\Controllers\Controller;
+use App\Services\HidroProjekt\ASSETS\CompanyCarService;
 
 class AssetsController extends Controller
 {
@@ -52,9 +53,14 @@ class AssetsController extends Controller
             ]);
             return redirect()->route('hp_showCompanyCar', $request->plates);
         }
+    }
 
-        // $fileName = time() .'-'.$plates.'.' . $request->file('carAvatarFolder')->getClientOriginalExtension();
-        // dd($fileName);
-        // $request->image->storeAs('public/images', $fileName);
+    public function deactivateCar($id){
+        $service = new CompanyCarService;
+        $service->updateCompanyCar($id, [
+            'active' => -1,
+        ]);
+        $car =  $service->getCarById($id);
+        return redirect()->route('hp_companyCars')->with('success', 'Vozilo uspješno maknuto!');
     }
 }

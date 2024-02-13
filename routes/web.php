@@ -113,6 +113,7 @@ Route::prefix('/')
                 Route::get('/fleet/{plates}', 'showCompanyCar')->name('hp_showCompanyCar');
                 Route::post('/fleet', 'addCompanyCars')->name('hp_addCompanyCars');
                 Route::post('/fleet/carAvatar','uploadCarAvatarImage')->name('hp_uploadCarAvatarImage');
+                Route::put('/fleet/deactivate/{id}','deactivateCar')->name('hp_deactivateCar');
 
             });
 
