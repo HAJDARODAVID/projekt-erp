@@ -54,6 +54,20 @@
                     <input type="text" class="form-control" id="purchase_price" name="purchase_price" wire:model.blur = 'carInfo.purchase_price'>
                 </div> 
             </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="form-group">
+                    <label for="mileage">Trenuta kilomentaža(km)</label>
+                    <input type="text" class="form-control" id="mileage" name="mileage" disabled wire:model.blur = 'mileage'>
+                </div> 
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="service_every">Servis za(km)</label>
+                    <input type="text" class="form-control" id="service_every" name="service_every">
+                </div> 
+            </div>
         </div> 
     </div>
 </div>
