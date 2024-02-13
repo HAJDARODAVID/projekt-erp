@@ -25,5 +25,7 @@ class CompanyCarsModel extends Model
         'valid_to',
         'active',
         'avatar',
+        'last_service_at',
+        'service_every',
     ];
 }
