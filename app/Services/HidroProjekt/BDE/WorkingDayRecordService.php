@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\BDE;
 
+use App\Models\AttendanceCoOpModel;
 use App\Models\AttendanceModel;
 use App\Models\WorkingDayLogModel;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,12 @@ class WorkingDayRecordService
         $attendance = WorkerAttendanceService::getAllWorkersForEntry($entryId);
         foreach($attendance as $worker){
             WorkerAttendanceService::removeWorkerFromAttendance($worker->worker_id, $entryId);
+        }
+
+        //Delete everyone from attendance --> cooperator
+        $attendanceCoOp = AttendanceCoOpModel::where('working_day_record_id',$entryId)->get();
+        foreach($attendanceCoOp as $coOp){
+            $coOp->delete();
         }
 
         //Delete entry self
