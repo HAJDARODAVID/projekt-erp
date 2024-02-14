@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
-use App\Http\Controllers\HidroProjekt\WorkPlanningController;
+use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\TicketController;
@@ -117,24 +117,23 @@ Route::prefix('/')
 
             });
 
-        Route::controller(WorkPlanningController::class)
-            ->prefix('/wp')
+        Route::prefix('/wp')
             ->group(function(){
-
-                Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
-                Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
-                Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
-
-
+                Route::controller(ConstructionSiteController::class)
+                    ->group(function(){
+                        Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
+                        Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
+                        Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
+                    });
             });
         
     });
 
-    Route::get('/clear', function() {
-        Artisan::call('cache:clear');
-        Artisan::call('route:cache');
-        Artisan::call('view:clear');
-        Artisan::call('config:cache');
-        return  "all cleared ...";
-    
-    });
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('route:cache');
+    Artisan::call('view:clear');
+    Artisan::call('config:cache');
+    return  "all cleared ...";
+
+});

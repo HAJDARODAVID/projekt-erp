@@ -7,7 +7,7 @@ use App\Models\ConstructionSiteModel;
 use App\Services\HidroProjekt\WP\ConstructionSiteService;
 use Illuminate\Http\Request;
 
-class WorkPlanningController extends Controller
+class ConstructionSiteController extends Controller
 {
     private $constSiteService;
     public function __construct()
