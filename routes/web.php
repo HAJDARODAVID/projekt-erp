@@ -10,6 +10,7 @@ use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\TicketController;
+use App\Http\Controllers\WorkDayDiaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,6 +125,11 @@ Route::prefix('/')
                         Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
                         Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
                         Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
+                    });
+                Route::controller(WorkDayDiaryController::class)
+                    ->group(function(){
+                        Route::get('work_day_diaries', 'workDayDiaries')->name('hp_workDayDiaries');
+                        Route::get('work_day_diaries/{id}', 'showWorkDayDiary')->name('hp_showWorkDayDiary');
                     });
             });
         
