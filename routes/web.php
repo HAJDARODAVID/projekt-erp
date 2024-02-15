@@ -10,6 +10,7 @@ use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\TicketController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkDayDiaryController;
 
 /*
@@ -46,7 +47,10 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
                 Route::get('/wd_record/{id}','workingDayEntry')->name('hp_workingDayEntry');
                 Route::delete('/wd_record/{id}','deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
             });
-
+        Route::controller(ProfileController::class)
+            ->group(function(){
+                Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
+            });
     });
 
 
