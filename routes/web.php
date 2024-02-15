@@ -50,6 +50,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
         Route::controller(ProfileController::class)
             ->group(function(){
                 Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
+                Route::put('/pass_reset', 'passwordChange')->name('bde_passwordChange');
             });
     });
 
