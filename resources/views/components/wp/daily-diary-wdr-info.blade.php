@@ -42,19 +42,19 @@
             <div class="col">
             <div class="form-group">
                 <label for="car_plates">Registracijske oznake</label>
-                <input type="text" class="form-control" id="car_plates" name="car_plates" value="{{ $car->car_plates }}" disabled>
+                <input type="text" class="form-control" id="car_plates" name="car_plates" value="@if(isset($car)) {{ $car->car_plates }} @endif" disabled>
             </div>
             </div>
             <div class="col">
             <div class="form-group">
                 <label for="brand">Marka</label>
-                <input type="text" class="form-control" id="brand" name="brand" value="{{ $car->brand }}" disabled>
+                <input type="text" class="form-control" id="brand" name="brand" value="@if(isset($car)) {{ $car->brand }} @endif" disabled>
             </div> 
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="model">Model</label>
-                    <input type="text" class="form-control" id="model" name="model" value="{{ $car->model }}" disabled>
+                    <input type="text" class="form-control" id="model" name="model" value="@if(isset($car)) {{ $car->model }} @endif" disabled>
                 </div> 
             </div>
         </div>

@@ -41,6 +41,7 @@ class WorkDiaryTable extends DataTableComponent
 
     public function builder(): Builder{
         return WorkDayDiaryViewModel::query()
+            ->where('construction_site_id', '!=', NULL)
             ->orderBy('date', 'desc');
     }
 }
