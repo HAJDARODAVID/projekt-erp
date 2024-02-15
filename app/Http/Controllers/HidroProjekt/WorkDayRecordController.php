@@ -46,4 +46,10 @@ class WorkDayRecordController extends Controller
         return redirect()->route('home');
     }
 
+    public function myEntries(){
+        return view('hidro-projekt.BDE.myEntries',[
+            'user'=>Auth::user()->id,
+        ]);
+    }
+
 }
