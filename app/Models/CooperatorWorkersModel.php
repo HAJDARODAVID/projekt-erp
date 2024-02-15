@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CooperatorWorkersModel extends Model
 {
@@ -24,4 +25,8 @@ class CooperatorWorkersModel extends Model
         'lastName',
         'status',
     ];
+
+    public function getCoOpInfo():HasOne{
+        return $this->hasOne(CooperatorsModel::class, 'id','cooperator_id');
+    }
 }

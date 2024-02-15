@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CooperatorWorkersModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AttendanceCoOpModel extends Model
 {
@@ -17,4 +19,8 @@ class AttendanceCoOpModel extends Model
         'work_hours', 
         'date',
     ];
+
+    public function getWorkerInfo():HasOne{
+        return $this->hasOne(CooperatorWorkersModel::class, 'id','worker_id');
+    }
 }

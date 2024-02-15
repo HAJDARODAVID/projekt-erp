@@ -96,6 +96,43 @@
       </div>
 
       <div class="col">
+        <p class="h6">Pisustvo radnika[Hidro-Projekt]:</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <td><b>Ime / Prezime</b></td>
+              <td><b>Sati</b></td>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($attendance as $att)
+              <tr>
+                <td>{{ $att->getWorkerInfo->firstName }} {{ $att->getWorkerInfo->lastName }}</td>
+                <td>{{ $att->work_hours }}</td> 
+              </tr>  
+            @endforeach
+          </tbody>
+        </table>
+        <hr>
+        <p class="h6">Pisustvo radnika[Kooperanti]:</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <td><b>Ime / Prezime</b></td>
+              <td><b>Grupa</b></td>
+              <td><b>Sati</b></td>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($attendanceCoOp as $attCoOp)
+              <tr>
+                <td>{{ $attCoOp->getWorkerInfo->firstName }} {{ $attCoOp->getWorkerInfo->lastName }}</td>
+                <td>{{ $attCoOp->getWorkerInfo->getCoOpInfo->name }}</td>
+                <td>{{ $attCoOp->work_hours }}</td> 
+              </tr>  
+            @endforeach
+          </tbody>
+        </table>
         
       </div>
     </div>

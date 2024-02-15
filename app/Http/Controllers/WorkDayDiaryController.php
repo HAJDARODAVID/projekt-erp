@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttendanceCoOpModel;
+use App\Models\AttendanceModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\CarMileageModel;
@@ -22,6 +24,8 @@ class WorkDayDiaryController extends Controller
         $car=CompanyCarsModel::where('id', $wdr->car_id)->first();
         $carMileage = CarMileageModel::where('wdr_id', $wdr->id)->first();
         $groupLeader = User::where('id', $wdr->user_id)->with('getWorker')->first();
+        $attendance = AttendanceModel::where('working_day_record_id', $wdr->id)->with('getWorkerInfo')->get();
+        $attendanceCoOp = AttendanceCoOpModel::where('working_day_record_id', $wdr->id)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
 
         $stringLog="";
         foreach ($wdr->getLogs as $logs) {
@@ -39,6 +43,8 @@ class WorkDayDiaryController extends Controller
             'car' => $car,
             'carMileage' => $carMileage,
             'stringLog' => $stringLog,
+            'attendance' => $attendance,
+            'attendanceCoOp'=> $attendanceCoOp
         ]);
     }
 }
