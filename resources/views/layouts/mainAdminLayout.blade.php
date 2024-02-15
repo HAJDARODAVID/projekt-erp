@@ -9,6 +9,7 @@
     <title>ADM module</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
+    <link rel="icon" href="{{ url('/images/hpIcon.png') }}" type="image/x-icon"/>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
