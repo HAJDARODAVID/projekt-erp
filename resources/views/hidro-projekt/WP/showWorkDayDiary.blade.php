@@ -4,139 +4,35 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h3">#{{ $wdr->id }} - {{ $wdr->date }}: {{ $constSite->name }}</h1>
   </div>
+
   
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <p class="h6">Poslovođa:</p>
-        <div class="row mb-3">
-            <div class="col">
-                <div class="form-group">
-                    <label for="firstName">Ime</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" value="{{ $groupLeader->getWorker->firstName }}" disabled>
-                </div> 
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="lastName">Prezime</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" value="{{ $groupLeader->getWorker->lastName }}" disabled>
-                </div> 
-            </div>
-        </div>
-
-        <p class="h6">Gradilište:</p>
-        <div class="row mb-3">
-            <div class="form-group">
-              <label for="name">Naziv gradilišta</label>
-              <input type="text" class="form-control" id="name" name="name" value="{{ $constSite->name }}" disabled>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="town">Mjesto</label>
-                    <input type="text" class="form-control" id="town" name="town" value="{{ $constSite->town }}" disabled>
-                </div> 
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="street">Ulica</label>
-                    <input type="text" class="form-control" id="street" name="street" value="{{ $constSite->street }}" disabled>
-                </div> 
-            </div>
-        </div>
-
-        <p class="h6">Vozilo:</p>
-        <div class="row mb-1">
-            <div class="col">
-              <div class="form-group">
-                <label for="car_plates">Registracijske oznake</label>
-                <input type="text" class="form-control" id="car_plates" name="car_plates" value="{{ $car->car_plates }}" disabled>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                  <label for="brand">Marka</label>
-                  <input type="text" class="form-control" id="brand" name="brand" value="{{ $car->brand }}" disabled>
-              </div> 
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="model">Model</label>
-                    <input type="text" class="form-control" id="model" name="model" value="{{ $car->model }}" disabled>
-                </div> 
-            </div>
-        </div>
-
-        @if ($carMileage != NULL)
-        <div class="row mb-3">
-          <div class="col">
-            <div class="form-group">
-              <label for="star_mileage">Početno(km)</label>
-              <input type="text" class="form-control" id="star_mileage" name="star_mileage" value="{{ $carMileage->start_mileage }}" disabled>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-                <label for="end_mileage">Završno(km)</label>
-                <input type="text" class="form-control" id="end_mileage" name="end_mileage" value="{{ $carMileage->end_mileage }}" disabled>
-            </div> 
-          </div>
-          <div class="col">
-              <div class="form-group">
-                  <label for="diff">Pređeno(km)</label>
-                  <input type="text" class="form-control" id="diff" name="diff" value="{{ $carMileage->end_mileage - $carMileage->start_mileage }}" disabled>
-              </div> 
-          </div>  
-        </div>
-        @endif
-        
-        <p class="h6">Dnevnik radova:</p>
-        <div class="row mb-3">
-            <textarea class="form-control" id="job_description" rows="12" style="resize: none;" disabled>{{ $stringLog }}</textarea>
-        </div>
+  
+  <div class="mx-5">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="simple-tab-0" data-bs-toggle="tab" href="#simple-tabpanel-0" role="tab" aria-controls="simple-tabpanel-0" aria-selected="true">Osnovne informacije</a>
+      </li>
+      {{-- <li class="nav-item" role="presentation">
+        <a class="nav-link" id="simple-tab-1" data-bs-toggle="tab" href="#simple-tabpanel-1" role="tab" aria-controls="simple-tabpanel-1" aria-selected="false">Tab 2</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="simple-tab-2" data-bs-toggle="tab" href="#simple-tabpanel-2" role="tab" aria-controls="simple-tabpanel-2" aria-selected="false">Tab 3</a>
+      </li> --}}
+    </ul>
+    <div class="tab-content pt-2" id="tab-content">
+      <div class="tab-pane active" id="simple-tabpanel-0" role="tabpanel" aria-labelledby="simple-tab-0">
+        <x-wp.daily-diary-wdr-info
+          :groupLeader="$groupLeader"
+          :constSite="$constSite"
+          :car="$car"
+          :carMileage="$carMileage"
+          :stringLog="$stringLog"
+          :attendance="$attendance"
+          :attendanceCoOp="$attendanceCoOp"
+        />
       </div>
-
-      <div class="col">
-        <p class="h6">Pisustvo radnika[Hidro-Projekt]:</p>
-        <table class="table">
-          <thead>
-            <tr>
-              <td><b>Ime / Prezime</b></td>
-              <td><b>Sati</b></td>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($attendance as $att)
-              <tr>
-                <td>{{ $att->getWorkerInfo->firstName }} {{ $att->getWorkerInfo->lastName }}</td>
-                <td>{{ $att->work_hours }}</td> 
-              </tr>  
-            @endforeach
-          </tbody>
-        </table>
-        <hr>
-        <p class="h6">Pisustvo radnika[Kooperanti]:</p>
-        <table class="table">
-          <thead>
-            <tr>
-              <td><b>Ime / Prezime</b></td>
-              <td><b>Grupa</b></td>
-              <td><b>Sati</b></td>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($attendanceCoOp as $attCoOp)
-              <tr>
-                <td>{{ $attCoOp->getWorkerInfo->firstName }} {{ $attCoOp->getWorkerInfo->lastName }}</td>
-                <td>{{ $attCoOp->getWorkerInfo->getCoOpInfo->name }}</td>
-                <td>{{ $attCoOp->work_hours }}</td> 
-              </tr>  
-            @endforeach
-          </tbody>
-        </table>
-        
-      </div>
+      {{-- <div class="tab-pane" id="simple-tabpanel-1" role="tabpanel" aria-labelledby="simple-tab-1">Tab 2 selected</div>
+      <div class="tab-pane" id="simple-tabpanel-2" role="tabpanel" aria-labelledby="simple-tab-2">Tab 3 selected</div> --}}
     </div>
-
-
   </div>
 @endsection

@@ -8,12 +8,33 @@ use Illuminate\View\Component;
 
 class DailyDiaryWdrInfo extends Component
 {
+    public $groupLeader;
+    public $constSite;
+    public $car;
+    public$carMileage;
+    public $stringLog;
+    public $attendance;
+    public $attendanceCoOp;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(
+        $groupLeader,
+        $constSite,
+        $car,
+        $carMileage,
+        $stringLog,
+        $attendance,
+        $attendanceCoOp
+    )
     {
-        //
+        $this->groupLeader = $groupLeader;
+        $this->constSite = $constSite;
+        $this->car = $car;
+        $this->carMileage = $carMileage;
+        $this->stringLog = $stringLog;
+        $this->attendance = $attendance;
+        $this->attendanceCoOp = $attendanceCoOp;
     }
 
     /**
