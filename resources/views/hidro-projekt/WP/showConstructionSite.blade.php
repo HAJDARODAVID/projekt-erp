@@ -43,9 +43,36 @@
     <hr>
     <div class="row">
         <div class="col">
-            <h1 class="h6">Evidencija radova:</h1>
+            <h1 class="h6">Pregled troškova:</h1>
 
-            <b style="font-size: 15px"> Kumulativno izvršeni radni sati: {{$cumulativelyHours}}</b>   
+            <b style="font-size: 15px"> Kumulativno izvršeni radni sati: {{$cumulativelyHours}} h</b> <br>
+            <b style="font-size: 15px"> Ukupan trošak radnika: {{$perDayHoursAndCost['sumOfWorkerCost']}} €</b> <br>
+            <hr>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <td><b>Datum</b></td>
+                        <td><b>Poslovođa</b></td>
+                        <td><b>#</b></td>
+                        <td><b>Sati</b></td>
+                        <td><b>€</b></td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($perDayHoursAndCost['tableData'] as $date => $data)
+                        @foreach ($data as $wdr => $info)
+                            <tr style='cursor: pointer; cursor: hand;' onclick="location.href='{{ route('hp_showWorkDayDiary', $wdr) }}';">
+                                <td>{{ $date }}</td>
+                                <td>{{ $info['groupeLeader'] }}</td>
+                                <td>{{ $wdr }}</td>
+                                <td>{{ $info['workerHoursSum'] }}</td>
+                                <td>{{ $info['workerHoursCost'] }}</td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+                </tbody>
+            </table>
     
         </div>
         <div class="col">

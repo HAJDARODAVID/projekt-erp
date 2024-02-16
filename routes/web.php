@@ -13,6 +13,7 @@ use App\Http\Controllers\HidroProjekt\TicketController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkDayDiaryController;
+use App\Services\HidroProjekt\WP\ConstructionSiteService;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,10 +114,6 @@ Route::prefix('/')
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
             });
 
-        Route::get('test',function(){
-            AdminModuleMenuItemsService::getModuleInfo();
-        });
-
         Route::controller(AssetsController::class)
             ->prefix('/assets')
             ->group(function(){
@@ -153,4 +150,9 @@ Route::get('/clear', function() {
     Artisan::call('config:cache');
     return  "all cleared ...";
 
+});
+
+Route::get('test',function(){
+    $bla= new ConstructionSiteService;
+    return $bla->getWorkHoursCostPerDayAndConstSite(2);
 });

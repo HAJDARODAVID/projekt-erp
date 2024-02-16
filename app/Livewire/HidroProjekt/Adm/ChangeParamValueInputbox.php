@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Adm;
 
+use App\Models\AppParametersModel;
 use Livewire\Component;
 
 class ChangeParamValueInputbox extends Component
@@ -15,11 +16,19 @@ class ChangeParamValueInputbox extends Component
 
     public function updatedValue($key){
         if($key == ""){
-            $key=NULL;
+            return;
         }
-        $this->row->update([
+        AppParametersModel::create([
+            'param_name' => $this->row->param_name,
+            'param_name_srt' => $this->row->param_name_srt,
             'value' => $key,
+            'active' => 1,
         ]);
+        $this->row->update([
+            'active' => FALSE,
+        ]);
+        //$this->dispatch('refreshAppParamsTable');
+        return redirect()->route('hp_appParams');
     }
 
     public function render()

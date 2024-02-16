@@ -18,9 +18,11 @@
             <a class="btn btn-success btn-sm" href="{{ route('hp_newWorkerForm') }}">NOVI PARAMETAR</a>
             <hr>
         @endif
-        
-        @livewire('hidroProjekt.adm.app-params-table',[
+        <div class="" style="@if(!$isPhone) padding-right: 350px @endif">
+            @livewire('hidroProjekt.adm.app-params-table',[
             'theme' => 'bootstrap-5',
-        ])
+            ])
+        </div>
+        
     </div>
 @endsection

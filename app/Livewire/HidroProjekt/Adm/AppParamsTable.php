@@ -2,10 +2,12 @@
 
 namespace App\Livewire\HidroProjekt\Adm;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\AppParametersModel;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class AppParamsTable extends DataTableComponent
 {
@@ -14,13 +16,14 @@ class AppParamsTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->setLoadingPlaceholderStatus(true);
     }
 
     public function columns(): array
     {
         return [
             Column::make("#", "id")
-                ->sortable(),
+                ->hideIf(Auth::user()->type != User::USER_TYPE_SUPER_ADMIN),
             Column::make("Naziv parametra", "param_name")
                 ->sortable(),
             Column::make("Alias", "param_name_srt")
@@ -39,6 +42,7 @@ class AppParamsTable extends DataTableComponent
 
     public function builder(): Builder{
         return AppParametersModel::query()
-            ->where('active', TRUE);
+            ->where('active', TRUE)
+            ->orderBy('param_name', 'asc');
     }
 }

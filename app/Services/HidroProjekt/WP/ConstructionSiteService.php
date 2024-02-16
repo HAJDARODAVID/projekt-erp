@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\WP;
 
+use App\Models\AppParametersModel;
 use App\Models\ConstructionSiteModel;
 use App\Models\WorkingDayRecordModel;
 
@@ -49,5 +50,33 @@ class ConstructionSiteService
             }
         }
        return $stringLog;
+    }
+
+    public function getWorkHoursCostPerDayAndConstSite($constSite){
+        $workHourCost=[
+            1 => (float)AppParametersModel::where('param_name_srt', 'bwhv-h')->where('active', TRUE)->first()->value,
+            2 => (float)AppParametersModel::where('param_name_srt', 'bwhv-t')->where('active', TRUE)->first()->value,
+        ];
+        $wdrAll = WorkingDayRecordModel::where('construction_site_id', $constSite)
+            ->with('getAttendance', 'getUser.getWorker')
+            ->orderBy('date','desc')
+            ->get();
+        $array = [];
+        $sumOfWorkerCost=0;
+        foreach ($wdrAll as $wdr) {
+            $workerHoursSum =0;
+            foreach ($wdr->getAttendance as $att) {
+                $workerHoursSum += $att->work_hours;
+            }
+            $array[$wdr->date][$wdr->id]=[
+                'workerHoursSum' => $workerHoursSum,
+                'workerHoursCost' => $workerHoursSum * $workHourCost[$wdr->work_type],
+                'groupeLeader' => $wdr->getUser->getWorker->firstName . ' ' . $wdr->getUser->getWorker->lastName,
+            ];
+            $sumOfWorkerCost += $workerHoursSum * $workHourCost[$wdr->work_type];
+        }
+        $array['tableData'] = $array;
+        $array['sumOfWorkerCost'] = $sumOfWorkerCost;
+        return $array;
     }
 }

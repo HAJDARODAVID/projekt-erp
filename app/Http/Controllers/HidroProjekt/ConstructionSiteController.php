@@ -33,6 +33,7 @@ class ConstructionSiteController extends Controller
             'constructionSite' => $this->constSiteService->getConstructionSite($id),
             'cumulativelyHours' => $this->constSiteService->getHoursCumulatively($id),
             'allLogsForConstructionSite' => $this->constSiteService->getAllLogsForConstructionSiteString($id),
+            'perDayHoursAndCost' => $this->constSiteService->getWorkHoursCostPerDayAndConstSite($id),
         ]);
 
     }

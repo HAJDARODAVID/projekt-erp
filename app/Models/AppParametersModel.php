@@ -15,5 +15,6 @@ class AppParametersModel extends Model
         'param_name',
         'value',
         'active',
+        'param_name_srt',
     ];
 }
