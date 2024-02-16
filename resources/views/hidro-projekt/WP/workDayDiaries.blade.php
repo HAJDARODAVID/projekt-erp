@@ -6,7 +6,6 @@
   </div>
   
   <div class="container">
-    ja sam radni dnevnik yo
     <livewire:hidroProjekt.wp.work-diary-table theme="bootstrap-5" />
 
 
