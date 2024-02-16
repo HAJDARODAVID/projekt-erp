@@ -10,6 +10,7 @@ use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\TicketController;
+use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkDayDiaryController;
 
@@ -79,6 +80,10 @@ Route::prefix('/')
                         Route::get('/tickets', 'tickets')->name('hp_tickets');
                         Route::get('/tickets/{id}', 'showTicket')->name('hp_showTicket');
                         Route::post('/new_tickets', 'newTicket')->name('hp_newTicket');
+                    });
+                Route::controller(ParametersController::class)
+                    ->group(function(){
+                        Route::get('/app_params', 'appParams')->name('hp_appParams');
                     });
             });
 
