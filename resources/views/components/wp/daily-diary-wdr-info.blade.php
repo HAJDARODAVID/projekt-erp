@@ -101,7 +101,14 @@
             @foreach ($attendance as $att)
             <tr>
                 <td>{{ $att->getWorkerInfo->firstName }} {{ $att->getWorkerInfo->lastName }}</td>
-                <td>{{ $att->work_hours }}</td> 
+                <td>
+                    @if ($att->work_hours)
+                        {{ $att->work_hours }}
+                    @else
+                        {{ $att->absence_reason }}
+                    @endif
+                    
+                </td> 
             </tr>  
             @endforeach
         </tbody>
