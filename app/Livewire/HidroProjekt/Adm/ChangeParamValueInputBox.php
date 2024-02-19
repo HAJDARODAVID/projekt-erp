@@ -8,13 +8,13 @@ use Livewire\Component;
 class ChangeParamValueInputBox extends Component
 {
     public $row;
-    public $myValue;
+    public $value;
 
     public function mount(){
-        $this->myValue = $this->row->value;
+        $this->value = $this->row->value;
     }
 
-    public function updatedMyValue($key){
+    public function updatedValue($key){
         if($key == ""){
             return;
         }
