@@ -1,5 +1,6 @@
 <div>
-    @livewire('hidroProjekt.Adm.change-param-value-input-box',[
+    testing
+    {{-- @livewire('hidroProjekt.adm.change-param-value-input-box',[
         'row' => $row,
-    ], key($row->id))
+    ], key($row->id)) --}}
 </div>
