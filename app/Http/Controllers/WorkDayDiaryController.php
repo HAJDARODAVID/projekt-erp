@@ -25,7 +25,7 @@ class WorkDayDiaryController extends Controller
         $carMileage = CarMileageModel::where('wdr_id', $wdr->id)->first();
         $groupLeader = User::where('id', $wdr->user_id)->with('getWorker')->first();
         $attendance = AttendanceModel::where('working_day_record_id', $wdr->id)->with('getWorkerInfo')->get();
-        $attendanceCoOp = AttendanceCoOpModel::where('working_day_record_id', $wdr->id)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
+        $attendanceCoOp = AttendanceCoOpModel::where('working_day_record_id', $wdr->id)->where('work_hours', '!=', NULL)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
 
         $stringLog="";
         foreach ($wdr->getLogs as $logs) {
