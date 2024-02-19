@@ -77,7 +77,6 @@ class HumanResourcesController extends Controller
 
     public function allWorkHours(){
         $workHoursService = new WorkHoursService;
-        //dd($workHoursService);
         return view('hidro-projekt.HR.allWorkHours',[
             'workHoursService' =>  $workHoursService,
         ]);
