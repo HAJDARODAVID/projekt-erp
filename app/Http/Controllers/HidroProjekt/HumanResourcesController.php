@@ -144,4 +144,11 @@ class HumanResourcesController extends Controller
         return redirect()->back()->with('success', 'Uspješno spremljen radnik!');
     }
 
+    public function allWorkHoursCoOp(){
+        $workHoursService = new WorkHoursService;
+        return view('hidro-projekt.HR.allWorkHoursCoOp',[
+            'workHoursService' =>  $workHoursService,
+        ]);
+    }
+
 }

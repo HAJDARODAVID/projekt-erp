@@ -38,9 +38,9 @@ class Months
         self::MONTH_DECEMBER => 'Prosinac',
     );
 
-    public static function dayOfMonth($month){
-        $startDate = date_create('2024-'.$month.'-01');
-        $endDate = date_create(date("Y-m-d",strtotime('2024-'.$month + 1 .'-01')));
+    public static function dayOfMonth($month, $year=2024){
+        $startDate = date_create($year.'-'.$month.'-01');
+        $endDate = date_create(date("Y-m-d",strtotime($year.'-'.$month + 1 .'-01')));
         $interval = new DateInterval('P1D');
         $date_range = new DatePeriod($startDate, $interval, $endDate);
         $dayArray=[];

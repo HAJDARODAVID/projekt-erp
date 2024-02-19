@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\HR;
 
+use App\Models\AttendanceCoOpModel;
 use App\Models\AttendanceModel;
 use App\Models\User;
 use App\Models\WorkerModel;
@@ -162,6 +163,39 @@ class WorkHoursService
             ->count();       
         //dd($sickLeaveCount);
         return $sickLeaveCount;
+    }
+
+    public static function getAllAttendanceForMonthReportCoOp($month, $year, $daysInMonth){
+        $attendance = AttendanceCoOpModel::whereMonth('date', '=', $month)
+            ->whereYear('date', '=', $year)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
+        $array=[];
+        foreach ($attendance as $att) {
+            $array[$att->worker_id]['id'] = $att->worker_id;
+            $array[$att->worker_id]['name'] = $att->getWorkerInfo->firstName .' '. $att->getWorkerInfo->lastName;
+
+            foreach($daysInMonth as $day){
+                $attInfo = $attendance->where('date', $day)->where('worker_id', $att->worker_id)->first();
+                if($attInfo){
+                    $array[$att->worker_id]['dates'][$day] = $attInfo->work_hours == NULL ? NULL : $attInfo->work_hours;                    
+                }else{
+                    $array[$att->worker_id]['dates'][$day] = NULL;
+                }
+                
+            }
+        }
+
+        foreach ($daysInMonth as $day) {
+            $sumPerDay[$day]=$attendance->where('date', $day)->sum('work_hours') == 0 ? NULL : $attendance->where('date', $day)->sum('work_hours');
+        }
+
+        $finalArray= [
+            'workerAttendance' => $array,
+            'sumPerDay' => $sumPerDay,
+        ];
+
+        //dd($finalArray);
+
+        return $finalArray;
     }
 
     

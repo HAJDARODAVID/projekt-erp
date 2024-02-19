@@ -28,7 +28,6 @@ class WorkHoursReport extends Component
     }
     public function updatedSelectedMonth(){
         $this->dispatch('refreshWorkHoursComponent')->self();
-
     }
 
     public function render()
