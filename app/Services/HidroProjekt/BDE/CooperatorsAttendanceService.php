@@ -106,7 +106,7 @@ class CooperatorsAttendanceService
     }
 
     public static function getWorkerCount($att){
-        return AttendanceCoOpModel::where('working_day_record_id',$att)->pluck('id')->count();
+        return AttendanceCoOpModel::where('working_day_record_id',$att)->where('work_hours', '!=', NULL)->pluck('id')->count();
     }
 
 
