@@ -29,6 +29,7 @@
           :stringLog="$stringLog"
           :attendance="$attendance"
           :attendanceCoOp="$attendanceCoOp"
+          :arst="$arst"
         />
       </div>
       {{-- <div class="tab-pane" id="simple-tabpanel-1" role="tabpanel" aria-labelledby="simple-tab-1">Tab 2 selected</div>
