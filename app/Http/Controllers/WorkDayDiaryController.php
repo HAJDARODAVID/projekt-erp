@@ -44,7 +44,8 @@ class WorkDayDiaryController extends Controller
             'carMileage' => $carMileage,
             'stringLog' => $stringLog,
             'attendance' => $attendance,
-            'attendanceCoOp'=> $attendanceCoOp
+            'attendanceCoOp'=> $attendanceCoOp,
+            'arst' => AttendanceModel::ABSENCE_REASON_SHT_TXT,
         ]);
     }
 }
