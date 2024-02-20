@@ -169,7 +169,9 @@ class WorkHoursService
     public static function getAllAttendanceForMonthReportCoOp($month, $year, $daysInMonth){
         $baseWorkHourCost = (float)AppParametersModel::where('param_name_srt', 'bwh-c-o')->where('active', TRUE)->first()->value;
         $attendance = AttendanceCoOpModel::whereMonth('date', '=', $month)
-            ->whereYear('date', '=', $year)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
+            ->whereYear('date', '=', $year)
+            ->where('work_hours', '!=', NULL)
+            ->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
         $array=[];
         foreach ($attendance as $att) {
             $coOp=$att->getWorkerInfo->getCoOpInfo->name;
@@ -220,10 +222,6 @@ class WorkHoursService
             'overAllCost' => $overAllCost,
             'groupPerDay' => $groups,
         ];
-
-        //dd($array);
-        //dd($finalArray);
-        //dd($groups);
 
         return $finalArray;
     }
