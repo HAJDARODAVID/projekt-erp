@@ -35,27 +35,45 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($attendance['workerAttendance'] as $attInfo)
-                    <tr>
-                        <td>{{ $attInfo['name'] }}</td>
-                        <td>{{ $attInfo['overall'] }}</td>
-                        <td style="border-right: 1.5px solid #000000;">{{ number_format($attInfo['cost'], 2) }}€</td>
-                        @foreach ($attInfo['dates'] as $key => $day)
-                            <?php 
-                                $daynum = date("N", strtotime($key));
-                                $cellStyle="";
-                                if($daynum > 5) {
-                                    $cellStyle="background-color:#c9c9c9"; 
-                                }
-                            ?>
-                            <td style="<?=$cellStyle?>">{{ $day }}</td>  
+                @foreach ($attendance['workerAttendance'] as $groupName => $group)
+                    <?php 
+                        $overAllGroup=0;
+                        $overAllGroupCost=0;
+                    ?>
+                    @foreach ($group as $attInfo)
+                        <?php 
+                            $overAllGroup += $attInfo['overall'];
+                            $overAllGroupCost += $attInfo['cost'];
+                        ?>
+                        <tr>
+                            <td>{{ $attInfo['name'] }}</td>
+                            <td>{{ $attInfo['overall'] }}</td>
+                            <td style="border-right: 1.5px solid #000000;">{{ number_format($attInfo['cost'], 2) }}€</td>
+                            @foreach ($attInfo['dates'] as $key => $day)
+                                <?php 
+                                    $daynum = date("N", strtotime($key));
+                                    $cellStyle="";
+                                    if($daynum > 5) {
+                                        $cellStyle="background-color:#c9c9c9"; 
+                                    }
+                                ?>
+                                <td style="<?=$cellStyle?>">{{ $day }}</td>  
+                            @endforeach
+                        </tr>   
+                    @endforeach
+                    <tr style="background-color:#c9c9c9">
+                        <td><b>{{ $groupName }}</b></td>
+                        <td><b>{{  $overAllGroup }}</b></td>
+                        <td style="border-right: 1.5px solid #000000;"><b>{{  number_format($overAllGroupCost,2) }}€</b></td>
+                        @foreach ($attendance['groupPerDay'][$groupName] as $days)
+                            <td><b>{{ $days }}</b></td>
                         @endforeach
                     </tr>
                 @endforeach
                 <tr>
                     <td style="border-top: 1.5px solid #000000;"><b>Sum</b></td>
-                    <td style="border-top: 1.5px solid #000000;">{{ array_sum($attendance['sumPerDay']) }}</td>
-                    <td style="border-top: 1.5px solid #000000;border-right: 1.5px solid #000000;">{{ number_format($attendance['overAllCost'], 2) }}€</td>
+                    <td style="border-top: 1.5px solid #000000;"><b>{{ array_sum($attendance['sumPerDay']) }}</b></td>
+                    <td style="border-top: 1.5px solid #000000;border-right: 1.5px solid #000000;"><b>{{ number_format($attendance['overAllCost'], 2) }}€</b></td>
                     @foreach ($attendance['sumPerDay'] as $key => $day)
                             <?php 
                                 $daynum = date("N", strtotime($key));
@@ -64,7 +82,7 @@
                                     $cellStyle="background-color:#c9c9c9"; 
                                 }
                             ?>
-                        <td style="border-top: 1.5px solid #000000;<?=$cellStyle?>">{{ $day }}</td>
+                        <td style="border-top: 1.5px solid #000000;<?=$cellStyle?>"><b>{{ $day }}</b></td>
                     @endforeach
                 </tr>
             </tbody>

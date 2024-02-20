@@ -171,21 +171,21 @@ class WorkHoursService
         $attendance = AttendanceCoOpModel::whereMonth('date', '=', $month)
             ->whereYear('date', '=', $year)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
         $array=[];
-        dd($attendance->first()->getWorkerInfo->getCoOpInfo->name);
         foreach ($attendance as $att) {
-            $array[$att->worker_id]['id'] = $att->worker_id;
-            $array[$att->worker_id]['name'] = $att->getWorkerInfo->firstName .' '. $att->getWorkerInfo->lastName;
-            $array[$att->worker_id]['overall'] = 0;
-            $array[$att->worker_id]['cost'] = 0;
+            $coOp=$att->getWorkerInfo->getCoOpInfo->name;
+            $array[$coOp][$att->worker_id]['id'] = $att->worker_id;
+            $array[$coOp][$att->worker_id]['name'] = $att->getWorkerInfo->firstName .' '. $att->getWorkerInfo->lastName;
+            $array[$coOp][$att->worker_id]['overall'] = 0;
+            $array[$coOp][$att->worker_id]['cost'] = 0;
 
             foreach($daysInMonth as $day){
                 $attInfo = $attendance->where('date', $day)->where('worker_id', $att->worker_id)->first();
                 if($attInfo){
-                    $array[$att->worker_id]['dates'][$day] = $attInfo->work_hours == NULL ? NULL : $attInfo->work_hours; 
-                    $array[$att->worker_id]['overall'] += $attInfo->work_hours == NULL ? 0 : $attInfo->work_hours; 
-                    $array[$att->worker_id]['cost'] += $attInfo->work_hours == NULL ? 0 : $attInfo->work_hours*$baseWorkHourCost;                     
+                    $array[$coOp][$att->worker_id]['dates'][$day] = $attInfo->work_hours == NULL ? NULL : $attInfo->work_hours; 
+                    $array[$coOp][$att->worker_id]['overall'] += $attInfo->work_hours == NULL ? 0 : $attInfo->work_hours; 
+                    $array[$coOp][$att->worker_id]['cost'] += $attInfo->work_hours == NULL ? 0 : $attInfo->work_hours*$baseWorkHourCost;                     
                 }else{
-                    $array[$att->worker_id]['dates'][$day] = NULL;
+                    $array[$coOp][$att->worker_id]['dates'][$day] = NULL;
                 }
                 
             }
@@ -196,17 +196,34 @@ class WorkHoursService
         }
 
         $overAllCost=0;
-        foreach ($array as $att) {
-            $overAllCost += $att['cost'];
+        foreach ($array as $group) {
+            foreach ($group as $key => $att) {
+                $overAllCost += $att['cost'];
+            }    
+        }
+
+        $groups=[];
+        foreach ($array as $key => $group) {
+            $workers=[];
+            foreach ($group as $worker => $data) {
+                $workers[] = $worker;
+            }
+            foreach ($daysInMonth as $day){
+                $groups[$key][$day] = $attendance->where('date', $day)->whereIn('worker_id', $workers)->sum('work_hours') == 0 ? NULL : $attendance->where('date', $day)->whereIn('worker_id', $workers)->sum('work_hours');
+            }
+            
         }
 
         $finalArray= [
             'workerAttendance' => $array,
             'sumPerDay' => $sumPerDay,
             'overAllCost' => $overAllCost,
+            'groupPerDay' => $groups,
         ];
 
-        dd($finalArray);
+        //dd($array);
+        //dd($finalArray);
+        //dd($groups);
 
         return $finalArray;
     }

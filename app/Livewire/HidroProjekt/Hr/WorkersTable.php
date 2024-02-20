@@ -43,9 +43,11 @@ class WorkersTable extends DataTableComponent
             Column::make("Istek ugovora", "ced")
                 ->sortable(),
             Column::make('Print naljepnice','print_label')
-                ->view('components.print-label-checkbox'),
+                ->view('components.print-label-checkbox')
+                ->unclickable(),
             Column::make('Radnik','is_worker')
-                ->view('components.is-worker-checkbox'),
+                ->view('components.is-worker-checkbox')
+                ->unclickable(),
 
             Column::make('Actions')
                 ->label(
