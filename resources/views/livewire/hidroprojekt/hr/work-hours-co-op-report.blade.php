@@ -23,7 +23,8 @@
             <thead style="border-bottom: 1.5px solid #000000;">
                 <tr>
                     <td scope="col"><b>Ime i prezime</b></td>
-                    <td scope="col" style="border-right: 1.5px solid #000000;"><abbr title="Ostvareni radni sati u mjesecu">OS</abbr></td>
+                    <td scope="col"><abbr title="Ostvareni radni sati u mjesecu">OS</abbr></td>
+                    <td scope="col" style="border-right: 1.5px solid #000000;"><abbr title="Trošak kooperanata">€</abbr></td>
                     @foreach ($daysOfMonth as $day)
                         <?php 
                             $daynum = date("N", strtotime($day));
@@ -37,7 +38,8 @@
                 @foreach ($attendance['workerAttendance'] as $attInfo)
                     <tr>
                         <td>{{ $attInfo['name'] }}</td>
-                        <td style="border-right: 1.5px solid #000000;"></td>
+                        <td>{{ $attInfo['overall'] }}</td>
+                        <td style="border-right: 1.5px solid #000000;">{{ number_format($attInfo['cost'], 2) }}€</td>
                         @foreach ($attInfo['dates'] as $key => $day)
                             <?php 
                                 $daynum = date("N", strtotime($key));
@@ -52,9 +54,17 @@
                 @endforeach
                 <tr>
                     <td style="border-top: 1.5px solid #000000;"><b>Sum</b></td>
-                    <td style="border-top: 1.5px solid #000000;"></td>
-                    @foreach ($attendance['sumPerDay'] as $day)
-                        <td style="border-top: 1.5px solid #000000;">{{ $day }}</td>
+                    <td style="border-top: 1.5px solid #000000;">{{ array_sum($attendance['sumPerDay']) }}</td>
+                    <td style="border-top: 1.5px solid #000000;border-right: 1.5px solid #000000;">{{ number_format($attendance['overAllCost'], 2) }}€</td>
+                    @foreach ($attendance['sumPerDay'] as $key => $day)
+                            <?php 
+                                $daynum = date("N", strtotime($key));
+                                $cellStyle="";
+                                if($daynum > 5) {
+                                    $cellStyle="background-color:#c9c9c9"; 
+                                }
+                            ?>
+                        <td style="border-top: 1.5px solid #000000;<?=$cellStyle?>">{{ $day }}</td>
                     @endforeach
                 </tr>
             </tbody>

@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\HR;
 
+use App\Models\AppParametersModel;
 use App\Models\AttendanceCoOpModel;
 use App\Models\AttendanceModel;
 use App\Models\User;
@@ -166,17 +167,23 @@ class WorkHoursService
     }
 
     public static function getAllAttendanceForMonthReportCoOp($month, $year, $daysInMonth){
+        $baseWorkHourCost = (float)AppParametersModel::where('param_name_srt', 'bwh-c-o')->where('active', TRUE)->first()->value;
         $attendance = AttendanceCoOpModel::whereMonth('date', '=', $month)
             ->whereYear('date', '=', $year)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
         $array=[];
+        dd($attendance->first()->getWorkerInfo->getCoOpInfo->name);
         foreach ($attendance as $att) {
             $array[$att->worker_id]['id'] = $att->worker_id;
             $array[$att->worker_id]['name'] = $att->getWorkerInfo->firstName .' '. $att->getWorkerInfo->lastName;
+            $array[$att->worker_id]['overall'] = 0;
+            $array[$att->worker_id]['cost'] = 0;
 
             foreach($daysInMonth as $day){
                 $attInfo = $attendance->where('date', $day)->where('worker_id', $att->worker_id)->first();
                 if($attInfo){
-                    $array[$att->worker_id]['dates'][$day] = $attInfo->work_hours == NULL ? NULL : $attInfo->work_hours;                    
+                    $array[$att->worker_id]['dates'][$day] = $attInfo->work_hours == NULL ? NULL : $attInfo->work_hours; 
+                    $array[$att->worker_id]['overall'] += $attInfo->work_hours == NULL ? 0 : $attInfo->work_hours; 
+                    $array[$att->worker_id]['cost'] += $attInfo->work_hours == NULL ? 0 : $attInfo->work_hours*$baseWorkHourCost;                     
                 }else{
                     $array[$att->worker_id]['dates'][$day] = NULL;
                 }
@@ -188,12 +195,18 @@ class WorkHoursService
             $sumPerDay[$day]=$attendance->where('date', $day)->sum('work_hours') == 0 ? NULL : $attendance->where('date', $day)->sum('work_hours');
         }
 
+        $overAllCost=0;
+        foreach ($array as $att) {
+            $overAllCost += $att['cost'];
+        }
+
         $finalArray= [
             'workerAttendance' => $array,
             'sumPerDay' => $sumPerDay,
+            'overAllCost' => $overAllCost,
         ];
 
-        //dd($finalArray);
+        dd($finalArray);
 
         return $finalArray;
     }
