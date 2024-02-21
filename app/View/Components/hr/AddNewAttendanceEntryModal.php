@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\hr;
+namespace App\View\Components\Hr;
 
 use App\Models\ConstructionSiteModel;
 use Closure;
