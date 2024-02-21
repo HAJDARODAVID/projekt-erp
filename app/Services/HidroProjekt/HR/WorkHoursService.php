@@ -212,8 +212,7 @@ class WorkHoursService
             }
             foreach ($daysInMonth as $day){
                 $groups[$key][$day] = $attendance->where('date', $day)->whereIn('worker_id', $workers)->sum('work_hours') == 0 ? NULL : $attendance->where('date', $day)->whereIn('worker_id', $workers)->sum('work_hours');
-            }
-            
+            }  
         }
 
         $finalArray= [
