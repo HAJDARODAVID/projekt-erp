@@ -30,7 +30,7 @@
                         <label for="car_plates">Naziv kooperanta</label>
                         <select class="form-select form-select-sm mb-2">
                             <option value="0" selected>Odaberi gradilište</option>
-                            @foreach($constSites as $conSite)
+                            @foreach($consts as $conSite)
                                 <option value="{{$conSite->id}}">{{$conSite->name}}</option>
                             @endforeach
                         </select>

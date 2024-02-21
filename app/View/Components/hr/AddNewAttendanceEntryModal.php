@@ -9,14 +9,14 @@ use Illuminate\View\Component;
 
 class AddNewAttendanceEntryModal extends Component
 {
-    public $constSites;
+    public $consts;
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        $this->constSites = ConstructionSiteModel::where('status', ConstructionSiteModel::CONSTRUCTION_STATUS_ACTIVE)->get();
-        dd($this->constSites);
+        $this->consts = ConstructionSiteModel::where('status', ConstructionSiteModel::CONSTRUCTION_STATUS_ACTIVE)->get();
+        dd($this->consts);
     }
 
     /**
@@ -25,7 +25,7 @@ class AddNewAttendanceEntryModal extends Component
     public function render(): View|Closure|string
     {
         return view('components.hr.add-new-attendance-entry-modal',[
-            'constSites' => $this->constSites,
+            'consts' => $this->consts,
         ]);
     }
 }
