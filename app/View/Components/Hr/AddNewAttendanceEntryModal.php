@@ -16,7 +16,6 @@ class AddNewAttendanceEntryModal extends Component
     public function __construct()
     {
         $this->consts = ConstructionSiteModel::where('status', ConstructionSiteModel::CONSTRUCTION_STATUS_ACTIVE)->get();
-        dd($this->consts);
     }
 
     /**
