@@ -27,13 +27,13 @@
                     </div>
                     <hr>
                     <div class="form-group mb-2">
-                        <label for="car_plates">Naziv kooperanta</label>
+                        {{-- <label for="car_plates">Naziv kooperanta</label>
                         <select class="form-select form-select-sm mb-2">
                             <option value="0" selected>Odaberi gradilište</option>
                             @foreach($constSites as $conSite)
                                 <option value="{{$conSite->id}}">{{$conSite->name}}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                     </div>
                 </form>
             </div>
