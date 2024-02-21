@@ -38,7 +38,7 @@
             <tbody>
                 @foreach ($completeAttendance as $worker)
                     <tr>
-                        <td>{{ $worker['name'] }}</td>
+                        <td onclick="location.href='{{ route('hp_workerWorkHours', $worker['id']) }}';">{{ $worker['name'] }}</td>
                         <td>{{ $planedHours }}</td>
                         <td>{{ $worker['monthlyHours'] }}</td>
                         <td>{{ $worker['paidLeave'] }}</td>

@@ -6,6 +6,7 @@ use App\Models\WorkerModel;
 use Illuminate\Http\Request;
 use App\Models\CooperatorsModel;
 use App\Http\Controllers\Controller;
+use App\Models\AttendanceModel;
 use App\Models\CooperatorWorkersModel;
 use Illuminate\Support\Facades\Session;
 use App\Services\HidroProjekt\HR\WorkerService;
@@ -148,6 +149,15 @@ class HumanResourcesController extends Controller
         $workHoursService = new WorkHoursService;
         return view('hidro-projekt.HR.allWorkHoursCoOp',[
             'workHoursService' =>  $workHoursService,
+        ]);
+    }
+
+    public function workerWorkHours($id){
+        $worker = WorkerModel::find($id);
+        $attendance = AttendanceModel::where('worker_id', $id)->get();
+        return view('hidro-projekt.HR.workerAttendance',[
+            'worker' => $worker,
+            'attendance' => $attendance,
         ]);
     }
 

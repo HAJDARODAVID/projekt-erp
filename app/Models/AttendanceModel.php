@@ -38,5 +38,9 @@ class AttendanceModel extends Model
         return $this->hasOne(WorkerModel::class, 'id','worker_id');
     }
 
+    public function getWDRInfo():HasOne{
+        return $this->hasOne(WorkingDayRecordModel::class, 'id','working_day_record_id');
+    }
+
 
 }
