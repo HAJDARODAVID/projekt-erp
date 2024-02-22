@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group mb-2">
-                                <label for="start_date">Planirani početak radova</label>
+                                <label for="start_date">Datum zapisa:</label>
                                 <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="start_date" name="start_date">
                             </div>
                         </div>
