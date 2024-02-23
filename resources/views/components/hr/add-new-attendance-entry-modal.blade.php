@@ -9,44 +9,62 @@
                 <h5 class="modal-title" id="exampleModalLabel">Novi zapis prisutnosti radnika</h5>
             </div>
             <div class="modal-body">
-                <form  id="addNewAttendanceEntryForm" method="POST" action="{{ route('hp_manuelAttendanceEntry') }}">
-                    @csrf
-                    @method('POST')
-                    <div class="row">
+                <div class="row">
+                    {{-- <div class="col">
+                        <div class="form-group mb-2">
+                            <label for="date">Datum zapisa:</label>
+                            <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="date" name="date">
+                        </div>
+                    </div> --}}
+                    <div class="col">
+                        <label>Vrsta zapisa:</label><br>
+                        <button class="btn btn-success" onclick="showModule('wdrContainer')"><i class="bi bi-cone-striped"></i></button>
+                        <button class="btn btn-warning" onclick="showModule('sickLeaveContainer')">BO</button>
+                        <button class="btn btn-primary" onclick="showModule('paidLeaveContainer')">GO</button>
+                    </div>
+                </div>
+                <hr>
+                {{-- SICK LEAVE CONTAINER --}}
+                <div id="sickLeaveContainer" style="display:none" class="absenceModule">
+                    @livewire('hidroProjekt.hr.add-sick-leave-to-attendance',[
+                        'worker' => $worker['id'],
+                    ])    
+                </div>
+                {{-- PAID LEAVE CONTAINER --}}
+                <div id="paidLeaveContainer" style="display:none" class="absenceModule">
+                    @livewire('hidroProjekt.hr.add-paid-leave-to-attendance',[
+                        'worker' => $worker['id'],
+                    ])
+                </div>
+
+                {{-- WDR CONTAINER --}}
+                <div id="wdrContainer" style="display:none" class="absenceModule">
+                    <b>Prisustvo na gradilištu</b>
+                    Riješenje nije implementirano
+                    {{-- <div class="row">
                         <div class="col">
                             <div class="form-group mb-2">
-                                <label for="date">Datum zapisa:</label>
+                                <label for="date">Od:</label>
                                 <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="date" name="date">
                             </div>
                         </div>
                         <div class="col">
-                            <br>
-                            <button class="btn btn-primary">GO</button>
-                            <button class="btn btn-warning">BO</button>
+                            <div class="form-group mb-2">
+                                <label for="date">Do:</label>
+                                <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="date" name="date">
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="form-group mb-2">
-                        <label for="car_plates">Naziv kooperanta</label>
-                        <select class="form-select form-select-sm mb-2">
-                            <option value="0" selected>Odaberi gradilište</option>
-                            @foreach($constSites as $conSite)
-                                <option value="{{$conSite->id}}">{{$conSite->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <input type="hidden" name="entryType" value="10">
-                    <input type="hidden" name="worker" value="{{ $worker }}">
-                </form>
+                    </div> --}}
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeModal('addNewAttendanceEntry')">ZATVORI</button>
-                <button type="button" class="btn btn-primary" onclick="submitForm('addNewAttendanceEntryForm')">SPREMI</button>
             </div>
             </div>
         </div>
     </div>
     <script>
+
         function showModal(modal) {
             document.getElementById(modal).style.display = 'block';
         }
@@ -56,6 +74,20 @@
         function submitForm(form){
             event.preventDefault();
             document.getElementById(form).submit();
+        }
+
+        function showModule(moduleId) {
+            let modules = document.getElementsByClassName('absenceModule');
+            let i = 0;
+
+            while (i < modules.length) {
+                if (modules[i].id == moduleId) {
+                    document.getElementById(modules[i].id).style.display = 'block';
+                }else{
+                    document.getElementById(modules[i].id).style.display = 'none';
+                }
+                i++;
+            }
         }
     </script>
 </div>

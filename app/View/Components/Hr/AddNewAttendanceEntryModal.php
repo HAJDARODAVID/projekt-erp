@@ -24,7 +24,6 @@ class AddNewAttendanceEntryModal extends Component
             'sick' => AttendanceModel::ABSENCE_REASON_SICK_LEAVE,
             'paid' => AttendanceModel::ABSENCE_REASON_PAID_LEAVE,
         ];
-        dd($this->absence);
     }
 
     /**
