@@ -9,14 +9,14 @@
                 <h5 class="modal-title" id="exampleModalLabel">Novi zapis prisutnosti radnika</h5>
             </div>
             <div class="modal-body">
-                <form  id="addNewAttendanceEntryForm" method="POST" action="{{ route('hp_newCooperators') }}">
+                <form  id="addNewAttendanceEntryForm" method="POST" action="{{ route('hp_manuelAttendanceEntry') }}">
                     @csrf
                     @method('POST')
                     <div class="row">
                         <div class="col">
                             <div class="form-group mb-2">
-                                <label for="start_date">Datum zapisa:</label>
-                                <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="start_date" name="start_date">
+                                <label for="date">Datum zapisa:</label>
+                                <input type="date" class="form-control @error('start_date')is-invalid @enderror" id="date" name="date">
                             </div>
                         </div>
                         <div class="col">
@@ -35,6 +35,8 @@
                             @endforeach
                         </select>
                     </div>
+                    <input type="hidden" name="entryType" value="10">
+                    <input type="hidden" name="worker" value="{{ $worker }}">
                 </form>
             </div>
             <div class="modal-footer">

@@ -15,7 +15,9 @@
         </div>
     @endif
 
-    <x-hr.add-new-attendance-entry-modal></x-hr.add-new-attendance-entry-modal>
+    <x-hr.add-new-attendance-entry-modal
+        :worker="$worker">
+    </x-hr.add-new-attendance-entry-modal>
 
     <hr>
 

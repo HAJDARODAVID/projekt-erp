@@ -102,6 +102,7 @@ Route::prefix('/')
 
                 Route::get('work_hours', 'allWorkHours')->name('hp_allWorkHours');
                 Route::get('work_hours_worker/{id}', 'workerWorkHours')->name('hp_workerWorkHours');
+                Route::post('work_hours_worker', 'manuelAttendanceEntry')->name('hp_manuelAttendanceEntry');
                 Route::get('work_hours_co-op', 'allWorkHoursCoOp')->name('hp_allWorkHours_CoOp');
 
                 Route::get('/cooperators', 'cooperators')->name('hp_cooperators');

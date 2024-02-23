@@ -161,4 +161,12 @@ class HumanResourcesController extends Controller
         ]);
     }
 
+    public function manuelAttendanceEntry(Request $request){
+        $worker = json_decode($request['worker']);
+        if ($request['entryType']) {
+            dd('im in');
+        }
+        dd('im out');
+    }
+
 }
