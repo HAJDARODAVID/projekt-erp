@@ -105,7 +105,9 @@
                     @if ($att->work_hours)
                         {{ $att->work_hours }}
                     @else
-                        {{ $arst[$att->absence_reason]}}
+                        @if ($att->absence_reason)
+                            {{ $arst[$att->absence_reason]}}
+                        @endif   
                     @endif
                     
                 </td> 
