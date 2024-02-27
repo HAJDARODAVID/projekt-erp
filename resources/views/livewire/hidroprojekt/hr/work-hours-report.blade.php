@@ -64,7 +64,7 @@
                                 }
                                 if(is_int($attendance)){
                                     if($attendance>12){
-                                        $cellStyle .= "; font-weight: bold;color: red;"
+                                        $cellStyle .= "; font-weight: bold;color: red;";
                                     }
                                 }
                             ?>
