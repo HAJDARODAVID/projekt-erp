@@ -62,6 +62,11 @@
                                 if($attendance=="BO"){
                                     $cellStyle="background-color:#F7AD2C"; 
                                 }
+                                if(is_int($attendance)){
+                                    if($attendance>12){
+                                        $cellStyle .= "; font-weight: bold;color: red;"
+                                    }
+                                }
                             ?>
                             <td style="<?=$cellStyle?>">{{ $attendance }}</td>
                         @endforeach
