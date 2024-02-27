@@ -4,13 +4,13 @@
         <div class="col">
             <div class="form-group mb-2">
                 <label for="date">Od:</label>
-                <input type="date" class="form-control @error('start_date')is-invalid @enderror" wire:model.blur='dates.startDate'>
+                <input type="date" class="form-control @error('start_date')is-invalid @enderror" wire:model.live='dates.startDate'>
             </div>
         </div>
         <div class="col">
             <div class="form-group mb-2">
                 <label for="date">Do:</label>
-                <input type="date" class="form-control @error('start_date')is-invalid @enderror" wire:model.blur='dates.endDate'>
+                <input type="date" class="form-control @error('start_date')is-invalid @enderror" wire:model.live='dates.endDate'>
             </div>
         </div>
     </div>

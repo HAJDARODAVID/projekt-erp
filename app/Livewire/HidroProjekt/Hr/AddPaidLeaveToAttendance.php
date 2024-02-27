@@ -28,6 +28,18 @@ class AddPaidLeaveToAttendance extends Component
         return redirect()->route('hp_workerWorkHours', $this->worker);
     }
 
+    public function updatedDates($key, $value){
+        if($value == 'startDate'){
+            $this->dates['endDate'] = $key;
+        }
+        if($value == 'endDate'){
+            if ($key < $this->dates['startDate'] ) {
+                $this->dates['startDate'] = $key;
+            }
+            return;
+        }
+    }
+
     public function render()
     {
         return view('livewire.hidroprojekt.hr.add-paid-leave-to-attendance');
