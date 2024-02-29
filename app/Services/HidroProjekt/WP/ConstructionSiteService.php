@@ -3,6 +3,7 @@
 namespace App\Services\HidroProjekt\WP;
 
 use App\Models\AppParametersModel;
+use App\Models\CompanyCarsModel;
 use App\Models\ConstructionSiteModel;
 use App\Models\WorkingDayRecordModel;
 
@@ -77,6 +78,44 @@ class ConstructionSiteService
         }
         $array['tableData'] = $array;
         $array['sumOfWorkerCost'] = $sumOfWorkerCost;
+        return $array;
+    }
+
+    public function getWorkHoursCostPerDayAndConstSiteForCoOp($constSite){
+        $workHourCost= (float)AppParametersModel::where('param_name_srt', 'bwh-c-o')->where('active', TRUE)->first()->value;
+        $wdrAll = WorkingDayRecordModel::where('construction_site_id', $constSite)
+            ->with('getAttendanceCoOp')
+            ->orderBy('date','desc')
+            ->get();
+        $array = [];
+        $sumOfWorkerCost=0;
+        $sumOfWorkerHours=0;
+        foreach ($wdrAll as $wdr) {
+            $workerHoursSum =0;
+            foreach ($wdr->getAttendanceCoOp as $att) {
+                $workerHoursSum += $att->work_hours;
+            }
+            $sumOfWorkerCost += $workerHoursSum * $workHourCost;
+            $sumOfWorkerHours += $workerHoursSum;
+        }
+        $array['sumOfWorkerCost'] = $sumOfWorkerCost;
+        $array['sumOfWorkerHours'] = $sumOfWorkerHours;
+        return $array;
+    }
+
+    public function getCarCostForConstSite($constSite){
+        $workHourCost= (float)AppParametersModel::where('param_name_srt', 'bwcc')->where('active', TRUE)->first()->value;
+        $wdrAll = WorkingDayRecordModel::where('construction_site_id', $constSite)
+            ->with('getCarMileage')->get();
+        $carMileage = 0;
+        foreach ($wdrAll as $wdr) {
+            foreach ($wdr->getCarMileage as $car) {
+                if(!is_null($car->start_mileage) && !is_null($car->end_mileage)){
+                    $carMileage += $car->end_mileage - $car->start_mileage;
+                }
+            }
+        }
+        $array['carCost'] = $carMileage * $workHourCost;
         return $array;
     }
 }

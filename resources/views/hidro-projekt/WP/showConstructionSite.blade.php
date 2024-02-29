@@ -45,8 +45,30 @@
         <div class="col">
             <h1 class="h6">Pregled troškova:</h1>
 
-            <b style="font-size: 15px"> Kumulativno izvršeni radni sati: {{$cumulativelyHours}} h</b> <br>
-            <b style="font-size: 15px"> Ukupan trošak radnika: {{$perDayHoursAndCost['sumOfWorkerCost']}} €</b> <br>
+            <div class="row">
+                <div class="col">
+                    <p>
+                        &nbsp; - Ukupan trošak radnika[HP]: <b>{{ number_format($perDayHoursAndCost['sumOfWorkerCost'], 2, ',', '.') }}</b>€ <br>
+                        &nbsp; - Ukupan trošak radnika[CoOp]: <b>{{ number_format($perDayHoursAndCostCoOp['sumOfWorkerCost'], 2, ',', '.') }}</b>€ <br>
+                        &nbsp; - Ukupan trošak radnika[HP + CoOp]: <b>{{ number_format($perDayHoursAndCost['sumOfWorkerCost'] + $perDayHoursAndCostCoOp['sumOfWorkerCost'], 2, ',', '.') }}</b>€
+                    </p>
+                </div>
+                <div class="col">
+                    <p>
+                        &nbsp; - Kumulativno izvršeni radni sati: <b>{{$cumulativelyHours + $perDayHoursAndCostCoOp['sumOfWorkerHours'] }}</b>h <br>
+                        &nbsp; - HP radni sati: <b>{{$cumulativelyHours}}</b>h / CoOp radni sati: <b>{{ $perDayHoursAndCostCoOp['sumOfWorkerHours']}}</b>h <br>
+                        &nbsp; - Trošak vozila: <b>{{ number_format($carCost['carCost'], 2, ',', '.') }}</b>€ <br>
+                    </p>
+                </div>
+            </div>
+
+            <?php
+                $overallCost = $carCost['carCost'] + $perDayHoursAndCost['sumOfWorkerCost'] + $perDayHoursAndCostCoOp['sumOfWorkerCost'];
+            ?>
+            <p>
+                &nbsp; - <b>Ukupno troškovi: {{ number_format($overallCost, 2, ',', '.') }}</b>€ <br>
+            </p>
+
             <hr>
             <table class="table table-sm">
                 <thead>
