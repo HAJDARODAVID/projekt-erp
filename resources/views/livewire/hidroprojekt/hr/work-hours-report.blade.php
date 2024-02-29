@@ -22,6 +22,7 @@
             <thead style="border-bottom: 1.5px solid #000000;">
                 <tr>
                     <td scope="col"><b>Ime i prezime</b></td>
+                    <td scope="col"><abbr title="Da li radnik zadovoljava uvjete za bonus">Bonus</abbr></td>
                     <td scope="col"><abbr title="Planirani radni sati u mjesecu">PS</abbr></td>
                     <td scope="col"><abbr title="Ostvareni radni sati u mjesecu">OS</abbr></td>
                     <td scope="col"><abbr title="Godišnji u mjesecu (dani)">GO</abbr></td>
@@ -39,6 +40,7 @@
                 @foreach ($completeAttendance as $worker)
                     <tr>
                         <td onclick="location.href='{{ route('hp_workerWorkHours', $worker['id']) }}';">{{ $worker['name'] }}</td>
+                        <td><input class="form-check-input" type="checkbox" disabled @if ($worker['sickLeave'] == 0) checked @endif></td>
                         <td>{{ $planedHours }}</td>
                         <td>{{ $worker['monthlyHours'] }}</td>
                         <td>{{ $worker['paidLeave'] }}</td>
@@ -74,6 +76,7 @@
                 @endforeach
                 <tr>
                     <td style="border-top: 1.5px solid #000000;"><b>Sum</b></td>
+                    <td style="border-top: 1.5px solid #000000;"></td>
                     <td style="border-top: 1.5px solid #000000;">{{ $cumulative['planedHours'] }}</td>
                     <td style="border-top: 1.5px solid #000000;">{{ $cumulative['workHours'] }}</td>
                     <td style="border-top: 1.5px solid #000000;">{{ $cumulative['paidLeave'] }}</td>

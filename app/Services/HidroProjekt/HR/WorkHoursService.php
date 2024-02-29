@@ -16,7 +16,7 @@ class WorkHoursService
 {
     private static function getAllAttendanceWorkers(){
         $groupLeaders= User::where('type', User::USER_TYPE_GROUP_LEADER)->with('getWorker')->get();
-        $workers = WorkerModel::where('is_worker', TRUE)->get();
+        $workers = WorkerModel::where('is_worker', TRUE)->where('status',1)->get();
         $attendanceWorker=[];
         foreach ($groupLeaders as $worker) {
             $attendanceWorker[$worker->worker_id] = $worker->getWorker->firstName ." ". $worker->getWorker->lastName;
