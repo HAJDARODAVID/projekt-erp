@@ -48,8 +48,8 @@
             <div class="row">
                 <div class="col">
                     <p>
-                        &nbsp; - Ukupan trošak radnika[HP]: <b>{{ number_format($perDayHoursAndCost['sumOfWorkerCost'], 2, ',', '.') }}</b>€ <br>
-                        &nbsp; - Ukupan trošak radnika[CoOp]: <b>{{ number_format($perDayHoursAndCostCoOp['sumOfWorkerCost'], 2, ',', '.') }}</b>€ <br>
+                        &nbsp; - Radnika[HP]: <b>{{ number_format($perDayHoursAndCost['sumOfWorkerCost'], 2, ',', '.') }}</b>€ <br>
+                        &nbsp; - Radnika[CoOp]: <b>{{ number_format($perDayHoursAndCostCoOp['sumOfWorkerCost'], 2, ',', '.') }}</b>€ <br>
                         &nbsp; - Ukupan trošak radnika: <b>{{ number_format($perDayHoursAndCost['sumOfWorkerCost'] + $perDayHoursAndCostCoOp['sumOfWorkerCost'], 2, ',', '.') }}</b>€
                     </p>
                 </div>
