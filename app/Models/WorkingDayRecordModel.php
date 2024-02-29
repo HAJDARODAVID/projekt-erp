@@ -46,4 +46,13 @@ class WorkingDayRecordModel extends Model
         return $this->hasMany(AttendanceModel::class, 'working_day_record_id', 'id');
     }
 
+    public function getAttendanceCoOp():HasMany{
+        return $this->hasMany(AttendanceCoOpModel::class, 'working_day_record_id', 'id');
+    }
+
+    public function getCarMileage():HasMany{
+        return $this->hasMany(CarMileageModel::class, 'wdr_id', 'id');
+    }
+
+
 }
