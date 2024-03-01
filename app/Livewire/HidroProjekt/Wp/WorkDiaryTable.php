@@ -17,6 +17,7 @@ class WorkDiaryTable extends DataTableComponent
             ->setTableRowUrl(function($row) {
                 return route('hp_showWorkDayDiary', $row->id);
             });
+        $this->setSearchBlur();
     }
 
     public function columns(): array

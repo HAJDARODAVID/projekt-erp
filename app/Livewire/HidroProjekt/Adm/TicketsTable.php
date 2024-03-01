@@ -20,6 +20,7 @@ class TicketsTable extends DataTableComponent
             return route('hp_showTicket', $row->id);
             });
         $this->setFilter('status', '1');
+        $this->setSearchBlur();
     }
 
     public function columns(): array
