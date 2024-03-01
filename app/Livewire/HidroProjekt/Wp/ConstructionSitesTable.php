@@ -46,7 +46,7 @@ class ConstructionSitesTable extends DataTableComponent
     }
 
     public function filters(): array{
-    return [
+        return [
         SelectFilter::make('Status', 'status')
             ->options(ConstructionSiteModel::CONSTRUCTION_STATUS)
             ->filter(function(Builder $builder, string $value) {

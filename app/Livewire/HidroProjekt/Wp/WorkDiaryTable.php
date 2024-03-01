@@ -25,9 +25,11 @@ class WorkDiaryTable extends DataTableComponent
             Column::make("#", "id")
                 ->sortable(),
             Column::make("Ime", "firstName")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Prezime", "lastName")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Gradilište", "name")
                 ->sortable(),
             Column::make("Datum", "date")

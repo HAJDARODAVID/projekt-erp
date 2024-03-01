@@ -6,6 +6,8 @@ use App\Models\TicketModel;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 
 class TicketsTable extends DataTableComponent
 {
@@ -17,6 +19,7 @@ class TicketsTable extends DataTableComponent
             ->setTableRowUrl(function($row) {
             return route('hp_showTicket', $row->id);
             });
+        $this->setFilter('status', '1');
     }
 
     public function columns(): array
@@ -39,5 +42,16 @@ class TicketsTable extends DataTableComponent
         return TicketModel::query()
             ->where('status', '!=', -1)
             ->orderBy('id', 'desc');
+    }
+
+    public function filters(): array{
+        return [
+        SelectFilter::make('Status', 'status')
+            ->options(TicketModel::TICKET_STATUS)
+            ->filter(function(Builder $builder, string $value) {
+                $builder->where('status', $value);
+            }),
+
+        ];
     }
 }
