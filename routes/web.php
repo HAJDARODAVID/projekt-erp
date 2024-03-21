@@ -87,12 +87,16 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('/app_params', 'appParams')->name('hp_appParams');
                     });
-                Route::controller(MaterialMasterDataController::class)
+                Route::prefix('/master_data')
+                ->group(function(){
+                    Route::controller(MaterialMasterDataController::class)
                     ->group(function(){
                         Route::get('master_material', 'masterMaterial')->name('hp_masterMaterial');
                         Route::get('master_material/{id}', 'showMaterial')->name('hp_showMaterial');
                         Route::get('new_material', 'createNewMaterialForm')->name('hp_createNewMaterialForm');
                     });
+                });
+                
             });
 
         Route::controller(HumanResourcesController::class)
@@ -158,7 +162,8 @@ Route::get('/clear', function() {
     Artisan::call('route:cache');
     Artisan::call('view:clear');
     Artisan::call('config:cache');
-    return  "all cleared ...";
+    echo  "all cleared ...";
+    return;
 
 });
 

@@ -24,16 +24,16 @@ class MaterialMasterDataTable extends DataTableComponent
         return [
             Column::make("#", "id")
                 ->sortable(),
-            Column::make("Name", "name")
+            Column::make("Naziv materijala", "name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Oem", "oem")
+            Column::make("Proizvođač", "oem")
                 ->sortable(),
-            Column::make("Supplier", "supplier")
+            Column::make("Dobavljač", "supplier")
                 ->sortable(),
-            Column::make("Uom 1", "uom_1")
+            Column::make("Mjerna jedinica", "uom_1")
                 ->sortable(),
-            Column::make("Price", "price")
+            Column::make("Cijena", "price")
                 ->sortable(),
         ];
     }

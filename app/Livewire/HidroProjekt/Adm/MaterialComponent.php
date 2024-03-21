@@ -20,14 +20,14 @@ class MaterialComponent extends Component
     public function mount(){
         if($this->type == 'show'){
             $this->mmInfo = $this->mmModal->toArray();
-            $this->mmInfo['pricevat'] = $this->mmModal->price *1.25;
+            $this->mmInfo['pricevat'] = number_format(($this->mmModal->price *1.25), 2, '.', '');
         }
         //dd( $this->mmInfo);
     }
     
     public function updatedMmInfo($key, $value){
         if($value == 'price'){
-            $this->mmInfo['pricevat'] = $key == '' ? 0 :$key *1.25;
+            $this->mmInfo['pricevat'] = number_format($key == '' ? 0 :$key *1.25, 2, '.', '');
         }
         if($this->type=='show'){
             if(in_array($value, $this->required) && $key == ''){
