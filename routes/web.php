@@ -15,6 +15,7 @@ use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
+use App\Http\Controllers\SuppliersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,11 @@ Route::prefix('/')
                         Route::get('master_material', 'masterMaterial')->name('hp_masterMaterial');
                         Route::get('master_material/{id}', 'showMaterial')->name('hp_showMaterial');
                         Route::get('new_material', 'createNewMaterialForm')->name('hp_createNewMaterialForm');
+                    });
+                    Route::controller(SuppliersController::class)
+                    ->group(function(){
+                        Route::get('suppliers', 'index')->name('hp_suppliers');
+                        Route::get('new_supplier', 'newSupplier')->name('hp_newSupplier');
                     });
                 });
                 
