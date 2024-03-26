@@ -2,10 +2,13 @@
 
 namespace App\Livewire\HidroProjekt\Hr;
 
-use App\Services\HidroProjekt\HR\WorkHoursService;
-use App\Services\Months;
 use Livewire\Component;
+use App\Services\Months;
 use Livewire\Attributes\On; 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Adm\AttendanceReportExport;
+use App\Services\HidroProjekt\HR\AttendanceService;
+use App\Services\HidroProjekt\HR\WorkHoursService;
 
 class WorkHoursReport extends Component
 {
@@ -28,6 +31,14 @@ class WorkHoursReport extends Component
     }
     public function updatedSelectedMonth(){
         $this->dispatch('refreshWorkHoursComponent')->self();
+    }
+
+    public function exportAttendanceReport(){
+        $service = new AttendanceService;
+        $data['summary']=$service->getDataForWorkerAttendanceReport($this->selectedMonth);
+        $data['per_day']=$service->getAllAttendanceDataForMonthly($this->selectedMonth);
+        $data['month'] = $this->selectedMonth;
+        return (new AttendanceReportExport($data));
     }
 
     public function render()

@@ -1,20 +1,26 @@
 <div>
-    <div class="row g-3">
-        <div class="col-md-2">
-            <label for="inputState" class="form-label"><b>Godina</b></label>
-            <select id="inputState" class="form-select">
-                  <option value="2024">2024</option>
-            </select>
-          </div>
-        <div class="col-md-2">
-          <label for="inputState" class="form-label"><b>Mjesec</b></label>
-          <select id="inputState" class="form-select" wire:model.live='selectedMonth'>
-            @foreach ($months as $key => $month)
-                <option value="{{ $key }}">{{ $month }}</option>
-            @endforeach
-          </select>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="row g-3">
+            <div class="col" style="width: 200px">
+                <label for="inputState" class="form-label"><b>Godina</b></label>
+                <select id="inputState" class="form-select">
+                      <option value="2024">2024</option>
+                </select>
+              </div>
+            <div class="col" style="width: 200px">
+              <label for="inputState" class="form-label"><b>Mjesec</b></label>
+              <select id="inputState" class="form-select" wire:model.live='selectedMonth'>
+                @foreach ($months as $key => $month)
+                    <option value="{{ $key }}">{{ $month }}</option>
+                @endforeach
+              </select>
+            </div>
+        </div>
+        <div class="">
+            <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='exportAttendanceReport()'><i class="bi bi-file-earmark-spreadsheet"></i></button>
         </div>
     </div>
+    
     <hr>
 
     <div>

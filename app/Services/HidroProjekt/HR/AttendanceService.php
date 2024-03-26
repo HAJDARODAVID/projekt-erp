@@ -3,6 +3,7 @@
 namespace App\Services\HidroProjekt\HR;
 
 use App\Models\AttendanceModel;
+use App\Models\WorkerModel;
 use DatePeriod;
 use DateInterval;
 
@@ -38,5 +39,45 @@ class AttendanceService
         }
         return;
     }
+
+    public function getDataForWorkerAttendanceReport($month){
+        $att=AttendanceModel::whereMonth('date', $month)
+            ->with('getWorkerInfo')
+            ->orderBy('worker_id', 'asc')
+            ->get();
+        $workers = $att->groupBy('worker_id');
+        $data=[];
+        $i=0;
+        foreach ($workers as $key => $wrk) {
+            $wrkInfo = WorkerModel::find($key);
+            $data[$i] = [
+                'id'         => sprintf('%04d',$key),
+                'worker'     => $wrkInfo->firstName . ' ' . $wrkInfo->lastName,
+                'bonus'      => $wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)->count() == 0 ? 'X' : NULL,
+                'work_hours' => $wrk->sum('work_hours') + ($wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)->count() * 8),
+                'BO'         => $wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)->count(),
+                'GO'         => $wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)->count(),
+            ];
+            $i++;
+        }
+        return $data;
+    }
+
+    public function getAllAttendanceDataForMonthly($month=3){
+        $att = AttendanceModel::query()
+            ->leftJoin('working_day_record', 'working_day_record.id', '=', 'attendance.working_day_record_id')
+            ->leftJoin('construction_sites', 'construction_sites.id', '=', 'working_day_record.construction_site_id')
+            ->leftJoin('workers', 'workers.id', '=', 'attendance.worker_id')
+            ->select('attendance.date', 'attendance.worker_id', 'workers.firstName', 'workers.lastName','construction_sites.name', 'attendance.type', 'attendance.work_hours', 'attendance.absence_reason')
+            ->whereMonth('attendance.date', $month)
+            ->get()->toArray();
+        
+        foreach ($att as $key => $row) {
+            $att[$key]['absence_reason'] = $row['absence_reason'] == NULL ? NULL : AttendanceModel::ABSENCE_REASON_SHT_TXT[$row['absence_reason']];
+            $att[$key]['worker_id'] = sprintf('%04d',$row['worker_id']);
+        }
+       return $att;
+    }
+
 
 }
