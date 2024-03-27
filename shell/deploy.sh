@@ -1,4 +1,4 @@
-composer install &&
+composer install --ignore-platform-reqs &&
 php artisan clear-compiled &&
 php artisan cache:clear &&
 php artisan route:clear &&
