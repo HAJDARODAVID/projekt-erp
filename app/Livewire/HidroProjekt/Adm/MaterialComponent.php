@@ -15,6 +15,7 @@ class MaterialComponent extends Component
     public $mmModal    = NULL;
     public $disabled   = FALSE;
     public $inProgress = FALSE;
+    public $suppliers  = NULL;
     public $required   = ['name', 'uom_1', 'price'];
 
     public function mount(){
@@ -22,7 +23,6 @@ class MaterialComponent extends Component
             $this->mmInfo = $this->mmModal->toArray();
             $this->mmInfo['pricevat'] = number_format(($this->mmModal->price *1.25), 2, '.', '');
         }
-        //dd( $this->mmInfo);
     }
     
     public function updatedMmInfo($key, $value){

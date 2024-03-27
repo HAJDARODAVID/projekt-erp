@@ -22,6 +22,7 @@
                 'uom' => $uom,
                 'type' => 'show',
                 'mmModal' => $mmInfo,
+                'suppliers' => $suppliers,
             ])
         </div>
     </div>

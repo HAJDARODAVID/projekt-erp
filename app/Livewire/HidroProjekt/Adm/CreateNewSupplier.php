@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Adm;
 
+use App\Models\Supplier;
 use Livewire\Component;
 
 class CreateNewSupplier extends Component
@@ -14,7 +15,16 @@ class CreateNewSupplier extends Component
         if($this->supplier == ''){
             return $this->error['supplier'] = TRUE;
         }
-        return $this->supplier = 'test';
+        $supplier = Supplier::where('name', $this->supplier)->first();
+        if(!is_null($supplier)){
+            return redirect()->route('hp_suppliers')->with('error', 'Dobavljač: '.$this->supplier.', postoji u bazi');
+        }
+        if(is_null($supplier)){
+            $newSupplier = Supplier::create([
+                'name' => $this->supplier,
+            ]);
+            return redirect()->route('hp_suppliers')->with('success', 'Uspješno kreiran novi dobavljač: '. $newSupplier->name);
+        }  
     }
     public function render()
     {

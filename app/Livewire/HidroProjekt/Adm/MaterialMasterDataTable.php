@@ -29,7 +29,7 @@ class MaterialMasterDataTable extends DataTableComponent
                 ->searchable(),
             Column::make("Proizvođač", "oem")
                 ->sortable(),
-            Column::make("Dobavljač", "supplier")
+            Column::make("Dobavljač", "getSupplier.name")
                 ->sortable(),
             Column::make("Mjerna jedinica", "uom_1")
                 ->sortable(),

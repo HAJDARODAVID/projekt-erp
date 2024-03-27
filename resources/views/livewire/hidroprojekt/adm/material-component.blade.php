@@ -14,7 +14,12 @@
         <div class="col">
             <div class="form-group">
                 <label for="supplier">Dobavljač</label>
-                <input type="text" class="form-control @isset($save['supplier']) is-valid @endisset @isset($error['supplier']) is-invalid @endisset" id="supplier" wire:model.blur='mmInfo.supplier'>
+                <select class="form-control @isset($save['supplier_id']) is-valid @endisset @isset($error['supplier_id']) is-invalid @endisset" id="supplier_id" wire:model.change='mmInfo.supplier_id'>
+                    <option value="0">...</option> 
+                    @foreach ($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>    
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="col">

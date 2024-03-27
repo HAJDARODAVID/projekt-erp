@@ -7,16 +7,27 @@
         <x-adm.master-data-tabs></x-adm.master-data-tabs>
     </div>
 
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success" id="alert">
-            <p>{{ $message }}</p>
-        </div>
-        <script>fadeAway('alert');</script>
-    @endif
-  
+    <div class="container">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" id="alert">
+                <p>{{ $message }}</p>
+            </div>
+            <script>fadeAway('alert');</script>
+        @endif
+
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger" id="alert">
+                <p>{{ $message }}</p>
+            </div>
+            <script>fadeAway('alert');</script>
+        @endif
+    </div>
+
     <div class="container">
         @livewire('hidroprojekt.adm.create-new-supplier')
         <hr>
-
+        @livewire('hidroProjekt.adm.suppliers-table', [
+        'theme' => "bootstrap-5",
+        ])
     </div>
 @endsection

@@ -18,7 +18,8 @@
     <div class="container d-flex justify-content-center">
         <div class="" style="width: 750px">
             @livewire('hidroprojekt.adm.material-component', [
-                'uom' => $uom,
+                'uom'       => $uom,
+                'suppliers' => $suppliers,
             ])
         </div>
         
