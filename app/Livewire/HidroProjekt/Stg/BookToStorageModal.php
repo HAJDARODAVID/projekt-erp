@@ -14,6 +14,7 @@ class BookToStorageModal extends Component
 
     public function mount(){
         $this->mmInfo = MaterialMasterData::orderBy('name','ASC')->get()->pluck('name', 'id');
+        $this->bookingOrder[$this->itemCount] = [];
     }
 
     public function modalBtn($type){
@@ -21,7 +22,8 @@ class BookToStorageModal extends Component
     }
 
     public function addItem(){
-        return $this->itemCount++;
+        $this->itemCount++;
+        return $this->bookingOrder[$this->itemCount] = [];
     }
 
     public function removeItem($key){

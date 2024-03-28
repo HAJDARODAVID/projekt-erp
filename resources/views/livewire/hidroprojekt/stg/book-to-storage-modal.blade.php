@@ -9,12 +9,12 @@
                     <h5 class="modal-title" id="exampleModalLabel">Knjiženje materijala na stanje skladišta</h5>
                 </div>
                 <div class="modal-body">
-                    @for ($i = 1; $i <= $itemCount; $i++)
+                    @foreach ($bookingOrder as $key => $item)
                         <div class="row mb-2">
                             <div class="col col-md-8">
                                 <div class="form-group">
                                     <label for="material">Materijal</label>
-                                    <select class="form-control" id="material" wire:model.change='bookingOrder.{{ $i }}.mat_id'>
+                                    <select class="form-control" id="material" wire:model.change='bookingOrder.{{ $key }}.mat_id'>
                                         <option value="0">...</option> 
                                         @foreach ($mmInfo as $matNr => $matName)
                                             <option value="{{ $matNr }}">{{ $matName }}</option>    
@@ -25,14 +25,14 @@
                             <div class="col col-md-2">
                                 <div class="form-group">
                                     <label for="qty">QTY</label>
-                                    <input type="text" class="form-control" id="qty" wire:model.live='bookingOrder.{{ $i }}.qty'>
+                                    <input type="text" class="form-control" id="qty" wire:model.live='bookingOrder.{{ $key }}.qty'>
                                 </div>
                             </div>
                             <div class="col col-md-2 d-flex align-items-center">
-                                <button type="submit" class="btn btn-danger"  wire:click='removeItem("{{ $i }}")'>-</button>
+                                <button type="submit" class="btn btn-danger"  wire:click='removeItem("{{ $key }}")'>-</button>
                             </div>
                         </div> 
-                    @endfor
+                    @endforeach
 
                     <div class="row">
                         <div class="col"></div>
