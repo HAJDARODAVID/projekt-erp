@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MaterialMasterData extends Model
 {
@@ -25,4 +25,8 @@ class MaterialMasterData extends Model
     {
         return $this->hasOne(Supplier::class, 'id', 'supplier_id');
     }
+
+    // public function getFullNameAttribute(){
+    //     return $this->attributes['id'] . ' ' .  $this->attributes['name'];
+    // }
 }

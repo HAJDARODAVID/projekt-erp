@@ -1,21 +1,23 @@
 <?php
 
+use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
 use App\Http\Controllers\HidroProjekt\TicketController;
+use App\Http\Controllers\HidroProjekt\StorageController;
 use App\Services\HidroProjekt\WP\ConstructionSiteService;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
-use App\Http\Controllers\SuppliersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -161,6 +163,14 @@ Route::prefix('/')
                     });
             });
         
+        Route::prefix('/stg')
+            ->group(function(){
+                Route::controller(StorageController::class)
+                    ->group(function(){
+                        Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');    
+                    });
+            });
+        
     });
 
 Route::get('/clear', function() {
@@ -174,6 +184,7 @@ Route::get('/clear', function() {
 });
 
 Route::get('test',function(){
-    $bla= new ConstructionSiteService;
-    return $bla->getWorkHoursCostPerDayAndConstSite(2);
+    return view('test', [
+        'data' => MaterialMasterData::get()
+    ]);
 });
