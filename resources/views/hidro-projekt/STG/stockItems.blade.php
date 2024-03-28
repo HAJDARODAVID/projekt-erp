@@ -12,5 +12,12 @@
         </div>
     @endif
 
+  @livewire('hidroprojekt.stg.book-to-storage-modal')  
+  <hr> 
+
+    @livewire('hidroProjekt.stg.storage-stock-items-table',[
+        'theme' => 'bootstrap-5',
+    ])
+
   </div>
 @endsection
