@@ -28,7 +28,7 @@
                                     <input type="text" class="form-control" id="qty" wire:model.live='bookingOrder.{{ $key }}.qty'>
                                 </div>
                             </div>
-                            <div class="col col-md-2 d-flex align-items-center">
+                            <div class="col col-md-2 d-flex align-items-end">
                                 <button type="submit" class="btn btn-danger"  wire:click='removeItem("{{ $key }}")'>-</button>
                             </div>
                         </div> 
