@@ -14,7 +14,7 @@
                             <div class="col col-md-8">
                                 <div class="form-group">
                                     <label for="material">Materijal</label>
-                                    <select class="form-control" id="material" wire:model.change='bookingOrder.{{ $key }}.mat_id'>
+                                    <select class="form-control @isset($error[$key]['mat_id']) is-invalid @endisset" id="material" wire:model.change='bookingOrder.{{ $key }}.mat_id'>
                                         <option value="0">...</option> 
                                         @foreach ($mmInfo as $matNr => $matName)
                                             <option value="{{ $matNr }}">{{ $matName }}</option>    
@@ -25,7 +25,7 @@
                             <div class="col col-md-2">
                                 <div class="form-group">
                                     <label for="qty">QTY</label>
-                                    <input type="text" class="form-control" id="qty" wire:model.live='bookingOrder.{{ $key }}.qty'>
+                                    <input type="text" class="form-control @isset($error[$key]['qty']) is-invalid @endisset" id="qty" wire:model.live='bookingOrder.{{ $key }}.qty'>
                                 </div>
                             </div>
                             <div class="col col-md-2 d-flex align-items-end">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click='modalBtn(0)'>Zatvori</button>
-                    <button type="button" class="btn btn-primary">PROKNJIŽI</button>
+                    <button type="button" class="btn btn-primary" wire:click='bookToStorage()'>PROKNJIŽI</button>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Livewire\HidroProjekt\Stg;
 
 use App\Models\MaterialMasterData;
+use App\Services\HidroProjekt\STG\MovementService;
 use Livewire\Component;
 
 class BookToStorageModal extends Component
@@ -11,6 +12,8 @@ class BookToStorageModal extends Component
     public $mmInfo;
     public $itemCount = 1;
     public $bookingOrder = [];
+    public $error = [];
+    public $required = ['mat_id', 'qty'];
 
     public function mount(){
         $this->mmInfo = MaterialMasterData::orderBy('name','ASC')->get()->pluck('name', 'id');
@@ -18,6 +21,11 @@ class BookToStorageModal extends Component
     }
 
     public function modalBtn($type){
+        if($type==0){
+            $this->itemCount                      = 1;
+            $this->bookingOrder                   = [];
+            $this->bookingOrder[$this->itemCount] = [];
+        }
         return $this->activeModal = $type;
     }
 
@@ -29,6 +37,36 @@ class BookToStorageModal extends Component
     public function removeItem($key){
         unset($this->bookingOrder[$key]);
         return;
+    }
+
+    public function bookToStorage(){
+        $validation = $this->validation();
+        if($validation){
+            $service = new MovementService($this->bookingOrder, 101);
+            $service->execute();
+        }
+        return;
+    }
+
+    private function validation(){
+        $this->error = [];
+        foreach ($this->bookingOrder as $key => $array) {
+            if(empty($array)){
+                $this->removeItem($key);
+                continue;
+            };  
+            if((isset($array['mat_id']) && ($array['mat_id'] == 0 || $array['mat_id'] =='')) && (isset($array['qty']) && ($array['qty'] == 0 || $array['qty'] ==''))){
+                $this->removeItem($key);
+                continue;
+            }
+            foreach ($this->required as $colName) {
+                if(!isset($array[$colName]) || $array[$colName] == '0' || $array[$colName] == ""){
+                    $this->error[$key][$colName] = TRUE;
+                }
+            }        
+        }
+        //Return true if valid
+        return empty($this->error);
     }
 
     public function render()
