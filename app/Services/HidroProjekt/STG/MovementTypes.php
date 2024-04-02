@@ -13,8 +13,11 @@ class MovementTypes
         self::BOOK_TO_STORAGE => StorageLocation::MAIN_STORAGE,
     ];
 
+    const MVT_ACTION_TYPE_ADD = 1;
+    const MVT_ACTION_TYPE_REMOVE = -1;
+
     const MVT_ACTIONS = [
-        self::BOOK_TO_STORAGE => ['add'],
+        self::BOOK_TO_STORAGE => [self::MVT_ACTION_TYPE_ADD],
     ];
 
 }
