@@ -24,7 +24,7 @@
     </div>
 
     <div class="container">
-        @livewire('hidroprojekt.adm.create-new-supplier')
+        @livewire('hidroProjekt.adm.create-new-supplier')
         <hr>
         @livewire('hidroProjekt.adm.suppliers-table', [
         'theme' => "bootstrap-5",
