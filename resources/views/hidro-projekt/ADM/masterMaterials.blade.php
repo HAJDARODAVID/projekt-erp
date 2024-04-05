@@ -19,7 +19,7 @@
             <i class="bi bi-plus-circle"></i>&nbsp;NOVI MATERIAL
         </button>
         <hr>
-        @livewire('hidroprojekt.adm.material-master-data-table',[
+        @livewire('hidroProjekt.adm.material-master-data-table',[
             'theme' => "bootstrap-5"
         ])
     </div>
