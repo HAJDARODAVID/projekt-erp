@@ -12,7 +12,7 @@
         </div>
     @endif
 
-  @livewire('hidroprojekt.stg.book-to-storage-modal')  
+  @livewire('hidroProjekt.stg.book-to-storage-modal')  
   <hr> 
 
     @livewire('hidroProjekt.stg.storage-stock-items-table',[
