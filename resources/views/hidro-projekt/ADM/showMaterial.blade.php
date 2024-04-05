@@ -18,7 +18,7 @@
   
     <div class="container d-flex justify-content-center">
         <div class="" style="width: 750px">
-            @livewire('hidroprojekt.adm.material-component', [
+            @livewire('hidroProjekt.adm.material-component', [
                 'uom' => $uom,
                 'type' => 'show',
                 'mmModal' => $mmInfo,
