@@ -28,6 +28,6 @@ class CreateNewSupplier extends Component
     }
     public function render()
     {
-        return view('livewire.hidroProjekt.adm.create-new-supplier');
+        return view('livewire.hidroprojekt.adm.create-new-supplier');
     }
 }
