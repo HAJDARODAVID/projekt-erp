@@ -1,19 +1,23 @@
 <?php
 
+use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\ParametersController;
+use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
+use App\Http\Controllers\HidroProjekt\TicketController;
+use App\Http\Controllers\HidroProjekt\StorageController;
+use App\Services\HidroProjekt\WP\ConstructionSiteService;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
-use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
-use App\Http\Controllers\HidroProjekt\TicketController;
-use App\Http\Controllers\ParametersController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WorkDayDiaryController;
-use App\Services\HidroProjekt\WP\ConstructionSiteService;
+use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
+use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +90,21 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('/app_params', 'appParams')->name('hp_appParams');
                     });
+                Route::prefix('/master_data')
+                ->group(function(){
+                    Route::controller(MaterialMasterDataController::class)
+                    ->group(function(){
+                        Route::get('master_material', 'masterMaterial')->name('hp_masterMaterial');
+                        Route::get('master_material/{id}', 'showMaterial')->name('hp_showMaterial');
+                        Route::get('new_material', 'createNewMaterialForm')->name('hp_createNewMaterialForm');
+                    });
+                    Route::controller(SuppliersController::class)
+                    ->group(function(){
+                        Route::get('suppliers', 'index')->name('hp_suppliers');
+                        Route::get('new_supplier', 'newSupplier')->name('hp_newSupplier');
+                    });
+                });
+                
             });
 
         Route::controller(HumanResourcesController::class)
@@ -144,6 +163,14 @@ Route::prefix('/')
                     });
             });
         
+        Route::prefix('/stg')
+            ->group(function(){
+                Route::controller(StorageController::class)
+                    ->group(function(){
+                        Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');    
+                    });
+            });
+        
     });
 
 Route::get('/clear', function() {
@@ -151,11 +178,13 @@ Route::get('/clear', function() {
     Artisan::call('route:cache');
     Artisan::call('view:clear');
     Artisan::call('config:cache');
-    return  "all cleared ...";
+    echo  "all cleared ...";
+    return;
 
 });
 
 Route::get('test',function(){
-    $bla= new ConstructionSiteService;
-    return $bla->getWorkHoursCostPerDayAndConstSite(2);
+    return view('test', [
+        'data' => MaterialMasterData::get()
+    ]);
 });
