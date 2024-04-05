@@ -43,7 +43,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" wire:click='modalBtn(0)'>Zatvori</button>
-                    <button type="button" class="btn btn-primary" wire:click='bookToStorage()'>PROKNJIŽI</button>
+                    <button type="button" class="btn btn-primary" wire:click='bookToStorage()' onclick="this.setAttribute('disabled', true)">PROKNJIŽI</button>
                 </div>
             </div>
         </div>

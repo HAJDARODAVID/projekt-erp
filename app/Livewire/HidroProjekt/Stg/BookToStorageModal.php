@@ -4,6 +4,7 @@ namespace App\Livewire\HidroProjekt\Stg;
 
 use App\Models\MaterialMasterData;
 use App\Services\HidroProjekt\STG\MovementService;
+use App\Services\HidroProjekt\STG\MovementTypes;
 use Livewire\Component;
 
 class BookToStorageModal extends Component
@@ -42,8 +43,12 @@ class BookToStorageModal extends Component
     public function bookToStorage(){
         $validation = $this->validation();
         if($validation){
-            $service = new MovementService($this->bookingOrder, 101);
-            $service->execute();
+            $service = new MovementService($this->bookingOrder, MovementTypes::BOOK_TO_STORAGE);
+            $store = $service->execute();
+            if($store){
+                $this->bookingOrder = [];
+                return redirect()->route('hp_storageStockItems');
+            }
         }
         return;
     }

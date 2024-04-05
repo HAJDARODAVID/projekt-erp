@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class StorageStockItem extends Model
 {
@@ -24,4 +25,8 @@ class StorageStockItem extends Model
         'cons_id',
         'qty',
     ];
+
+    public function getMaterialInfo(): HasOne{
+        return $this->hasOne(MaterialMasterData::class, 'id', 'mat_id');
+    }
 }

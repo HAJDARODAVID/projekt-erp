@@ -22,10 +22,12 @@ class StorageStockItemsTable extends DataTableComponent
                 ->hideIf(TRUE),
             Column::make("Mat id", "mat_id")
                 ->sortable(),
+            Column::make("Mat name", "getMaterialInfo.name")
+                ->sortable(),
             Column::make("Str loc", "str_loc")
-                ->sortable(),
+                ->hideIf(TRUE),
             Column::make("Cons id", "cons_id")
-                ->sortable(),
+                ->hideIf(TRUE),
             Column::make("Qty", "qty")
                 ->sortable(),
             Column::make("Created at", "created_at")
