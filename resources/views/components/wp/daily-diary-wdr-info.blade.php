@@ -89,7 +89,7 @@
     </div>
 
     <div class="col">
-        <p class="h6">Pisustvo radnika[Hidro-Projekt]:</p>
+        <p class="h6">Prisustvo radnika[Hidro-Projekt]:</p>
         <table class="table">
         <thead>
             <tr>
@@ -116,7 +116,7 @@
         </tbody>
         </table>
         <hr>
-        <p class="h6">Pisustvo radnika[Kooperanti]:</p>
+        <p class="h6">Prisustvo radnika[Kooperanti]:</p>
         <table class="table">
         <thead>
             <tr>
