@@ -61,9 +61,10 @@ class MovementService
 
     private function createNewMovement($mvt){
         foreach ($this->data as $data) {
+            $stgLoc = $mvt>0 ? $this->toLoc : $this->fromLoc;
             MaterialMvtModel::create([
-                'stg_loc'    => $mvt>0 ? $this->toLoc : $this->fromLoc,
-                'const_id'   => NULL,
+                'stg_loc'    => $stgLoc,
+                'const_id'   => $stgLoc == StorageLocation::CONSTRUCTION_SITE ? $this->constSite : NULL,
                 'mvt'        => $this->mvt,
                 'mat_doc_id' => $this->matDocNr->id,
                 'mat_id'     => $data['mat_id'],
@@ -77,7 +78,11 @@ class MovementService
         foreach ($this->data as $data) {
             $stgLoc = $mvt>0 ? $this->toLoc : $this->fromLoc;
             $qty = $data['qty'] * $mvt;
-            $onStock = StorageStockItem::where('mat_id', $data['mat_id'])->where('str_loc', $stgLoc)->first();
+            $onStock = StorageStockItem::where('mat_id', $data['mat_id'])->where('str_loc', $stgLoc)->get();
+            if(!is_null($this->constSite) && $stgLoc != StorageLocation::MAIN_STORAGE){
+                $onStock = $onStock->where('cons_id', $this->constSite);
+            }
+            $onStock = $onStock->first();
             if(is_null($onStock)){
                 StorageStockItem::create([
                     'mat_id'  => $data['mat_id'],

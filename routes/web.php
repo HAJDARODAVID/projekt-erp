@@ -17,7 +17,9 @@ use App\Services\HidroProjekt\AdminModuleMenuItemsService;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
+use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
+use App\Models\MaterialDocModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -161,6 +163,10 @@ Route::prefix('/')
                         Route::get('work_day_diaries', 'workDayDiaries')->name('hp_workDayDiaries');
                         Route::get('work_day_diaries/{id}', 'showWorkDayDiary')->name('hp_showWorkDayDiary');
                     });
+                Route::controller(InternalDeliveryNoteController::class)
+                    ->group(function(){
+                        Route::get('internal_delivery_note','index')->name('hp_internalDeliveryNote');
+                    });
             });
         
         Route::prefix('/stg')
@@ -184,6 +190,7 @@ Route::get('/clear', function() {
 });
 
 Route::get('test',function(){
+    dd(MaterialDocModel::first()->fullName);
     return view('test', [
         'data' => MaterialMasterData::get()
     ]);

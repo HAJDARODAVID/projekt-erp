@@ -12,6 +12,13 @@ class MovementTypes
 
     const BOOK_FROM_STORAGE_TO_CONST_SITE = 261;  // Movement where we book material from storage to construction site
     const BOOK_FROM_CONST_SITE_TO_STORAGE = 262;  // Movement where we book material from construction site to storage
+
+    const MVT_DESC_HR = [
+        self::BOOK_TO_STORAGE                 => NULL,
+        self::BOOK_FROM_STORAGE_TO_CONST_SITE => 'Knjiženje na gradilište',
+        self::BOOK_FROM_CONST_SITE_TO_STORAGE   => NULL,
+        self::BOOK_CORRECTION_ON_STORAGE_DOWN => NULL,
+    ];
  
     const MVT_TO_LOCATION = [
         self::BOOK_TO_STORAGE                 => StorageLocation::MAIN_STORAGE,
@@ -37,5 +44,7 @@ class MovementTypes
             self::MVT_ACTION_TYPE_REMOVE
         ],
     ];
+
+    const CONST_SITE_MVT = [self::BOOK_FROM_STORAGE_TO_CONST_SITE, self::BOOK_FROM_CONST_SITE_TO_STORAGE];
 
 }
