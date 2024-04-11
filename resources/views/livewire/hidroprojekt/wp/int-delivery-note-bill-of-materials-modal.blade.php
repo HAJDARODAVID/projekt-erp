@@ -34,10 +34,10 @@
                             <thead>
                                 <tr>
                                     <td style = "width: 80px"><b>#</b></td>
-                                    <td style = "width: 300px"><b>Materijal</b></td>
+                                    <td style = "width: 400px"><b>Materijal</b></td>
                                     <td style = "width: 50px"><b>QTY</b></td>
                                     <td style = "width: 50px"><b>UOM</b></td>
-                                    <td style = "width: 150px"><b>Iznos[€]</b></td>
+                                    <td style = "width: 120px"><b>Iznos[€]</b></td>
                                 </tr>
                             </thead>
                             <tbody>

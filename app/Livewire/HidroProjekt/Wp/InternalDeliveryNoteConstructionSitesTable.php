@@ -28,7 +28,7 @@ class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
                 ->label(
                     fn($row, Column $column) => $row->fullName
                 ),
-            Column::make("Korisnik", "getUserInfo.name")
+            Column::make("Izdavatelj", "getUserInfo.name")
                 ->sortable(),
             Column::make("Stvoreno", "created_at")
                 ->sortable(),
