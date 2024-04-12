@@ -5,10 +5,12 @@ namespace App\Livewire\HidroProjekt\Stg;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\StorageStockItem;
+use App\Services\HidroProjekt\STG\StorageLocation;
+use Illuminate\Database\Eloquent\Builder;
 
 class StorageStockItemsTable extends DataTableComponent
 {
-    protected $model = StorageStockItem::class;
+    //protected $model = StorageStockItem::class;
 
     public function configure(): void
     {
@@ -35,5 +37,10 @@ class StorageStockItemsTable extends DataTableComponent
             Column::make("Updated at", "updated_at")
                 ->sortable(),
         ];
+    }
+
+    public function builder(): Builder{
+        return StorageStockItem::query()
+            ->where('str_loc', StorageLocation::MAIN_STORAGE);
     }
 }

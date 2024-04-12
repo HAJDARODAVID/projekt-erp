@@ -10,7 +10,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
 {
-    protected $model = MaterialDocModel::class;
+    //protected $model = MaterialDocModel::class;
 
     public function configure(): void
     {
