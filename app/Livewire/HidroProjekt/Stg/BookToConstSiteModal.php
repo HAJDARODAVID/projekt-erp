@@ -24,7 +24,7 @@ class BookToConstSiteModal extends Component
     public $test = NULL;
 
     public function mount(){
-        $this->stockInfo = StorageStockItem::where('str_loc', StorageLocation::MAIN_STORAGE)->with('getMaterialInfo')->get();
+        $this->stockInfo = StorageStockItem::where('str_loc', StorageLocation::MAIN_STORAGE)->where('qty', '>', 0)->with('getMaterialInfo')->get();
         $this->constInfo = ConstructionSiteModel::where('status', 1)->get()->pluck('name', 'id');
         $this->bookingOrder[$this->itemCount] = [];
     }
