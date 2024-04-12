@@ -15,8 +15,8 @@ class MovementTypes
 
     const MVT_DESC_HR = [
         self::BOOK_TO_STORAGE                 => NULL,
-        self::BOOK_FROM_STORAGE_TO_CONST_SITE => 'Knjiženje na gradilište',
-        self::BOOK_FROM_CONST_SITE_TO_STORAGE   => NULL,
+        self::BOOK_FROM_STORAGE_TO_CONST_SITE => 'Skladište --> gradilište',
+        self::BOOK_FROM_CONST_SITE_TO_STORAGE   => 'Gradilište --> skladište',
         self::BOOK_CORRECTION_ON_STORAGE_DOWN => NULL,
     ];
  
@@ -40,6 +40,10 @@ class MovementTypes
         self::BOOK_CORRECTION_ON_STORAGE_UP   => [self::MVT_ACTION_TYPE_ADD],
         self::BOOK_CORRECTION_ON_STORAGE_DOWN => [self::MVT_ACTION_TYPE_REMOVE],
         self::BOOK_FROM_STORAGE_TO_CONST_SITE => [
+            self::MVT_ACTION_TYPE_ADD,
+            self::MVT_ACTION_TYPE_REMOVE
+        ],
+        self::BOOK_FROM_CONST_SITE_TO_STORAGE => [
             self::MVT_ACTION_TYPE_ADD,
             self::MVT_ACTION_TYPE_REMOVE
         ],

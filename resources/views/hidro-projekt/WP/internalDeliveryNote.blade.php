@@ -7,7 +7,11 @@
 
     <div class="container">
 
-        @livewire('hidroProjekt.stg.book-to-const-site-modal')
+        <div class="d-flex gap-3">
+            @livewire('hidroProjekt.stg.book-to-const-site-modal')
+            @livewire('hidroProjekt.wp.book-from-const-site-modal')
+        </div>
+        
 
         <hr>
 
