@@ -1,6 +1,6 @@
 <div>
 
-    <button type="submit" class="btn btn-success" wire:click='modalBtn(1)'><i class="bi bi-person-add"></i></button>
+    <button type="submit" class="btn btn-success" wire:click='modalBtn(1)'><i class="bi bi-building-add"></i></button>
 
     <div class="modal modal-lg" id="bookToStorageModal" style="display:  @if ($activeModal) block @else none @endif">
         <div class="modal-dialog" role="document">
