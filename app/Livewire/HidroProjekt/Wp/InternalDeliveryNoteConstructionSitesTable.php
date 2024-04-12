@@ -39,7 +39,7 @@ class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
             Column::make("Stvoreno", "created_at")
                 ->sortable(),
             Column::make("Ažurirano", "updated_at")
-                ->sortable(),
+                ->hideIf(TRUE),
             Column::make("Actions",'id')
                 ->view('hidro-projekt.WP.deliveryNoteTableBtn'),
         ];
@@ -53,6 +53,7 @@ class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
 
     public function builder(): Builder{
         return MaterialDocModel::query()
-            ->whereIn('mvt_type', MovementTypes::CONST_SITE_MVT);
+            ->whereIn('mvt_type', MovementTypes::CONST_SITE_MVT)
+            ->orderBy('id', 'DESC');
     }
 }
