@@ -76,6 +76,7 @@
                         <td><b>Datum</b></td>
                         <td><b>Poslovođa</b></td>
                         <td><b>#</b></td>
+                        <td><b>km</b></td>
                         <td><b>Sati</b></td>
                         <td><b>€</b></td>
                     </tr>
@@ -88,6 +89,7 @@
                                 <td>{{ $date }}</td>
                                 <td>{{ $info['groupeLeader'] }}</td>
                                 <td>{{ $wdr }}</td>
+                                <td>{{ $info['carMileage'] }}</td>
                                 <td>{{ $info['workerHoursSum'] }}</td>
                                 <td>{{ $info['workerHoursCost'] }}</td>
                             </tr>
