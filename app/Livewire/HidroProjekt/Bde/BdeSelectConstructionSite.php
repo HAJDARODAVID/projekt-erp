@@ -25,11 +25,12 @@ class BdeSelectConstructionSite extends Component
             $this->record->update([
                 'construction_site_id' =>$this->selectedConstructionSite,
             ]);
-            return;
+            return redirect()->route('hp_workingDayEntry',$this->record->id);
         } 
         $this->record->update([
             'construction_site_id' =>$this->selectedConstructionSite,
         ]);
+        return redirect()->route('hp_workingDayEntry',$this->record->id);
     }
 
     public function render()
