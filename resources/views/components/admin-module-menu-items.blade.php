@@ -18,6 +18,15 @@
       @endforeach
     </div>
   @endforeach
+  @if(Auth::user()->id == 1 || Auth::user()->id == 2)
+    <hr>
+    <a 
+      href="{{ route('hp_calculator') }}" 
+      class="list-group-item list-group-item-action" >
+          Kalkulator
+    </a>
+  @endif
+  
 </div>
 
 <script>
