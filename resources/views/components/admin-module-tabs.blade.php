@@ -7,7 +7,7 @@
                         class="nav-link @if (Route::currentRouteName() == $item->route_name) active fw-bold @endif" 
                         id="basic-info-tab" 
                         type="button" 
-                        onclick="location.href='{{ route($item->route_name) }}'">
+                        onclick="location.href='{{ route($item->route_name,$routeParams) }}'">
                         {{ $item->name }}
                     </button>
                 </li>  

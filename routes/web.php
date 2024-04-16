@@ -156,6 +156,7 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
                         Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
+                        Route::get('/construction_sites/materials/{id}', 'showConstructionSiteMaterials')->name('hp_showConstructionSiteMaterials');
                         Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
                     });
                 Route::controller(WorkDayDiaryController::class)

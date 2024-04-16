@@ -11,12 +11,14 @@ class AdminModuleTabs extends Component
 {
     public $name;
     public $items;
+    public $routeParams=[];
     /**
      * Create a new component instance.
      */
-    public function __construct($name)
+    public function __construct($name, $routeParams)
     {
         $this->name = $name;
+        $this->routeParams = $routeParams;
         $this->items = TabItems::where('comp_name', $this->name)->get();
     }
 
