@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="">
                         <div class="modal-header">
-                            <span class="modal-title">Stanje materijala na gradilištu:</span>
+                            <span class="modal-title">Materijal na gradilištu:</span>
                             <a class="btn btn-dark btn-sm" style="display:block" id="goToHome" href="{{ route('hp_workingDayEntry',$wd_id) }}">
                                 <i class="bi bi-arrow-return-left"></i>
                             </a>
@@ -22,7 +22,22 @@
                         </div>
                     @endif
                     
-                    JA SAM KONZUMACIJA!!!
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Materijal</th>
+                                <th>QTY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($onStock as $stock)
+                                <tr>
+                                    <td>{{ $stock->getMaterialInfo->name }}</td>
+                                    <td>{{ $stock->qty }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

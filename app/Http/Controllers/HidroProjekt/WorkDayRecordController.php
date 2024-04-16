@@ -5,8 +5,10 @@ namespace App\Http\Controllers\HidroProjekt;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AppParametersModel;
+use App\Models\StorageStockItem;
 use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
+use App\Services\HidroProjekt\STG\StorageLocation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -56,8 +58,14 @@ class WorkDayRecordController extends Controller
     }
 
     public function materialConsumption($wd_id, $cs_id){
+        $onStock = StorageStockItem::where('str_loc', StorageLocation::CONSTRUCTION_SITE)
+            ->where('cons_id', $cs_id)
+            ->with('getMaterialInfo')
+            ->get();
+
         return view('hidro-projekt.BDE.bdeConsumption',[
             'wd_id' => $wd_id,
+            'onStock' =>  $onStock,
         ]);
     }
 
