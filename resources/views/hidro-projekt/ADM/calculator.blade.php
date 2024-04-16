@@ -20,7 +20,15 @@
                     'type' => 'remove',
                 ], key('remove'))
             </div>
-            <div class="col"></div>
+            <div class="col">
+                @livewire('percentage-calculator',[
+                    'type' => 'add',
+                ], key('add'))
+
+                @livewire('percentage-calculator',[
+                    'type' => 'remove',
+                ], key('remove'))
+            </div>
         </div>
         
     </div>
