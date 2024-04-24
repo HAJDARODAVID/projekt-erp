@@ -32,6 +32,8 @@ class StorageStockItem extends Model
 
     public function getCostAttribute(){
         $materialPrice = MaterialMasterData::where('id', $this->attributes['mat_id'])->first()->price;
-        return $this->attributes['qty']*$materialPrice;
+        $amount = $this->attributes['qty']*$materialPrice;
+        //return number_format((float)$amount, 2, ',', '.');
+        return $amount;
     }
 }
