@@ -12,7 +12,7 @@
         </div>
     @endif
 
-  
+  @livewire('hidroProjekt.stg.select-construction-site-table-component')
 
   </div>
 @endsection

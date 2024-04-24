@@ -7,6 +7,7 @@ use App\Services\HidroProjekt\STG\StorageLocation;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Livewire\Attributes\On; 
 
 class ConstructionSiteStockTable extends DataTableComponent
 {
@@ -30,6 +31,9 @@ class ConstructionSiteStockTable extends DataTableComponent
             Column::make("Material", "getMaterialInfo.name")
                 ->sortable()
                 ->searchable(),
+            Column::make("Gradilište", "getConstructionSiteInfo.name")
+                ->sortable()
+                ->hideIf($this->constSite != '*'),
             Column::make("Str loc", "str_loc")
                 ->hideIf(TRUE),
             Column::make("Cons id", "cons_id")
@@ -62,8 +66,18 @@ class ConstructionSiteStockTable extends DataTableComponent
     }
 
     public function builder(): Builder{
-        return StorageStockItem::query()
+        $query = StorageStockItem::query()
             ->where('str_loc', StorageLocation::CONSTRUCTION_SITE)
-            ->where('cons_id', $this->constSite);
+            ->where('qty','>',0);
+        if($this->constSite != '*'){
+            $query->where('cons_id', $this->constSite);
+        }
+        return $query;
+    }
+
+    #[On('refreshConstructionSiteStockTable')] 
+    public function setConstSite($constSite){
+        $this->constSite = $constSite;
+        $this->dispatch('refreshDatatable');
     }
 }
