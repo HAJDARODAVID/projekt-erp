@@ -29,4 +29,9 @@ class StorageStockItem extends Model
     public function getMaterialInfo(): HasOne{
         return $this->hasOne(MaterialMasterData::class, 'id', 'mat_id');
     }
+
+    public function getCostAttribute(){
+        $materialPrice = MaterialMasterData::where('id', $this->attributes['mat_id'])->first()->price;
+        return $this->attributes['qty']*$materialPrice;
+    }
 }
