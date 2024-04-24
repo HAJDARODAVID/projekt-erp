@@ -174,7 +174,8 @@ Route::prefix('/')
             ->group(function(){
                 Route::controller(StorageController::class)
                     ->group(function(){
-                        Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');    
+                        Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');  
+                        Route::get('construction_stock_items','constructionStockItems')->name('hp_constructionStockItems');    
                     });
             });
         
