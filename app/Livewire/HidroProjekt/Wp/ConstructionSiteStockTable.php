@@ -13,6 +13,7 @@ class ConstructionSiteStockTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->setSearchBlur();
     }
 
     public function columns(): array
@@ -21,9 +22,11 @@ class ConstructionSiteStockTable extends DataTableComponent
             Column::make("Id", "id")
                 ->hideIf(TRUE),
             Column::make("#mat", "mat_id")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Material", "getMaterialInfo.name")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Str loc", "str_loc")
                 ->hideIf(TRUE),
             Column::make("Cons id", "cons_id")
