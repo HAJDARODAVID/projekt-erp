@@ -2,12 +2,15 @@
 
 namespace App\Livewire\HidroProjekt\Wp;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\StorageStockItem;
+use App\Services\HidroProjekt\STG\StorageLocation;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class ConstructionSiteStockTable extends DataTableComponent
 {
+    public $constSite;
     protected $model = StorageStockItem::class;
 
     public function configure(): void
@@ -33,6 +36,8 @@ class ConstructionSiteStockTable extends DataTableComponent
                 ->hideIf(TRUE),
             Column::make("Qty", "qty")
                 ->sortable(),
+            Column::make("UOM", "getMaterialInfo.uom_1")
+                ->sortable(),
             Column::make('Iznos[€]')
                 ->label(
                     fn($row) => number_format((float)$row->cost, 2, ',', '.')
@@ -54,5 +59,11 @@ class ConstructionSiteStockTable extends DataTableComponent
             $amount += $row->cost;
         }
         return number_format((float)$amount, 2, ',', '.');
+    }
+
+    public function builder(): Builder{
+        return StorageStockItem::query()
+            ->where('str_loc', StorageLocation::CONSTRUCTION_SITE)
+            ->where('cons_id', $this->constSite);
     }
 }

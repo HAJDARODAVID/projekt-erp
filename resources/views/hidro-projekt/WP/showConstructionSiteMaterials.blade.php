@@ -23,7 +23,8 @@
     
     {{-- {{ dd($stock) }} --}}
     @livewire('hidroProjekt.wp.construction-site-stock-table',[
-        'theme' => "bootstrap-5"
+        'theme' => "bootstrap-5",
+        'constSite' => $constructionSite->id,
     ])
     
 
