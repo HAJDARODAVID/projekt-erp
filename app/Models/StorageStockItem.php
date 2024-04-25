@@ -29,4 +29,14 @@ class StorageStockItem extends Model
     public function getMaterialInfo(): HasOne{
         return $this->hasOne(MaterialMasterData::class, 'id', 'mat_id');
     }
+
+    public function getConstructionSiteInfo(): HasOne{
+        return $this->hasOne(ConstructionSiteModel::class, 'id', 'cons_id');
+    }
+
+    public function getCostAttribute(){
+        $materialPrice = MaterialMasterData::where('id', $this->attributes['mat_id'])->first()->price;
+        $amount = $this->attributes['qty']*$materialPrice;
+        return $amount;
+    }
 }

@@ -39,4 +39,11 @@ class ConstructionSiteController extends Controller
         ]);
 
     }
+
+    public function showConstructionSiteMaterials($id){
+        return view('hidro-projekt.WP.showConstructionSiteMaterials',[
+            'constructionSite' => $this->constSiteService->getConstructionSite($id),
+            'stock' => $this->constSiteService->getStockForConstructionSite($id),
+        ]);
+    }
 }

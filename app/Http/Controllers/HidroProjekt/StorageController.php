@@ -10,4 +10,8 @@ class StorageController extends Controller
     public function storageStockItems(){
         return view('hidro-projekt.STG.stockItems');
     }
+
+    public function constructionStockItems(){
+        return view('hidro-projekt.STG.constructionStockItems');
+    }
 }

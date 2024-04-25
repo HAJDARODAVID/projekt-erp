@@ -17,6 +17,9 @@
   </div>
   
   <div class="container">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <x-admin-module-tabs name="construction-site-info" :routeParams="[$constructionSite->id]"></x-admin-module-tabs>
+    </div>
     <div class="row">
         <div class="col">
             <h1 class="h6">Informacije gradilišta:</h1>

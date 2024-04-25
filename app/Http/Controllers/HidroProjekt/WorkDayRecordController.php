@@ -4,8 +4,11 @@ namespace App\Http\Controllers\HidroProjekt;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AppParametersModel;
+use App\Models\StorageStockItem;
 use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
+use App\Services\HidroProjekt\STG\StorageLocation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -28,6 +31,7 @@ class WorkDayRecordController extends Controller
     }
 
     public function workingDayEntry($id){
+        $modules['bde-mc'] = AppParametersModel::where('param_name_srt', 'bde-mc')->pluck('value')->first();
         $record = WorkingDayRecordModel::where('id', $id)->first();
         if(is_null($record)){
             return redirect()->route('home');   
@@ -38,6 +42,7 @@ class WorkDayRecordController extends Controller
         Session::put('entryID', $record->id);
         return view('hidro-projekt.BDE.workDayRecord',[
             'record' => $record,
+            'modules' => $modules,
         ]);
     }
 
@@ -49,6 +54,18 @@ class WorkDayRecordController extends Controller
     public function myEntries(){
         return view('hidro-projekt.BDE.myEntries',[
             'user'=>Auth::user()->id,
+        ]);
+    }
+
+    public function materialConsumption($wd_id, $cs_id){
+        $onStock = StorageStockItem::where('str_loc', StorageLocation::CONSTRUCTION_SITE)
+            ->where('cons_id', $cs_id)
+            ->with('getMaterialInfo')
+            ->get();
+
+        return view('hidro-projekt.BDE.bdeConsumption',[
+            'wd_id' => $wd_id,
+            'onStock' =>  $onStock,
         ]);
     }
 

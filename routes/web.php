@@ -55,6 +55,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
                 Route::get('/my_entries','myEntries')->name('hp_myEntries');
                 Route::get('/newEntry','newWorkingDayEntry')->name('hp_newWorkingDayEntry');
                 Route::get('/wd_record/{id}','workingDayEntry')->name('hp_workingDayEntry');
+                Route::get('/wd_record/consumption/{wd_id}/{cs_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
                 Route::delete('/wd_record/{id}','deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
             });
         Route::controller(ProfileController::class)
@@ -81,7 +82,6 @@ Route::prefix('/')
                 Route::controller(AdminController::class)
                     ->group(function(){
                         Route::get('/users', 'users')->name('hp_users');
-                        //Route::get('/users', 'users')->name('hp_users');
                     });
                 Route::controller(TicketController::class)
                     ->group(function(){
@@ -161,6 +161,7 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
                         Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
+                        Route::get('/construction_sites/materials/{id}', 'showConstructionSiteMaterials')->name('hp_showConstructionSiteMaterials');
                         Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
                     });
                 Route::controller(WorkDayDiaryController::class)
@@ -178,7 +179,8 @@ Route::prefix('/')
             ->group(function(){
                 Route::controller(StorageController::class)
                     ->group(function(){
-                        Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');    
+                        Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');  
+                        Route::get('construction_stock_items','constructionStockItems')->name('hp_constructionStockItems');    
                     });
             });
         

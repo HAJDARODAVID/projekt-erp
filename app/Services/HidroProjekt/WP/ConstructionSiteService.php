@@ -5,7 +5,9 @@ namespace App\Services\HidroProjekt\WP;
 use App\Models\AppParametersModel;
 use App\Models\CompanyCarsModel;
 use App\Models\ConstructionSiteModel;
+use App\Models\StorageStockItem;
 use App\Models\WorkingDayRecordModel;
+use App\Services\HidroProjekt\STG\StorageLocation;
 
 /**
  * Class ConstructionSiteService.
@@ -123,5 +125,10 @@ class ConstructionSiteService
         }
         $array['carCost'] = $carMileage * $workHourCost;
         return $array;
+    }
+
+    public function getStockForConstructionSite($constSite){
+        return StorageStockItem::where('str_loc', StorageLocation::CONSTRUCTION_SITE)
+            ->where('cons_id', $constSite)->get();
     }
 }
