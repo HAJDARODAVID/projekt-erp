@@ -56,7 +56,7 @@
 
                     @if ($modules['bde-mc'] && $record->construction_site_id)
                         <div class="col d-flex justify-content-center mt-2"> 
-                            <a href="{{ route('hp_consSiteMaterialConsumption', [$record->id,$record->construction_site_id]) }}" class="btn btn-success" style="width: 175px"><i class="bi bi-cone-striped"></i> MATERIJAL</a> 
+                            <a href="{{ route('hp_consSiteMaterialConsumption', [$record->id]) }}" class="btn btn-success" style="width: 175px"><i class="bi bi-cone-striped"></i> MATERIJAL</a> 
                         </div>
                     @endif
                     

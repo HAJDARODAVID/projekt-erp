@@ -21,23 +21,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Materijal</th>
-                                <th>QTY</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($onStock as $stock)
-                                <tr>
-                                    <td>{{ $stock->getMaterialInfo->name }}</td>
-                                    <td>{{ $stock->qty }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+
+                    @livewire('hidroProjekt.bde.bde-consumption-table-component',[
+                        'onStock' => $onStock,
+                        'wdr' => $wd_id,
+                    ])
 
                 </div>
             </div>
