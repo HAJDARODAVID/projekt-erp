@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('wdr_id')->unsigned();
             $table->integer('booked');
             $table->timestamps();
+
+            $table->foreign('wdr_id')->references('id')->on('working_day_record')->cascadeOnDelete();
         });
     }
 
