@@ -2,8 +2,9 @@
 
 namespace App\Services\HidroProjekt\BDE;
 
-use App\Models\MaterialConsumptionItemModel;
+use stdClass;
 use App\Models\MaterialConsumptionModel;
+use App\Models\MaterialConsumptionItemModel;
 
 /**
  * Class ConsumptionService.
@@ -12,14 +13,33 @@ class ConsumptionService
 {
     protected $consumption;
     protected $items;
+    protected $newConsumption;
+
+    public function __construct()
+    {
+        $this->consumption = new stdClass();
+    }
 
     public function addToConsumption($wdr, $mat_id, $qty){
         $consumptionData = $this->getConsumptionDataFromTable($wdr);
+        $first = $consumptionData;
         if($consumptionData->isEmpty()){
-            $consumptionData = $this->createNewConsumption($wdr)->with('getConsumptionItems');
+            $this->createNewConsumption($wdr);
+            // $consumptionData = $this->newConsumption->with('getConsumptionItems');
+            // $sec = $consumptionData;
+            $this->setConsumption($this->newConsumption->with('getConsumptionItems')->first());
+            $this->setItems($this->consumption->getConsumptionItems);
+        }else{
+            $this->setConsumption($consumptionData->first());
+            $this->setItems($this->consumption->getConsumptionItems);
         }
-        $this->setConsumption($consumptionData->first());
-        $this->setItems($this->consumption->getConsumptionItems);
+        
+        dd([
+            'wdr'            => $wdr,
+            'consumption'    => $this->consumption,
+            'items'          => $this->items,
+            'newConsumption' => $this->newConsumption
+        ]);
 
         if(!$this->items->where('mat_id', $mat_id)->isEmpty()){
             $this->updateItemInConsumption(
@@ -41,7 +61,7 @@ class ConsumptionService
             $items = $data->first()->getConsumptionItems;
             return $items->pluck('qty','mat_id')->toArray();
         }
-        return NULL;
+        return [];
     }
 
     public function getConsumptionDataFromTable($wdr){
@@ -49,10 +69,12 @@ class ConsumptionService
     }
 
     private function createNewConsumption($wdr){
-        return MaterialConsumptionModel::create([
+        $data = MaterialConsumptionModel::create([
             'wdr_id' => $wdr,
             'booked' => MaterialConsumptionModel::STATUS_UNBOOKED,
         ]);
+        $this->newConsumption = $data;
+        return $data;
     }
 
     private function addNewItemToConsumption($cons_id, $mat_id, $qty){
@@ -79,11 +101,11 @@ class ConsumptionService
     }
 
     private function setConsumption($data){
-        return $this->consumption = $data;
+        $this->consumption = $data;
     }
 
     private function setItems($data){
-        return $this->items = $data;
+        $this->items = $data;
     }
 
     public function delete(){
