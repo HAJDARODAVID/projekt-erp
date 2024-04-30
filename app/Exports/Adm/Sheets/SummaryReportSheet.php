@@ -31,8 +31,8 @@ class SummaryReportSheet implements FromArray, WithHeadings, ShouldAutoSize, Wit
             'Ime/Prezime',
             'Bonus',
             'OS',
-            'Doma',
-            'Teren',
+            'Doma [Dani]',
+            'Teren [Dani]',
             'BO',
             'GO'
         ];
