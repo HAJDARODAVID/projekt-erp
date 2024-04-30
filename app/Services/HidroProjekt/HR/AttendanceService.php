@@ -55,6 +55,8 @@ class AttendanceService
                 'worker'     => $wrkInfo->firstName . ' ' . $wrkInfo->lastName,
                 'bonus'      => $wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)->count() == 0 ? 'X' : NULL,
                 'work_hours' => $wrk->sum('work_hours') + ($wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)->count() * 8),
+                'home'       => $wrk->where('type', 1)->sum('work_hours'),
+                'field'       => $wrk->where('type', 2)->sum('work_hours'),
                 'BO'         => $wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)->count(),
                 'GO'         => $wrk->where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)->count(),
             ];

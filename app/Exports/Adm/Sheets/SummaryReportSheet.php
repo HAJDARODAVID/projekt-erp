@@ -31,6 +31,8 @@ class SummaryReportSheet implements FromArray, WithHeadings, ShouldAutoSize, Wit
             'Ime/Prezime',
             'Bonus',
             'OS',
+            'Doma',
+            'Teren',
             'BO',
             'GO'
         ];
@@ -40,8 +42,10 @@ class SummaryReportSheet implements FromArray, WithHeadings, ShouldAutoSize, Wit
     {
         return [
             'D' => 5,
-            'E' => 5,  
-            'F' => 5,            
+            'E' => 7,  
+            'F' => 7,
+            'G' => 5, 
+            'H' => 5,             
         ];
     }
 
