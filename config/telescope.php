@@ -133,7 +133,7 @@ return [
 
         Watchers\DumpWatcher::class => [
             'enabled' => env('TELESCOPE_DUMP_WATCHER', true),
-            'always' => env('TELESCOPE_DUMP_WATCHER_ALWAYS', false),
+            'always' => env('TELESCOPE_DUMP_WATCHER_ALWAYS', true),
         ],
 
         Watchers\EventWatcher::class => [

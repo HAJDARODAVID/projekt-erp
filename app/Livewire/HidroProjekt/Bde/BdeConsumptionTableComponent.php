@@ -21,7 +21,8 @@ class BdeConsumptionTableComponent extends Component
     public function updatedItems($key,$value){
         $service = new ConsumptionService;
         $service->addToConsumption($this->wdr, $value, $key);
-        $service = NULL;
+        unset($service);
+        return;
     }
 
     public function render()

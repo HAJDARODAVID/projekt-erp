@@ -2,44 +2,33 @@
 
 namespace App\Services\HidroProjekt\BDE;
 
-use stdClass;
 use App\Models\MaterialConsumptionModel;
 use App\Models\MaterialConsumptionItemModel;
+use stdClass;
 
 /**
  * Class ConsumptionService.
  */
 class ConsumptionService
 {
-    protected $consumption;
-    protected $items;
-    protected $newConsumption;
-
-    public function __construct()
-    {
-        $this->consumption = new stdClass();
-    }
+    private $consumption;
+    private $items;
 
     public function addToConsumption($wdr, $mat_id, $qty){
         $consumptionData = $this->getConsumptionDataFromTable($wdr);
-        $first = $consumptionData;
+        $first = $consumptionData->first();
+        $consumption = null;
         if($consumptionData->isEmpty()){
-            $this->createNewConsumption($wdr);
-            // $consumptionData = $this->newConsumption->with('getConsumptionItems');
-            // $sec = $consumptionData;
-            $this->setConsumption($this->newConsumption->with('getConsumptionItems')->first());
-            $this->setItems($this->consumption->getConsumptionItems);
+            $consumption = MaterialConsumptionModel::create([
+                'wdr_id' => $wdr,
+                'booked' => MaterialConsumptionModel::STATUS_UNBOOKED,
+            ]);
         }else{
-            $this->setConsumption($consumptionData->first());
-            $this->setItems($this->consumption->getConsumptionItems);
+            $consumption = $consumptionData->first();
         }
         
-        dd([
-            'wdr'            => $wdr,
-            'consumption'    => $this->consumption,
-            'items'          => $this->items,
-            'newConsumption' => $this->newConsumption
-        ]);
+        $this->consumption = $consumption;
+        $this->items = $this->consumption->where('wdr_id', $wdr)->with('getConsumptionItems')->first()->getConsumptionItems;
 
         if(!$this->items->where('mat_id', $mat_id)->isEmpty()){
             $this->updateItemInConsumption(
@@ -53,6 +42,7 @@ class ConsumptionService
                 $qty
             );
         }
+        return TRUE;
     }
 
     public static function getAllItemsInConsumption($wdr){
@@ -73,7 +63,6 @@ class ConsumptionService
             'wdr_id' => $wdr,
             'booked' => MaterialConsumptionModel::STATUS_UNBOOKED,
         ]);
-        $this->newConsumption = $data;
         return $data;
     }
 
@@ -98,14 +87,6 @@ class ConsumptionService
             return MaterialConsumptionModel::where('id',$this->consumption->id)->delete();
         }
         return;
-    }
-
-    private function setConsumption($data){
-        $this->consumption = $data;
-    }
-
-    private function setItems($data){
-        $this->items = $data;
     }
 
     public function delete(){
