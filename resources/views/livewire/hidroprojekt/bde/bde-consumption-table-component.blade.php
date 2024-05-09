@@ -17,4 +17,8 @@
             @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-success" wire:click="sendToConsumption()" wire:confirm="Upisane količine su ispravne i potrošene?">SPREMI</button>
+    </div>
+    
 </div>

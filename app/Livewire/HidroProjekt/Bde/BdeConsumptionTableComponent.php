@@ -19,10 +19,15 @@ class BdeConsumptionTableComponent extends Component
 
 
     public function updatedItems($key,$value){
+        dd($key,$value);
         $service = new ConsumptionService;
         $service->addToConsumption($this->wdr, $value, $key);
         unset($service);
         return;
+    }
+
+    public function sendToConsumption(){
+        dd($this->onStock);
     }
 
     public function render()
