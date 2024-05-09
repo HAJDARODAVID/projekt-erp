@@ -17,9 +17,7 @@ class BdeConsumptionTableComponent extends Component
         $this->items = ConsumptionService::getAllItemsInConsumption($this->wdr);
     }
 
-
     public function updatedItems($key,$value){
-        dd($key,$value);
         $service = new ConsumptionService;
         $service->addToConsumption($this->wdr, $value, $key);
         unset($service);
