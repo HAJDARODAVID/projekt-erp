@@ -9,11 +9,9 @@ class MovementTypes
     const BOOK_TO_STORAGE                 = 101;  // Movement when new material comes from supplier
     const BOOK_CORRECTION_ON_STORAGE_UP   = 191;  // Movement when a correction is needed --> positive stock
     const BOOK_CORRECTION_ON_STORAGE_DOWN = 192;  // Movement when a correction is needed --> negative stock
-
     const BOOK_FROM_STORAGE_TO_CONST_SITE = 261;  // Movement where we book material from storage to construction site
     const BOOK_FROM_CONST_SITE_TO_STORAGE = 262;  // Movement where we book material from construction site to storage
-
-    const BOOK_TO_CONSUMPTION = 501;  // Movement where we book material to consumption
+    const BOOK_TO_CONSUMPTION             = 501;  // Movement where we book material to consumption
 
     const MVT_DESC_HR = [
         self::BOOK_TO_STORAGE                 => NULL,
