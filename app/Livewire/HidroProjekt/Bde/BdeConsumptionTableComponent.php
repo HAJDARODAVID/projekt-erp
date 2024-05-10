@@ -2,7 +2,11 @@
 
 namespace App\Livewire\HidroProjekt\Bde;
 
+use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\BDE\ConsumptionService;
+use App\Services\HidroProjekt\STG\MovementService;
+use App\Services\HidroProjekt\STG\MovementTypes;
+use App\Services\HidroProjekt\STG\StorageLocation;
 use Livewire\Component;
 
 class BdeConsumptionTableComponent extends Component
@@ -25,7 +29,16 @@ class BdeConsumptionTableComponent extends Component
     }
 
     public function sendToConsumption(){
-        dd($this->onStock);
+        //Get construction site ID
+        $consSiteId= WorkingDayRecordModel::where('id', $this->wdr)->first();
+        $consSiteId = $consSiteId->construction_site_id;
+        //call to the consumption method
+        $service = new ConsumptionService;
+        $service->sendItemsToConsumption($this->wdr,$this->onStock,$consSiteId);
+        //Remove all items
+        unset($this->items);
+        //Refresh page
+        return redirect()->route('hp_consSiteMaterialConsumption', $this->wdr);
     }
 
     public function render()
