@@ -31,7 +31,7 @@ class ConsumptionService
         }
         
         $this->consumption = $consumption;
-        $this->items = $this->consumption->where('wdr_id', $wdr)->with('getConsumptionItems')->first()->getConsumptionItems;
+        $this->items = $this->consumption->where('wdr_id', $wdr)->where('booked', 0)->with('getConsumptionItems')->first()->getConsumptionItems;
 
         if(!$this->items->where('mat_id', $mat_id)->isEmpty()){
             $this->updateItemInConsumption(
