@@ -40,6 +40,7 @@ class MovementTypes
         self::BOOK_TO_STORAGE                 => [self::MVT_ACTION_TYPE_ADD],
         self::BOOK_CORRECTION_ON_STORAGE_UP   => [self::MVT_ACTION_TYPE_ADD],
         self::BOOK_CORRECTION_ON_STORAGE_DOWN => [self::MVT_ACTION_TYPE_REMOVE],
+        self::BOOK_TO_CONSUMPTION             => [self::MVT_ACTION_TYPE_REMOVE],
         self::BOOK_FROM_STORAGE_TO_CONST_SITE => [
             self::MVT_ACTION_TYPE_ADD,
             self::MVT_ACTION_TYPE_REMOVE
@@ -48,7 +49,6 @@ class MovementTypes
             self::MVT_ACTION_TYPE_ADD,
             self::MVT_ACTION_TYPE_REMOVE
         ],
-        self::BOOK_TO_CONSUMPTION             => [self::MVT_ACTION_TYPE_REMOVE],
     ];
 
     const CONST_SITE_MVT = [self::BOOK_FROM_STORAGE_TO_CONST_SITE, self::BOOK_FROM_CONST_SITE_TO_STORAGE];
