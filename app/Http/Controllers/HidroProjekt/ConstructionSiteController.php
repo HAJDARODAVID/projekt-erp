@@ -52,6 +52,5 @@ class ConstructionSiteController extends Controller
         return view('hidro-projekt.WP.showConstructionSiteConsumption',[
             'constructionSite' => $this->constSiteService->getConstructionSite($id),
         ]);
-
     }
 }
