@@ -157,6 +157,7 @@ Route::prefix('/')
                         Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
                         Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
                         Route::get('/construction_sites/materials/{id}', 'showConstructionSiteMaterials')->name('hp_showConstructionSiteMaterials');
+                        Route::get('/construction_sites/consumption/{id}', 'showConstructionSiteConsumption')->name('hp_showConstructionSiteConsumption');
                         Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
                     });
                 Route::controller(WorkDayDiaryController::class)
