@@ -21,7 +21,10 @@
         <x-admin-module-tabs name="construction-site-info" :routeParams="[4]"></x-admin-module-tabs>
     </div>
     
-    test
+    @livewire('hidroProjekt.Wp.construction-site-consumption-table',[
+        'theme' => 'bootstrap-5',
+        'constSiteId' => $constructionSite->id
+    ])
     
 
   </div>
