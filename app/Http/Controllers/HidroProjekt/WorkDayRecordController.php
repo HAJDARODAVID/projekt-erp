@@ -57,9 +57,11 @@ class WorkDayRecordController extends Controller
         ]);
     }
 
-    public function materialConsumption($wd_id, $cs_id){
+    public function materialConsumption($wd_id){
+        $wdr = WorkingDayRecordModel::where('id', $wd_id)->first();
         $onStock = StorageStockItem::where('str_loc', StorageLocation::CONSTRUCTION_SITE)
-            ->where('cons_id', $cs_id)
+            ->where('cons_id', $wdr->construction_site_id)
+            ->where('qty', '>', 0)
             ->with('getMaterialInfo')
             ->get();
 

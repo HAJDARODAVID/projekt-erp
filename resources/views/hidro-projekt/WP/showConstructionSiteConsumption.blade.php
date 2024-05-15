@@ -21,10 +21,9 @@
         <x-admin-module-tabs name="construction-site-info" :routeParams="[$constructionSite->id]"></x-admin-module-tabs>
     </div>
     
-    {{-- {{ dd($stock) }} --}}
-    @livewire('hidroProjekt.wp.construction-site-stock-table',[
-        'theme' => "bootstrap-5",
-        'constSite' => $constructionSite->id,
+    @livewire('hidroProjekt.Wp.construction-site-consumption-table',[
+        'theme' => 'bootstrap-5',
+        'constSiteId' => $constructionSite->id
     ])
     
 
