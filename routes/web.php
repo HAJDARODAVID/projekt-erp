@@ -18,6 +18,7 @@ use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
+use App\Http\Controllers\HidroProjekt\MainInventoryController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 use App\Models\MaterialDocModel;
 
@@ -104,6 +105,11 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('suppliers', 'index')->name('hp_suppliers');
                         Route::get('new_supplier', 'newSupplier')->name('hp_newSupplier');
+                    });
+                    Route::controller(MainInventoryController::class)
+                    ->group(function(){
+                        Route::get('main_inventory', 'index')->name('hp_mainInventory');
+                        Route::get('inventory_results/{id}', 'inventoryResults')->name('hp_inventoryResults');
                     });
                 });
                 
