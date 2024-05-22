@@ -26,6 +26,14 @@
           Kalkulator
     </a>
   @endif
+
+  @if($activeInventory)
+    <a 
+      href="#" 
+      class="list-group-item list-group-item-action" >
+          <b>INVENTURA: {{ $activeInventory->inv_name }}</b>
+    </a>
+  @endif
   
 </div>
 
