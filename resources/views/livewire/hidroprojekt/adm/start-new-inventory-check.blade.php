@@ -1,7 +1,7 @@
 <div>
     <button class="btn btn-success" wire:click='modalBtn(1)'>POKRENI NOVU INVENTURU</button>
 
-    <div class="modal" id="bookToStorageModal" style="display:  @if ($activeModal) block @else none @endif">
+    <div class="modal" id="openNewInventoryCheck" style="display:  @if ($activeModal) block @else none @endif">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -22,13 +22,13 @@
         @endif
 
         @if ($activeInventory)
-            <button class="btn btn-danger">ZATVORI INVENTURE: {{ $activeInventory->inv_name }}</button>   
+            @livewire('hidroProjekt.adm.close-inventory-check',[
+                'activeInventory' => $activeInventory,
+            ])  
         @endif
         
         <hr>
-        
-        {{ round(microtime(true) * 1000) }} <br>
-        {{ date("Y-m-d") }}-{{ substr(round(microtime(true) * 1000),9); }}
+
         
     </div>
 @endsection
