@@ -61,12 +61,17 @@ class ConstructionSiteService
             2 => (float)AppParametersModel::where('param_name_srt', 'bwhv-t')->where('active', TRUE)->first()->value,
         ];
         $wdrAll = WorkingDayRecordModel::where('construction_site_id', $constSite)
-            ->with('getAttendance', 'getUser.getWorker')
+            ->with('getAttendance', 'getUser.getWorker', 'getCarMileage')
             ->orderBy('date','desc')
             ->get();
         $array = [];
         $sumOfWorkerCost=0;
         foreach ($wdrAll as $wdr) {
+            //get km for company car
+            $carMileage=0;
+            foreach ($wdr->getCarMileage as $carM) {
+                $carMileage = $carM->end_mileage - $carM->start_mileage;
+            }
             $workerHoursSum =0;
             foreach ($wdr->getAttendance as $att) {
                 $workerHoursSum += $att->work_hours;
@@ -75,6 +80,7 @@ class ConstructionSiteService
                 'workerHoursSum' => $workerHoursSum,
                 'workerHoursCost' => $workerHoursSum * $workHourCost[$wdr->work_type],
                 'groupeLeader' => $wdr->getUser->getWorker->firstName . ' ' . $wdr->getUser->getWorker->lastName,
+                'carMileage' => $carMileage,
             ];
             $sumOfWorkerCost += $workerHoursSum * $workHourCost[$wdr->work_type];
         }

@@ -10,6 +10,7 @@ use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
+use App\Http\Controllers\HidroProjekt\CalculatorController;
 use App\Http\Controllers\HidroProjekt\TicketController;
 use App\Http\Controllers\HidroProjekt\StorageController;
 use App\Services\HidroProjekt\WP\ConstructionSiteService;
@@ -110,6 +111,10 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('main_inventory', 'index')->name('hp_mainInventory');
                         Route::get('inventory_results/{id}', 'inventoryResults')->name('hp_inventoryResults');
+                    });
+                    Route::controller(CalculatorController::class)
+                    ->group(function(){
+                        Route::get('calculator','index')->name('hp_calculator');
                     });
                 });
                 

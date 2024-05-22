@@ -24,7 +24,7 @@
                     </div>
                     <hr>
 
-                    <button class="btn btn-success btn-sm d-flex justify-items-center mb-2" wire:click='addAllStock()'><i class="bi bi-plus-circle"></i> &nbsp; DODAJ CIJLU ZALIHU</button>
+                    <button class="btn btn-success btn-sm d-flex justify-items-center mb-2" wire:click='addAllStock()'><i class="bi bi-plus-circle"></i> &nbsp; DODAJ CIJELU ZALIHU</button>
                     @foreach ($bookingOrder as $key => $item)
                         <div class="row mb-2">
                             <div class="col col-md-6">
