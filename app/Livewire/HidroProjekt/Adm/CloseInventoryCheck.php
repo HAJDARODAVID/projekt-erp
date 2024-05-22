@@ -18,7 +18,7 @@ class CloseInventoryCheck extends Component
         $this->activeInventory->update([
             'status' => InventoryCheckingModel::INVENTORY_STATUS_CANCELED,
         ]);
-        return redirect()->route('hp_mainInventory');
+        return redirect()->route('hp_materialChecking');
     }
 
     public function render()

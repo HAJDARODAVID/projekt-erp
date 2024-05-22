@@ -13,11 +13,11 @@
                     <table>
                         <tr>
                             <td style="width: 65px">Korisnik:</td>
-                            <td>David Hajdarovic</td>
+                            <td>{{ $info['user']->firstName }} {{ $info['user']->lastName }}</td>
                         </tr>
                         <tr>
                             <td>Datum:</td>
-                            <td>2024-05-22</td>
+                            <td>{{ $info['date'] }}</td>
                         </tr>
                     </table>
                     

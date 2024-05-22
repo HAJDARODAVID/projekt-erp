@@ -29,7 +29,7 @@
 
   @if($activeInventory)
     <a 
-      href="#" 
+      href="{{ route('hp_activeInventoryChecking', $activeInventory->inv_name) }}" 
       class="list-group-item list-group-item-action" >
           <b>INVENTURA: {{ $activeInventory->inv_name }}</b>
     </a>

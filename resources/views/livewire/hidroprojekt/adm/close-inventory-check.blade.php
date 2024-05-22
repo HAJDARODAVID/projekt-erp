@@ -1,5 +1,5 @@
 <div>
-    <button class="btn btn-danger" wire:click='modalBtn(1)'>ZATVORI INVENTURE: {{ $activeInventory->inv_name }}</button> 
+    <button class="btn btn-danger" wire:click='modalBtn(1)'>ZATVORI INVENTURU: {{ $activeInventory->inv_name }}</button> 
 
     <div class="modal" id="closeInventoryCheck" style="display:  @if ($activeModal) block @else none @endif">
         <div class="modal-dialog" role="document">

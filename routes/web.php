@@ -107,17 +107,21 @@ Route::prefix('/')
                         Route::get('suppliers', 'index')->name('hp_suppliers');
                         Route::get('new_supplier', 'newSupplier')->name('hp_newSupplier');
                     });
-                    Route::controller(MainInventoryController::class)
+                });
+                Route::prefix('/inventory_checking')
                     ->group(function(){
-                        Route::get('main_inventory', 'index')->name('hp_mainInventory');
-                        Route::get('inventory_results/{id}', 'inventoryResults')->name('hp_inventoryResults');
+                        Route::controller(MainInventoryController::class)
+                        ->group(function(){
+                            Route::get('material', 'materialChecking')->name('hp_materialChecking');
+                            Route::get('material_results/{id}', 'materialInventoryResults')->name('hp_materialCheckingResults');
+                            Route::get('/{inv_name}', 'activeInventoryChecking')->name('hp_activeInventoryChecking');
+                        });
                     });
-                    Route::controller(CalculatorController::class)
+                
+                Route::controller(CalculatorController::class)
                     ->group(function(){
                         Route::get('calculator','index')->name('hp_calculator');
                     });
-                });
-                
             });
 
         Route::controller(HumanResourcesController::class)
