@@ -21,7 +21,25 @@
                             {{ $item->getConstructionSiteInfo->name }}
                         @endisset</td>
                         <td>{{ $item->qty }}</td>
-                        <td></td>
+                        <td>
+                            {{ 
+                                $invStock
+                                ->where('mat_id',$item->mat_id)
+                                ->where('str_loc', $item->str_loc)
+                                ->where('cons_id', $item->cons_id)
+                                ->sum('qty')
+                            }}
+                        </td>
+                    </tr>
+                @endforeach
+                @foreach ($additionalItems as $item)
+                    <tr>
+                        <td>{{ $item['mat_id'] }}</td>
+                        <td>{{ $item['mat_name'] }}</td>
+                        <td>{{ $item['str_loc'] }}</td>
+                        <td>{{ $item['cons_site'] }}</td>
+                        <td>0</td>
+                        <td>{{ $item['qty'] }}</td>
                     </tr>
                 @endforeach
             </tbody>
