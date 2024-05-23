@@ -15,8 +15,8 @@ class MainInventoryController extends Controller
         ]);
     }
 
-    public function materialInventoryResults(){
-        return 'im results';
+    public function materialInventoryResults(Request $request){
+        dd($request->all());
     }
 
     public function activeInventoryChecking($inv_name){
@@ -27,5 +27,9 @@ class MainInventoryController extends Controller
         return view('hidro-projekt.ADM.activeInventoryChecking', [
             'activeInventory' => $activeInventory
         ]);
+    }
+
+    public function activeInventoryCheckingList(Request $request){
+        dd($request->all());
     }
 }
