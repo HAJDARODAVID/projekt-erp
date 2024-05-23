@@ -24,6 +24,8 @@ class MainInventoryController extends Controller
         if(!$activeInventory){
             return redirect()->route('home');
         }
-        dd($activeInventory);
+        return view('hidro-projekt.ADM.activeInventoryChecking', [
+            'activeInventory' => $activeInventory
+        ]);
     }
 }
