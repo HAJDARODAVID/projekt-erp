@@ -16,7 +16,10 @@
   
     <div class="container">
         Lista razlika
-        
+
+        @livewire('hidroProjekt.adm.active-inventory-checking-diff',[
+            'activeInventory' => $activeInventory,
+        ])
 
         
     </div>
