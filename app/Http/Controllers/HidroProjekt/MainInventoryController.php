@@ -30,6 +30,12 @@ class MainInventoryController extends Controller
     }
 
     public function activeInventoryCheckingList(Request $request){
-        dd($request->all());
+        $activeInventory = InventoryCheckingModel::where('inv_name', $request->inv_name)->where('status', InventoryCheckingModel::INVENTORY_STATUS_ACTIVE)->first();
+        if(!$activeInventory){
+            return redirect()->route('home');
+        }
+        return view('hidro-projekt.ADM.activeInventoryCheckingList', [
+            'activeInventory' => $activeInventory
+        ]);
     }
 }

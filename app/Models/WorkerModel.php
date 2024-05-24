@@ -44,4 +44,8 @@ class WorkerModel extends Model
     public function getWorkerContact():HasOne{
         return $this->hasOne(WorkerContact::class, 'worker_id','id');
     }
+
+    public function getFullNameAttribute(){
+        return $this->attributes['firstName'] .' '. $this->attributes['lastName'];
+    }
 }

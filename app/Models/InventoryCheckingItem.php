@@ -29,4 +29,8 @@ class InventoryCheckingItem extends Model
         return $this->hasOne(ConstructionSiteModel::class, 'id','cons_id');
     }
 
+    public function getUserInfo(): HasOne{
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
 }

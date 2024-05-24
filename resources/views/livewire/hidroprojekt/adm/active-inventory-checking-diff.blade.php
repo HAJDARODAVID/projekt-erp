@@ -13,6 +13,20 @@
             </thead>
             <tbody>
                 @foreach ($stock as $item)
+                    <?php 
+                        $class=NULL;
+                        $invStockSum = $invStock
+                                ->where('mat_id',$item->mat_id)
+                                ->where('str_loc', $item->str_loc)
+                                ->where('cons_id', $item->cons_id)
+                                ->sum('qty');
+                        if($item->qty == $invStockSum){
+                            $class = 'bg-success text-white';
+                        }
+                        if($item->qty != $invStockSum){
+                            $class = 'bg-danger text-white';
+                        }
+                    ?>
                     <tr>
                         <td>{{ $item->mat_id }}</td>
                         <td>{{ $item->getMaterialInfo->name }}</td>
@@ -20,8 +34,8 @@
                         <td>@isset($item->getConstructionSiteInfo->name)
                             {{ $item->getConstructionSiteInfo->name }}
                         @endisset</td>
-                        <td>{{ $item->qty }}</td>
-                        <td>
+                        <td class="{{ $class }}">{{ $item->qty }}</td>
+                        <td class="{{ $class }}">
                             {{ 
                                 $invStock
                                 ->where('mat_id',$item->mat_id)
@@ -38,8 +52,8 @@
                         <td>{{ $item['mat_name'] }}</td>
                         <td>{{ $item['str_loc'] }}</td>
                         <td>{{ $item['cons_site'] }}</td>
-                        <td>0</td>
-                        <td>{{ $item['qty'] }}</td>
+                        <td class="bg-danger text-white">0</td>
+                        <td class="bg-danger text-white">{{ $item['qty'] }}</td>
                     </tr>
                 @endforeach
             </tbody>
