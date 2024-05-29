@@ -4,7 +4,9 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Inventura: {{ $activeInventory->inv_name }}</h1>
         <div  class="d-flex">
-            <button class="btn btn-success btn-lg d-flex align-items-center mx-1" ><i class="bi bi-check-lg"></i></button>
+            @livewire('hidroProjekt.adm.book-inventory-btn',[
+                'activeInventory' => $activeInventory,
+            ])
             @livewire('hidroProjekt.adm.add-items-to-inventory-modal', [
                 'activeInventory' => $activeInventory,
             ])

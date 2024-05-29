@@ -4,6 +4,7 @@ namespace App\Services\HidroProjekt\ADM;
 
 use App\Models\InventoryCheckingItem;
 use App\Models\InventoryCheckingModel;
+use App\Models\StorageStockItem;
 use App\Services\HidroProjekt\STG\StorageLocation;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +44,10 @@ class MainInventoryService
         }
 
         return TRUE;
+    }
+
+    public function bookMainInventory(){
+        $oldStock = StorageStockItem::where('qty','>', 0)->get();
     }
 
 }
