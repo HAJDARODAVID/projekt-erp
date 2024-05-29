@@ -2,10 +2,12 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Inventura: {{ $activeInventory->inv_name }}<h1>
+        <h1 class="h3">Inventura: {{ $activeInventory->inv_name }}</h1>
         <div  class="d-flex">
             <button class="btn btn-success btn-lg d-flex align-items-center mx-1" ><i class="bi bi-check-lg"></i></button>
-            <button class="btn btn-primary btn-lg d-flex align-items-center mx-1"><i class="bi bi-plus-circle"></i></button>
+            @livewire('hidroProjekt.adm.add-items-to-inventory-modal', [
+                'activeInventory' => $activeInventory,
+            ])
             <a class="btn btn-primary btn-lg d-flex align-items-center mx-1" href="{{ route('hp_activeInventoryCheckingList', ['inv_name' => $activeInventory->inv_name])}}"><i class="bi bi-list-task"></i></a>
             <button class="btn btn-success btn-lg d-flex align-items-center mx-1" ><i class="bi bi-file-earmark-spreadsheet"></i></button>
 
