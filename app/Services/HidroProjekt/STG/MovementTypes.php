@@ -12,6 +12,10 @@ class MovementTypes
     const BOOK_FROM_STORAGE_TO_CONST_SITE = 261;  // Movement where we book material from storage to construction site
     const BOOK_FROM_CONST_SITE_TO_STORAGE = 262;  // Movement where we book material from construction site to storage
     const BOOK_TO_CONSUMPTION             = 501;  // Movement where we book material to consumption
+    
+    CONST BOOK_INVENTORY_REMOVE_STOCK     = 701;  // Inventory booking for removing all stock 
+    CONST BOOK_INVENTORY_ADD_STOCK        = 702;  // Inventory booking for adding all stock from inventory item list
+
 
     const MVT_DESC_HR = [
         self::BOOK_TO_STORAGE                 => NULL,
