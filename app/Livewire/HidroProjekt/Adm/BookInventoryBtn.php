@@ -6,9 +6,11 @@ use Livewire\Component;
 
 class BookInventoryBtn extends Component
 {
+    public $successModalStatus = false;
     public $activeInventory;
 
     public function bookInventory(){
+        return $this->successModalStatus = TRUE;
         dd('booking');
     }
 

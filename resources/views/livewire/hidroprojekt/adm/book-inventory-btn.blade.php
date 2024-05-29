@@ -8,7 +8,7 @@
         <i class="bi bi-check-lg"></i>
     </button>
 
-    {{-- Loadnig spinner --}}
+    {{-- Loadnig spinner modal --}}
     <div class="modal modal-sm" id="spinner" wire:loading>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -23,6 +23,29 @@
                             <span class="sr-only"></span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Success modal --}}
+    <div class="modal" id="success-modal" style="display:@if($successModalStatus) block @else none @endif">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <br>
+                    <div class="d-flex justify-content-center" >
+                        <i class="bi bi-check-circle-fill h1" style = "color:green;"></i>
+                    </div>
+                    <div class="d-flex justify-content-center" >
+                        <h5 class="h5">USPJEŠNO!</h5>
+                    </div>  
+                    <div class="d-flex justify-content-center" >
+                        <p class="h7">Inventura {{ $activeInventory->inv_name }} je uspješno knjiženja na stanje!</p>
+                    </div> 
+                    <div class="d-flex justify-content-center mt-1" >
+                        <a href="{{ route('home') }}" class="btn btn-success btn-sm">Ok</a>
+                    </div>   
                 </div>
             </div>
         </div>
