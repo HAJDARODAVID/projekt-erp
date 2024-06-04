@@ -71,4 +71,8 @@ class WorkDayRecordController extends Controller
         ]);
     }
 
+    public function constructionSiteMainInventory(){
+        return 'im in';
+    }
+
 }

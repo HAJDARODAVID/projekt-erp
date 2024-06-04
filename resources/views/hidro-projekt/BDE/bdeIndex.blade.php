@@ -19,6 +19,13 @@
                         <button class="btn btn-success" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button>
                     </div>
 
+                    @if ($activeInv)
+                        <div class="d-flex justify-content-center mb-2">   
+                            <button class="btn btn-primary" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_bdeInventoryModule') }}'"><b>INVENTURA</b></button>
+                        </div>
+                    @endif
+                    
+
                 </div>
             </div>
         </div>

@@ -58,6 +58,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
                 Route::get('/wd_record/{id}','workingDayEntry')->name('hp_workingDayEntry');
                 Route::get('/wd_record/consumption/{wd_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
                 Route::delete('/wd_record/{id}','deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
+
+                //Inventory routes
+                Route::get('construction_site_inv','constructionSiteMainInventory')->name('hp_bdeInventoryModule');
             });
         Route::controller(ProfileController::class)
             ->group(function(){
