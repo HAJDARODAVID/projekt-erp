@@ -77,12 +77,25 @@ class BdeMaterialInventoryList extends Component
                 }
             }
         }
+        $this->setInvItems();
+        $this->invItemsCount--;
     }
 
     public function updatedSelectedConstructionSite(){
         $this->itemsList = InventoryCheckingItem::where('inv_id', $this->activeInv->id)
             ->where('cons_id', $this->selectedConstructionSite)
             ->where('user_id', Auth::user()->id)->get();
+        $this->setInvItems();
+        $this->invItemsCount--;
+        //dd($this->invItems);
+    }
+
+    public function addItem(){
+        $this->invItemsCount++;
+        return $this->invItems[$this->invItemsCount] = ['table_id' => NULL];
+    }
+
+    private function setInvItems(){
         $this->resetInvItems();
         foreach($this->itemsList as $item){
             $this->invItems[$this->invItemsCount]=[
@@ -92,13 +105,6 @@ class BdeMaterialInventoryList extends Component
             ];
             $this->invItemsCount++;
         }
-        $this->invItemsCount--;
-        //dd($this->invItems);
-    }
-
-    public function addItem(){
-        $this->invItemsCount++;
-        return $this->invItems[$this->invItemsCount] = ['table_id' => NULL];
     }
 
     private function resetInvItems(){
