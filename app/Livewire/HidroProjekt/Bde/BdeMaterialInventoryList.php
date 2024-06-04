@@ -96,6 +96,7 @@ class BdeMaterialInventoryList extends Component
     }
 
     private function setInvItems(){
+        $this->itemsList->fresh();
         $this->resetInvItems();
         foreach($this->itemsList as $item){
             $this->invItems[$this->invItemsCount]=[
