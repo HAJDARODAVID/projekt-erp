@@ -22,6 +22,8 @@
                         </div>
                     @endif
 
+                    @livewire('hidroProjekt.bde.bde-material-inventory-list')
+
                 </div>
             </div>
         </div>
