@@ -21,8 +21,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    @livewire('hidroProjekt.bde.bde-material-inventory-list')
+                    
+                    @livewire('hidroProjekt.bde.bde-material-inventory-list',[
+                        'activeInv' => $activeInv,
+                    ])
+                    
 
                 </div>
             </div>

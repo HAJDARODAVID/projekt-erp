@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\HidroProjekt;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\AppParametersModel;
 use App\Models\StorageStockItem;
-use App\Models\WorkingDayRecordModel;
-use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
-use App\Services\HidroProjekt\STG\StorageLocation;
+use App\Models\AppParametersModel;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\WorkingDayRecordModel;
+use App\Models\InventoryCheckingModel;
 use Illuminate\Support\Facades\Session;
+use App\Services\HidroProjekt\STG\StorageLocation;
+use App\Services\HidroProjekt\BDE\WorkingDayRecordService;
 
 class WorkDayRecordController extends Controller
 {
@@ -72,7 +73,9 @@ class WorkDayRecordController extends Controller
     }
 
     public function constructionSiteMainInventory(){
-        return view('hidro-projekt.BDE.bdeInventoryModule');
+        return view('hidro-projekt.BDE.bdeInventoryModule',[
+            'activeInv' => InventoryCheckingModel::where('status', InventoryCheckingModel::INVENTORY_STATUS_ACTIVE)->first(),
+        ]);
     }
 
 }
