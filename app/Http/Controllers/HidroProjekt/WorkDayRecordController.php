@@ -72,7 +72,7 @@ class WorkDayRecordController extends Controller
     }
 
     public function constructionSiteMainInventory(){
-        return 'im in';
+        return view('hidro-projekt.BDE.bdeInventoryModule');
     }
 
 }
