@@ -11,7 +11,7 @@
         @if($selectedConstructionSite) 
             <div class="d-flex justify-content-between mt-2">
                 <button class="btn btn-success" wire:click='addItem()'>+</button>
-                <button class="btn btn-success" wire:click='addItem()'>SPREMI</button>
+                <button class="btn btn-success" wire:click='saveItemsToInventoryList()'>SPREMI</button>
             </div>
             
         @endif
@@ -31,7 +31,7 @@
                 </div>
                 <div class="col">
                     <label for="">Materijal</label>
-                    <select class="form-select form-select-sm" wire:model.change='invItems.{{ $key }}.mat_id'>
+                    <select class="form-select form-select-sm @isset($inpBoxSaveState[$key]['mat_id']) {{ $inpBoxSaveState[$key]['mat_id'] }} @endisset" wire:model.change='invItems.{{ $key }}.mat_id'>
                         <option value="0">...</option>  
                         @foreach ($mmInfo as $matNr => $matName)
                             <option value="{{ $matNr }}">{{ $matName }}</option>    

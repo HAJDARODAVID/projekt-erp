@@ -7,6 +7,7 @@ use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ConstructionSiteModel;
 use App\Models\InventoryCheckingItem;
+use App\Services\HidroProjekt\STG\StorageLocation;
 
 class BdeMaterialInventoryList extends Component
 {
@@ -41,7 +42,40 @@ class BdeMaterialInventoryList extends Component
                     return $this->inpBoxSaveState[$itemNr][$column] = 'is-valid';
                 }
             }
-            
+            if($column=='mat_id'){
+                if($key == 0 || $key==""){
+                    $this->invItems[$itemNr]['mat_id'] = $oneItemFromInvList->mat_id;
+                    return;
+                }else{
+                    $oneItemFromInvList->update([
+                        'mat_id' => $key,
+                    ]);
+                    return $this->inpBoxSaveState[$itemNr][$column] = 'is-valid';
+                }
+            }
+        }
+        if($column=='qty'){
+            if($key <= 0 || $key==""){
+                $this->invItems[$itemNr]['qty'] = NULL;
+                return $this->inpBoxSaveState[$itemNr][$column] = 'is-invalid';
+            }
+        }
+    }
+
+    public function saveItemsToInventoryList(){
+        foreach ($this->invItems as $item) {
+            if(!$item['table_id']){
+                if((isset($item['mat_id']) && $item['mat_id'] != 0) && (isset($item['qty']) && $item['mat_id'] > 0 && $item['mat_id'] != NULL)){
+                    InventoryCheckingItem::create([
+                        'inv_id' => $this->activeInv->id, 
+                        'mat_id' => $item['mat_id'], 
+                        'qty' => $item['qty'], 
+                        'user_id' => Auth::user()->id, 
+                        'str_loc' => StorageLocation::CONSTRUCTION_SITE, 
+                        'cons_id' => $this->selectedConstructionSite,
+                    ]);
+                }
+            }
         }
     }
 
