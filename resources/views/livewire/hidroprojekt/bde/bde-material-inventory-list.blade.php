@@ -20,17 +20,18 @@
 
     @if($selectedConstructionSite) 
         @foreach ($invItems as $key => $item)
+            <b>
+                #{{ sprintf('%02d', $key) }}
+                @if (!$item['table_id'])
+                ** 
+                @endif
+            </b>
             <div class="row mb-1">
-                <div class="col-auto" >
-                    <b>
-                        #{{ sprintf('%02d', $key) }}
-                        @if (!$item['table_id'])
-                           ** 
-                        @endif
-                    </b>
+                <div class="col-2" >
+                   Mat 
                 </div>
                 <div class="col">
-                    <label for="">Materijal</label>
+                    {{-- <label for="">Materijal</label> --}}
                     <select class="form-select form-select-sm @isset($inpBoxSaveState[$key]['mat_id']) {{ $inpBoxSaveState[$key]['mat_id'] }} @endisset" wire:model.change='invItems.{{ $key }}.mat_id'>
                         <option value="0">...</option>  
                         @foreach ($mmInfo as $matNr => $matName)
@@ -40,16 +41,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-2" ></div>
+                <div class="col-2" >QTY</div>
                 <div class="col-6">
-                    <label for="">QTY</label>
+                    {{-- <label for="">QTY</label> --}}
                     <input type="number" 
                         class="form-control form-control-sm
                         @isset($inpBoxSaveState[$key]['qty']) {{ $inpBoxSaveState[$key]['qty'] }} @endisset" 
                         wire:model.blur='invItems.{{ $key }}.qty'>
                 </div>
                 <div class="col-4 d-flex justify-content-center">
-                    <button class="btn btn-danger align-self-center" style="height: 40px">
+                    <button class="btn btn-danger align-self-center d-flex align-items-center" style="height: 30px">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
