@@ -50,7 +50,7 @@
                         wire:model.blur='invItems.{{ $key }}.qty'>
                 </div>
                 <div class="col-4 d-flex justify-content-center">
-                    <button class="btn btn-danger align-self-center d-flex align-items-center" style="height: 30px">
+                    <button class="btn btn-danger align-self-center d-flex align-items-center" style="height: 30px" wire:click='removeItem({{ $key }})'>
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>

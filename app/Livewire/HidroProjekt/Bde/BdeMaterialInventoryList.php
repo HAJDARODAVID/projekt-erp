@@ -93,6 +93,17 @@ class BdeMaterialInventoryList extends Component
         return $this->invItems[$this->invItemsCount] = ['table_id' => NULL];
     }
 
+    public function removeItem($item){
+        if($this->invItems[$item]['table_id']){
+            $oneItemFromInvList = $this->itemsList->where('id', $this->invItems[$item]['table_id'])->first()->delete();
+            unset($this->invItems[$item]);
+        }else{
+            unset($this->invItems[$item]);
+        }
+        $this->reorderInvItems();
+        return $this->dispatch('$refresh');
+    }
+
     private function setInvItems(){
         $this->getInventoryItems();
         $this->resetInvItems();
@@ -111,6 +122,17 @@ class BdeMaterialInventoryList extends Component
             ->where('cons_id', $this->selectedConstructionSite)
             ->where('user_id', Auth::user()->id)->get();
         return;
+    }
+
+    private function reorderInvItems(){
+        $oldItems = $this->invItems;
+        $this->invItemsCount = 1;
+        $this->invItems = [];
+        foreach($oldItems as $item){
+            $this->invItems[$this->invItemsCount] = $item;
+            $this->invItemsCount++;
+        }
+        return $this->invItemsCount--;
     }
 
     private function resetInvItems(){
