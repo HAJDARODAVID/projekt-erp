@@ -84,7 +84,9 @@ class BdeMaterialInventoryList extends Component
     public function updatedSelectedConstructionSite(){
         $this->getInventoryItems();
         $this->setInvItems();
-        $this->invItemsCount--;
+        if($this->invItemsCount > 1){
+            $this->invItemsCount--;
+        }
         //dd($this->invItems);
     }
 
