@@ -28,7 +28,7 @@
             </b>
             <div class="row mb-1">
                 <div class="col-2" >
-                   Mat 
+                   Mat. 
                 </div>
                 <div class="col">
                     {{-- <label for="">Materijal</label> --}}
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-2" >QTY</div>
+                <div class="col-2" >Kol.</div>
                 <div class="col-6">
                     {{-- <label for="">QTY</label> --}}
                     <input type="number" 
