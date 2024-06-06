@@ -1,7 +1,7 @@
 
 <?php $currentRoute = request()->route()->getPrefix() ?>
 
-<div class="list-group mx-2" >
+<div class="list-group mx-2 overflow-auto" >
   @foreach ($menu_items as $key => $menuItem)
     <a 
       href="#" 
