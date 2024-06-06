@@ -41,6 +41,7 @@ class StorageStockItemsTable extends DataTableComponent
 
     public function builder(): Builder{
         return StorageStockItem::query()
-            ->where('str_loc', StorageLocation::MAIN_STORAGE);
+            ->where('str_loc', StorageLocation::MAIN_STORAGE)
+            ->where('qty', '!=', 0);
     }
 }
