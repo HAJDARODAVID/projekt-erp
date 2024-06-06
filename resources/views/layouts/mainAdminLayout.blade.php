@@ -94,7 +94,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   {{-- <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search"> --}}
-  <div class="navbar-nav navbar-nav-scroll">
+  <div class="navbar-nav navbar-nav-scroll" style="--bs-scroll-height: 100px;">
     <div class="nav-item text-nowrap">
         @if(!Session::get('is_phone'))
           <a class="nav-link px-3" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
