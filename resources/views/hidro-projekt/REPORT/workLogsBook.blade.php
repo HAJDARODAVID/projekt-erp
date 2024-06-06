@@ -6,9 +6,26 @@
   </div>
   
   <div class="container">
-
-
-
-
+    {{ $logs->links() }}
+    <hr>
+    @foreach ($logs as $log)
+        <div class="alert alert-secondary" role="alert">
+            <span class="alert-heading">
+                <b>
+                    {{ $log->getWorkingDayRecord->getUser->getWorker->fullName }}
+                </b>
+            </span><br>
+            <span class="alert-heading">
+                &nbsp;- {{ $log->getWorkingDayRecord->getConstructionSite->name }}
+            </span><br>
+            <span class="alert-heading">
+                &nbsp;- {{ $log->created_at }}
+            </span><br>
+            <hr class="my-2">
+            <p>{{ $log->log }}</p>
+            <hr class="my-2">
+            <button class="btn btn-success btn-sm">Više...</button>
+        </div>
+    @endforeach
   </div>
 @endsection

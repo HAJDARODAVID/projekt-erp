@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Nette\Utils\Paginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::useBootstrapFive();
+        Paginator::useBootstrapFour();
         Blade::directive('canEdit', function ($expression) {
             return '<?php echo ({$expression}) ? disabled : "">';
         });
