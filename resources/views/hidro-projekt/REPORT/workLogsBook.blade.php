@@ -6,7 +6,7 @@
   </div>
   
   <div class="container">
-    {{ $logs->links() }}
+    {{ $logs->onEachSide(0)->links() }}
     <hr>
     @foreach ($logs as $log)
         <div class="alert alert-secondary" role="alert">
