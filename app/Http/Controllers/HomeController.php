@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InventoryCheckingModel;
 use App\Models\User;
-use App\Models\WorkingDayRecordModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\WorkingDayRecordModel;
+use App\Models\InventoryCheckingModel;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -27,6 +28,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //Session::put('user_rights', [1,2,3,4]);
+        if(!Session::get('user_rights')){
+            dd('here i will fill data with user right');
+        }
+        dd('i have all the rights', Session::get('user_rights'));
         if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
             return view('hidro-projekt.BDE.bdeIndex',[
                 'myRecords' => WorkingDayRecordModel::where('user_id', Auth::user()->id)->where('date', date('Y-m-d'))->with('getConstructionSite')->get(),
