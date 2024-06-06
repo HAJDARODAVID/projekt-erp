@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\WorkingDayRecordModel;
 use App\Models\InventoryCheckingModel;
 use Illuminate\Support\Facades\Session;
+use Jenssegers\Agent\Facades\Agent;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,12 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
+        //Check if the user is on phone, and put into session
+        if(!Session::get('is_phone')){
+            Session::put('is_phone', Agent::isPhone());
+        }
+
         if(!Session::get('user_rights')){
             
         }

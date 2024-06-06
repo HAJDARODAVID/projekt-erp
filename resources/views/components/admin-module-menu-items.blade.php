@@ -34,6 +34,14 @@
           <b>INVENTURA: {{ $activeInventory->inv_name }}</b>
     </a>
   @endif
+
+  @if(Session::get('is_phone'))
+    <hr>
+    <a class="list-group-item list-group-item-action" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><b>Odjava</b></a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+      @csrf
+  </form>
+  @endif
   
 </div>
 
