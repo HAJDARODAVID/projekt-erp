@@ -21,6 +21,7 @@ use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
 use App\Http\Controllers\HidroProjekt\MainInventoryController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
+use App\Http\Controllers\ReportingController;
 use App\Models\MaterialDocModel;
 
 /*
@@ -196,6 +197,14 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');  
                         Route::get('construction_stock_items','constructionStockItems')->name('hp_constructionStockItems');    
+                    });
+            });
+
+        Route::prefix('/report')
+            ->group(function(){
+                Route::controller(ReportingController::class)
+                    ->group(function(){
+                        Route::get('work_logs_book','workLogsBook')->name('hp_workLogsBook');     
                     });
             });
         
