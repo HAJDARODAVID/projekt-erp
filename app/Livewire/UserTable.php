@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Livewire\Attributes\On; 
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
@@ -22,37 +23,22 @@ class UserTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
+            Column::make("#", "id")
                 ->sortable(),
-            Column::make("Name", "name")
+            Column::make("Ime", "name")
                 ->sortable(),
             Column::make("Email", "email")
                 ->sortable(),
-            Column::make("Created at", "created_at")
+            Column::make("Kreiran", "created_at")
                 ->sortable(),
-            Column::make("Updated at", "updated_at")
+            Column::make("Zadnja promjena", "updated_at")
                 ->sortable(),
             Column::make("Type", "type")
                 ->sortable(),
-            ButtonGroupColumn::make('Actions')
-                ->buttons([
-                    LinkColumn::make('Edit')
-                        ->title(fn($row) => 'EDIT')
-                        ->location(fn($row) => route('home'))
-                        ->attributes(function($row) {
-                            return [
-                                'class' => 'btn btn-primary btn-sm',
-                            ];
-                        }),
-                    LinkColumn::make('Edit')
-                        ->title(fn($row) => 'DELETE')
-                        ->location(fn($row) => route('home'))
-                        ->attributes(function($row) {
-                            return [
-                                'class' => 'btn btn-danger btn-sm',
-                            ];
-                        }),
-                ]),
+            Column::make("")
+                ->label(
+                    fn($row) => $this->getActionButtons($row)
+                )->html(),
         ];
     }
     public function builder(): Builder
@@ -60,5 +46,16 @@ class UserTable extends DataTableComponent
         return User::query()
             ->when($this->columnSearch['name'] ?? null, fn ($query, $name) => $query->where('users.name', 'like', '%' . $name . '%'))
             ->when($this->columnSearch['email'] ?? null, fn ($query, $email) => $query->where('users.email', 'like', '%' . $email . '%'));
+    }
+
+    private function getActionButtons($row){
+        return view('hidro-projekt.ADM.userTableActionButtons',[
+            'row' => $row,
+        ]);
+    }
+
+    #[On('refreshUserTable')] 
+    public function refreshMe(){
+        $this->dispatch('refreshDatatable');
     }
 }
