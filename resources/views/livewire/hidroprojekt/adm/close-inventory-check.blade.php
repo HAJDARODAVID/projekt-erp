@@ -4,8 +4,11 @@
     <div class="modal" id="closeInventoryCheck" style="display:  @if ($activeModal) block @else none @endif">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-flex justify-content">
                     <h5 class="modal-title" id="exampleModalLabel">INVENTURA: {{ $activeInventory->inv_name }}</h5>
+                    <div>
+                        <button class="btn btn-dark btn-sm" wire:click='modalBtn(0)' wire:loading.attr='disabled'>X</button>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <h6>Da li želite proknjižiti ili stornirati inventuru?</h6>                    
