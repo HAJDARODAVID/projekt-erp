@@ -23,6 +23,8 @@ class UserTable extends DataTableComponent
     public function columns(): array
     {
         return [
+            Column::make("worker_id", "worker_id")
+                ->hideIf(TRUE),
             Column::make("#", "id")
                 ->sortable(),
             Column::make("Ime", "name")
@@ -34,6 +36,8 @@ class UserTable extends DataTableComponent
             Column::make("Zadnja promjena", "updated_at")
                 ->sortable(),
             Column::make("Type", "type")
+                ->sortable(),
+            Column::make("Aktivan", "active")
                 ->sortable(),
             Column::make("")
                 ->label(
@@ -52,6 +56,10 @@ class UserTable extends DataTableComponent
         return view('hidro-projekt.ADM.userTableActionButtons',[
             'row' => $row,
         ]);
+    }
+
+    public function setTableRowClass($row): ?string{
+        return $row->active == FALSE ? 'bg-green-500' : null;
     }
 
     #[On('refreshUserTable')] 

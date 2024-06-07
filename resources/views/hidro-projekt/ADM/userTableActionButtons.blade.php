@@ -3,7 +3,10 @@
         'row' => $row,
     ], key($row->id . 'edit'))
     
-    @livewire('hidroProjekt.adm.delete-user-modal',[
-        'row' => $row,
-    ], key($row->id . 'delete'))
+    @if ($row->active)
+        @livewire('hidroProjekt.adm.delete-user-modal',[
+            'row' => $row,
+        ], key($row->id . 'delete'))      
+    @endif
+    
 </div>

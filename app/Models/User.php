@@ -43,6 +43,7 @@ class User extends Authenticatable
         'password',
         'type',
         'worker_id',
+        'active',
     ];
 
     /**

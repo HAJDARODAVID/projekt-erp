@@ -9,8 +9,10 @@ class DeleteUserModal extends Component
     public $row;
 
     public function deleteUser(){
-        $this->row->delete();
-        return $this->dispatch('refreshUserTable');;
+        $this->row->update([
+            'active' => false
+        ]);
+        return $this->dispatch('refreshUserTable');
     }
 
     public function render()
