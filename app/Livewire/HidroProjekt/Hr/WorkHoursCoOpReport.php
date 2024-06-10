@@ -21,6 +21,13 @@ class WorkHoursCoOpReport extends Component
         $this->attendance = WorkHoursService::getAllAttendanceForMonthReportCoOp($this->selectedMonth, $this->selectedYear,$this->daysOfMonth);
     }
 
+    public function openAttendanceModalForWorkerAndDay($workerId=NULL, $date=NULL){
+        $this->dispatch('open-co-op-attendance-modal', $data=[
+            'workerId' => $workerId,
+            'date' => $date,
+        ]);
+    }
+
     public function updatedSelectedMonth(){
         $this->dispatch('refreshWorkHoursComponent')->self();
     }

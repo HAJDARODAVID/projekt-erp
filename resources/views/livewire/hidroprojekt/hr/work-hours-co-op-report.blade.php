@@ -19,7 +19,7 @@
     <hr>
 
     <div>
-        <table class="table table-bordered" wire:loading.remove>
+        <table class="table table-bordered" wire:loading.remove >
             <thead style="border-bottom: 1.5px solid #000000;">
                 <tr>
                     <td scope="col"><b>Ime i prezime</b></td>
@@ -57,7 +57,7 @@
                                         $cellStyle="background-color:#c9c9c9"; 
                                     }
                                 ?>
-                                <td style="<?=$cellStyle?>">{{ $day }}</td>  
+                                <td style="<?=$cellStyle?>" wire:click="openAttendanceModalForWorkerAndDay('{{ $attInfo['id'] }}', '{{ $key }}')">{{ $day }}</td>  
                             @endforeach
                         </tr>   
                     @endforeach
@@ -90,10 +90,11 @@
     </div>
 
     <div class="d-flex justify-content-center" >
-        <div class="spinner-border" role="status" style="display:none" wire:loading>
+        <div class="spinner-border" role="status" style="display:none" wire:loading >
             <span class="sr-only"></span>
         </div>
     </div>
-      
+
+    <x-processing-modal target='openAttendanceModalForWorkerAndDay'></x-processing-modal>
 
 </div>

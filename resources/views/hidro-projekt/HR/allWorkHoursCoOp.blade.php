@@ -17,6 +17,8 @@
         'selectedYear' => date('Y')*1,
     ])
 
+    @livewire('hidroProjekt.hr.co-op-attendance-modal')
+
 
   </div>
 @endsection
