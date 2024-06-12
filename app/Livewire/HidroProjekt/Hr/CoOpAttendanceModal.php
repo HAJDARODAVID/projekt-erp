@@ -37,9 +37,6 @@ class CoOpAttendanceModal extends Component
         $this->setAttendance();
         $this->getAllWorkBooks();
 
-        if(isset($this->hours['misc'])){
-            $this->type['miscWork'] = TRUE;
-        }
         if(isset($this->hours['work'])){
             $this->type['wdr'] = TRUE;
         }
@@ -162,6 +159,10 @@ class CoOpAttendanceModal extends Component
 
         $this->itemCounter = 1;
 
+        foreach($this->miscWorkList as $key => $typeOfWork){
+            $this->hours['misc'][$key]=[];
+        }
+
         if($this->attendance){
             foreach ($this->attendance as $item) {
                 if(array_key_exists($item->working_day_record_id, $this->miscWorkList)){
@@ -169,6 +170,7 @@ class CoOpAttendanceModal extends Component
                         'table_id' => $item->id,
                         'hours' => $item->work_hours,
                     ];
+                    $this->type['miscWork'] = TRUE;
                 }else{
                     $this->hours['work'][$this->itemCounter]=[
                         'wdr' => $item->working_day_record_id,
