@@ -21,7 +21,7 @@ class WorkHoursReport extends Component
     public $attendanceReport;
     public $cumulative;
 
-    #[On('refreshWorkHoursComponent')] 
+    #[On('refreshWorkHoursComponentHPWorker')] 
     public function mount(){
         $this->daysOfMonth=Months::dayOfMonth($this->selectedMonth);
         $this->planedHours = WorkHoursService::getPlanedHoursForMonth($this->selectedMonth);
@@ -30,7 +30,7 @@ class WorkHoursReport extends Component
         $this->cumulative = $this->attendanceReport['cumulative']; 
     }
     public function updatedSelectedMonth(){
-        $this->dispatch('refreshWorkHoursComponent')->self();
+        $this->dispatch('refreshWorkHoursComponentHPWorker')->self();
     }
 
     public function exportAttendanceReport(){

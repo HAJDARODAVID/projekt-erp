@@ -36,9 +36,6 @@ class WorkerAttendanceModal extends Component
         $this->setAttendance();
         $this->getAllWorkBooks();
 
-        if(isset($this->hours['misc'])){
-            $this->type['miscWork'] = TRUE;
-        }
         if(isset($this->hours['work'])){
             $this->type['wdr'] = TRUE;
         }
@@ -47,9 +44,7 @@ class WorkerAttendanceModal extends Component
     }
 
     public function updatedHours($key, $value){
-        dd($key, $value);
         list($type, $aKey, $column) = explode('.', $value);
-        dd($type, $aKey, $column);
         if(isset($this->hours[$type][$aKey]['table_id'])){
             $attendanceData = AttendanceModel::where('id', $this->hours[$type][$aKey]['table_id'])->first();
             if($column == 'hours' && ($key != 0 && $key != "")){
@@ -97,7 +92,7 @@ class WorkerAttendanceModal extends Component
         $this->type = [];
         $this->hours = [];
         $this->activeModal = false;
-        return $this->dispatch('refreshWorkHoursComponent');
+        return $this->dispatch('refreshWorkHoursComponentHPWorker');
     }
 
     public function setType($type){
@@ -162,6 +157,10 @@ class WorkerAttendanceModal extends Component
 
         $this->itemCounter = 1;
 
+        foreach($this->miscWorkList as $key => $typeOfWork){
+            $this->hours['misc'][$key]=[];
+        }
+
         if($this->attendance){
             foreach ($this->attendance as $item) {
                 if(array_key_exists($item->working_day_record_id, $this->miscWorkList)){
@@ -169,6 +168,7 @@ class WorkerAttendanceModal extends Component
                         'table_id' => $item->id,
                         'hours' => $item->work_hours,
                     ];
+                    $this->type['miscWork'] = TRUE;
                 }else{
                     $this->hours['work'][$this->itemCounter]=[
                         'wdr' => $item->working_day_record_id,
