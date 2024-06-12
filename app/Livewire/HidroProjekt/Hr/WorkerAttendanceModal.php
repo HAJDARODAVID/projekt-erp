@@ -8,6 +8,6 @@ class WorkerAttendanceModal extends Component
 {
     public function render()
     {
-        return view('livewire.hidro-projekt.hr.worker-attendance-modal');
+        return view('livewire.hidroprojekt.hr.worker-attendance-modal');
     }
 }
