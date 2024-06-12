@@ -41,6 +41,13 @@ class WorkHoursReport extends Component
         return (new AttendanceReportExport($data));
     }
 
+    public function openAttendanceModalForWorkerAndDay($workerId=NULL, $date=NULL){
+        $this->dispatch('open-worker-attendance-modal', $data=[
+            'workerId' => $workerId,
+            'date' => $date,
+        ]);
+    }
+
     public function render()
     {
         return view('livewire.hidroprojekt.hr.work-hours-report');

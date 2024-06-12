@@ -16,6 +16,7 @@
         'selectedMonth' => date('m')*1,
     ])
 
+    @livewire('hidroProjekt.hr.worker-attendance-modal')
 
   </div>
 @endsection

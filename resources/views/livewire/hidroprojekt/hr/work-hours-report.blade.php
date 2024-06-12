@@ -76,7 +76,7 @@
                                     }
                                 }
                             ?>
-                            <td style="<?=$cellStyle?>">{{ $attendance }}</td>
+                            <td style="<?=$cellStyle?>" wire:click="openAttendanceModalForWorkerAndDay('{{ $worker['id'] }}', '{{ $key }}')">{{ $attendance }}</td>
                         @endforeach
                     </tr>
                 @endforeach
