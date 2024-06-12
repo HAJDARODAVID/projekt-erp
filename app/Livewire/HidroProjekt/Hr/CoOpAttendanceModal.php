@@ -47,6 +47,26 @@ class CoOpAttendanceModal extends Component
         return $this->activeModal = TRUE;
     }
 
+    public function updatedHours($key, $value){
+        list($type, $aKey, $column) = explode('.', $value);
+        if(isset($this->hours[$type][$aKey]['table_id'])){
+            $attendanceData = AttendanceCoOpModel::where('id', $this->hours[$type][$aKey]['table_id'])->first();
+            if($column == 'hours' && ($key != 0 && $key != "")){
+                $attendanceData->update([
+                    'work_hours' => $key,
+                ]);
+                return;
+            }
+            if($column == 'wdr' && ($key != 0 && $key != "" && $key != NULL)){
+                $attendanceData->update([
+                    'working_day_record_id' => $key,
+                ]);
+                return;
+            }
+        }
+        
+    }
+
     public function save(){
         if(isset($this->hours['misc'])){
             foreach($this->hours['misc'] as $key => $item){
