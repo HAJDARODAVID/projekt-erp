@@ -187,6 +187,7 @@ class CoOpAttendanceModal extends Component
     private function getAllWorkBooks(){
         return $this->wdrObj = WorkingDayRecordModel::where('date', $this->attendanceDate)
         ->where('work_type', '!=', 3)
+        ->where('construction_site_id', '!=', NULL)
         ->with('getConstructionSite','getUser.getWorker')
         ->get();
     }
