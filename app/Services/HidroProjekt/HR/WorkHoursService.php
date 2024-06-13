@@ -15,7 +15,7 @@ use App\Services\Months;
 class WorkHoursService
 {
     private static function getAllAttendanceWorkers(){
-        $groupLeaders= User::where('type', User::USER_TYPE_GROUP_LEADER)->with('getWorker')->get();
+        $groupLeaders= User::where('type', User::USER_TYPE_GROUP_LEADER)->where('active', TRUE)->with('getWorker')->get();
         $workers = WorkerModel::where('is_worker', TRUE)->where('status',1)->get();
         $attendanceWorker=[];
         foreach ($groupLeaders as $worker) {
