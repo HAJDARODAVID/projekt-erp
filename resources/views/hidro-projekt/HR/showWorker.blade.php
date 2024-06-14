@@ -2,11 +2,8 @@
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h3 mx-5 ">{{ $worker->firstName }} {{ $worker->lastName }}</h1>
-    <div class="mx-5 ">
-        <button id="editBtn" class="btn btn-success" onclick="editworker();">UREDI</button>
-        <button id="saveBtn" class="btn btn-success" style="display: none" onclick="event.preventDefault(); document.getElementById('workerForm').submit();">SPREMI</button>
-        <a href="{{ route('hp_showWorker', $worker->id) }}" id="cancelBtn" class="btn btn-danger" style="display: none">OTKAŽI</a>
+    <h1 class="h3 mx-5 ">#{{ sprintf('%04d', $worker->id) }} - {{ $worker->fullName }}</h1>
+    <div class="mx-5 ">     
         <a href = "{{ route('hp_allWorkers') }}" class="btn btn-secondary">NATRAG</a>
     </div>
   </div>
@@ -17,6 +14,54 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+
+    <h1 class="h6">Osnovne informacije</h1>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="row">
+                <div class="col-lg">
+                    <div class="form-group mb-2">
+                        <label for="firstName">Ime</label>
+                        <input type="text" class="form-control" value="@isset($worker->firstName) {{ $worker->firstName }} @endisset">
+                    </div>
+                    <div class="form-group">
+                        <label for="work_place">Aktualno radno mjesto</label>
+                        <input type="text" class="form-control" value="@isset($worker->working_place) {{ $worker->working_place }} @endisset" disabled>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <div class="form-group mb-2">
+                        <label for="lastName">Prezime</label>
+                        <input type="text" class="form-control" value="@isset($worker->lastName) {{ $worker->lastName }} @endisset">
+                    </div>
+                    <div class="form-group">
+                        <label for="oib">OIB</label>
+                        <input type="text" class="form-control" value="@isset($worker->OIB) {{ $worker->OIB }} @endisset">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="form-group mb-2">
+                        <label for="doe">Datum zapošljenja</label>
+                        <input type="date" class="form-control" value="@isset($worker->doe) {{ $worker->doe }} @endisset">
+                    </div>
+                    <div class="form-group">
+                        <label for="ced">Istek ugovora</label>
+                        <input type="date" class="form-control" id="ced"  name="ced" value="@isset($worker->ced) {{ $worker->ced }} @endisset">
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="ced">Komentar</label>
+                    <textarea class="form-control" rows="4" style="resize: none;" ></textarea>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    <br>
 
     <form id="workerForm" action="{{ route('hp_updateWorker', $worker->id) }}" method="POST">
         @csrf
