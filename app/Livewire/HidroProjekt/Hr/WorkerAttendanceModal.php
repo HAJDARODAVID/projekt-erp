@@ -2,11 +2,13 @@
 
 namespace App\Livewire\HidroProjekt\Hr;
 
-use App\Models\AttendanceModel;
-use App\Models\WorkerModel;
+use Exception;
 use Livewire\Component;
-use App\Models\WorkingDayRecordModel;
+use App\Models\WorkerModel;
 use Livewire\Attributes\On;
+use App\Models\AttendanceModel;
+use App\Models\WorkingDayRecordModel;
+
 class WorkerAttendanceModal extends Component
 {
     public $activeModal = false;
@@ -39,7 +41,8 @@ class WorkerAttendanceModal extends Component
         if(isset($this->hours['work'])){
             $this->type['wdr'] = TRUE;
         }
-        
+        $this->checkIfAbsenceExists();
+
         return $this->activeModal = TRUE;
     }
 
@@ -65,15 +68,21 @@ class WorkerAttendanceModal extends Component
 
     public function save(){
         if(isset($this->hours['misc'])){
-            foreach($this->hours['misc'] as $key => $item){
-                if(!isset($item['table_id']) && ($item['hours'] != 0 || $item['hours'] != "")){
-                    AttendanceModel::create([
-                        'worker_id'             => $this->worker->id,
-                        'working_day_record_id' => $key,
-                        'work_hours'            => $item['hours'],
-                        'date'                  => $this->attendanceDate,
-                    ]);
+            try {
+                foreach($this->hours['misc'] as $key => $item){
+                    if(!isset($item['table_id']) && isset($item['hours'])){
+                        if($item['hours'] != 0 || $item['hours'] != ""){
+                            AttendanceModel::create([
+                                'worker_id'             => $this->worker->id,
+                                'working_day_record_id' => $key,
+                                'work_hours'            => $item['hours'],
+                                'date'                  => $this->attendanceDate,
+                            ]);
+                        }
+                    }
                 }
+            } catch (Exception $e) {
+                dd($e);
             }
         }
         if(isset($this->hours['work'])){
@@ -96,6 +105,13 @@ class WorkerAttendanceModal extends Component
     }
 
     public function setType($type){
+        if(isset($this->type['absence'])){
+            foreach($this->attendance as $att){
+                $att->delete();
+            }
+            unset($this->type['absence']);
+            unset($this->hours['absence']);
+        }
         if(isset($this->type[$this->workHourTypes[$type]])){
             unset($this->type[$this->workHourTypes[$type]]);
             return;
@@ -106,25 +122,21 @@ class WorkerAttendanceModal extends Component
 
     public function absenceBtn($type){
         $this->hours = [];
+        $table_id = NULL;
         if(!($this->attendance->isEmpty())){
             foreach ($this->attendance as $att) {
-                if($att->absence_reason == NULL){
-                    $att->delete();
-                }else{
-                    $att->update([
-                        'absence_reason' => $type,
-                    ]);
-                    $table_id = $att->id;
-                }
+                $att->delete();
             }
-        }else{
-            $newAtt = AttendanceModel::create([
-                        'worker_id'      => $this->worker->id,
-                        'absence_reason' => $type,
-                        'date'           => $this->attendanceDate,
-                    ]);
-            $table_id = $newAtt->id;
         }
+        $newAtt = AttendanceModel::create([
+                    'worker_id'      => $this->worker->id,
+                    'absence_reason' => $type,
+                    'date'           => $this->attendanceDate,
+                ]);
+        $table_id = $newAtt->id;
+    
+        $this->type=[];
+        $this->type['absence']=TRUE;
         return $this->hours['absence'] = [
             'table_id' => $table_id,
             'absence' => $type,
@@ -196,6 +208,12 @@ class WorkerAttendanceModal extends Component
                         'hours' => $item->work_hours,
                     ];
                     $this->type['miscWork'] = TRUE;
+                }
+                if($item->absence_reason != NULL){
+                    $this->hours['absence'] = [
+                        'table_id' => $item->id,
+                        'absence' => $item->absence_reason,
+                    ];
                 }else{
                     $this->hours['work'][$this->itemCounter]=[
                         'wdr' => $item->working_day_record_id,
@@ -208,6 +226,16 @@ class WorkerAttendanceModal extends Component
         }
         return;
     }
+
+    private function checkIfAbsenceExists(){
+        foreach ($this->attendance as $att) {
+            if($att->absence_reason != NULL){
+                $this->type=[];
+                $this->type['absence']=TRUE;
+            }
+        }
+        return;
+    } 
 
     private function getAllWorkBooks(){
         return $this->wdrObj = WorkingDayRecordModel::where('date', $this->attendanceDate)

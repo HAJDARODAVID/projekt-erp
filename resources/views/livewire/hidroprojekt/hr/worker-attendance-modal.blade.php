@@ -117,6 +117,20 @@
                         </table>
                         <hr>
                     </div>
+
+                    @if(isset($hours['absence'])) 
+                        <div class="d-flex justify-content-center">
+                            @if ($hours['absence']['absence']==10)
+                                <button class="btn btn-warning" style="width: 100px; height:100px" disabled><b>BO</b></button>
+                            @endif
+
+                            @if ($hours['absence']['absence']==20)
+                                <button class="btn btn-primary" style="width: 100px; height:100px" disabled><b>GO</b></button>
+                            @endif 
+                        </div>
+                                               
+                    @endif
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success" wire:click='save()' wire:loading.attr='disabled'>SPREMI</button>
