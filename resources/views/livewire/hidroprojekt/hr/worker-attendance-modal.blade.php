@@ -18,8 +18,8 @@
                         <div class="gap-1">
                             <button class="btn btn-success" wire:click='setType(1)'><i class="bi bi-hammer"></i></button>
                             <button class="btn btn-success" wire:click='setType(2)'><i class="bi bi-cone-striped"></i></button>
-                            <button class="btn btn-primary" wire:click=''>GO</button>
-                            <button class="btn btn-warning" wire:click=''>BO</button>
+                            <button class="btn btn-primary" wire:click='absenceBtn(20)'>GO</button>
+                            <button class="btn btn-warning" wire:click='absenceBtn(10)'>BO</button>
                         </div>
                         @if($deleteAttendanceBtn)
                             <button class="btn btn-danger d-flex align-items-center"

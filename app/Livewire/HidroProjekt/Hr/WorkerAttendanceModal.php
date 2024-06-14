@@ -104,6 +104,33 @@ class WorkerAttendanceModal extends Component
         }
     }
 
+    public function absenceBtn($type){
+        $this->hours = [];
+        if(!($this->attendance->isEmpty())){
+            foreach ($this->attendance as $att) {
+                if($att->absence_reason == NULL){
+                    $att->delete();
+                }else{
+                    $att->update([
+                        'absence_reason' => $type,
+                    ]);
+                    $table_id = $att->id;
+                }
+            }
+        }else{
+            $newAtt = AttendanceModel::create([
+                        'worker_id'      => $this->worker->id,
+                        'absence_reason' => $type,
+                        'date'           => $this->attendanceDate,
+                    ]);
+            $table_id = $newAtt->id;
+        }
+        return $this->hours['absence'] = [
+            'table_id' => $table_id,
+            'absence' => $type,
+        ];
+    }
+
     public function addItem(){
         $this->hours['work'][$this->itemCounter] = [];
         return $this->itemCounter++;
