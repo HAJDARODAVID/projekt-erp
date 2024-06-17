@@ -4,7 +4,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h3 mx-5 ">#{{ sprintf('%04d', $worker->id) }} - {{ $worker->fullName }}</h1>
     <div class="mx-5 ">     
-        <a href = "{{ route('hp_allWorkers') }}" class="btn btn-secondary">NATRAG</a>
+        <a href = "{{ url()->previous() }}" class="btn btn-secondary">NATRAG</a>
     </div>
   </div>
   

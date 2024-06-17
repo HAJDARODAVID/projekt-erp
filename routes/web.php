@@ -21,6 +21,7 @@ use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
 use App\Http\Controllers\HidroProjekt\MainInventoryController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ReportingController;
 use App\Models\MaterialDocModel;
 
@@ -156,6 +157,15 @@ Route::prefix('/')
 
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
+            });
+
+            Route::prefix('/hr')
+                ->group(function(){
+                    Route::controller(PayrollController::class)
+                    ->group(function(){
+                        Route::get('payroll','payrollForMonths')->name('hp_payrollForMonths');
+                    });
+
             });
 
         Route::controller(AssetsController::class)
