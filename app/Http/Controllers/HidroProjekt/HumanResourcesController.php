@@ -21,13 +21,18 @@ class HumanResourcesController extends Controller
 
     public function allWorkers(Request $request){
         //dd($request->route()->getPrefix());
-        return view('hidro-projekt.HR.allWorkers',['workers' => WorkerModel::simplePaginate(20)]);
+        return view('hidro-projekt.HR.allWorkers',[
+            'workers' => WorkerModel::simplePaginate(20)
+        ]);
     }
 
-    public function showWorker($id){
+    public function showWorker($id,Request $request){
         $worker = WorkerModel::where('id', $id)->first();
         if(is_null(WorkerModel::where('id', $id)->first())){
             return redirect()->route('hp_allWorkers');
+        }
+        if(!$request['tab']){
+            request()->merge(['tab'=> 1]);
         }
         return view('hidro-projekt.HR.showWorker', [
             'worker' => WorkerModel::where('id', $id)->with('getWorkerAddress', 'getWorkerContact')->first(),
