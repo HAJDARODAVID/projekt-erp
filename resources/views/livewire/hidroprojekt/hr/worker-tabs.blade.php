@@ -93,7 +93,7 @@
                     <div class="row mt-1 mb-2">
                         <div class="col-3">
                             <div class="form-check form-switch mt-1">
-                                <input class="form-check-input" type="checkbox" wire:model.blur='payrollInfo.bonus'>
+                                <input class="form-check-input" type="checkbox" wire:model.live='payrollInfo.can_get_bonus'>
                                 <label class="form-check-label" for="bonus">
                                   Da li radnik može dobiti bonus? 
                                 </label>

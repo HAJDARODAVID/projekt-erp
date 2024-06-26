@@ -167,9 +167,7 @@ class PayrollAccountingService
     private function getBonus($workerId){
         //check if worker can get bonus
         try {
-            if($this->data[$workerId]['bo']>1){
-                return 0;
-            }elseif(!$this->data[$workerId]['is_worker']){
+            if($this->data[$workerId]['bo']>0){
                 return 0;
             }else{
                 if($this->getIfWorkerCanGetBonus($workerId)){
