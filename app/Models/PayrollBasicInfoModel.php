@@ -15,6 +15,10 @@ class PayrollBasicInfoModel extends Model
         'phone_exp'  => 0,
     ];
 
+    protected $casts = [
+        'bonus' => 'bool',
+      ];
+
     protected $fillable = [
         'worker_id',
         'h_rate', 
