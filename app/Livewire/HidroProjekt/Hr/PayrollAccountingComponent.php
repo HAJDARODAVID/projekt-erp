@@ -34,6 +34,7 @@ class PayrollAccountingComponent extends Component
             'home'  => $service->field_1,
             'field' => $service->field_2,
         ];
+        dd($service->data);
         return $this->data = $service->data;
     }
     
