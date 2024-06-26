@@ -52,7 +52,7 @@ class WorkerTabs extends Component
             $value = 0;
             $this->payrollInfo[$column] = 0;
         }
-        if($value == ''){
+        if($value == '' && $column != 'bonus'){
             $value = NULL;
         }
         try {
