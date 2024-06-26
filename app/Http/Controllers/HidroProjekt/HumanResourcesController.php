@@ -8,6 +8,7 @@ use App\Models\CooperatorsModel;
 use App\Http\Controllers\Controller;
 use App\Models\AttendanceModel;
 use App\Models\CooperatorWorkersModel;
+use App\Models\PayrollBasicInfoModel;
 use Illuminate\Support\Facades\Session;
 use App\Services\HidroProjekt\HR\WorkerService;
 use App\Services\HidroProjekt\HR\WorkHoursService;
@@ -34,8 +35,13 @@ class HumanResourcesController extends Controller
         if(!$request['tab']){
             request()->merge(['tab'=> 1]);
         }
+        $workerInfo = WorkerModel::where('id', $id)->with('getWorkerAddress', 'getWorkerContact', 'getWorkerBasicPayrollInfo')->first();
+        if(is_null($workerInfo->getWorkerBasicPayrollInfo)){
+            PayrollBasicInfoModel::create(['worker_id' => $id]);
+        }
+        $workerInfo = WorkerModel::where('id', $id)->with('getWorkerAddress', 'getWorkerContact', 'getWorkerBasicPayrollInfo')->first();
         return view('hidro-projekt.HR.showWorker', [
-            'worker' => WorkerModel::where('id', $id)->with('getWorkerAddress', 'getWorkerContact')->first(),
+            'worker' => $workerInfo,
         ]);
     }
 

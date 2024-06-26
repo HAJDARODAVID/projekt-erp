@@ -56,19 +56,19 @@
             <tbody>
                 @foreach ($data as $worker_id => $worker)
                     <tr>
-                        <td>{{ $worker['fullName'] }}</td>
+                        <td onclick="location.href='{{ route('hp_showWorker', ['id' => $worker_id, 'tab' => 2]) }}';">{{ $worker['fullName'] }}</td>
                         <td>{{ $worker['hours'] }}</td>
                         <td>{{ $worker['go'] }}</td>
                         <td>{{ $worker['bo'] }}</td>
                         <td>{{ $worker['field_1'] }}</td>
                         <td style="border-right: 1px solid">{{ $worker['field_2'] }}</td>
-                        <td>{{ $worker['h_rate'] }}</td>
+                        <td>{{ number_format($worker['h_rate'], 2, ',', '.') }}</td>
                         <td>{{ number_format($worker['base'], 2, ',', '.') }}</td>
                         <td>{{ number_format($worker['bonus'], 2, ',', '.') }}</td>
                         <td>{{ number_format($worker['bonus_field_1'], 2, ',', '.') }}</td>
                         <td>{{ number_format($worker['bonus_field_2'], 2, ',', '.') }}</td>
-                        <td>{{ number_format(0, 2, ',', '.') }}</td>
-                        <td>{{ number_format(0, 2, ',', '.') }}</td>
+                        <td>{{ number_format($worker['travel_exp'], 2, ',', '.') }}</td>
+                        <td>{{ number_format($worker['phone_exp'], 2, ',', '.') }}</td>
                         <td><b>{{ number_format($worker['pay_out'], 2, ',', '.') }}</b></td>
                     </tr>
                 @endforeach

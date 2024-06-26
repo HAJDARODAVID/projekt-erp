@@ -2,9 +2,11 @@
 
 namespace App\Services\HidroProjekt\ADM;
 
-use App\Models\AppParametersModel;
-use App\Models\AttendanceModel;
+use Exception;
 use App\Models\WorkerModel;
+use App\Models\AttendanceModel;
+use App\Models\AppParametersModel;
+use App\Models\PayrollBasicInfoModel;
 
 /**
  * Class PayrollAccountingService.
@@ -36,7 +38,7 @@ class PayrollAccountingService
         $this->data = $this->getAllWorkersForPayroll();
         //Fill workers with data
         foreach ($this->data as $key => $worker) {
-            $this->data[$key]['h_rate']        = 8.53;
+            $this->data[$key]['h_rate']        = $this->getHRate($key);
             $this->data[$key]['hours']         = $this->getWorkerHours($key);
             $this->data[$key]['go']            = $this->getPaidLeaveCount($key);
             $this->data[$key]['bo']            = $this->getSickLeaveCount($key);
@@ -46,10 +48,21 @@ class PayrollAccountingService
             $this->data[$key]['bonus_field_1'] = $this->data[$key]['field_1'] * $this->field_1;
             $this->data[$key]['bonus_field_2'] = $this->data[$key]['field_2'] * $this->field_2;
             $this->data[$key]['bonus']         = $this->getBonus($key);
+            $this->data[$key]['travel_exp']    = $this->getTravelExp($key);
+            $this->data[$key]['phone_exp']     = $this->getPhoneExp($key);
             $this->data[$key]['pay_out']       = $this->getFinalPayOut($key);
         }
         return;
         dd($this->data);
+    }
+
+    private function getHRate($workerId){
+        $h_rate = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
+        if(!is_null($h_rate)){
+            $h_rate = is_null($h_rate->h_rate) ? 0 : $h_rate->h_rate;
+            return $h_rate;
+        }
+        return 0;
     }
 
     private function getAllWorkersForPayroll(){
@@ -59,13 +72,17 @@ class PayrollAccountingService
         foreach ($activeWorkersModel as $worker) {
             $workerArray[$worker->id] = [
                 'fullName' => $worker->fullName,
+                'is_worker' => $worker->is_worker,
             ];
         }
         //Get workers who are not with us anymore :(
         foreach ($this->attendance->groupBy('worker_id') as $key => $att) {
             if(!array_key_exists($key, $workerArray)){
                 $oldWorker = WorkerModel::where('id', $key)->first();
-                $workerArray[$oldWorker->id] = ['fullName' => $oldWorker->fullName];
+                $workerArray[$oldWorker->id] = [
+                    'fullName' => $oldWorker->fullName,
+                    'is_worker' => $oldWorker->is_worker,
+                ];
             }
         }
         return $workerArray;
@@ -128,17 +145,66 @@ class PayrollAccountingService
     }
 
     private function getFinalPayOut($workerId){
-        $final =  $this->data[$workerId]['base'] + $this->data[$workerId]['bonus_field_1'] + $this->data[$workerId]['bonus_field_2'] +$this->data[$workerId]['bonus'];
+        if($this->getFixRate($workerId)){
+            return $this->getFixRate($workerId);
+        }
+        $final =  $this->data[$workerId]['base'] + $this->data[$workerId]['bonus_field_1'] + $this->data[$workerId]['bonus_field_2'] +$this->data[$workerId]['bonus']+$this->data[$workerId]['travel_exp']+$this->data[$workerId]['phone_exp'];
         return $final;
+    }
+
+    private function getFixRate($workerId){
+        $fix = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
+        if(!is_null($fix)){
+            if(!is_null($fix->fix_rate)){
+                return $fix->fix_rate;
+            }else{
+                return FALSE;
+            }
+        }
+        return FALSE;
     }
 
     private function getBonus($workerId){
         //check if worker can get bonus
-        if($this->data[$workerId]['bo']>1){
-            return 0;
-        }else{
-            return $this->bonus;
+        try {
+            if($this->data[$workerId]['bo']>1){
+                return 0;
+            }elseif(!$this->data[$workerId]['is_worker']){
+                return 0;
+            }else{
+                if($this->getIfWorkerCanGetBonus($workerId)){
+                    return $this->bonus;
+                }
+                return 0;
+            }
+        } catch (Exception $e) {
+            dd($e, $workerId);
         }
     }
+
+    private function getIfWorkerCanGetBonus($workerId){
+        $bonus = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
+        if(!is_null($bonus)){
+            return $bonus->bonus;
+        }
+        return FALSE;
+    }
+
+    private function getTravelExp($workerId){
+        $travelExp = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
+        if(!is_null($travelExp)){
+            return $travelExp->travel_exp;
+        }
+        return 0;
+    }
+
+    private function getPhoneExp($workerId){
+        $phoneExp = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
+        if(!is_null($phoneExp)){
+            return $phoneExp->phone_exp;
+        }
+        return 0;
+    }
+
 
 }
