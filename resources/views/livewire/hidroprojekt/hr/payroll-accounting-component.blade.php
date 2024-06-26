@@ -38,12 +38,12 @@
             <thead class="thead-light">
                 <tr class="bg-secondary" style="border-bottom: 2px">
                     <th scope="col" style="width: 180px">Ime i prezime</th>
-                    <th scope="col" style="width: 60px">OS</th>
-                    <th scope="col" style="width: 60px">GO</th>
-                    <th scope="col" style="width: 60px">BO</th>
+                    <th scope="col" style="width: 60px">OS<br>[Sati]</th>
+                    <th scope="col" style="width: 60px">GO<br>[Dani]</th>
+                    <th scope="col" style="width: 60px">BO<br>[Dani]</th>
                     <th scope="col" style="width: 60px">Teren<br>[Dani]</th>
                     <th scope="col" style="width: 60px;border-right: 1px solid">More<br>[Dani]</th>
-                    <th style="width: 70px">Satnica</th>
+                    <th style="width: 85px">Satnica</th>
                     <th style="width: 110px">Osnovnica<br>[€]</th>
                     <th style="width: 100px">Bonus<br>[{{ $bonus }}€]</th>
                     <th style="width: 100px">Teren<br>[Doma: {{ $fieldValues['home'] }}€]</th>
@@ -62,14 +62,35 @@
                         <td>{{ $worker['bo'] }}</td>
                         <td>{{ $worker['field_1'] }}</td>
                         <td style="border-right: 1px solid">{{ $worker['field_2'] }}</td>
-                        <td>{{ number_format($worker['h_rate'], 2, ',', '.') }}</td>
+                        <td>
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.h_rate'>
+                            </div>
+                        </td>
                         <td>{{ number_format($worker['base'], 2, ',', '.') }}</td>
-                        <td>{{ number_format($worker['bonus'], 2, ',', '.') }}</td>
+                        <td>
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.bonus'>
+                            </div>
+                        </td>
+
                         <td>{{ number_format($worker['bonus_field_1'], 2, ',', '.') }}</td>
                         <td>{{ number_format($worker['bonus_field_2'], 2, ',', '.') }}</td>
-                        <td>{{ number_format($worker['travel_exp'], 2, ',', '.') }}</td>
-                        <td>{{ number_format($worker['phone_exp'], 2, ',', '.') }}</td>
-                        <td><b>{{ number_format($worker['pay_out'], 2, ',', '.') }}</b></td>
+                        <td>
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.travel_exp'>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.phone_exp'>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="number" class="form-control form-control-sm" style="font-weight: bold" wire:model.blur='data.{{ $worker_id }}.pay_out'>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -78,3 +99,4 @@
 
     <x-processing-modal target='getPayrollAccountingData'></x-processing-modal>
 </div>
+
