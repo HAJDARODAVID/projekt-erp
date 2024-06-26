@@ -40,6 +40,9 @@ class WorkerTabs extends Component
 
     public function updated($key, $value){
         list($property, $column) = explode('.', $key);
+        if($column == 'bonus'){
+            dd($key, $value);
+        }
         //if the is a change in h_rate od fix_rate set both to NULL
         if($column == 'h_rate' || $column == 'fix_rate'){
             $this->$property['model']->update([
