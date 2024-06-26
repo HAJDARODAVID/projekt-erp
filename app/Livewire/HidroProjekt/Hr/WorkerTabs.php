@@ -35,7 +35,7 @@ class WorkerTabs extends Component
         $this->address['model']     = $this->workerModel->getWorkerAddress;
         $this->contact['model']     = $this->workerModel->getWorkerContact;
         $this->payrollInfo['model'] = $this->workerModel->getWorkerBasicPayrollInfo;
-        //dd($this->workerModel);
+        dd($this->payrollInfo);
     }
 
     public function updated($key, $value){
