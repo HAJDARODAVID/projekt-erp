@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Hr;
 
+use App\Exports\Hr\PayrollAccountingExport;
 use App\Services\HidroProjekt\ADM\PayrollAccountingService;
 use Livewire\Component;
 use App\Services\Months;
@@ -43,19 +44,29 @@ class PayrollAccountingComponent extends Component
     }
 
     public function updating($key, $value){
-        extract($this->getArrayFromUpdatedKey($key));
-        $this->oldValue = (float)$this->data[$worker][$cName];
+        if(substr($key, 0, 4)=='data'){
+            extract($this->getArrayFromUpdatedKey($key));
+            $this->oldValue = (float)$this->data[$worker][$cName];
+        }
     }
 
     public function updated($key, $value){
-        extract($this->getArrayFromUpdatedKey($key));
-        $this->data[$worker][$cName] = number_format((float)$value,2,thousands_separator:'', decimal_separator:'.');
-        $methodName='updating'.ucfirst($cName).'';
-        try {
-            $this->$methodName($key, $value);
-        } catch (Exception $e) {
-            $this->data[$worker][$cName] = number_format($this->oldValue,2,thousands_separator:'', decimal_separator:'.');
-            return $this->dispatch('show-exception-modal',$e->getMessage());
+        if(substr($key, 0, 4)=='data'){
+            extract($this->getArrayFromUpdatedKey($key));
+            $this->data[$worker][$cName] = number_format((float)$value,2,thousands_separator:'', decimal_separator:'.');
+            $methodName='updating'.ucfirst($cName).'';
+            try {
+                $this->$methodName($key, $value);
+            } catch (Exception $e) {
+                $this->data[$worker][$cName] = number_format($this->oldValue,2,thousands_separator:'', decimal_separator:'.');
+                return $this->dispatch('show-exception-modal',$e->getMessage());
+            }
+        }
+    }
+
+    public function exportToExcel(){
+        if(isset($this->month)){
+            return (new PayrollAccountingExport($this->data, $this->month));
         }
     }
 
@@ -88,12 +99,14 @@ class PayrollAccountingComponent extends Component
     }
 
     protected function getArrayFromUpdatedKey($key){
-        list($property, $worker, $cName) = explode('.', $key);
-        return $array = [
-            'property' => $property,
-            'worker'   => $worker,
-            'cName'    => $cName
-        ];
+        if(isset($key)){
+            list($property, $worker, $cName) = explode('.', $key);
+            return $array = [
+                'property' => $property,
+                'worker'   => $worker,
+                'cName'    => $cName
+            ];
+        }
     }
 
     protected function recalculateForWorker($id){

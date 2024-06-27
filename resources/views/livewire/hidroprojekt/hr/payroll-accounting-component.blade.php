@@ -26,7 +26,7 @@
             <button class="btn btn-success btn-lg d-flex align-items-center">
                 <i class="bi bi-floppy"></i>
             </button>
-            <button class="btn btn-success btn-lg d-flex align-items-center">
+            <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='exportToExcel()'>
                 <i class="bi bi-file-earmark-spreadsheet"></i>
             </button>
         </div>

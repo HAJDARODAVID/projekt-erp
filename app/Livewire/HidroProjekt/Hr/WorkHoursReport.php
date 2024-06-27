@@ -38,7 +38,6 @@ class WorkHoursReport extends Component
         $data['summary']=$service->getDataForWorkerAttendanceReport($this->selectedMonth);
         $data['per_day']=$service->getAllAttendanceDataForMonthly($this->selectedMonth);
         $data['month'] = $this->selectedMonth;
-        dd($data);
         return (new AttendanceReportExport($data));
     }
 
