@@ -38,13 +38,14 @@ class PayrollAccountingService
         $this->data = $this->getAllWorkersForPayroll();
         //Fill workers with data
         foreach ($this->data as $key => $worker) {
+            $this->data[$key]['fix_rate']      = $this->getFixRate($key);
             $this->data[$key]['h_rate']        = $this->getHRate($key);
             $this->data[$key]['hours']         = $this->getWorkerHours($key);
             $this->data[$key]['go']            = $this->getPaidLeaveCount($key);
             $this->data[$key]['bo']            = $this->getSickLeaveCount($key);
             $this->data[$key]['field_1']       = $this->getFieldICount($key);
             $this->data[$key]['field_2']       = $this->getFieldIICount($key);
-            $this->data[$key]['base']          = $this->data[$key]['hours'] * $this->data[$key]['h_rate'];
+            $this->data[$key]['base']          = $this->getBase($key);
             $this->data[$key]['bonus_field_1'] = $this->data[$key]['field_1'] * $this->field_1;
             $this->data[$key]['bonus_field_2'] = $this->data[$key]['field_2'] * $this->field_2;
             $this->data[$key]['bonus']         = $this->getBonus($key);
@@ -63,6 +64,13 @@ class PayrollAccountingService
             return (float)$h_rate;
         }
         return (float)0;
+    }
+
+    private function getBase($id){
+        if($this->data[$id]['fix_rate']){
+            return (float)$this->data[$id]['fix_rate'];
+        }
+        return (float)($this->data[$id]['hours'] * $this->data[$id]['h_rate']);
     }
 
     private function getAllWorkersForPayroll(){
@@ -145,9 +153,9 @@ class PayrollAccountingService
     }
 
     private function getFinalPayOut($workerId){
-        if($this->getFixRate($workerId)){
-            return $this->getFixRate($workerId);
-        }
+        // if($this->getFixRate($workerId)){
+        //     return $this->getFixRate($workerId);
+        // }
         $final =  $this->data[$workerId]['base'] + $this->data[$workerId]['bonus_field_1'] + $this->data[$workerId]['bonus_field_2'] +$this->data[$workerId]['bonus']+$this->data[$workerId]['travel_exp']+$this->data[$workerId]['phone_exp'];
         return (float)$final;
     }

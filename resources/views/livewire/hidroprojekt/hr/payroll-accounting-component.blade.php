@@ -64,7 +64,7 @@
                         <td style="border-right: 1px solid">{{ $worker['field_2'] }}</td>
                         <td>
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.h_rate'>
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.h_rate' @if ($data[$worker_id]['fix_rate']) disabled @endif>
                             </div>
                         </td>
                         <td>{{ $worker['base'] }}</td>
@@ -96,7 +96,8 @@
             </tbody>
         </table>  
     @endisset
-
-    <x-processing-modal target='getPayrollAccountingData'></x-processing-modal>
+    
+    @livewire('hidroProjekt.hr.payroll.change-worker-h-rate-modal')
+    <x-processing-modal target='getPayrollAccountingData, data'></x-processing-modal>
 </div>
 

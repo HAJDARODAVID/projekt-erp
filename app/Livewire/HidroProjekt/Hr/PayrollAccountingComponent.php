@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Services\Months;
 use Exception;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\On;
 
 class PayrollAccountingComponent extends Component
 {
@@ -21,6 +22,7 @@ class PayrollAccountingComponent extends Component
     public $data;
     public $bonus;
     public $fieldValues=[];
+    protected $oldValue;
 
     public function mount(){
         if($this->month && $this->year){
@@ -37,22 +39,52 @@ class PayrollAccountingComponent extends Component
         ];
         $this->data = $service->data;
         $this->formateNumbers();
-        //dd(var_dump($service->data[1]['pay_out']));
         return;
+    }
+
+    public function updating($key, $value){
+        extract($this->getArrayFromUpdatedKey($key));
+        $this->oldValue = (float)$this->data[$worker][$cName];
     }
 
     public function updated($key, $value){
         extract($this->getArrayFromUpdatedKey($key));
+        $this->data[$worker][$cName] = number_format((float)$value,2,thousands_separator:'', decimal_separator:'.');
         $methodName='updating'.ucfirst($cName).'';
         try {
-            $this->$methodName();
+            $this->$methodName($key, $value);
         } catch (Exception $e) {
+            $this->data[$worker][$cName] = number_format($this->oldValue,2,thousands_separator:'', decimal_separator:'.');
             return $this->dispatch('show-exception-modal',$e->getMessage());
         }
     }
 
-    private function updatingH_rate($key=NULL, $value=NULL){
-        dd('im in madafaka');
+    #[On('h-rate-confirmation')]
+    public function updatingH_rate($key=NULL, $value=NULL, $confirmation=FALSE, $worker=NULL){
+        if($confirmation){
+            return $this->recalculateForWorker($worker);
+        }
+        extract($this->getArrayFromUpdatedKey($key));
+        $this->dispatch('open-change-worker-h-rate', [
+            'workerId' => $worker,
+            'newValue' => (float)$value,
+        ]);
+        return;
+    }
+
+    protected function updatingBonus($key=NULL, $value=NULL){
+        extract($this->getArrayFromUpdatedKey($key));
+        return $this->recalculateForWorker($worker);
+    }
+
+    protected function updatingTravel_exp($key=NULL, $value=NULL){
+        extract($this->getArrayFromUpdatedKey($key));
+        return $this->recalculateForWorker($worker);
+    }
+
+    protected function updatingPhone_exp($key=NULL, $value=NULL){
+        extract($this->getArrayFromUpdatedKey($key));
+        return $this->recalculateForWorker($worker);
     }
 
     protected function getArrayFromUpdatedKey($key){
@@ -64,11 +96,31 @@ class PayrollAccountingComponent extends Component
         ];
     }
 
-    private function formateNumbers():void{
+    protected function recalculateForWorker($id){
+        // $wd short for workerData
+        $wd = $this->data[$id];
+        if($wd['fix_rate']){
+            $this->data[$id]['base'] = $wd['fix_rate'];
+        }else{
+            $this->data[$id]['base'] = $wd['hours'] * $wd['h_rate']; 
+        }
+        $this->data[$id]['pay_out'] = (float)$this->data[$id]['base'] + (float)$wd['bonus_field_1'] + (float)$wd['bonus_field_2'] +(float)$wd['bonus']+(float)$wd['travel_exp']+(float)$wd['phone_exp'];
+        $this->formateNumbers($id);
+        return;
+    }
+
+    private function formateNumbers($wId=null):void{
+        if($wId){
+            foreach ($this->data[$wId] as $key => $value) {
+                if(is_float($value)){
+                    $this->data[$wId][$key] = number_format($value, 2,thousands_separator:'', decimal_separator:'.');
+                }
+            }
+        }
         foreach ($this->data as $id => $worker) {
             foreach ($worker as $key => $value) {
                 if(is_float($value)){
-                    $this->data[$id][$key] = number_format($value, 2);
+                    $this->data[$id][$key] = number_format($value, 2,thousands_separator:'', decimal_separator:'.');
                 }
             }
         }
