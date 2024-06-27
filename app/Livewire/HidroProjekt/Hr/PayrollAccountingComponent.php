@@ -5,6 +5,7 @@ namespace App\Livewire\HidroProjekt\Hr;
 use App\Services\HidroProjekt\ADM\PayrollAccountingService;
 use Livewire\Component;
 use App\Services\Months;
+use Exception;
 use Livewire\Attributes\Url;
 
 class PayrollAccountingComponent extends Component
@@ -38,6 +39,29 @@ class PayrollAccountingComponent extends Component
         $this->formateNumbers();
         //dd(var_dump($service->data[1]['pay_out']));
         return;
+    }
+
+    public function updated($key, $value){
+        extract($this->getArrayFromUpdatedKey($key));
+        $methodName='updating'.ucfirst($cName).'';
+        try {
+            $this->$methodName();
+        } catch (Exception $e) {
+            return $this->dispatch('show-exception-modal',$e->getMessage());
+        }
+    }
+
+    private function updatingH_rate($key=NULL, $value=NULL){
+        dd('im in madafaka');
+    }
+
+    protected function getArrayFromUpdatedKey($key){
+        list($property, $worker, $cName) = explode('.', $key);
+        return $array = [
+            'property' => $property,
+            'worker'   => $worker,
+            'cName'    => $cName
+        ];
     }
 
     private function formateNumbers():void{
