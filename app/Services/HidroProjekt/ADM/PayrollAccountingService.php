@@ -60,9 +60,9 @@ class PayrollAccountingService
         $h_rate = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($h_rate)){
             $h_rate = is_null($h_rate->h_rate) ? 0 : $h_rate->h_rate;
-            return $h_rate;
+            return (float)$h_rate;
         }
-        return 0;
+        return (float)0;
     }
 
     private function getAllWorkersForPayroll(){
@@ -103,45 +103,45 @@ class PayrollAccountingService
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $hoursSum = $attendance->sum('work_hours');
-            return $hoursSum + ($this->getPaidLeaveCount($workerId)*8);
+            return (float)($hoursSum + ($this->getPaidLeaveCount($workerId)*8));
         }
-        return 0;
+        return (float)0;
     }
 
     private function getPaidLeaveCount($workerId){
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $goCount = $attendance->where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)->count();
-            return $goCount;
+            return (float)$goCount;
         }
-        return 0;
+        return (float)0;
     }
 
     private function getSickLeaveCount($workerId){
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $goCount = $attendance->where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)->count();
-            return $goCount;
+            return (float)$goCount;
         }
-        return 0;
+        return (float)0;
     }
 
     private function getFieldICount($workerId){
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $field_1 = $attendance->where('type', 1)->count();
-            return $field_1;
+            return (float)$field_1;
         }
-        return 0;
+        return (float)0;
     }
 
     private function getFieldIICount($workerId){
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $field_1 = $attendance->where('type', 2)->count();
-            return $field_1;
+            return (float)$field_1;
         }
-        return 0;
+        return (float)0;
     }
 
     private function getFinalPayOut($workerId){
@@ -149,14 +149,14 @@ class PayrollAccountingService
             return $this->getFixRate($workerId);
         }
         $final =  $this->data[$workerId]['base'] + $this->data[$workerId]['bonus_field_1'] + $this->data[$workerId]['bonus_field_2'] +$this->data[$workerId]['bonus']+$this->data[$workerId]['travel_exp']+$this->data[$workerId]['phone_exp'];
-        return $final;
+        return (float)$final;
     }
 
     private function getFixRate($workerId){
         $fix = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($fix)){
             if(!is_null($fix->fix_rate)){
-                return $fix->fix_rate;
+                return (float)$fix->fix_rate;
             }else{
                 return FALSE;
             }
@@ -168,12 +168,12 @@ class PayrollAccountingService
         //check if worker can get bonus
         try {
             if($this->data[$workerId]['bo']>0){
-                return 0;
+                return (float)0;
             }else{
                 if($this->getIfWorkerCanGetBonus($workerId)){
                     return $this->bonus;
                 }
-                return 0;
+                return (float)0;
             }
         } catch (Exception $e) {
             dd($e, $workerId);
@@ -191,17 +191,21 @@ class PayrollAccountingService
     private function getTravelExp($workerId){
         $travelExp = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($travelExp)){
-            return $travelExp->travel_exp;
+            return (float)$travelExp->travel_exp;
         }
-        return 0;
+        return (float)0;
     }
 
     private function getPhoneExp($workerId){
         $phoneExp = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($phoneExp)){
-            return $phoneExp->phone_exp;
+            return (float)$phoneExp->phone_exp;
         }
-        return 0;
+        return (float)0;
+    }
+
+    static public function updateRate(){
+        return;
     }
 
 

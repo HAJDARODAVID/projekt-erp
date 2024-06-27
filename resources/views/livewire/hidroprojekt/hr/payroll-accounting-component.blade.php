@@ -37,19 +37,19 @@
         <table class="table table-striped">
             <thead class="thead-light">
                 <tr class="bg-secondary" style="border-bottom: 2px">
-                    <th scope="col" style="width: 180px">Ime i prezime</th>
-                    <th scope="col" style="width: 60px">OS<br>[Sati]</th>
-                    <th scope="col" style="width: 60px">GO<br>[Dani]</th>
-                    <th scope="col" style="width: 60px">BO<br>[Dani]</th>
-                    <th scope="col" style="width: 60px">Teren<br>[Dani]</th>
-                    <th scope="col" style="width: 60px;border-right: 1px solid">More<br>[Dani]</th>
-                    <th style="width: 85px">Satnica</th>
-                    <th style="width: 110px">Osnovnica<br>[€]</th>
-                    <th style="width: 100px">Bonus<br>[{{ $bonus }}€]</th>
-                    <th style="width: 100px">Teren<br>[Doma: {{ $fieldValues['home'] }}€]</th>
+                    <th style="width: 160px">Ime i prezime</th>
+                    <th style="width: 50px">OS<br>[Sati]</th>
+                    <th style="width: 50px">GO<br>[Dani]</th>
+                    <th style="width: 50px">BO<br>[Dani]</th>
+                    <th style="width: 60px">Teren<br>[Dani]</th>
+                    <th style="width: 60px;border-right: 1px solid">More<br>[Dani]</th>
+                    <th style="width: 70px">Satnica</th>
+                    <th style="width: 90px">Osnovnica<br>[€]</th>
+                    <th style="width: 90px">Bonus<br>[{{ $bonus }}€]</th>
+                    <th style="width: 90px">Teren<br>[Doma: {{ $fieldValues['home'] }}€]</th>
                     <th style="width: 100px">Teren<br>[More: {{ $fieldValues['field'] }}€]</th>
-                    <th style="width: 100px">Putni<br>[€]</th>
-                    <th style="width: 100px">Mobitel<br>[€]</th>
+                    <th style="width: 80px">Putni<br>[€]</th>
+                    <th style="width: 80px">Mobitel<br>[€]</th>
                     <th>Ukupno<br>[€]</th>
                 </tr>
             </thead>
@@ -67,15 +67,15 @@
                                 <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.h_rate'>
                             </div>
                         </td>
-                        <td>{{ number_format($worker['base'], 2, ',', '.') }}</td>
+                        <td>{{ $worker['base'] }}</td>
                         <td>
                             <div class="form-group">
                                 <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.bonus'>
                             </div>
                         </td>
 
-                        <td>{{ number_format($worker['bonus_field_1'], 2, ',', '.') }}</td>
-                        <td>{{ number_format($worker['bonus_field_2'], 2, ',', '.') }}</td>
+                        <td>{{ $worker['bonus_field_1'] }}</td>
+                        <td>{{ $worker['bonus_field_2'] }}</td>
                         <td>
                             <div class="form-group">
                                 <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.travel_exp'>
@@ -88,7 +88,7 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" style="font-weight: bold" wire:model.blur='data.{{ $worker_id }}.pay_out'>
+                                <input type="text" class="form-control form-control-sm" style="font-weight: bold" wire:model.blur='data.{{ $worker_id }}.pay_out'>
                             </div>
                         </td>
                     </tr>

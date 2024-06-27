@@ -34,7 +34,20 @@ class PayrollAccountingComponent extends Component
             'home'  => $service->field_1,
             'field' => $service->field_2,
         ];
-        return $this->data = $service->data;
+        $this->data = $service->data;
+        $this->formateNumbers();
+        //dd(var_dump($service->data[1]['pay_out']));
+        return;
+    }
+
+    private function formateNumbers():void{
+        foreach ($this->data as $id => $worker) {
+            foreach ($worker as $key => $value) {
+                if(is_float($value)){
+                    $this->data[$id][$key] = number_format($value, 2);
+                }
+            }
+        }
     }
     
     public function render()
