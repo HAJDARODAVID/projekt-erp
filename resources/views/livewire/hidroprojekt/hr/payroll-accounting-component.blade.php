@@ -23,9 +23,16 @@
             <button class="btn btn-primary btn-lg d-flex align-items-center" wire:click='getPayrollAccountingData()'>
                 <i class="bi bi-arrow-clockwise"></i>
             </button>
-            <button class="btn btn-success btn-lg d-flex align-items-center">
+            <x-v-divider />
+            <button class="btn btn-success btn-lg d-flex align-items-center" @if ($saved) disabled @endif>
                 <i class="bi bi-floppy"></i>
             </button>
+            @if ($canDelete)
+                <button class="btn btn-danger btn-lg d-flex align-items-center">
+                    <i class="bi bi-trash"></i>
+                </button>
+            @endif
+            <x-v-divider />
             <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='exportToExcel()'>
                 <i class="bi bi-file-earmark-spreadsheet"></i>
             </button>

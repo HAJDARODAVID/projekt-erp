@@ -25,6 +25,9 @@ class PayrollAccountingComponent extends Component
     public $fieldValues=[];
     protected $oldValue;
 
+    public $saved = TRUE;
+    public $canDelete = FALSE; 
+
     public function mount(){
         if($this->month && $this->year){
             $this->getPayrollAccountingData();
