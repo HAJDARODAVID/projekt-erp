@@ -24,6 +24,7 @@ class PayrollAccountingComponent extends Component
     public $bonus;
     public $fieldValues=[];
     protected $oldValue;
+    public $payroll;
 
     public $saved = TRUE;
     public $canDelete = FALSE; 
@@ -36,12 +37,16 @@ class PayrollAccountingComponent extends Component
 
     public function getPayrollAccountingData(){
         $service = new PayrollAccountingService($this->month, $this->year);
+        $service->execute();
         $this->bonus = $service->bonus;
         $this->fieldValues = [
             'home'  => $service->field_1,
             'field' => $service->field_2,
         ];
         $this->data = $service->data;
+        $this->payroll = $service->getPayroll();
+        $this->saved = $this->setIfCanSave();
+        $this->canDelete = $this->payroll ? TRUE : FALSE;
         $this->formateNumbers();
         return;
     }
@@ -60,6 +65,7 @@ class PayrollAccountingComponent extends Component
             $methodName='updating'.ucfirst($cName).'';
             try {
                 $this->$methodName($key, $value);
+                $this->saved = FALSE;
             } catch (Exception $e) {
                 $this->data[$worker][$cName] = number_format($this->oldValue,2,thousands_separator:'', decimal_separator:'.');
                 return $this->dispatch('show-exception-modal',$e->getMessage());
@@ -67,6 +73,12 @@ class PayrollAccountingComponent extends Component
         }
     }
 
+    public function deletePayroll(){
+        $this->payroll->delete();
+        $this->canDelete = FALSE;
+        return $this->getPayrollAccountingData();
+    }
+    
     public function exportToExcel(){
         if(isset($this->month)){
             return (new PayrollAccountingExport($this->data, $this->month));
@@ -140,6 +152,13 @@ class PayrollAccountingComponent extends Component
                 }
             }
         }
+    }
+
+    private function setIfCanSave(){
+        if(is_null($this->payroll)){
+            return FALSE;
+        }
+        return TRUE;
     }
     
     public function render()

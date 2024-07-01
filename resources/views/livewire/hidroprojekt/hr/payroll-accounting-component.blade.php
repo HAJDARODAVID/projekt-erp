@@ -33,6 +33,10 @@
                 </button>
             @endif
             <x-v-divider />
+            <button class="btn btn-warning btn-lg d-flex align-items-center" wire:click=''>
+                <i class="bi bi-person-dash"></i>
+            </button>
+            <x-v-divider />
             <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='exportToExcel()'>
                 <i class="bi bi-file-earmark-spreadsheet"></i>
             </button>

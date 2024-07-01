@@ -7,6 +7,7 @@ use App\Models\WorkerModel;
 use App\Models\AttendanceModel;
 use App\Models\AppParametersModel;
 use App\Models\PayrollBasicInfoModel;
+use App\Models\PayrollModel;
 
 /**
  * Class PayrollAccountingService.
@@ -16,24 +17,29 @@ class PayrollAccountingService
     protected $month;
     protected $year;
     protected $attendance;
+    protected $dataFromUser;
+    protected $payroll;
 
     public $data = [];
     public $field_1;
     public $field_2;
     public $bonus;
+    
 
-    public function __construct($month, $year){
-        $this->month = $month;
-        $this->year  = $year;
-        $this->attendance = $this->getAttendance();
-        $this->field_1 = AppParametersModel::where('param_name_srt', 'adm-fwb-home')->pluck('value')->first();
-        $this->field_2 = AppParametersModel::where('param_name_srt', 'adm-fwb-field')->pluck('value')->first();
-        $this->bonus = AppParametersModel::where('param_name_srt', 'adm-wb')->pluck('value')->first();
+    public function __construct($month, $year, $dataFromUser = NULL){
+        $this->month        = $month;
+        $this->year         = $year;
+        $this->dataFromUser = $dataFromUser;
+        $this->attendance   = $this->getAttendance();
+        $this->payroll      = $this->getPayrollDataFromTable();
+        $this->field_1      = AppParametersModel::where('param_name_srt', 'adm-fwb-home')->pluck('value')->first();
+        $this->field_2      = AppParametersModel::where('param_name_srt', 'adm-fwb-field')->pluck('value')->first();
+        $this->bonus        = AppParametersModel::where('param_name_srt', 'adm-wb')->pluck('value')->first();
 
-        $this->execute();
+        //$this->execute();
     }
 
-    protected function execute(){
+    public function execute(){
         //Get all workers to property data
         $this->data = $this->getAllWorkersForPayroll();
         //Fill workers with data
@@ -54,7 +60,6 @@ class PayrollAccountingService
             $this->data[$key]['pay_out']       = $this->getFinalPayOut($key);
         }
         return;
-        dd($this->data);
     }
 
     private function getHRate($workerId){
@@ -216,5 +221,13 @@ class PayrollAccountingService
         return;
     }
 
+    protected function getPayrollDataFromTable(){
+        return PayrollModel::where('month', $this->month)->where('year', $this->year)->with('getPayrollItems')->first();
+    }
+
+    public function getPayroll(){
+        return $this->payroll;
+    }
+    
 
 }
