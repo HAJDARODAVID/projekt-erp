@@ -7,6 +7,7 @@ use App\Models\WorkerModel;
 use App\Models\AttendanceModel;
 use App\Models\AppParametersModel;
 use App\Models\PayrollBasicInfoModel;
+use App\Models\PayrollItemsModel;
 use App\Models\PayrollModel;
 
 /**
@@ -63,6 +64,15 @@ class PayrollAccountingService
     }
 
     private function getHRate($workerId){
+        if($this->payroll){
+            if($this->payroll->locked || !$this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'h_rate');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         $h_rate = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($h_rate)){
             $h_rate = is_null($h_rate->h_rate) ? 0 : $h_rate->h_rate;
@@ -72,6 +82,15 @@ class PayrollAccountingService
     }
 
     private function getBase($id){
+        if($this->payroll){
+            if($this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($id, 'base');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         if($this->data[$id]['fix_rate']){
             return (float)$this->data[$id]['fix_rate'];
         }
@@ -113,6 +132,15 @@ class PayrollAccountingService
     }
 
     private function getWorkerHours($workerId){
+        if($this->payroll){
+            if($this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'hours');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $hoursSum = $attendance->sum('work_hours');
@@ -122,6 +150,15 @@ class PayrollAccountingService
     }
 
     private function getPaidLeaveCount($workerId){
+        if($this->payroll){
+            if($this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'go');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $goCount = $attendance->where('absence_reason', AttendanceModel::ABSENCE_REASON_PAID_LEAVE)->count();
@@ -131,6 +168,15 @@ class PayrollAccountingService
     }
 
     private function getSickLeaveCount($workerId){
+        if($this->payroll){
+            if($this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'bo');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $goCount = $attendance->where('absence_reason', AttendanceModel::ABSENCE_REASON_SICK_LEAVE)->count();
@@ -140,6 +186,15 @@ class PayrollAccountingService
     }
 
     private function getFieldICount($workerId){
+        if($this->payroll){
+            if($this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'field_1');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $field_1 = $attendance->where('type', 1)->count();
@@ -149,6 +204,15 @@ class PayrollAccountingService
     }
 
     private function getFieldIICount($workerId){
+        if($this->payroll){
+            if($this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'field_2');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
             $field_1 = $attendance->where('type', 2)->count();
@@ -158,14 +222,27 @@ class PayrollAccountingService
     }
 
     private function getFinalPayOut($workerId){
-        // if($this->getFixRate($workerId)){
-        //     return $this->getFixRate($workerId);
-        // }
-        $final =  $this->data[$workerId]['base'] + $this->data[$workerId]['bonus_field_1'] + $this->data[$workerId]['bonus_field_2'] +$this->data[$workerId]['bonus']+$this->data[$workerId]['travel_exp']+$this->data[$workerId]['phone_exp'];
+        $deductions = 0;
+        if($this->payroll){
+            $deductionsModel = $this->payroll;
+            if(!$deductionsModel->getDeductions->isEmpty()){
+                $deductions = (float)$deductionsModel->getDeductions->where('worker_id',$workerId)->sum('amount');
+            }
+        }     
+        $final =  $this->data[$workerId]['base'] + $this->data[$workerId]['bonus_field_1'] + $this->data[$workerId]['bonus_field_2'] +$this->data[$workerId]['bonus']+$this->data[$workerId]['travel_exp']+$this->data[$workerId]['phone_exp'] + $deductions;
         return (float)$final;
     }
 
     private function getFixRate($workerId){
+        if($this->payroll){
+            if($this->payroll->locked){
+                $fixRate = (float)$this->getValuesFromPayrollData($workerId, 'fix_rate');
+                if($fixRate){
+                    return $fixRate;
+                }
+                return FALSE;
+            }
+        }
         $fix = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($fix)){
             if(!is_null($fix->fix_rate)){
@@ -178,6 +255,15 @@ class PayrollAccountingService
     }
 
     private function getBonus($workerId){
+        if($this->payroll){
+            if($this->payroll->locked || !$this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'bonus');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         //check if worker can get bonus
         try {
             if($this->data[$workerId]['bo']>0){
@@ -202,6 +288,15 @@ class PayrollAccountingService
     }
 
     private function getTravelExp($workerId){
+        if($this->payroll){
+            if($this->payroll->locked || !$this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'travel_exp');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         $travelExp = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($travelExp)){
             return (float)$travelExp->travel_exp;
@@ -210,6 +305,15 @@ class PayrollAccountingService
     }
 
     private function getPhoneExp($workerId){
+        if($this->payroll){
+            if($this->payroll->locked || !$this->payroll->locked){
+                $value = (float)$this->getValuesFromPayrollData($workerId, 'phone_exp');
+                if($value){
+                    return $value;
+                }
+                return (float)0;
+            }
+        }
         $phoneExp = PayrollBasicInfoModel::where('worker_id', $workerId)->first();
         if(!is_null($phoneExp)){
             return (float)$phoneExp->phone_exp;
@@ -222,11 +326,44 @@ class PayrollAccountingService
     }
 
     protected function getPayrollDataFromTable(){
-        return PayrollModel::where('month', $this->month)->where('year', $this->year)->with('getPayrollItems')->first();
+        return PayrollModel::where('month', $this->month)->where('year', $this->year)->with('getPayrollItems', 'getDeductions')->first();
+    }
+
+    protected function getValuesFromPayrollData($workerId, $valueKey = NULL){
+        $data = json_decode($this->payroll->getPayrollItems->where('worker_id',$workerId)->first()->payroll_data);
+        if($valueKey){
+            return $data->$valueKey;
+        }
+        return $data;
     }
 
     public function getPayroll(){
         return $this->payroll;
+    }
+
+    static public function createNewPayroll($month, $year){
+        return PayrollModel::create([
+            'year' => $year,
+            'month' => $month
+        ]);
+    }
+
+    static public function createNewPayrollItem($worker, $data, $payroll){
+        return PayrollItemsModel::create([
+            'payroll_id' => $payroll,
+            'worker_id' => $worker,
+            'payroll_data' => json_encode($data),
+        ]);
+    }
+
+    static public function updatePayrollItems($key, $value, $payroll){
+        $item = PayrollItemsModel::where('payroll_id', $payroll)->where('worker_id', $key)->first();
+        if($item){
+            $item->update([
+                'payroll_data' => json_encode($value),
+            ]);
+        }
+        return;
     }
     
 

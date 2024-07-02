@@ -28,6 +28,7 @@ class PayrollAccountingComponent extends Component
 
     public $saved = TRUE;
     public $canDelete = FALSE; 
+    public $locked = FALSE;
 
     public function mount(){
         if($this->month && $this->year){
@@ -35,6 +36,7 @@ class PayrollAccountingComponent extends Component
         }
     }
 
+    #[On('get-payroll-accounting-data')]
     public function getPayrollAccountingData(){
         $service = new PayrollAccountingService($this->month, $this->year);
         $service->execute();
@@ -47,7 +49,12 @@ class PayrollAccountingComponent extends Component
         $this->payroll = $service->getPayroll();
         $this->saved = $this->setIfCanSave();
         $this->canDelete = $this->payroll ? TRUE : FALSE;
+        $this->locked = $this->payroll ? $this->payroll->locked : FALSE;
         $this->formateNumbers();
+        $this->dispatch('refresh-worker-deduction-modal', [
+            'payroll' => $this->payroll,
+            'deductions' => $this->payroll ? $this->payroll->getDeductions : FALSE,
+        ]);
         return;
     }
 
@@ -73,15 +80,47 @@ class PayrollAccountingComponent extends Component
         }
     }
 
+    public function lockingBtn(){
+        if($this->payroll->locked){
+            $this->payroll->update([
+                'locked' => FALSE
+            ]);
+        }else{
+            $this->payroll->update([
+                'locked' => TRUE
+            ]);
+        }
+        return $this->getPayrollAccountingData();
+    }
+
     public function deletePayroll(){
         $this->payroll->delete();
         $this->canDelete = FALSE;
         return $this->getPayrollAccountingData();
     }
-    
+
     public function exportToExcel(){
         if(isset($this->month)){
             return (new PayrollAccountingExport($this->data, $this->month));
+        }
+    }
+
+    public function savePayroll(){
+        if(is_null($this->payroll)){
+            $newPayroll = PayrollAccountingService::createNewPayroll($this->month, $this->year);
+            foreach($this->data as $key => $worker){
+                PayrollAccountingService::createNewPayrollItem($key, $worker, $newPayroll->id);
+            }
+            $this->canDelete = TRUE;
+            $this->saved= TRUE;
+            return $this->getPayrollAccountingData();
+        }
+        if($this->payroll){
+            foreach ($this->data as $key => $value) {
+                PayrollAccountingService::updatePayrollItems($key, $value, $this->payroll->id);
+            }
+            $this->saved= TRUE;
+            return $this->getPayrollAccountingData();
         }
     }
 

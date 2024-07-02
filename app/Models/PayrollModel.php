@@ -21,4 +21,8 @@ class PayrollModel extends Model
     public function getPayrollItems():HasMany{
         return $this->hasMany(PayrollItemsModel::class, 'payroll_id', 'id');
     }
+
+    public function getDeductions():HasMany{
+        return $this->hasMany(PayrollDeductionModel::class, 'payroll_id', 'id');
+    }
 }

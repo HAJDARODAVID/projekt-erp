@@ -24,16 +24,29 @@
                 <i class="bi bi-arrow-clockwise"></i>
             </button>
             <x-v-divider />
-            <button class="btn btn-success btn-lg d-flex align-items-center" @if ($saved) disabled @endif>
+            <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='savePayroll()' @if ($saved) disabled @endif>
                 <i class="bi bi-floppy"></i>
             </button>
             @if ($canDelete && !$payroll->locked)
-                <button class="btn btn-danger btn-lg d-flex align-items-center">
+                <button class="btn btn-danger btn-lg d-flex align-items-center" wire:click='deletePayroll()'>
                     <i class="bi bi-trash"></i>
                 </button>
             @endif
+            @if ($payroll)
+                <button class="btn btn-dark btn-lg d-flex align-items-center" wire:click='lockingBtn()'>
+                    @if($payroll->locked)
+                        <i class="bi bi-unlock-fill"></i>
+                    @endif
+                    @if(!$payroll->locked)
+                        <i class="bi bi-lock-fill"></i>
+                    @endif
+                </button>
+            @endif
             <x-v-divider />
-            @livewire('hidroProjekt.hr.payroll.worker-deduction-modal')
+            @livewire('hidroProjekt.hr.payroll.worker-deduction-modal', [
+                'payroll' => $payroll,
+                'locked' => $payroll ? $payroll->locked : FALSE,
+            ])
             <x-v-divider />
             <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='exportToExcel()'>
                 <i class="bi bi-file-earmark-spreadsheet"></i>
@@ -73,13 +86,13 @@
                         <td style="border-right: 1px solid">{{ $worker['field_2'] }}</td>
                         <td>
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.h_rate' @if ($data[$worker_id]['fix_rate']) disabled @endif>
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.h_rate' @if ($data[$worker_id]['fix_rate'] || $locked) disabled @endif>
                             </div>
                         </td>
                         <td>{{ $worker['base'] }}</td>
                         <td>
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.bonus'>
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.bonus' @if ($locked) disabled @endif>
                             </div>
                         </td>
 
@@ -87,17 +100,17 @@
                         <td>{{ $worker['bonus_field_2'] }}</td>
                         <td>
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.travel_exp'>
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.travel_exp' @if ($locked) disabled @endif>
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.phone_exp'>
+                                <input type="number" class="form-control form-control-sm" wire:model.blur='data.{{ $worker_id }}.phone_exp' @if ($locked) disabled @endif>
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-sm" style="font-weight: bold" wire:model.blur='data.{{ $worker_id }}.pay_out'>
+                                <input type="text" class="form-control form-control-sm" style="font-weight: bold" wire:model.blur='data.{{ $worker_id }}.pay_out' disabled>
                             </div>
                         </td>
                     </tr>
@@ -107,6 +120,6 @@
     @endisset
     
     @livewire('hidroProjekt.hr.payroll.change-worker-h-rate-modal')
-    <x-processing-modal target='getPayrollAccountingData, data'></x-processing-modal>
+    <x-processing-modal target='getPayrollAccountingData, data, deletePayroll, savePayroll, lockingBtn'></x-processing-modal>
 </div>
 
