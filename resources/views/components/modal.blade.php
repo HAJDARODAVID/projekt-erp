@@ -1,5 +1,5 @@
-<div class="modal @if ($size) modal-{{ $size }} @endif" style="display: @if($show) block @endif">
-    <div class="modal-dialog" role="document">
+<div class="modal @if ($size) modal-{{ $size }} @endif" style="display: @if($show) block @endif; {{ $blur }};">
+    <div class="modal-dialog @if ($position) {{ $position }} @endif" role="document">
         <div class="modal-content">
             @if ($alert)
                 <div class="alert @if ($aType) alert-{{ $aType }} @endif mb-0" role="alert">

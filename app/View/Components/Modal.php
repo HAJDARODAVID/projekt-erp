@@ -19,6 +19,10 @@ class Modal extends Component
     public $body;
     public $footer;
     public $footerItems;
+    public $position;
+    public $blur;
+
+    const BLUR_ATT = 'background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px)';
     /**
      * Create a new component instance.
      */
@@ -33,7 +37,9 @@ class Modal extends Component
         $headerBtn = NULL,
         $body   = TRUE,
         $footer = TRUE,
-        $footerItems = NULL)
+        $footerItems = NULL,
+        $position = NULL,
+        $blur = FALSE)
     {
         $this->show   = $show;
         $this->alert = $alert;
@@ -46,6 +52,8 @@ class Modal extends Component
         $this->body   = $body;
         $this->footer = $footer;
         $this->footerItems = $footerItems;
+        $this->position = $this->setPosition($position);
+        $this->blur = $blur ? self::BLUR_ATT : NULL;
     }
 
     protected function setModalSize($size){
@@ -61,6 +69,18 @@ class Modal extends Component
             return $aType;
         }
         return NULL;
+    }
+
+    protected function setPosition($position){
+        $positionOptions = [
+            'center' => 'top-50 start-0 translate-middle-y', //position-absolute   
+        ];
+        if($position != NULL){
+            if(array_key_exists($position, $positionOptions)){
+                return $this->position = $positionOptions[$position];
+            }
+        }
+        return $this->position = NULL; 
     }
 
     /**

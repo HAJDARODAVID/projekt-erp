@@ -31,6 +31,11 @@ class EditUserModal extends Component
         $this->row->update([
             'password' => Hash::make(User::DEFAULT_PASSWORD),
         ]);
+        $this->dispatch('show-alert-modal', [
+            'title' => 'USPJEŠNO!',
+            'message' => "Uspješno resetiran loznika. <br /> Nova lozinka: 123456",
+            'type' => 'success',
+        ]);
     }
 
     public function modalBtn($status){

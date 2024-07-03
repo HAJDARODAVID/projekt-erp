@@ -1,17 +1,10 @@
 <div>
-    <x-modal :show='TRUE' :alert='TRUE' size='sm'>
-        <x-slot name='mainTitle'>Here goes custom title</x-slot>
-        {{-- <x-slot name='secTitle'>Ovo je drugi</x-slot> --}}
-        <x-slot name='headerBtn'>
-            <button class='btn btn-dark btn-sm'>X</button>
-        </x-slot>
-
+    <x-modal :show='$show' :alert='TRUE' aType='{{ $type }}' size='{{ $size }}' :blur='TRUE' position='center'>
+        <x-slot name='mainTitle'>{{ $title }}</x-slot>
         {{-- BODY CONTEND --}}
-        “ Well begun is half done. ”<br>
-        — Aristotle
-
+        <?php echo $message ?>
         <x-slot name='footerItems'>
-            <button class='btn btn-success'>SAVE</button>
+            <button class='btn btn-@if ($type){{$type}} @else{{ __('dark') }} @endif btn-sm' wire:click='closeAlert()'>Ok</button>
         </x-slot>
     </x-modal>
 </div>
