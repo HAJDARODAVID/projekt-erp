@@ -37,6 +37,7 @@ class HomeController extends Controller
         if(!Session::get('user_rights')){
             
         }
+        
         if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
             return view('hidro-projekt.BDE.bdeIndex',[
                 'myRecords' => WorkingDayRecordModel::where('user_id', Auth::user()->id)->where('date', date('Y-m-d'))->with('getConstructionSite')->get(),

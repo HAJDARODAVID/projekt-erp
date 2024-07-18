@@ -42,5 +42,12 @@ class AttendanceModel extends Model
         return $this->hasOne(WorkingDayRecordModel::class, 'id','working_day_record_id');
     }
 
+    public function getAbsenceReasonAttribute(){
+        if($this->attributes['absence_reason']){
+            return self::ABSENCE_REASON_SHT_TXT[$this->attributes['absence_reason']]; 
+        }
+        return NULL;
+    }
+
 
 }

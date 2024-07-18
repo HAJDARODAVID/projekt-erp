@@ -1,29 +1,30 @@
 <?php
 
+use App\Models\MaterialDocModel;
 use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportingController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\HidroProjekt\AdminController;
+use App\Http\Controllers\EmployeeTimeTrackerController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
-use App\Http\Controllers\HidroProjekt\CalculatorController;
 use App\Http\Controllers\HidroProjekt\TicketController;
 use App\Http\Controllers\HidroProjekt\StorageController;
 use App\Services\HidroProjekt\WP\ConstructionSiteService;
 use App\Services\HidroProjekt\AdminModuleMenuItemsService;
+use App\Http\Controllers\HidroProjekt\CalculatorController;
+use App\Http\Controllers\HidroProjekt\MainInventoryController;
 use App\Http\Controllers\HidroProjekt\WorkDayRecordController;
 use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
-use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
-use App\Http\Controllers\HidroProjekt\MainInventoryController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
-use App\Http\Controllers\PayrollController;
-use App\Http\Controllers\ReportingController;
-use App\Models\MaterialDocModel;
+use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,15 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
                 Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
                 Route::put('/pass_reset', 'passwordChange')->name('bde_passwordChange');
             });
+    });
+
+Route::prefix('/bde')
+    ->middleware(['auth'])
+    ->group(Function(){
+        Route::controller(EmployeeTimeTrackerController::class)
+            ->group(function(){
+                Route::get('/employee_time_tracker','employeeTimeTracker')->name('hp_bdeEmployeeTimeTracker');
+        });
     });
 
 
