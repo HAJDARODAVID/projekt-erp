@@ -29,7 +29,9 @@ class WorkerAttendanceTable extends DataTableComponent
             Column::make("Gradilište", "getWDRInfo.getConstructionSite.name")
                 ->sortable(),
             Column::make("Vrsta terena", "type")
-                ->sortable(),
+                ->label(
+                    fn($row, Column $column) => view('components.hr.worker-change-type')->withRow($row)
+                ),
             Column::make('Radni sati')
                 ->label(
                     fn($row, Column $column) => view('components.hr.worker-attendance-work-hours')->withRow($row)
@@ -46,6 +48,8 @@ class WorkerAttendanceTable extends DataTableComponent
             Column::make("absence_reason", "absence_reason")
                 ->hideIf(true),
             Column::make("Radni sati", "work_hours")
+                ->hideIf(true),
+            Column::make("Vrsta terena", "type")
                 ->hideIf(true),
         ];
     }
