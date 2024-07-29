@@ -29,6 +29,7 @@ class User extends Authenticatable
 
     protected $attributes = [
         'type' => self::USER_TYPE_ADMIN_STAFF,
+        'active' => 1,
     ];
    
 
