@@ -30,6 +30,12 @@
                 ], key('remove'))
             </div>
         </div>
+        <hr>
+        <b>NOVI KALKULATOR</b>
+        <br><br>
+        @livewire('percentage-calculator',[
+            'newStyle' => TRUE,
+        ], key('remove'))
         
     </div>
 @endsection
