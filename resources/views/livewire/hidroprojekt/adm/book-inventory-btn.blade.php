@@ -3,7 +3,7 @@
     <button class="btn btn-success btn-lg d-flex align-items-center mx-1" 
         wire:click='bookInventory()' 
         wire:loading.attr='disabled' 
-        wire:confirm.prompt="Da li želite završiti inventuru?\n\nUpiši 'HIDRO-PROJEKT' kako bi potvrdio knjiženje|DA"
+        wire:confirm="Da li želite završiti inventuru?"
     >
         <i class="bi bi-check-lg"></i>
     </button>

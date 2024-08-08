@@ -1,7 +1,7 @@
 <div>
     <div wire:loading.remove>
         <div class="d-flex">
-            <input type="text" class="form-control form-control-sm mx-2" wire:model.blur='qtyValue' style="width:60px">
+            <input type="number" class="form-control form-control-sm mx-2" wire:model.blur='qtyValue' style="width:60px">
             <button class="btn btn-danger btn-sm" wire:click='deleteFromList()'>X</button>
         </div>
     </div>

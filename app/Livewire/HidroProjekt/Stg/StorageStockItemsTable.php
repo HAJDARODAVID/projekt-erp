@@ -32,6 +32,13 @@ class StorageStockItemsTable extends DataTableComponent
                 ->hideIf(TRUE),
             Column::make("Qty", "qty")
                 ->sortable(),
+            Column::make("Vrijednost[€]")
+                ->label(
+                    fn($row, Column $column) => $row->cost
+                )
+                ->footer(function($rows) {
+                    return 'Ukupno: ' . $rows->sum('cost') . '€';
+                }),
             Column::make("Created at", "created_at")
                 ->sortable(),
             Column::make("Updated at", "updated_at")
