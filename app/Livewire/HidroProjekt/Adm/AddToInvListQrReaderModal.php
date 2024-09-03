@@ -20,7 +20,7 @@ class AddToInvListQrReaderModal extends Component
                     'type' => 'danger',
                 ]);
         }
-        dd($mat);
+        dd($mat_id,$mat);
         return $this->showModal = TRUE;
     }
 
