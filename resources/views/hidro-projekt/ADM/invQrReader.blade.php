@@ -27,12 +27,13 @@
             var lastResult, countResults = 0;
 
             function onScanSuccess(decodeText, decodeResult){
-                if(decodeText !== lastResult){
-                    ++countResults;
-                    lastResult = decodeText
+                // if(decodeText !== lastResult){
+                //     ++countResults;
+                //     lastResult = decodeText
 
-                    alert("Your QR is : " + decodeText, decodeResult)
-                }
+                //     alert("Your QR is : " + decodeText, decodeResult)
+                // }
+                alert("Your QR is : " + decodeText, decodeResult)
             }
 
             var htmlScanner = new Html5QrcodeScanner(
