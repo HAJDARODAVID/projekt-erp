@@ -36,13 +36,11 @@
                         @endisset</td>
                         <td class="{{ $class }}">{{ $item->qty }}</td>
                         <td class="{{ $class }}">
-                            {{ 
-                                $invStock
-                                ->where('mat_id',$item->mat_id)
-                                ->where('str_loc', $item->str_loc)
-                                ->where('cons_id', $item->cons_id)
-                                ->sum('qty')
-                            }}
+                            @livewire('hidroProjekt.adm.inventory-checking-inputbox',[
+                                'invStock' => $invStock,
+                                'item' => $item,
+                                'activeInventory' => $activeInventory,
+                            ], key($item->mat_id))
                         </td>
                     </tr>
                 @endforeach
