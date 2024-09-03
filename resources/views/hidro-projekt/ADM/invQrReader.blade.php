@@ -31,6 +31,7 @@
             function onScanSuccess(decodeText, decodeResult){
                 Livewire.dispatch('open-qr-inventory-modal', {
                     'mat_id': parseInt(decodeText),
+                    'qr_data': decodeText,
                 });
             }
 
