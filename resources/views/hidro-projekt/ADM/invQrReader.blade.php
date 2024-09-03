@@ -14,6 +14,14 @@
         </div>
     </div>
 
+    @script
+        <script>
+            function openModal(){
+                $wire.dispatch('post-created');
+            }
+        </script>
+    @endscript
+
     <script src="http://unpkg.com/html5-qrcode"></script>
     <script>
         function domReady(fn){
@@ -30,9 +38,10 @@
 
             function onScanSuccess(decodeText, decodeResult){
                 // alert("Your QR is : " + decodeText, decodeResult)
-                $wire.dispatch('open-qr-inventory-modal');
+                //$wire.dispatch('open-qr-inventory-modal');
                 // open-qr-inventory-modal
                 // Livewire.emit('open-qr-inventory-modal')
+                openModal();
             }
 
             var htmlScanner = new Html5QrcodeScanner(
