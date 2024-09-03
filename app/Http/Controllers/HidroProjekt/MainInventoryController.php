@@ -38,4 +38,12 @@ class MainInventoryController extends Controller
             'activeInventory' => $activeInventory
         ]);
     }
+
+    public function inventoryQrReader(Request $request){
+        $activeInventory = InventoryCheckingModel::where('inv_name', $request->inv_name)->where('status', InventoryCheckingModel::INVENTORY_STATUS_ACTIVE)->first();
+        if(!$activeInventory){
+            return redirect()->route('home');
+        }
+        return 'im home';
+    }
 }

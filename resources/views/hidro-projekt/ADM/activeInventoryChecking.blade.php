@@ -13,8 +13,12 @@
             <a class="btn btn-primary btn-lg d-flex align-items-center mx-1" href="{{ route('hp_activeInventoryCheckingList', ['inv_name' => $activeInventory->inv_name])}}"><i class="bi bi-list-task"></i></a>
             <button class="btn btn-success btn-lg d-flex align-items-center mx-1" ><i class="bi bi-file-earmark-spreadsheet"></i></button>
 
-            
-            
+            {{-- BARKOD BUTTON --}}
+            @if(Auth::user()->id == 1)
+                <x-v-divider />
+                <a href="{{ route('hp_inventoryQrReader', $activeInventory->inv_name) }}" class="btn btn-success btn-lg d-flex align-items-center mx-1" ><i class="bi bi-upc-scan"></i></a>
+            @endif
+
         </div>
             
     </div>

@@ -121,6 +121,8 @@ Route::prefix('/')
                             Route::get('material_results', 'materialInventoryResults')->name('hp_materialCheckingResults');
                             Route::get('list', 'activeInventoryCheckingList')->name('hp_activeInventoryCheckingList');
                             Route::get('/{inv_name}', 'activeInventoryChecking')->name('hp_activeInventoryChecking');
+
+                            Route::get('qr_reader/{inv_name}', 'inventoryQrReader')->name('hp_inventoryQrReader');
                         });
                     });
                 
