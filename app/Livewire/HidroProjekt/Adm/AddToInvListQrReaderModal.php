@@ -10,7 +10,8 @@ class AddToInvListQrReaderModal extends Component
     public $showModal = FALSE;
 
     #[On('open-qr-inventory-modal')]
-    public function testing(){
+    public function testing($test, $zest){
+        dd($test, $zest);
         return $this->showModal = TRUE;
     }
 

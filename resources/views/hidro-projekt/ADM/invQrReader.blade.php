@@ -29,12 +29,10 @@
             var lastResult, countResults = 0;
 
             function onScanSuccess(decodeText, decodeResult){
-                // alert("Your QR is : " + decodeText, decodeResult)
-                //$wire.dispatch('open-qr-inventory-modal');
-                // open-qr-inventory-modal
-                // Livewire.emit('open-qr-inventory-modal')
-                Livewire.dispatch('open-qr-inventory-modal');
-                //openModal();
+                Livewire.dispatch('open-qr-inventory-modal', [
+                    'test' => 'uspjesan test',
+                    'zest' => 'uspjesan test',
+                ]);
             }
 
             var htmlScanner = new Html5QrcodeScanner(
