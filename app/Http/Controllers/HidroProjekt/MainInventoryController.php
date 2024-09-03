@@ -44,6 +44,8 @@ class MainInventoryController extends Controller
         if(!$activeInventory){
             return redirect()->route('home');
         }
-        return 'im home';
+        return view('hidro-projekt.ADM.invQrReader', [
+            'activeInventory' => $activeInventory
+        ]);
     }
 }
