@@ -8,7 +8,9 @@
   
     <div class="container">
         <div id="you-qr-result"></div>
-        @livewire('hidroProjekt.adm.add-to-inv-list-qr-reader-modal')
+        @livewire('hidroProjekt.adm.add-to-inv-list-qr-reader-modal',[
+            'activeInventory'=>$activeInventory,
+        ])
         <div class="d-flex justify-content-center">
             <div id="my-qr-reader" style="width:500px"></div>
         </div>
