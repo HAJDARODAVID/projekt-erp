@@ -138,7 +138,7 @@
       Livewire.on('focus-this-input',() => {
         console.log(document.getElementById('qr-input'));
         
-          document.getElementById('qr-input').select()
+          document.getElementById('qr-input').focus()
       }) 
     </script>
   </body>
