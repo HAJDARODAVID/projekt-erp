@@ -2,11 +2,13 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">QR SCANER:</h1>
+        <h1 class="h3">QR SKENER - INVENTURA:</h1>
+        <a href="{{ route('hp_activeInventoryChecking', $activeInventory->inv_name) }}" class="btn btn-dark btn-lg d-flex align-items-center mx-1" ><i class="bi bi-arrow-return-left"></i></a>
     </div>
   
     <div class="container">
         <div id="you-qr-result"></div>
+        @livewire('hidroProjekt.adm.add-to-inv-list-qr-reader-modal')
         <div class="d-flex justify-content-center">
             <div id="my-qr-reader" style="width:500px"></div>
         </div>
@@ -27,7 +29,9 @@
             var lastResult, countResults = 0;
 
             function onScanSuccess(decodeText, decodeResult){
-                alert("Your QR is : " + decodeText, decodeResult)
+                // alert("Your QR is : " + decodeText, decodeResult)
+                // open-qr-inventory-modal
+                Livewire.emit('open-qr-inventory-modal')
             }
 
             var htmlScanner = new Html5QrcodeScanner(
