@@ -41,7 +41,8 @@
                 //$wire.dispatch('open-qr-inventory-modal');
                 // open-qr-inventory-modal
                 // Livewire.emit('open-qr-inventory-modal')
-                openModal();
+                Livewire.dispatch('open-qr-inventory-modal');
+                //openModal();
             }
 
             var htmlScanner = new Html5QrcodeScanner(
