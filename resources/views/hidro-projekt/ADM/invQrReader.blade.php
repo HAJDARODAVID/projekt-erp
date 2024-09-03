@@ -29,10 +29,10 @@
             var lastResult, countResults = 0;
 
             function onScanSuccess(decodeText, decodeResult){
-                Livewire.dispatch('open-qr-inventory-modal', [
-                    'test' => 'uspjesan test',
-                    'zest' => 'uspjesan test',
-                ]);
+                Livewire.dispatch('open-qr-inventory-modal', {
+                    'test': 'uspjesan test',
+                    'zest': 'uspjesan test',
+                });
             }
 
             var htmlScanner = new Html5QrcodeScanner(
