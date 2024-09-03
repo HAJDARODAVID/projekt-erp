@@ -30,8 +30,7 @@
 
             function onScanSuccess(decodeText, decodeResult){
                 Livewire.dispatch('open-qr-inventory-modal', {
-                    'test': 'uspjesan test',
-                    'zest': 'uspjesan test',
+                    'mat_id': decodeText,
                 });
             }
 
