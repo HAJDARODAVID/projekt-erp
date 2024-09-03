@@ -14,14 +14,6 @@
         </div>
     </div>
 
-    @script
-        <script>
-            function openModal(){
-                wire.dispatch('post-created');
-            }
-        </script>
-    @endscript
-
     <script src="http://unpkg.com/html5-qrcode"></script>
     <script>
         function domReady(fn){
