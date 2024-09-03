@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Adm;
 
+use App\Models\MaterialMasterData;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
@@ -11,7 +12,8 @@ class AddToInvListQrReaderModal extends Component
 
     #[On('open-qr-inventory-modal')]
     public function testing($mat_id){
-        dd($mat_id);
+        $mat = MaterialMasterData::where('id', $mat_id)->first();
+        dd($mat);
         return $this->showModal = TRUE;
     }
 
