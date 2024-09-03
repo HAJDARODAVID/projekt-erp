@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">QR SKENER - INVENTURA:</h1>
-        <a href="{{ route('hp_activeInventoryChecking', $activeInventory->inv_name) }}" class="btn btn-dark btn-lg d-flex align-items-center mx-1" ><i class="bi bi-arrow-return-left"></i></a>
+        <a href="{{ route('hp_activeInventoryChecking', $activeInventory->inv_name) }}" class="btn btn-dark d-flex align-items-center mx-1" ><i class="bi bi-arrow-return-left"></i></a>
     </div>
   
     <div class="container">

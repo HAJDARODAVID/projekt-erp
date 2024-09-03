@@ -24,6 +24,10 @@ class AddToInvListQrReaderModal extends Component
         return $this->showModal = TRUE;
     }
 
+    public function modalBtn($status){
+        return $this->showModal = $status;
+    }
+
     public function render()
     {
         return view('livewire.hidroprojekt.adm.add-to-inv-list-qr-reader-modal');
