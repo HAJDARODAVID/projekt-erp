@@ -11,8 +11,10 @@ class AddToInvListQrReaderModal extends Component
     public $showModal = FALSE;
     public $matInfo;
 
+    public $qty;
+
     #[On('open-qr-inventory-modal')]
-    public function testing($mat_id, $qr_data){
+    public function initializeModal($mat_id, $qr_data){
         $this->matInfo = MaterialMasterData::where('id', $mat_id)->first();
         if(is_null($this->matInfo)){
             return $this->dispatch('show-alert-modal', [
@@ -21,11 +23,18 @@ class AddToInvListQrReaderModal extends Component
                     'type' => 'danger',
                 ]);
         }
+        $this->dispatch('focus-this-input');
         return $this->showModal = TRUE;
     }
 
     public function modalBtn($status){
         return $this->showModal = $status;
+    }
+
+    public function addItemToInventoryList(){
+        //dd('testing');
+        $this->dispatch('focus-this-input');
+        
     }
 
     public function render()
