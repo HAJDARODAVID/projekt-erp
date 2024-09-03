@@ -96,7 +96,7 @@ class MainInventoryService
                 ->first();
             if($ssi){
                 $ssi->update([
-                    'qty' => $item->qty,
+                    'qty' =>$ssi->qty + $item->qty,
                 ]);
             }else{
                 StorageStockItem::create([
