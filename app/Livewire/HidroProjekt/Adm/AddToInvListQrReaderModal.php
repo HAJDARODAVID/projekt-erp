@@ -50,10 +50,12 @@ class AddToInvListQrReaderModal extends Component
             $service = new MainInventoryService;
             $addItems = $service->addItemsToInventoryList($data, 'main_storage', Auth::user()->id,$this->activeInventory);
             if($addItems){
+                $qty=$this->qty;
+                $this->qty = NULL;
                 $this->showModal = FALSE;
                 return $this->dispatch('show-alert-modal', [
                         'title' => 'Materijal evidentiran!',
-                        'message' => "Naziv: ".$this->matInfo->name." <br>Količina: $this->qty",
+                        'message' => "Naziv: ".$this->matInfo->name." <br>Količina: $qty",
                         'type' => 'success',
                     ]);
             }
