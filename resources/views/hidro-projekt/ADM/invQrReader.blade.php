@@ -17,7 +17,7 @@
     @script
         <script>
             function openModal(){
-                $wire.dispatch('post-created');
+                wire.dispatch('post-created');
             }
         </script>
     @endscript
