@@ -9,7 +9,7 @@
         <div >
             <div class="d-flex justify-content-center"><h5>KOLIČINA</h5></div>
             <div class="d-flex justify-content-center mt-2">
-                <input type="text" class="form-control form-lg" style="width: 150px" autofocus>
+                <input type="number" class="form-control form-lg" style="width: 150px" autofocus>
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <button class="btn btn-success btn-lg d-flex align-items-center mx-1" ><i class="bi bi-floppy"></i></button>
