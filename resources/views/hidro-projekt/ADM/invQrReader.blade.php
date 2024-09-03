@@ -29,7 +29,8 @@
             var lastResult, countResults = 0;
 
             function onScanSuccess(decodeText, decodeResult){
-                alert("Your QR is : " + decodeText, decodeResult)
+                // alert("Your QR is : " + decodeText, decodeResult)
+                $wire.dispatch('open-qr-inventory-modal');
                 // open-qr-inventory-modal
                 // Livewire.emit('open-qr-inventory-modal')
             }
@@ -40,4 +41,5 @@
             htmlScanner.render(onScanSuccess)
         })
     </script>
+    
 @endsection
