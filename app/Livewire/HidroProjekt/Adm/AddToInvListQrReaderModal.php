@@ -13,6 +13,13 @@ class AddToInvListQrReaderModal extends Component
     #[On('open-qr-inventory-modal')]
     public function testing($mat_id){
         $mat = MaterialMasterData::where('id', $mat_id)->first();
+        if(is_null($mat)){
+            $this->dispatch('show-alert-modal', [
+                'title' => 'Materijal: '.$mat_id.' ne postoji!',
+                'message' => "U matičnim podacima nema navedenog materijala!",
+                'type' => 'danger',
+            ]);
+        }
         dd($mat);
         return $this->showModal = TRUE;
     }
