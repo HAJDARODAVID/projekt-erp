@@ -9,18 +9,18 @@ use Livewire\Attributes\On;
 class AddToInvListQrReaderModal extends Component
 {
     public $showModal = FALSE;
+    public $matInfo;
 
     #[On('open-qr-inventory-modal')]
     public function testing($mat_id, $qr_data){
-        $mat = MaterialMasterData::where('id', $mat_id)->first();
-        if(is_null($mat)){
+        $this->matInfo = MaterialMasterData::where('id', $mat_id)->first();
+        if(is_null($this->matInfo)){
             return $this->dispatch('show-alert-modal', [
                     'title' => 'Materijal: '.$qr_data.' ne postoji!',
                     'message' => "U matičnim podacima nema navedenog materijala!",
                     'type' => 'danger',
                 ]);
         }
-        dd($mat_id,$mat);
         return $this->showModal = TRUE;
     }
 
