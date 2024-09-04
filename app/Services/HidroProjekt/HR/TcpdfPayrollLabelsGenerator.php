@@ -35,6 +35,17 @@ class TcpdfPayrollLabelsGenerator
         $pdf->SetPrintHeader(false);
         $pdf->SetPrintFooter(false);
 
+        // set style for barcode
+        $style = array(
+            'border' => 2,
+            'vpadding' => 'auto',
+            'hpadding' => 'auto',
+            'fgcolor' => array(0,0,0),
+            'bgcolor' => false, //array(255,255,255)
+            'module_width' => 1, // width of a single module in points
+            'module_height' => 1 // height of a single module in points
+        );
+
     	$html = "
             <table style = ".self::TABLE_STYLE.">
             <tbody>";
@@ -48,7 +59,7 @@ class TcpdfPayrollLabelsGenerator
                         <tr><td></td></tr>
                         <tr><td></td></tr>
                         <tr><td></td></tr>
-                        <tr><td>".$this->workers[$workerIndex]."</td></tr>
+                        <tr><td>".$pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,L', 0, 0, 50, 50, $style, 'N')."</td></tr>
                         <tr><td>HIDRO-PROJEKT d.o.o</td></tr>
                     </table>
                 </td>";
