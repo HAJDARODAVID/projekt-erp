@@ -23,7 +23,9 @@
                     <label for="priority">Pružatelj usluga:</label>
                     <select class="form-select @isset($error['provider']) is-invalid  @endisset" wire:model.change='data.provider'>
                         <option selected value="0">...</option>
-                        <option value="3">Visoko</option>
+                        @foreach ($providers as $provider)
+                            <option value="{{ $provider->id }}">{{ $provider->provider }}</option>    
+                        @endforeach
                     </select>
                 </div> 
             </div>
@@ -32,7 +34,9 @@
                     <label for="priority">Kategorija:</label>
                     <select class="form-select @isset($error['category']) is-invalid  @endisset" wire:model.change='data.category'>
                         <option selected value="0">...</option>
-                        <option value="3">Visoko</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->category }}</option>    
+                        @endforeach
                     </select>
                 </div>
             </div>

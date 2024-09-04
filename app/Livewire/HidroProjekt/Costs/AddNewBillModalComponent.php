@@ -2,16 +2,18 @@
 
 namespace App\Livewire\HidroProjekt\Costs;
 
+use App\Models\BillCategoryModel;
+use App\Models\BillProviderModel;
 use Livewire\Component;
 
 class AddNewBillModalComponent extends Component
 {
     public $show = FALSE;
     public $showSuccessCard = FALSE;
-
     public $data=[];
-
     public $error=[];
+    public $providers=[];
+    public $categories=[];
 
     public function saveNewBill(){
         //reset errors
@@ -34,6 +36,9 @@ class AddNewBillModalComponent extends Component
     }
 
     public function modalBtn($status){
+        if($status){
+            $this->setProvidersAndCategories();
+        }
         $this->resetAll();
         return $this->show = $status ? TRUE : FALSE;
     }
@@ -73,6 +78,12 @@ class AddNewBillModalComponent extends Component
         $this->showSuccessCard = FALSE;
         $this->data=[];
         $this->error=[];
+        return;
+    }
+
+    private function setProvidersAndCategories(){
+        $this->providers = BillProviderModel::get();
+        $this->categories = BillCategoryModel::get();
         return;
     }
 
