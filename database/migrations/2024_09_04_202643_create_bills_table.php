@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('date');
             $table->timestamps();
 
-            $table->foreign('provider_id')->references('id')->on('bill_providers')->nullOnDelete();
-            $table->foreign('categories_id')->references('id')->on('bill_categories')->nullOnDelete();
+            $table->foreign('provider_id')->references('id')->on('bill_providers')->noActionOnDelete();
+            $table->foreign('categories_id')->references('id')->on('bill_categories')->noActionOnDelete();
         });
     }
 
