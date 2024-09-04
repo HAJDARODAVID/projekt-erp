@@ -1,5 +1,5 @@
 <div>
-    <button class="btn btn-success d-flex align-items-center" wire:click='modalBtn(1)'><i class="bi bi-receipt"></i></button>
+    <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='modalBtn(1)'><i class="bi bi-receipt"></i></button>
 
     <x-modal :show='$show' :blur='TRUE'>
         <x-slot name="mainTitle">Dodaj novi račun</x-slot>

@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class AddNewBillModalComponent extends Component
 {
-    public $show = TRUE;
+    public $show = FALSE;
     public $showSuccessCard = FALSE;
 
     public $data=[];
