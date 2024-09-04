@@ -3,6 +3,7 @@
 namespace App\Livewire\HidroProjekt\Costs;
 
 use App\Models\BillCategoryModel;
+use App\Models\BillModel;
 use App\Models\BillProviderModel;
 use Livewire\Component;
 
@@ -22,6 +23,12 @@ class AddNewBillModalComponent extends Component
         if($this->validateData()){
             return;
         }
+        BillModel::create([
+            'provider_id' => $this->data['provider'] , 
+            'categories_id' => $this->data['category'] , 
+            'amount' => $this->data['amount'] , 
+            'date' => $this->data['date'] 
+        ]);
         $this->showSuccessCard = TRUE;
         $this->data=[];
     }

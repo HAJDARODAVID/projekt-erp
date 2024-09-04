@@ -21,5 +21,6 @@
     @endif
   
     <div class="container">
+        <livewire:hidroProjekt.costs.bills-table theme="bootstrap-5" />
     </div>
 @endsection
