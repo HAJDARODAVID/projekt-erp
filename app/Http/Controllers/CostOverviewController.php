@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CostOverviewController extends Controller
 {
-    public function costOverview(){
-        return "nigga im in";
+    public function billOverview(){
+        return view('hidro-projekt.COSTS.billOverview');
     }
 }

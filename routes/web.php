@@ -225,7 +225,7 @@ Route::prefix('/')
             ->group(function(){
                 Route::controller(CostOverviewController::class)
                     ->group(function(){
-                        Route::get('cost_overview','costOverview')->name('hp_costOverview');     
+                        Route::get('bill_overview','billOverview')->name('hp_billOverview');     
                     });
             });
         
