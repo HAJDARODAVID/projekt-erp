@@ -23,14 +23,20 @@ class BillsTable extends DataTableComponent
         return [
             Column::make("#", "id")
                 ->hideIf(TRUE),
+            Column::make("Iznos[€]", "amount")
+                ->hideIf(TRUE),
+
             Column::make("Poslužitelj", "getProvider.provider")
                 ->sortable()
                 ->searchable(),
             Column::make("Kategorija", "getCategory.category")
                 ->sortable()
                 ->searchable(),
-            Column::make("Iznos[€]", "amount")
-                ->sortable(),
+            Column::make("Iznos[€]")
+                ->label(fn($row) => number_format((float)$row->amount, 2, ',', '.') )
+                ->footer(
+                    fn($rows) => '<strong>' . number_format((float)$rows->sum('amount'), 2, ',', '.') . '</strong>'
+                )->html(),
             Column::make("Datum", "date")
                 ->sortable(),
             Column::make("Napomena", "remark")
