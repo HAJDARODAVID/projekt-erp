@@ -64,7 +64,7 @@
 
         <div class="form-group mt-3">
             <label for="job_description">Naponena</label>
-            <textarea class="form-control" rows="4" wire:model.change='data.remark'></textarea>
+            <textarea class="form-control" rows="4" wire:model.blur='data.remark'></textarea>
         </div>
 
         {{-- Loadnig spinner modal --}}
