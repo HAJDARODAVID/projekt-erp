@@ -217,7 +217,9 @@ Route::prefix('/')
             ->group(function(){
                 Route::controller(ReportingController::class)
                     ->group(function(){
-                        Route::get('work_logs_book','workLogsBook')->name('hp_workLogsBook');     
+                        Route::get('work_logs_book','workLogsBook')->name('hp_workLogsBook'); 
+                        Route::get('expenses','expensesReport')->name('hp_expensesReport');    
+                        //expenses
                     });
             });
 

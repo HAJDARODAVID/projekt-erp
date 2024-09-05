@@ -20,4 +20,8 @@ class ReportingController extends Controller
             'logs' => $logs,
         ]);
     }
+
+    public function expensesReport(){
+        return view('hidro-projekt.REPORT.expensesReport');
+    }
 }
