@@ -19,6 +19,7 @@ class AddNewCategoryModal extends Component
 
     public function saveCategory(){
         $this->error = [];
+        $this->showSuccessCard = FALSE;
         if($this->category != NULL || $this->category != ""){
             $hasEntry = BillCategoryModel::where('category', $this->category)->first();
             if($hasEntry){
@@ -27,6 +28,7 @@ class AddNewCategoryModal extends Component
             BillCategoryModel::create([
                 'category' => $this->category,
             ]);
+            $this->dispatch('refresh-bill-categories-table');
             $this->category = NULL;
             return $this->showSuccessCard = TRUE;
         }

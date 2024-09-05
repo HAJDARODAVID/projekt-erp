@@ -5,6 +5,7 @@ namespace App\Livewire\HidroProjekt\Costs;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\BillProviderModel;
+use Livewire\Attributes\On; 
 
 class BillProvidersTable extends DataTableComponent
 {
@@ -13,6 +14,7 @@ class BillProvidersTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->setSearchBlur();
     }
 
     public function columns(): array
@@ -20,8 +22,14 @@ class BillProvidersTable extends DataTableComponent
         return [
             Column::make("#", "id")
                 ->sortable(),
-            Column::make("Provider", "provider")
-                ->sortable(),
+            Column::make("Poslužitelj", "provider")
+                ->sortable()
+                ->searchable(),
         ];
+    }
+
+    #[On('refresh-bill-provider-table')] 
+    public function refreshMe(){
+        return;
     }
 }

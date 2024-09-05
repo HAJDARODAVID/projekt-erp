@@ -5,6 +5,7 @@ namespace App\Livewire\HidroProjekt\Costs;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\BillCategoryModel;
+use Livewire\Attributes\On; 
 
 class BillCategoriesTable extends DataTableComponent
 {
@@ -20,8 +21,13 @@ class BillCategoriesTable extends DataTableComponent
         return [
             Column::make("#", "id")
                 ->sortable(),
-            Column::make("Category", "category")
+            Column::make("Kategorija", "category")
                 ->sortable(),
         ];
+    }
+
+    #[On('refresh-bill-categories-table')] 
+    public function refreshMe(){
+        return;
     }
 }

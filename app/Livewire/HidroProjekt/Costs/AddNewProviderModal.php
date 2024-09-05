@@ -20,6 +20,7 @@ class AddNewProviderModal extends Component
 
     public function saveProvider(){
         $this->error = [];
+        $this->showSuccessCard = FALSE;
         if($this->provider != NULL || $this->provider != ""){
             $hasEntry = BillProviderModel::where('provider', $this->provider)->first();
             if($hasEntry){
@@ -28,6 +29,7 @@ class AddNewProviderModal extends Component
             BillProviderModel::create([
                 'provider' => $this->provider,
             ]);
+            $this->dispatch('refresh-bill-provider-table');
             $this->provider = NULL;
             return $this->showSuccessCard = TRUE;
         }
