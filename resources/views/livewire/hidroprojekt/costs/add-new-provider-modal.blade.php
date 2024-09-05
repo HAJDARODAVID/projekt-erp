@@ -2,7 +2,7 @@
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
     <button class="btn btn-primary btn-lg d-flex align-items-center" wire:click='modalBtn(1)'><i class="bi bi-shop"></i></button>
 
-    <x-modal :show='$show' :footer='false'>
+    <x-modal :show='$show' :footer='false' :blur='TRUE'>
         <x-slot name="mainTitle">Pružatelji usluga</x-slot>
         <x-slot name='headerBtn'> 
             <button class="btn btn-dark btn-sm" wire:click='modalBtn(0)' wire:loading.attr='disabled'>X</button>

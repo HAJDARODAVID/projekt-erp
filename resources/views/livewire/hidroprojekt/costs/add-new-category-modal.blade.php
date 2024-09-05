@@ -1,7 +1,7 @@
 <div>
     <button class="btn btn-primary btn-lg d-flex align-items-center" wire:click='modalBtn(1)'><i class="bi bi-list-ul"></i></button>
 
-    <x-modal :show='$show' :footer='false'>
+    <x-modal :show='$show' :footer='false' :blur='TRUE'>
         <x-slot name="mainTitle">Kategorije</x-slot>
         <x-slot name='headerBtn'> 
             <button class="btn btn-dark btn-sm" wire:click='modalBtn(0)' wire:loading.attr='disabled'>X</button>
