@@ -50,14 +50,14 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">€</div>
                         </div>
-                        <input type="number" class="form-control @isset($error['amount']) is-invalid  @endisset" wire:model.change='data.amount'>
+                        <input type="number" class="form-control @isset($error['amount']) is-invalid  @endisset" wire:model.blur='data.amount'>
                     </div>    
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="valid_to">Datum izdavanja</label>
-                    <input type="date" class="form-control @isset($error['date']) is-invalid  @endisset" wire:model.change='data.date'>
+                    <input type="date" class="form-control @isset($error['date']) is-invalid  @endisset" wire:model.blur='data.date'>
                 </div>
             </div>
         </div>
