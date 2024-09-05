@@ -28,7 +28,7 @@ class AddNewBillModalComponent extends Component
             'categories_id' => $this->data['category'] , 
             'amount' => $this->data['amount'] , 
             'date' => $this->data['date'] ,
-            'remark' => $this->data['remark'] 
+            'remark' => isset($this->data['remark']) ? $this->data['remark'] : NULL, 
         ]);
         $this->dispatch('refresh-bills-table');
         $this->showSuccessCard = TRUE;
