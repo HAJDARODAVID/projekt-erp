@@ -5,6 +5,8 @@ namespace App\Livewire\HidroProjekt\Costs;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\BillModel;
+use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On; 
 
 class BillsTable extends DataTableComponent
 {
@@ -13,25 +15,35 @@ class BillsTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->setSearchBlur();
     }
 
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
+            Column::make("#", "id")
+                ->hideIf(TRUE),
+            Column::make("Poslužitelj", "getProvider.provider")
+                ->sortable()
+                ->searchable(),
+            Column::make("Kategorija", "getCategory.category")
+                ->sortable()
+                ->searchable(),
+            Column::make("Iznos[€]", "amount")
                 ->sortable(),
-            Column::make("Provider id", "provider_id")
+            Column::make("Datum", "date")
                 ->sortable(),
-            Column::make("Categories id", "categories_id")
-                ->sortable(),
-            Column::make("Amount", "amount")
-                ->sortable(),
-            Column::make("Date", "date")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
+            Column::make("Napomena", "remark")
                 ->sortable(),
         ];
+    }
+
+    public function builder(): Builder{
+        return BillModel::query()->orderBy('id', 'desc');
+    }
+
+    #[On('refresh-bills-table')] 
+    public function refreshMe(){
+        return;
     }
 }

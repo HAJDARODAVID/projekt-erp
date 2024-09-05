@@ -13,7 +13,7 @@ class BillModel extends Model
     protected $table = 'bills';
 
     protected $fillable = [
-        'provider_id', 'categories_id', 'amount', 'date'
+        'provider_id', 'categories_id', 'amount', 'date', 'remark'
     ];
 
     public function getProvider():HasOne{
