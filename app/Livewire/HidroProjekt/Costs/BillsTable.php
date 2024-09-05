@@ -37,6 +37,11 @@ class BillsTable extends DataTableComponent
                 ->footer(
                     fn($rows) => '<strong>' . number_format((float)$rows->sum('amount'), 2, ',', '.') . '</strong>'
                 )->html(),
+            Column::make("Iznos[€](bez PDV-a)")
+                ->label(fn($row) => number_format((float)$row->amountWithoutPdv, 2, ',', '.') )
+                ->footer(
+                    fn($rows) => '<strong>' . number_format((float)$rows->sum('amountWithoutPdv'), 2, ',', '.') . '</strong>'
+                )->html(),
             Column::make("Datum", "date")
                 ->sortable(),
             Column::make("Napomena", "remark")

@@ -23,4 +23,8 @@ class BillModel extends Model
     public function getCategory():HasOne{
         return $this->hasOne(BillCategoryModel::class, 'id','categories_id');
     }
+
+    public function getAmountWithoutPdvAttribute(){
+        return $this->amount * 0.8;
+    }
 }
