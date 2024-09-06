@@ -1,32 +1,23 @@
 <div>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">TROŠKOVI</th>
-                @foreach ($months as $month)
-                    <th scope="col">{{ $month }}</th>   
-                @endforeach
-                <th scope="col">2024</th> 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($reportData as $provider => $data)
-                <tr>
-                    <td>{{ $provider }}</td>
-                    @foreach ($data as $month => $amount)
-                        <td>
-                            @if ($month>12 || $provider=='overall')
-                                <b>
-                            @endif
-                                {{ number_format((float)$amount, 2, ',', '.') }}€
-                            @if ($month>12 || $provider=='overall')
-                                </b>
-                            @endif
-                            
-                        </td>
-                    @endforeach
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="row">
+        <div style="width: 200px">
+            <label for="year" class="form-label">Odaberi godinu...</label>
+            <select id="year" class="form-select" wire:model.live='year'>
+                <option value="">Odaberi...</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
+        </div>
+        <div style="width: 400px">
+            <label for="year" class="form-label">Odaberi godinu...</label>
+            <select id="year" class="form-select" wire:model.live='year'>
+                <option value="">Odaberi...</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
+        </div>
+    </div>
+    <hr>
+    {{-- <x-reports.{{ $activeReport }} :data=$data/> --}}
+    <x-dynamic-component :component="$activeReport" :data=$data />
 </div>

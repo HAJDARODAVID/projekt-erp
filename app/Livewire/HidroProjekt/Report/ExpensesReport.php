@@ -9,12 +9,16 @@ use Livewire\Component;
 
 class ExpensesReport extends Component
 {
-    public $months = Months::MONTHS_HR;
-    public $reportData;
+    public $data;
+    public $year;
+    public $activeReport='reports.expenses-by-provider-report';
 
     public function mount(){
+        $this->year = date("Y");
+        $this->data['months'] = Months::MONTHS_HR;
         $service = new ExpensesReportService;
-        $this->reportData=$service->getDataForProviderExpensesReport(2024);
+        $this->data['reportData']=$service->getDataForProviderExpensesReport($this->year);
+        
     }
 
     public function render()
