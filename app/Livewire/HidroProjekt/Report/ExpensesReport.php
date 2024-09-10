@@ -14,26 +14,33 @@ class ExpensesReport extends Component
     public $year;
     public $years;
     
-    public $selectedReport = 1;
-    public $reportComponentName='reports.expenses-by-provider-report';
+    public $selectedReport;
+    public $reportComponentName;
     public $reports = [
         1 => [
             'name' => 'Pregled troškova po poslužitelju',
-            'comp_name' => 'expenses-by-provider-report'
+            'comp_name' => 'expenses-by-provider-report',
+            'config' => FALSE,
+        ],
+        2 => [
+            'name' => 'Pregled troškova - grupirane kategorije',
+            'comp_name' => 'expenses-by-grouped-categories',
+            'config' => TRUE,
         ],
     ];
 
     public function mount(){
-        Years::getYearsList();
         $this->year = date("Y");
         $this->years = Years::getYearsList();
         $this->data['months'] = Months::MONTHS_HR;
+        $this->setReportComponent();
         $service = new ExpensesReportService;
         $this->data['reportData']=$service->getDataForProviderExpensesReport($this->year); 
     }
 
-    private function setReportComponentName(){
-
+    private function setReportComponent($comp=1){
+        $this->selectedReport = $comp;
+        $this->reportComponentName = 'reports.' . $this->reports[$comp]['comp_name'];
     }
 
     public function render()
