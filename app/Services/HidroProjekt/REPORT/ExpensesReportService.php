@@ -13,7 +13,19 @@ class ExpensesReportService
 {
     private $months = Months::MONTHS_HR;
 
-    public function getDataForProviderExpensesReport($year){
+    public function execute($report, $year){
+        switch ($report) {
+            case 1:
+                return $this->getDataForProviderExpensesReport($year);
+                break;
+            
+            default:
+                return NULL;
+                break;
+        }
+    }
+
+    private function getDataForProviderExpensesReport($year){
         $providers = BillProviderModel::get();
         $bills = BillModel::whereYear('date', $year);
         $billsByProviders = $bills->get()

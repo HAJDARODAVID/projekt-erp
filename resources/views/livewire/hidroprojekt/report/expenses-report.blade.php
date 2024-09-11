@@ -20,11 +20,17 @@
         </div>
         <div>
             @if ($reports[$selectedReport]['config'])
-                <button class="btn btn-success btn-lg "><i class="bi bi-gear"></i></button>
+                <button class="btn btn-success btn-lg " wire:click='configBtn()'><i class="bi bi-gear"></i></button>
             @endif
         </div>
     </div>
     
     <hr>
     <x-dynamic-component :component="$reportComponentName" :data=$data />
+
+    @foreach ($reports as $report)
+        @if ($report['config'])
+            @livewire('hidroProjekt.report.config.'. $report['comp_name'] .'-config-modal')
+        @endif
+    @endforeach
 </div>

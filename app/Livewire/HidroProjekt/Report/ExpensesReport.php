@@ -34,13 +34,22 @@ class ExpensesReport extends Component
         $this->years = Years::getYearsList();
         $this->data['months'] = Months::MONTHS_HR;
         $this->setReportComponent();
+        $this->getReportData();
+    }
+
+    private function getReportData(){
         $service = new ExpensesReportService;
-        $this->data['reportData']=$service->getDataForProviderExpensesReport($this->year); 
+        $this->data['reportData']=$service->execute($this->selectedReport, $this->year); 
+        return;
     }
 
     private function setReportComponent($comp=1){
         $this->selectedReport = $comp;
         $this->reportComponentName = 'reports.' . $this->reports[$comp]['comp_name'];
+    }
+
+    public function configBtn(){
+        return $this->dispatch('open-' . $this->reports[$this->selectedReport]['comp_name'] .'-config-modal');
     }
 
     public function render()
