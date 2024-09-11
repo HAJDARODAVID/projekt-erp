@@ -17,6 +17,7 @@ class IntDeliveryNoteBillOfMaterialsModal extends Component
     public $bookingType;
     public $constSite;
     public $overAllValue;
+    public $error = [];
 
     public function mount(){
         //dd($this->row);
@@ -43,7 +44,13 @@ class IntDeliveryNoteBillOfMaterialsModal extends Component
     }
 
     private function getConstructionSite(){
-        return ConstructionSiteModel::where('id', $this->deliveryNoteBOM->pluck('const_id')->unique('const_id')->toArray()[0])->first();
+        if($this->deliveryNoteBOM->isEmpty()){
+            $this->error[] = 'There are no materials listed in MatDoc: ' . $this->matDoc->id;
+            return NULL;
+        }
+        $constSite = ConstructionSiteModel::where('id', $this->deliveryNoteBOM->pluck('const_id')->unique('const_id')->toArray()[0])->first();
+        
+        return $constSite;
     }
 
     private function getOverAllValue(){
@@ -52,6 +59,14 @@ class IntDeliveryNoteBillOfMaterialsModal extends Component
             $value += $bom->qty * $bom->getMaterialInfo->price;
         }
         return $value;
+    }
+
+    public function showError(){
+        return $this->dispatch('show-alert-modal', [
+            'title' => 'ERROR!',
+            'message' => $this->error[0],
+            'type' => 'danger',
+        ]);
     }
 
     public function render()
