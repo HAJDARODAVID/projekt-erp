@@ -30,10 +30,10 @@ class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
                 ->label(
                     fn($row, Column $column) => $row->fullName
                 ),
-            // Column::make("Gradilište")
-            //     ->label(
-            //         fn($row, Column $column) => $this->getConstructionSite($row)
-            //     ),
+            Column::make("Gradilište")
+                ->label(
+                    fn($row, Column $column) => $this->getConstructionSite($row)
+                ),
             Column::make("Izdavatelj", "getUserInfo.name")
                 ->sortable(),
             Column::make("Stvoreno", "created_at")
