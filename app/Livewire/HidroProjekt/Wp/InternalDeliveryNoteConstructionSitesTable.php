@@ -40,8 +40,8 @@ class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
                 ->sortable(),
             Column::make("Ažurirano", "updated_at")
                 ->hideIf(TRUE),
-            // Column::make("Actions",'id')
-            //     ->view('hidro-projekt.WP.deliveryNoteTableBtn'),
+            Column::make("Actions",'id')
+                ->view('hidro-projekt.WP.deliveryNoteTableBtn'),
         ];
     }
 
