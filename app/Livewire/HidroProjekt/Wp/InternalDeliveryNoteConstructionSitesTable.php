@@ -30,18 +30,18 @@ class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
                 ->label(
                     fn($row, Column $column) => $row->fullName
                 ),
-            Column::make("Gradilište")
-                ->label(
-                    fn($row, Column $column) => $this->getConstructionSite($row)
-                ),
+            // Column::make("Gradilište")
+            //     ->label(
+            //         fn($row, Column $column) => $this->getConstructionSite($row)
+            //     ),
             Column::make("Izdavatelj", "getUserInfo.name")
                 ->sortable(),
             Column::make("Stvoreno", "created_at")
                 ->sortable(),
             Column::make("Ažurirano", "updated_at")
                 ->hideIf(TRUE),
-            Column::make("Actions",'id')
-                ->view('hidro-projekt.WP.deliveryNoteTableBtn'),
+            // Column::make("Actions",'id')
+            //     ->view('hidro-projekt.WP.deliveryNoteTableBtn'),
         ];
     }
 
