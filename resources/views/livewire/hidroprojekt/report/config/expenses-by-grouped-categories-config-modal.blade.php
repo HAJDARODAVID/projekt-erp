@@ -1,5 +1,5 @@
 <div>
-    <x-modal :show=$show :blur='TRUE'>
+    <x-modal :show=$show :blur='TRUE' size='lg'>
         <x-slot name='mainTitle'>Konfiguracija</x-slot>
         <x-slot name='secTitle'>Izvještaj: @isset($configData->r_long_name) {{ $configData->r_long_name }} @endisset</x-slot>
         <x-slot name='headerBtn'> 
@@ -33,8 +33,18 @@
                                 active
                             @endif">
                             <div class="d-flex justify-content-between">
-                                <div style="cursor: pointer" wire:click='setSelectedGroup("{{ $groupName }}")'>{{ $groupName }}</div>
-                                <button>X</button>
+                                @if (isset($edit['oldValue']) && $groupName == $edit['oldValue'])
+                                    <div>
+                                        <input class="form-control form-control-sm" type="text" value="{{ $edit['oldValue'] }}" wire:model.blur='edit.newValue'>
+                                    </div>
+                                @else
+                                    <div style="cursor: pointer" wire:click='setSelectedGroup("{{ $groupName }}")'>{{ $groupName }}</div>  
+                                @endif
+                                
+                                <div>
+                                    <button class="btn btn-success btn-sm" wire:click='enableEdit("{{ $groupName }}")'><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-danger btn-sm" wire:click='deleteGroup("{{ $groupName }}")'><i class="bi bi-trash"></i></button>
+                                </div>
                             </div>
                         </div>
                         @endforeach
@@ -44,12 +54,14 @@
             <div class="col">
                 <h1 class="h6">Dostupne kategorije:</h1>
                 @if ($selectedGroup)
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Default checkbox
-                        </label>
-                    </div>
+                    @foreach ($categories as $catID => $cat)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{ $catID }}" wire:model.live='selectedCategories.{{ $catID }}' @isset($cat['disabled']) disabled @endisset>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $cat['name'] }}
+                            </label>
+                        </div> 
+                    @endforeach
                 @endif
             </div>
         </div>
