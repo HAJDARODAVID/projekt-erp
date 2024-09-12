@@ -64,6 +64,15 @@ class ExpensesReportService
 
     private function getDataForGroupedCategoriesReport($year){
         $rConfigObj=ReportConfig::where('r_name', 'expenses-by-grouped-categories')->first();
+        if(!$rConfigObj){
+            ReportConfig::create([
+                'r_name' => 'expenses-by-grouped-categories'
+            ]);
+            $rConfigObj=ReportConfig::where('r_name', 'expenses-by-grouped-categories')->first();
+        }
+        if($rConfigObj->value_1==NULL){
+            return;
+        }
         $rConfig = json_decode($rConfigObj->value_1,true);
         $groupsConfig = $rConfig['groups'];
         $data=[];

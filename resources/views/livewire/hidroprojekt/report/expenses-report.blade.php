@@ -28,8 +28,11 @@
     </div>
     
     <hr>
-    <x-dynamic-component :component="$reportComponentName" :data=$data />
-
+    
+    @if($data['reportData'])
+        <x-dynamic-component :component="$reportComponentName" :data=$data />
+    @endif
+    
     @foreach ($reports as $report)
         @if ($report['config'])
             @livewire('hidroProjekt.report.config.'. $report['comp_name'] .'-config-modal')
