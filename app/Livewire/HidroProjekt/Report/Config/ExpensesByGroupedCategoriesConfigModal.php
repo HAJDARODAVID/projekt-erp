@@ -23,6 +23,12 @@ class ExpensesByGroupedCategoriesConfigModal extends Component
     public $selectedCategories = [];
 
     public function modalBtn($status){
+        if($status==0){
+            $this->selectedGroup=NULL;
+            $this->error=NULL;
+            $this->show = $status;
+            return $this->dispatch('refresh-expenses-report');
+        }
         return $this->show = $status;
     }
 
