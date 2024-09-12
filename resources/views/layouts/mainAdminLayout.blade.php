@@ -15,6 +15,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url('css/snowflake.css') }}" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
