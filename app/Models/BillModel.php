@@ -13,8 +13,12 @@ class BillModel extends Model
     protected $table = 'bills';
 
     protected $fillable = [
-        'provider_id', 'categories_id', 'amount', 'date', 'remark'
+        'provider_id', 'categories_id', 'amount', 'date', 'remark', 'inc_pdv'
     ];
+
+    protected $casts = [
+        'inc_pdv' => 'bool',
+      ];
 
     public function getProvider():HasOne{
         return $this->hasOne(BillProviderModel::class, 'id','provider_id');
@@ -25,6 +29,9 @@ class BillModel extends Model
     }
 
     public function getAmountWithoutPdvAttribute(){
-        return $this->amount * 0.8;
+        if($this->inc_pdv){
+            return $this->amount * 0.8;
+        }
+        return $this->amount;
     }
 }
