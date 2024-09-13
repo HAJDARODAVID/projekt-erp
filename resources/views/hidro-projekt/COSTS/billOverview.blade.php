@@ -22,5 +22,6 @@
   
     <div class="container">
         <livewire:hidroProjekt.costs.bills-table theme="bootstrap-5" />
+        <p><i><span style="color:#B22222"><b>***</b></span> - iznos bez pdv-a</i></p>
     </div>
 @endsection
