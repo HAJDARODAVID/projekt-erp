@@ -14,7 +14,9 @@ class ActionLogsService
 
     public static function createNewLog($data){
         extract($data);
+
         
+
         if(!$user_id){
             return [
                 'title' => 'ERROR!',
