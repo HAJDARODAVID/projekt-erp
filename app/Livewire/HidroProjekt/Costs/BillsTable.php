@@ -48,6 +48,8 @@ class BillsTable extends DataTableComponent
                 ->sortable(),
             Column::make("Napomena", "remark")
                 ->sortable(),
+            Column::make('','id')
+                ->view('hidro-projekt.COSTS.billsTableActionBtns'),
         ];
     }
 

@@ -15,6 +15,8 @@ class AddNewBillModalComponent extends Component
     public $error=[];
     public $providers=[];
     public $categories=[];
+    public $edit=FALSE;
+    public $bill=NULL;
 
     public function saveNewBill(){
         //reset errors
@@ -23,16 +25,28 @@ class AddNewBillModalComponent extends Component
         if($this->validateData()){
             return;
         }
-        BillModel::create([
-            'provider_id' => $this->data['provider'] , 
-            'categories_id' => $this->data['category'] , 
-            'amount' => $this->data['amount'] , 
-            'date' => $this->data['date'] ,
-            'remark' => isset($this->data['remark']) ? $this->data['remark'] : NULL, 
-        ]);
-        $this->dispatch('refresh-bills-table');
+        if ($this->bill) {
+            $this->bill->update($this->data);
+        } else {
+            BillModel::create($this->data);
+        }
+        $this->refreshTargetTable();
         $this->showSuccessCard = TRUE;
         $this->data=[];
+        if ($this->bill) {
+            $this->show=FALSE;
+        }
+    }
+
+    private function refreshTargetTable(){
+        return $this->dispatch('refresh-bills-table');
+    }
+
+    public function deleteRow(){
+        $deleteState=$this->bill->delete();
+        if($deleteState){
+            $this->refreshTargetTable(); 
+        }
     }
 
     public function trashItAll(){
@@ -49,20 +63,24 @@ class AddNewBillModalComponent extends Component
             $this->setProvidersAndCategories();
         }
         $this->resetAll();
+        $this->data['inc_pdv'] = TRUE;
+        if($this->edit){
+            $this->data=$this->bill->toArray();
+        }
         return $this->show = $status ? TRUE : FALSE;
     }
 
     private function validateData(){
-        if(!isset($this->data['provider'])) $this->error['provider'] = TRUE;
-        if(isset($this->data['provider'])){
-            if($this->data['provider'] == 0 || $this->data['provider'] == ""){
-                $this->error['provider'] = TRUE;
+        if(!isset($this->data['provider_id'])) $this->error['provider_id'] = TRUE;
+        if(isset($this->data['provider_id'])){
+            if($this->data['provider_id'] == 0 || $this->data['provider_id'] == ""){
+                $this->error['provider_id'] = TRUE;
             }
         }
-        if(!isset($this->data['category'])) $this->error['category'] = TRUE;
-        if(isset($this->data['category'])){
-            if($this->data['category'] == 0 || $this->data['category'] == ""){
-                $this->error['category'] = TRUE;
+        if(!isset($this->data['categories_id'])) $this->error['categories_id'] = TRUE;
+        if(isset($this->data['categories_id'])){
+            if($this->data['categories_id'] == 0 || $this->data['categories_id'] == ""){
+                $this->error['categories_id'] = TRUE;
             }
         }
 
