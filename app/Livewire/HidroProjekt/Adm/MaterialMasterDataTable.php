@@ -2,9 +2,10 @@
 
 namespace App\Livewire\HidroProjekt\Adm;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\MaterialMasterData;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class MaterialMasterDataTable extends DataTableComponent
 {
@@ -36,5 +37,10 @@ class MaterialMasterDataTable extends DataTableComponent
             Column::make("Cijena", "price")
                 ->sortable(),
         ];
+    }
+
+    public function builder(): Builder{
+        return MaterialMasterData::query()
+            ->where('active', TRUE);
     }
 }

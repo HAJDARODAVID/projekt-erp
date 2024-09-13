@@ -18,7 +18,12 @@ class MaterialMasterData extends Model
         'oem', 
         'supplier_id', 
         'uom_1', 
-        'price'
+        'price',
+        'active',
+    ];
+
+    protected $casts = [
+        'active' => 'bool',
     ];
 
     public function getSupplier(): HasOne
