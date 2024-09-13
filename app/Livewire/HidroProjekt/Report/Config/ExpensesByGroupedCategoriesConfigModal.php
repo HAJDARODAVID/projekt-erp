@@ -13,6 +13,7 @@ class ExpensesByGroupedCategoriesConfigModal extends Component
     public $configData;
     public $billCat;
     public $groups = [];
+    public $groupOrder = [];
     public $selectedGroup=NULL;
     public $newGroupName=NULL;
     public $error=[];
@@ -39,6 +40,7 @@ class ExpensesByGroupedCategoriesConfigModal extends Component
         $this->configData = $this->getReportConfigData($report_name);
         $this->billCat = $this->getAllCategories();
         $this->getAllGroupFromConfig();
+        $this->setGroupOrder();
         return $this->show=TRUE;
     }
 
@@ -160,6 +162,29 @@ class ExpensesByGroupedCategoriesConfigModal extends Component
         ]);
         $this->selectedGroup=NULL;
         return $this->getAllGroupFromConfig();
+    }
+
+    private function setGroupOrder(){
+        $groupOrder=[];
+        $json_array = json_decode($this->configData->value_1,true);
+        if(!isset($json_array['group_order'])){
+            $json_array['group_order']=[];
+            $this->configData->update([
+                'value_1' => json_encode($json_array),
+            ]);
+        }
+        if(empty($json_array['group_order'])){
+            foreach($this->group as $g_name => $g_data){
+                $groupOrder[] = $g_name;
+                $json_array['group_order'] = $groupOrder;
+                $this->configData->update([
+                    'value_1' => json_encode($json_array),
+                ]);
+            }
+        }else{
+            $groupOrder = $json_array['group_order'];
+        }
+        dd();
     }
     
 
