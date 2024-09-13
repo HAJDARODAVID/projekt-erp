@@ -25,6 +25,8 @@ class BillsTable extends DataTableComponent
                 ->hideIf(TRUE),
             Column::make("Iznos[€]", "amount")
                 ->hideIf(TRUE),
+            Column::make("inc_pdv", "inc_pdv")
+                ->hideIf(TRUE),
 
             Column::make("Poslužitelj", "getProvider.provider")
                 ->sortable()
@@ -33,7 +35,7 @@ class BillsTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
             Column::make("Iznos[€]")
-                ->label(fn($row) => number_format((float)$row->amount, 2, ',', '.') )
+                ->label(fn($row) =>  $this->getAmount($row)) 
                 ->footer(
                     fn($rows) => '<strong>' . number_format((float)$rows->sum('amount'), 2, ',', '.') . '</strong>'
                 )->html(),
@@ -46,7 +48,16 @@ class BillsTable extends DataTableComponent
                 ->sortable(),
             Column::make("Napomena", "remark")
                 ->sortable(),
+            Column::make('','id')
+                ->view('hidro-projekt.COSTS.billsTableActionBtns'),
         ];
+    }
+
+    private function getAmount($row){
+        $amount = number_format($row->amount, 2, ',', '.');
+        $indicator = $row->inc_pdv == TRUE ? '' :'<span style="color:#B22222"><b>***</b></span>';
+        $string = $amount . $indicator;
+        return $string;
     }
 
     public function builder(): Builder{
