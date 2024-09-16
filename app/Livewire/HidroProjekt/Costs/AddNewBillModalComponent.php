@@ -5,6 +5,7 @@ namespace App\Livewire\HidroProjekt\Costs;
 use App\Models\BillCategoryModel;
 use App\Models\BillModel;
 use App\Models\BillProviderModel;
+use App\Services\ActionLogsService;
 use Livewire\Component;
 
 class AddNewBillModalComponent extends Component
@@ -43,6 +44,15 @@ class AddNewBillModalComponent extends Component
     }
 
     public function deleteRow(){
+        $log = ActionLogsService::execute('action');
+        if(isset($log['error'])){
+            $this->dispatch('show-alert-modal',[
+                'message' => $log['message'],
+                'title' => 'ERROR',
+                'type' => 'danger'
+            ]);
+            return;
+        }
         $deleteState=$this->bill->delete();
         if($deleteState){
             $this->refreshTargetTable(); 
