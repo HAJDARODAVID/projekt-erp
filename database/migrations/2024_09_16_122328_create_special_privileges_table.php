@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('special_privileges', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->unsignedBigInteger('resources_id')->unsigned();
 

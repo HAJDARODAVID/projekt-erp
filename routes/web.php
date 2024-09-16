@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Resources;
 use App\Models\MaterialDocModel;
+use App\Models\SpecialPrivilege;
 use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -244,8 +246,5 @@ Route::get('/clear', function() {
 });
 
 Route::get('test',function(){
-    dd(MaterialDocModel::first()->fullName);
-    return view('test', [
-        'data' => MaterialMasterData::get()
-    ]);
+    return SpecialPrivilege::where('user_id', 1)->where('resources_id', 1)->first()->delete();
 });
