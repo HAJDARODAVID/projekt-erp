@@ -2,11 +2,12 @@
 
 namespace App\Livewire\HidroProjekt\Costs;
 
-use App\Models\BillCategoryModel;
+use Livewire\Component;
 use App\Models\BillModel;
+use App\Models\BillCategoryModel;
 use App\Models\BillProviderModel;
 use App\Services\ActionLogsService;
-use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class AddNewBillModalComponent extends Component
 {
@@ -44,17 +45,22 @@ class AddNewBillModalComponent extends Component
     }
 
     public function deleteRow(){
-        $log = ActionLogsService::execute('action');
-        if(isset($log['error'])){
-            $this->dispatch('show-alert-modal',[
-                'message' => $log['message'],
-                'title' => 'ERROR',
-                'type' => 'danger'
-            ]);
-            return;
-        }
+        $oldBill = $this->bill;
         $deleteState=$this->bill->delete();
         if($deleteState){
+            $log = ActionLogsService::execute([
+                'action' => 'delete_bill',
+                'user'   => Auth::user()->id,
+                'data'   => $oldBill->toArray(),
+            ]);
+            if(isset($log['error'])){
+                $this->dispatch('show-alert-modal',[
+                    'message' => $log['message'],
+                    'title'   => 'ERROR',
+                    'type'    => 'danger'
+                ]);
+                return;
+            }
             $this->refreshTargetTable(); 
         }
     }

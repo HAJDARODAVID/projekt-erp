@@ -2,7 +2,9 @@
     @if ($edit)
         <div class="d-flex gap-1">
             <button class="btn btn-success btn-sm d-flex align-items-center" wire:click='modalBtn(1)'><i class="bi bi-pencil"></i></button>
-            <button class="btn btn-danger btn-sm d-flex align-items-center" wire:click='deleteRow()'><i class="bi bi-trash"></i></button>
+            <button class="btn btn-danger btn-sm d-flex align-items-center" wire:click='deleteRow()' wire:confirm="Da li ste sigurni da želite izbrisati račun?">
+                <i class="bi bi-trash"></i>
+            </button>
         </div>
     @else
         <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='modalBtn(1)'><i class="bi bi-receipt"></i></button>
