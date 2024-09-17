@@ -7,6 +7,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -73,6 +74,10 @@ class User extends Authenticatable
 
     public function getWorker():HasOne{
         return $this->hasOne(WorkerModel::class, 'id','worker_id');
+    }
+
+    public function getSpecialPrivilege():HasMany{
+        return $this->hasMany(SpecialPrivilege::class, 'user_id', 'id');
     }
 
 }

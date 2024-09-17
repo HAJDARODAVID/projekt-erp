@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WorkingDayRecordModel;
 use App\Models\InventoryCheckingModel;
+use App\Models\SpecialPrivilege;
 use Illuminate\Support\Facades\Session;
 use Jenssegers\Agent\Facades\Agent;
 
@@ -35,8 +36,9 @@ class HomeController extends Controller
         }
 
         if(!Session::get('user_rights')){
-            
+            Session::put('user_rights', $this->getUserRights());
         }
+        
         if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
             return view('hidro-projekt.BDE.bdeIndex',[
                 'myRecords' => WorkingDayRecordModel::where('user_id', Auth::user()->id)->where('date', date('Y-m-d'))->with('getConstructionSite')->get(),
@@ -44,7 +46,19 @@ class HomeController extends Controller
             ]);
         }else{
             return view('hidro-projekt.admin');
+        }  
+    }
+
+    private function getUserRights(){
+        $user = Auth::user();
+        $userRights=[];
+        //Get special privileges
+        $specialPrivileges = User::where('id', $user->id)->with('getSpecialPrivilege', 'getSpecialPrivilege.getResources')->first()->getSpecialPrivilege;
+        foreach ($specialPrivileges as $resource) {
+            $userRights[]=$resource->getResources->first()->resources;
         }
-        
+        //remove duplicates
+        $userRights = array_unique($userRights);
+        return $userRights;
     }
 }
