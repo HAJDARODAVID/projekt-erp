@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         // -- Check if user has right
         Blade::directive('hasRights', function ($expression) {
-            $right = NULL;
+            $right = 0;
             if(Session::get('user_rights')){
                 $right = in_array($expression, Session::get('user_rights')) ? TRUE : 0;
             }

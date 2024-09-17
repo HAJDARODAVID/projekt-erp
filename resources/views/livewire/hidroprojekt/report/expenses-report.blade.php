@@ -21,8 +21,10 @@
         <div class="d-flex gap-2">
             <button class="btn btn-success btn-lg " wire:click='refreshReports()'><i class="bi bi-arrow-repeat"></i></button>
             @if ($reports[$selectedReport]['config'])
-                <x-v-divider />
-                <button class="btn btn-success btn-lg " wire:click='configBtn()'><i class="bi bi-gear"></i></button>
+                @hasRights(expenses-report-config)
+                    <x-v-divider />
+                    <button class="btn btn-success btn-lg " wire:click='configBtn()'><i class="bi bi-gear"></i></button>
+                @endHasRights
             @endif
         </div>
     </div>
