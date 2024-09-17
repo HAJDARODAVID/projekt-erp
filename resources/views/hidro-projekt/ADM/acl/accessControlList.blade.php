@@ -13,8 +13,6 @@
     @endif
   
     <div class="container">
-        @hasRights(create-resources-or-roles)
-            ovo je sad test
-        @endHasRights
+        @livewire('hidroProjekt.adm.acl.groups-and-resources')
     </div>
 @endsection
