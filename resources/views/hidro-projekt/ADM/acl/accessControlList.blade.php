@@ -13,7 +13,7 @@
     @endif
   
     <div class="container">
-        @hasRights(create-resources-or-roles-fak)
+        @hasRights(create-resources-or-roles)
             ovo je sad test
         @endHasRights
     </div>

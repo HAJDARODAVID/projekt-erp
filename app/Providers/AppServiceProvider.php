@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
             return '<?php echo ({$expression}) ? disabled : "">';
         });
 
+        // -- Check if user has right
         Blade::directive('hasRights', function ($expression) {
             $right = NULL;
             if(Session::get('user_rights')){
@@ -40,7 +41,6 @@ class AppServiceProvider extends ServiceProvider
                 return "<?php if(FALSE): ?>";
             }
         });
-
         Blade::directive('endHasRights', function () {
             return "<?php endif; ?>";
         });
