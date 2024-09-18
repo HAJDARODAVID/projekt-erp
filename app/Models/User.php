@@ -46,6 +46,7 @@ class User extends Authenticatable
         'type',
         'worker_id',
         'active',
+        'inv_update',
     ];
 
     /**
@@ -64,6 +65,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'inv_update' => 'bool',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
@@ -78,6 +80,10 @@ class User extends Authenticatable
 
     public function getSpecialPrivilege():HasMany{
         return $this->hasMany(SpecialPrivilege::class, 'user_id', 'id');
+    }
+
+    public function getUserRoles():HasMany{
+        return $this->hasMany(UserRole::class, 'user_id', 'id');
     }
 
 }

@@ -13,4 +13,8 @@ class RoleGroup extends Model
     protected $table = "role_groups";
     protected $fillable =['name', 'name_hr'];
 
+    public function getRoleResources():HasMany{
+        return $this->hasMany(RoleResource::class, 'role_id', 'id');
+    }
+
 }
