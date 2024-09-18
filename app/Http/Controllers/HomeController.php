@@ -36,10 +36,13 @@ class HomeController extends Controller
             Session::put('is_phone', Agent::isPhone());
         }
 
-        $invokeUserRightsUpdate = Auth::user()->inv_update;
-        if(!Session::get('user_rights') || $invokeUserRightsUpdate){
+        //Get the user update indicator
+        $invokeUserUpdate = Auth::user()->inv_update;
+
+        //Fill the session with user rights
+        if(!Session::get('user_rights') || $invokeUserUpdate){
             Session::put('user_rights', $this->getUserRights());
-            if($invokeUserRightsUpdate){
+            if($invokeUserUpdate){
                 Artisan::call('view:clear');
                 User::where('id', Auth::user()->id)->first()->update([
                     'inv_update' => FALSE,
