@@ -7,13 +7,27 @@ use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Session;
 
 class WorkerTabs extends Component
 {
     public $tabs=[
-        1 => 'Adresa i kontakt',
-        2 => 'Podaci za obračun',
-        3 => 'Povijest radnika',
+        1 => [
+            'name'=>'Adresa i kontakt',
+            'right' => FALSE,
+        ],
+        2 => [
+            'name'=>'Podaci za obračun',
+            'right' => FALSE
+        ],
+        3 => [
+            'name'=>'Povijest radnika',
+            'right' => FALSE
+        ],
+        4 => [
+            'name'=>'Prava/uloge korisnika',
+            'right' => 'can-assign-roles'
+        ],
     ];
 
     #[Url(as: 'tab')]
@@ -40,7 +54,7 @@ class WorkerTabs extends Component
 
     public function updated($key, $value){
         list($property, $column) = explode('.', $key);
-        //if the is a change in h_rate od fix_rate set both to NULL
+        //if there is a change in h_rate od fix_rate set both to NULL
         if($column == 'h_rate' || $column == 'fix_rate'){
             $this->$property['model']->update([
                 'h_rate'   => NULL,
@@ -66,6 +80,13 @@ class WorkerTabs extends Component
     }
 
     public function changeActiveTab($tab){
+        if($this->tabs[$tab]['right']){
+            if(in_array($this->tabs[$tab]['right'], Session::get('user_rights'))){
+                return $this->activeTab = $tab;
+            }else{
+                return $this->activeTab = NULL;
+            }
+        }
         return $this->activeTab = $tab;
     }
 

@@ -2,10 +2,20 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist"> 
         @foreach ($tabs as $key => $tab)
             <li class="nav-item" role="presentation">
-                <button class="nav-link @if ($key == $activeTab) active fw-bold @endif"
+                @if ($tab['right'])
+                    @if(in_array($tab['right'], Session::get('user_rights')))
+                        <button class="nav-link @if ($key == $activeTab) active fw-bold @endif"
+                        wire:click='changeActiveTab("{{ $key }}")'>
+                        {{ $tab['name'] }}
+                        </button>
+                    @endif
+                @else
+                    <button class="nav-link @if ($key == $activeTab) active fw-bold @endif"
                     wire:click='changeActiveTab("{{ $key }}")'>
-                    {{ $tab }}
-                </button>
+                    {{ $tab['name'] }}
+                    </button>
+                @endif
+                
             </li> 
         @endforeach
     </ul>
@@ -101,6 +111,13 @@
                         </div>
                     </div>
                 </div>
+                @break
+            @case(4)
+                @hasRights(can-assign-roles)
+                    <div>
+                        tu budu uloge moji maleni 
+                    </div>
+                @endHasRights
                 @break
         
             @default
