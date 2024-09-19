@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\HidroProjekt;
 
+use App\Models\User;
 use App\Models\WorkerModel;
 use Illuminate\Http\Request;
+use App\Models\AttendanceModel;
 use App\Models\CooperatorsModel;
 use App\Http\Controllers\Controller;
-use App\Models\AttendanceModel;
-use App\Models\CooperatorWorkersModel;
 use App\Models\PayrollBasicInfoModel;
+use App\Models\CooperatorWorkersModel;
 use Illuminate\Support\Facades\Session;
 use App\Services\HidroProjekt\HR\WorkerService;
 use App\Services\HidroProjekt\HR\WorkHoursService;
@@ -40,8 +41,20 @@ class HumanResourcesController extends Controller
             PayrollBasicInfoModel::create(['worker_id' => $id]);
         }
         $workerInfo = WorkerModel::where('id', $id)->with('getWorkerAddress', 'getWorkerContact', 'getWorkerBasicPayrollInfo')->first();
+
+        $userInfo = User::where('worker_id', $id)->with('getUserRoles')->first();
+        $userRoles=[];
+        if(!empty($userInfo)){
+            if(!$userInfo->getUserRoles->isEmpty()){
+                foreach ($userInfo->getUserRoles as $role) {
+                    $userRoles[$role->role_id] = TRUE;
+                }
+            }
+        }
+        
         return view('hidro-projekt.HR.showWorker', [
             'worker' => $workerInfo,
+            'userRoles' => $userRoles,
         ]);
     }
 

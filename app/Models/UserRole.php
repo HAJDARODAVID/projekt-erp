@@ -14,6 +14,8 @@ class UserRole extends Model
     protected $table = "user_roles";
     protected $fillable =['user_id', 'role_id'];
 
+    public $timestamps = false;
+
     public function getRoles():HasOne{
         return $this->hasOne(RoleGroup::class, 'id', 'role_id');
     }

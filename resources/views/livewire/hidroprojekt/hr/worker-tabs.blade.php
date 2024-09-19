@@ -3,7 +3,7 @@
         @foreach ($tabs as $key => $tab)
             <li class="nav-item" role="presentation">
                 @if ($tab['right'])
-                    @if(in_array($tab['right'], Session::get('user_rights')))
+                    @if(app('user_rights')->hasRight('can-assign-roles') && !empty($this->userInfo))
                         <button class="nav-link @if ($key == $activeTab) active fw-bold @endif"
                         wire:click='changeActiveTab("{{ $key }}")'>
                         {{ $tab['name'] }}
@@ -113,11 +113,46 @@
                 </div>
                 @break
             @case(4)
-                @hasRights(can-assign-roles)
-                    <div>
-                        tu budu uloge moji maleni 
+                @if (app('user_rights')->hasRight('can-assign-roles') && !empty($this->userInfo))
+                <div class="d-flex justify-content-center gap-2">
+                    <div class="col-5 border border-light py-2">
+                        <h1 class="h6">Prava/uloge:</h1>
+                        <div class="list-group">
+                            @isset($groups)
+                                @foreach ($groups as $group)
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex justify-content-between">
+                                            <div wire:loading.remove wire:target='userRoles.{{ $group->id }}'>{{ $group->name }}</div>  
+                                            <div wire:loading.remove wire:target='userRoles.{{ $group->id }}'>
+                                                <input class="form-check-input" type="checkbox" wire:model.live='userRoles.{{ $group->id }}' wire:loading.attr="disabled" />
+                                            </div>
+                                            {{-- LOAD SPINNER WHEN LOADING --}}
+                                            <div class="spinner-border" role="status" style="display:none" wire:loading wire:target='userRoles.{{ $group->id }}'>
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach                                 
+                            @endisset
+                        </div>
                     </div>
-                @endHasRights
+                    @if (app('user_rights')->hasRight('can-assign-special-privileges'))
+                        <div class="col-5 border border-light py-2">
+                            <h1 class="h6">Special privileges:</h1>
+                            <div class="list-group">
+                                <div class="list-group-item list-group-item-action">
+                                    <div class="d-flex justify-content-between">
+                                        <div style="cursor: pointer">TESNA ROLA</div>  
+                                        <div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                @endif
                 @break
         
             @default

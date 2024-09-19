@@ -2,6 +2,9 @@
 
 namespace App\Livewire\HidroProjekt\Hr;
 
+use App\Models\RoleGroup;
+use App\Models\User;
+use App\Models\UserRole;
 use Exception;
 use Livewire\Component;
 use Livewire\Attributes\Url;
@@ -38,8 +41,12 @@ class WorkerTabs extends Component
     public $address;
     public $contact;
     public $payrollInfo;
+    public $userRoles;
+    public $userInfo;
 
     public $saveState = [];
+
+    public $groups;
 
     public function mount(){
         $this->address     = $this->workerModel->getWorkerAddress->toArray();
@@ -49,11 +56,18 @@ class WorkerTabs extends Component
         $this->address['model']     = $this->workerModel->getWorkerAddress;
         $this->contact['model']     = $this->workerModel->getWorkerContact;
         $this->payrollInfo['model'] = $this->workerModel->getWorkerBasicPayrollInfo;
+        $this->groups = $this->getAllRoles();
+
+        $this->userInfo = User::where('worker_id', $this->workerModel->id)->first();
         //dd($this->payrollInfo);
     }
 
     public function updated($key, $value){
         list($property, $column) = explode('.', $key);
+        if(method_exists(get_class($this), 'set'.ucfirst($property))){
+            $method = 'set'.ucfirst($property);
+            return $this->$method($key, $value);
+        }
         //if there is a change in h_rate od fix_rate set both to NULL
         if($column == 'h_rate' || $column == 'fix_rate'){
             $this->$property['model']->update([
@@ -79,6 +93,28 @@ class WorkerTabs extends Component
         }
     }
 
+    private function setUserRoles($key, $value){
+        list($property, $role) = explode('.', $key);
+        if(empty($this->userInfo)){
+            unset($this->userRoles[$role]);
+            return $this->dispatch('show-alert-modal', [
+                'title' => 'ERROR!',
+                'message' => "Radnik: ".$this->workerModel->firstName." ".$this->workerModel->lastName.", nema korisnika!",
+                'type' => 'danger',
+            ]);
+        }
+        if(!$value){
+            UserRole::where('user_id', $this->userInfo->id)->where('role_id', $role)->first()->delete();
+        }
+        if($value){
+            UserRole::create([
+                'user_id' => $this->userInfo->id,
+                'role_id' => $role,
+            ]);
+        }
+        return $this->userInfo->update(['inv_update' => 1]);
+    }
+
     public function changeActiveTab($tab){
         if($this->tabs[$tab]['right']){
             if(in_array($this->tabs[$tab]['right'], Session::get('user_rights'))){
@@ -88,6 +124,10 @@ class WorkerTabs extends Component
             }
         }
         return $this->activeTab = $tab;
+    }
+
+    private function getAllRoles(){
+        return RoleGroup::all();
     }
 
     public function render()
