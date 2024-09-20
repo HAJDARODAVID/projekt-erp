@@ -17,7 +17,6 @@
         <script>fadeAway('alert');</script>
     @endif
   
-    <div class="container">
-        @livewire('hidroProjekt.adm.acl.groups-and-resources')
-    </div>
+    @livewire('hidroProjekt.adm.acl.acl-container')
+    
 @endsection
