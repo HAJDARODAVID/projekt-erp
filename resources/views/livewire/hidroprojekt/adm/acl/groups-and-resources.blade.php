@@ -1,4 +1,10 @@
 <div>
+    @if(app('user_rights')->hasRight('create-resources-or-roles'))
+        <div class="d-flex justify-content-end">
+            @livewire('hidroProjekt.adm.acl.add-new-role-or-resource')
+        </div>
+        <hr>
+    @endif
     <div class="row gap-3">
         <div class="col border border-light py-2">
             <h1 class="h5">Roles:</h1>

@@ -2,12 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Access control list</h1>  
-        @hasRights(create-resources-or-roles)
-            <div>
-                @livewire('hidroProjekt.adm.acl.add-new-role-or-resource')
-            </div>
-        @endHasRights    
+        <h1 class="h3">Access control list</h1>   
     </div>
     
     @if ($message = Session::get('success'))

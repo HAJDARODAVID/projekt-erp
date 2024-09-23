@@ -3,7 +3,7 @@
         @foreach ($tabs as $key => $tab)
             <li class="nav-item" role="presentation">
                 @if ($tab['right'])
-                    @if(app('user_rights')->hasRight('can-assign-roles') && !empty($this->userInfo))
+                    @if(app('user_rights')->hasRight($tab['right']) && !empty($this->userInfo))
                         <button class="nav-link @if ($key == $activeTab) active fw-bold @endif"
                         wire:click='changeActiveTab("{{ $key }}")'>
                         {{ $tab['name'] }}
