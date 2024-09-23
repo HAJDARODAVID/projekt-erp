@@ -7,18 +7,29 @@ use App\Models\RoleGroup;
 use App\Models\RoleResource;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 
 class GroupsAndResources extends Component
 {
     public $roles = [];
     public $selectedRole=NULL;
 
-    public $resources = [];
+    public $resources;
     public $selectedResources=[];
+
+    #[Url(as: 'search')]
+    public $searchResources;
 
     public function mount(){
         $this->roles     = $this->getAllRoles();
         $this->resources = $this->getAllResources();
+    }
+
+    public function updatedSearchResources($key, $value){
+        if($key == ""){
+            return $this->resources = $this->getAllResources();
+        }
+        return $this->resources = Resources::where('resources', 'like', '%' . $key . '%')->get();
     }
 
     public function updatedSelectedResources($key, $value){
@@ -34,6 +45,11 @@ class GroupsAndResources extends Component
                 return $rs->delete();
             }
         }
+    }
+
+    public function resetSearch(){
+        $this->searchResources = NULL;
+        return $this->resources = $this->getAllResources();
     }
 
     #[On('refresh-roles-grouping')]

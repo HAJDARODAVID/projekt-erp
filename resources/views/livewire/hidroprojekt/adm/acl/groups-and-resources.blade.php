@@ -35,7 +35,19 @@
             </div>
         </div>
         <div class="col border border-light py-2">
-            <h1 class="h5">Resources:</h1>
+            <div class="d-flex justify-content-between">
+                <h1 class="h5">Resources:</h1>
+                <div class="input-group" style="width:200px" >
+                    <input class="form-control form-control-sm" type="text" placeholder="Search" wire:model.blur='searchResources'>
+                    @if ($searchResources)
+                        <div class="input-group-append">
+                            {{-- <div class="input-group-text">€</div> --}}
+                            <button class="btn btn-danger btn-sm" wire:click='resetSearch()'>X</button>
+                        </div>
+                    @endif
+                </div>
+            </div>
+           
             @foreach ($resources as $rs)
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="{{ $rs->id }}" wire:model.live='selectedResources.{{ $rs->id }}' @if(!$selectedRole) disabled @endif>
