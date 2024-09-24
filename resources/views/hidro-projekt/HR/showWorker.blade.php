@@ -26,6 +26,7 @@
     <div class="mt-3">
         @livewire('hidroProjekt.hr.worker-tabs',[
             'workerModel' => $worker,
+            'userRoles' => $userRoles
         ])
     </div>
     

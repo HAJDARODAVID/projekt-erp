@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\SpecialPrivilege;
+use Jenssegers\Agent\Facades\Agent;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WorkingDayRecordModel;
 use App\Models\InventoryCheckingModel;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
-use Jenssegers\Agent\Facades\Agent;
 
 class HomeController extends Controller
 {
@@ -34,9 +36,20 @@ class HomeController extends Controller
             Session::put('is_phone', Agent::isPhone());
         }
 
-        if(!Session::get('user_rights')){
-            
+        //Get the user update indicator
+        $invokeUserUpdate = Auth::user()->inv_update;
+
+        //Fill the session with user rights
+        if(!Session::get('user_rights') || $invokeUserUpdate){
+            Session::put('user_rights', $this->getUserRights());
+            if($invokeUserUpdate){
+                Artisan::call('view:clear');
+                User::where('id', Auth::user()->id)->first()->update([
+                    'inv_update' => FALSE,
+                ]);
+            }
         }
+        
         if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
             return view('hidro-projekt.BDE.bdeIndex',[
                 'myRecords' => WorkingDayRecordModel::where('user_id', Auth::user()->id)->where('date', date('Y-m-d'))->with('getConstructionSite')->get(),
@@ -44,7 +57,34 @@ class HomeController extends Controller
             ]);
         }else{
             return view('hidro-projekt.admin');
+        }  
+    }
+
+    private function getUserRights(){
+        $user = Auth::user();
+        $userRights=[];
+        $userInfo = User::where('id', $user->id)
+            ->with(
+                'getSpecialPrivilege', 
+                'getSpecialPrivilege.getResources',
+                'getUserRoles.getRoles.getRoleResources.getResource'
+                )
+            ->first();
+        $specialPrivileges = $userInfo->getSpecialPrivilege;
+        $roles =  $userInfo->getUserRoles;
+        //Get special privileges
+        foreach ($specialPrivileges as $resource) {
+            $userRights[]=$resource->getResources->first()->resources;
         }
-        
+        //dd($roles);
+        //Get roles privileges
+        foreach ($roles as $role) {
+            foreach ($role->getRoles->getRoleResources as $resource) {
+                $userRights[]=$resource->getResource->resources;
+            }
+        }
+        //remove duplicates
+        $userRights = array_unique($userRights);
+        return $userRights;
     }
 }

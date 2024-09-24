@@ -7,6 +7,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -45,6 +46,7 @@ class User extends Authenticatable
         'type',
         'worker_id',
         'active',
+        'inv_update',
     ];
 
     /**
@@ -63,6 +65,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'inv_update' => 'bool',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
@@ -73,6 +76,14 @@ class User extends Authenticatable
 
     public function getWorker():HasOne{
         return $this->hasOne(WorkerModel::class, 'id','worker_id');
+    }
+
+    public function getSpecialPrivilege():HasMany{
+        return $this->hasMany(SpecialPrivilege::class, 'user_id', 'id');
+    }
+
+    public function getUserRoles():HasMany{
+        return $this->hasMany(UserRole::class, 'user_id', 'id');
     }
 
 }

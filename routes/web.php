@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Resources;
 use App\Models\MaterialDocModel;
+use App\Models\SpecialPrivilege;
 use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +14,7 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\CostOverviewController;
 use App\Http\Controllers\WorkDayDiaryController;
+use App\Http\Controllers\AccessControlListController;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
 use App\Http\Controllers\HidroProjekt\TicketController;
@@ -124,6 +127,13 @@ Route::prefix('/')
                             Route::get('/{inv_name}', 'activeInventoryChecking')->name('hp_activeInventoryChecking');
 
                             Route::get('qr_reader/{inv_name}', 'inventoryQrReader')->name('hp_inventoryQrReader');
+                        });
+                    });
+                Route::prefix('/acl')
+                    ->group(function(){
+                        Route::controller(AccessControlListController::class)
+                        ->group(function(){
+                            Route::get('/', 'accessControlList')->name('hp_acl');
                         });
                     });
                 
@@ -244,8 +254,7 @@ Route::get('/clear', function() {
 });
 
 Route::get('test',function(){
-    dd(MaterialDocModel::first()->fullName);
-    return view('test', [
-        'data' => MaterialMasterData::get()
+    return Resources::create([
+        'resources' => 'expenses-report-config',
     ]);
 });
