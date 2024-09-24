@@ -2,12 +2,13 @@
 
 namespace App\Livewire\HidroProjekt\Hr;
 
-use App\Models\RoleGroup;
-use App\Models\User;
-use App\Models\UserRole;
 use Exception;
+use App\Models\User;
 use Livewire\Component;
+use App\Models\UserRole;
+use App\Models\RoleGroup;
 use Livewire\Attributes\Url;
+use App\Helpers\UserRightsHelper;
 use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Session;
@@ -117,7 +118,7 @@ class WorkerTabs extends Component
 
     public function changeActiveTab($tab){
         if($this->tabs[$tab]['right']){
-            if(in_array($this->tabs[$tab]['right'], Session::get('user_rights'))){
+            if((new UserRightsHelper)->hasRight($this->tabs[$tab]['right'])){
                 return $this->activeTab = $tab;
             }else{
                 return $this->activeTab = NULL;
