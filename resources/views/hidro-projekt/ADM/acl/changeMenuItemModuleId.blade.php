@@ -1,5 +1,5 @@
 <div>
-    @livewire('hidroprojekt.adm.acl.change-data-in-menu-items-table', [
+    @livewire('hidroProjekt.adm.acl.change-data-in-menu-items-table', [
         'row' => $row,
         'for' => 'module_id',
         'type' => 'select',
