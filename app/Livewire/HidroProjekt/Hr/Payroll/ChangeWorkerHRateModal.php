@@ -31,10 +31,11 @@ class ChangeWorkerHRateModal extends Component
                     'worker_id' => $this->worker->id,
                     'h_rate' => $this->newValue,     
                 ]);
+            }else{
+                $wbpi->update([
+                    'h_rate' => $this->newValue,
+                ]);
             }
-            $wbpi->update([
-                'h_rate' => $this->newValue,
-            ]);
         }
         $this->showModal = FALSE;
         $this->dispatch('h-rate-confirmation', confirmation: TRUE, worker: $this->worker->id);
