@@ -6,10 +6,14 @@
         Da li želite promjeniti satnicu u matičnim podacima: <br>
         Radnik: {{ $worker->fullName }} <br>
         Promjena: 
-        @if (is_null($worker->getWorkerBasicPayrollInfo->h_rate))
-            {{ number_format(0,2) }}
+        @if (!is_null($worker->getWorkerBasicPayrollInfo))
+            @if (is_null($worker->getWorkerBasicPayrollInfo->h_rate))
+                {{ number_format(0,2) }}
+            @else
+                {{ $worker->getWorkerBasicPayrollInfo->h_rate }}
+            @endif
         @else
-            {{ $worker->getWorkerBasicPayrollInfo->h_rate }}
+            {{ number_format(0,2) }}
         @endif
         --> {{ number_format($newValue,2) }}
     @endisset
