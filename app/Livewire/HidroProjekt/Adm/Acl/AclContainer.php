@@ -14,7 +14,7 @@ class AclContainer extends Component
             'right' => FALSE,
         ],
         2 => [
-            'name'=>'Moduli',
+            'name'=>'Module <--> routes',
             'right' => FALSE,
         ],
     ];

@@ -27,7 +27,7 @@
                     @livewire('hidroProjekt.adm.acl.groups-and-resources')
                     @break
                 @case(2)
-                    TEST
+                    @livewire('hidroProjekt.adm.acl.modules-rights-container')
                     @break
             
                 @default
