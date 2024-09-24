@@ -32,6 +32,8 @@ class MenuItemsTable extends DataTableComponent
                 ->view('hidro-projekt.ADM.acl.changeMenuItemRouteName'),
             Column::make("Module", "module_id")
                 ->view('hidro-projekt.ADM.acl.changeMenuItemModuleId'),
+            Column::make("Resource", "resource_id")
+                ->view('hidro-projekt.ADM.acl.changeMenuItemResourceId'),
         ];
     }
 

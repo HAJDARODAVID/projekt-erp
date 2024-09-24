@@ -3,6 +3,7 @@
 namespace App\Livewire\HidroProjekt\Adm\Acl;
 
 use App\Models\ModuleItemModel;
+use App\Models\Resources;
 use Livewire\Component;
 
 class ChangeDataInMenuItemsTable extends Component
@@ -34,6 +35,9 @@ class ChangeDataInMenuItemsTable extends Component
             case 'module_id':
                 return ModuleItemModel::all();
                 break;
+            case 'resource_id':
+                    return Resources::where('resources', 'like', 'menu-item%')->get();
+                    break;
             
             default:
                 # code...
@@ -46,6 +50,7 @@ class ChangeDataInMenuItemsTable extends Component
             'name' => $this->row->name,
             'route_name' => $this->row->route_name,
             'module_id' => $this->row->module_id,
+            'resource_id' => $this->row->resource_id,
         ];
     }
 

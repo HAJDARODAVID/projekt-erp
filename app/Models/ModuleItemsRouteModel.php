@@ -13,7 +13,7 @@ class ModuleItemsRouteModel extends Model
     protected $table = 'module_item_routes';
 
     protected $fillable = [
-        'name', 'route_name', 'module_id'
+        'name', 'route_name', 'module_id', 'resource_id',
     ];
 
     public $timestamps = false;
