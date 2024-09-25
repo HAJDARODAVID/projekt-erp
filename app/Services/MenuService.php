@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\ModuleItemModel;
-use App\Models\ModuleItemsRouteModel;
+use App\Models\User;
 use App\Models\Resources;
+use App\Models\ModuleItemModel;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ModuleItemsRouteModel;
 use Illuminate\Support\Facades\Session;
 
 /**
@@ -27,15 +29,17 @@ class MenuService
         }
 
         //CHECK FOR RIGHTS
-        foreach ($finalMenuArray as $mkey => $module) {
-            foreach ($module['menu_items'] as $key => $items) {
-                if(is_null($items['resource_id'])){
-                    continue;
-                }
-                if(!in_array($resources[$items['resource_id']], $userRights)){
-                    unset($finalMenuArray[$mkey]['menu_items'][$key]);
-                }
-            }  
+        if(Auth::user()->type != User::USER_TYPE_SUPER_ADMIN){
+            foreach ($finalMenuArray as $mkey => $module) {
+                foreach ($module['menu_items'] as $key => $items) {
+                    if(is_null($items['resource_id'])){
+                        continue;
+                    }
+                    if(!in_array($resources[$items['resource_id']], $userRights)){
+                        unset($finalMenuArray[$mkey]['menu_items'][$key]);
+                    }
+                }  
+            }
         }
 
         // REMOVED MODULE IF THERE IS NO ROUTES IN IT
