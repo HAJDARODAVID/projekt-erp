@@ -35,9 +35,16 @@ class MenuService
                 if(!in_array($resources[$items['resource_id']], $userRights)){
                     unset($finalMenuArray[$mkey]['menu_items'][$key]);
                 }
-            }
-            
+            }  
         }
+        //dd($finalMenuArray);
+        // REMOVED MODULE IF THERE IS NO ROUTES IN IT
+        foreach ($finalMenuArray as $mkey => $module) {
+            if(!count($module['menu_items'])){
+                unset($finalMenuArray[$mkey]);
+            } 
+        }
+
         return $finalMenuArray;
     }
 

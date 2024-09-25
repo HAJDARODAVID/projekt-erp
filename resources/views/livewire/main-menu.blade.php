@@ -60,3 +60,14 @@
         </form>
     @endif
 </div>
+
+<script>
+    function showHideRoutes(routes) {
+      var x = document.getElementById(routes);
+      if (x.style.display === 'none') {
+      x.style.display = 'block';
+      } else {
+      x.style.display = 'none';
+      }
+    }
+  </script>
