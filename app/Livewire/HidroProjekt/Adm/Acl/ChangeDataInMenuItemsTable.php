@@ -23,6 +23,11 @@ class ChangeDataInMenuItemsTable extends Component
 
     public function updatedData($key, $value){
         if($key != ""){
+            if($key == "NULL"){
+                return $this->row->update([
+                            $value => NULL,
+                        ]);
+            }
             $this->row->update([
                 $value => $key,
             ]);

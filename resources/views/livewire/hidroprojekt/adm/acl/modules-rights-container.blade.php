@@ -1,7 +1,6 @@
 <div>
     <div class="d-flex justify-content-end gap-1">
-        <button class="btn btn-success btn-lg"><i class="bi bi-collection"></i></button>
-    <button class="btn btn-success btn-lg"><i class="bi bi-gear"></i></button>
+        @livewire('hidroProjekt.adm.acl.routes-and-rights-modal')
     </div>
     <hr>
     @livewire('hidroProjekt.adm.acl.menu-items-table', [

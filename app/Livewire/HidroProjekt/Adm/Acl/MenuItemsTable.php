@@ -6,6 +6,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\ModuleItemsRouteModel;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 
 class MenuItemsTable extends DataTableComponent
 {
@@ -35,6 +36,11 @@ class MenuItemsTable extends DataTableComponent
             Column::make("Resource", "resource_id")
                 ->view('hidro-projekt.ADM.acl.changeMenuItemResourceId'),
         ];
+    }
+
+    #[On('refresh-menu-items-table')]
+    public function refreshThisTable(){
+        return;
     }
 
     public function builder(): Builder{
