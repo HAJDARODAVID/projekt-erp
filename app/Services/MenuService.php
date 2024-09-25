@@ -37,7 +37,7 @@ class MenuService
                 }
             }  
         }
-        //dd($finalMenuArray);
+
         // REMOVED MODULE IF THERE IS NO ROUTES IN IT
         foreach ($finalMenuArray as $mkey => $module) {
             if(!count($module['menu_items'])){
