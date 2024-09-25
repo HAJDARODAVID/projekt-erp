@@ -32,6 +32,7 @@ class MainMenu extends Component
     }
 
     private function setActiveModule(){
+        dd($this->preFix[0]);
         return ModuleItemModel::where('module_prefix', strtoupper($this->preFix[0]))->first()->id;
     }
 
