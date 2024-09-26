@@ -3,15 +3,14 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Pregled računa</h1>
-        @hasRights(create-or-edit-bills)
+        @if (app('user_rights')->hasRight('create-or-edit-bills'))
             <div  class="d-flex gap-2">
                 @livewire('hidroProjekt.costs.add-new-bill-modal-component', key('add-new-bill'))
                 <x-v-divider></x-v-divider>
                 @livewire('hidroProjekt.costs.add-new-provider-modal')
                 @livewire('hidroProjekt.costs.add-new-category-modal')   
             </div>
-        @endHasRights
-            
+        @endif     
     </div>
     
     @if ($message = Session::get('success'))
