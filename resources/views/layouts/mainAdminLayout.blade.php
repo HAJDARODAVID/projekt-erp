@@ -117,13 +117,9 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3 sidebar-sticky">
-
-        @if (Auth::user()->id == 1 || Auth::user()->id == 15)
           @livewire('main-menu')  
-        @else
-          <x-admin-module-menu-items></x-admin-module-menu-items>
-        @endif
-        
+          {{-- OLD MENU - BACK UP --}}
+          {{-- <x-admin-module-menu-items></x-admin-module-menu-items> --}}
       </div>
     </nav>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
