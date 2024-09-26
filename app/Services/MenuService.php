@@ -20,6 +20,11 @@ class MenuService
         $userRights = Session::get('user_rights');
         $resources = Resources::pluck('resources', 'id')->toArray();
 
+        //set userRights as array if there is no rights
+        if(!is_array($userRights)){
+            $userRights = [];
+        }
+
         $finalMenuArray = [];
 
         //CREATE MENU ITEMS STRUCTURE
