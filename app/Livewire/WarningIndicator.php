@@ -9,8 +9,12 @@ class WarningIndicator extends Component
 {
     public $show=false;
 
+    public function mount(){
+        $this->getIndicator();
+    }
+
     public function getIndicator(){
-        return $this->show = $this->show = Auth::user()->inv_update;
+        return $this->show = Auth::user()->inv_update;
     }
 
     public function render()
