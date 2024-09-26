@@ -121,6 +121,7 @@
           {{-- OLD MENU - BACK UP --}}
           {{-- <x-admin-module-menu-items></x-admin-module-menu-items> --}}
           <div class="mt-auto px-2 pb-3">
+            <hr>
             <div class="dropdown"
             onmouseover="document.getElementById('profil-menu').classList.add('show');">
               <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle">
