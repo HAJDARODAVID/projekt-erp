@@ -116,10 +116,11 @@
 <div class="container-fluid">
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-3 sidebar-sticky">
+      <div class="d-flex flex-column position-sticky pt-3 sidebar-sticky">
           @livewire('main-menu')  
           {{-- OLD MENU - BACK UP --}}
           {{-- <x-admin-module-menu-items></x-admin-module-menu-items> --}}
+          @livewire('my-profile-component')
       </div>
     </nav>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
