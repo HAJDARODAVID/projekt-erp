@@ -94,6 +94,15 @@
         }, milliseconds);
       }
     </script>
+    <script>
+        function setDashBoardCardBodyHeight(div){
+            element = document.getElementById(div);
+            element_body = document.getElementById(div+'_body');
+            element_body.style.height = (element.clientHeight-40)+"px"; 
+            console.log(element.clientHeight+"px");
+            
+        }
+    </script>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 d-flex" href="{{route('home')}}">Hidro-projekt ERP &nbsp; @livewire('warning-indicator')</a>
@@ -123,7 +132,7 @@
           @livewire('my-profile-component')
       </div>
     </nav>
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-md-4 vh-100">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-md-4">
         @yield('content')   
 
         @livewire('alert-modal')
