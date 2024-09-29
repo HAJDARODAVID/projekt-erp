@@ -26,6 +26,12 @@ class ManualMaterialConsumptionBtn extends Component
         $this->qty = $this->row->qty;
     }
 
+    public function updatedQty($key, $value){
+        if($key > $this->row->qty){
+            return $this->qty = $this->row->qty;
+        }
+    }
+
     public function sendMaterialToConsumption(){
         $itemsData=[];
         $itemsData[]=[
