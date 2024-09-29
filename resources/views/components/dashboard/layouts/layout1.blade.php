@@ -2,21 +2,15 @@
 
     <div class="row h-25">
         <x-dashboard.card-component>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error, repudiandae vero architec
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aut et eveniet explicabo vel, itaque sit, nostrum quis facilis esse qui perspiciatis temporibus nemo magni libero dolore quidem. Nemo atque dolorem fugit repellendus expedita laudantium earum quos eveniet minima sunt facilis ducimus excepturi error porro ratione alias similique culpa, quas quibusdam saepe quaerat dolorum illo rem! Repellat, vitae blanditiis corrupti molestias atque odit voluptatibus cupiditate at quisquam culpa veritatis sequi aliquam fuga accusamus laboriosam aspernatur perferendis! Ut quae ipsa eligendi qui magni quisquam dolorum voluptas, non ratione neque impedit consequuntur nobis dignissimos omnis pariatur harum velit voluptate vel. Eveniet porro, maxime itaque nobis ad odit quae molestias consequuntur pariatur a exercitationem mollitia aliquid reprehenderit autem rerum veniam perspiciatis nulla ducimus officiis facere! Dolore dolorem laboriosam ipsam molestias quo cupiditate explicabo similique nisi quas asperiores! Incidunt explicabo consectetur rerum eligendi odit quo modi accusamus delectus id, sit quam fugit perspiciatis. Dolorem.
     </x-dashboard.card-component>
         <x-dashboard.card-component>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error, repudiandae vero architecto 
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit hic dolor molestias recusandae placeat facilis cum et assumenda consequuntur fuga quas ratione, aliquam veritatis quod, at quis minus. Voluptatem totam iste ut, fuga quas soluta dolore. Eligendi reprehenderit quaerat accusantium ipsa voluptatibus, unde reiciendis fugit harum at ducimus sequi placeat possimus quod mollitia corporis ab perferendis vel repellendus velit. Delectus in, aliquam atque labore necessitatibus commodi veritatis neque, adipisci ut tempore aspernatur ullam asperiores. Facere, eius. Voluptas natus esse quas repellat dolorum rem ipsum deleniti totam necessitatibus temporibus, debitis eveniet in voluptatibus quis delectus quam blanditiis repudiandae, laborum soluta, tempora nisi ad voluptatum dolore. Doloribus, quis? Quibusdam, officiis eius dolore repellat hic, incidunt tempore quasi totam nulla tempora ea esse reiciendis dolorem quo. Quo temporibus suscipit itaque dolores ex quibusdam dolore accusantium ipsam repellat dolorem tempore, sequi asperiores, quam molestias numquam nostrum omnis deleniti aliquid iste culpa. Esse eius officiis ex ad, necessitatibus veritatis quod fugit, sed facilis earum, modi architecto. Eaque eligendi consectetur consequuntur. Delectus quos dolore amet, nemo ipsam inventore fugit voluptatem, distinctio similique reprehenderit dicta, ea ducimus. Laudantium doloribus rerum quisquam dignissimos dolorem veritatis in asperiores est fugit. Tempora nostrum, possimus doloribus natus corrupti magnam at maxime quis aliquam quod quo, distinctio sapiente laboriosam excepturi, placeat pariatur corporis adipisci dicta voluptatum consequatur eum qui fugiat facere repudiandae. Est eos tempore eius aliquid omnis ab explicabo ipsam ea consequuntur praesentium iure, harum minima aliquam quaerat iste molestiae, unde cum repellat doloribus! Architecto, nobis! Tempore natus a deserunt!
         </x-dashboard.card-component>
         <x-dashboard.card-component>
             
         </x-dashboard.card-component>
     </div>
     <div class="row h-75 mt-3">
-        <x-dashboard.card-component>
-            
-        </x-dashboard.card-component>
-        <x-dashboard.card-component>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error, repudiandae vero architecto molestiae nam voluptas iure vitae dolore, quaerat sapiente voluptate facilis illo ut, temporibus repellat ab! Ipsum ullam aut temporibus pariatur molestiae iure atque minus ad suscipit, minima, laboriosam optio consequatur 
-    </x-dashboard.card-component>
     </div>
 </div>

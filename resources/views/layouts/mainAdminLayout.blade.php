@@ -97,6 +97,8 @@
     <script>
         function setDashBoardCardBodyHeight(div){
             element = document.getElementById(div);
+            console.log(element.clientHeight);
+            
             element_body = document.getElementById(div+'_body');
             element_body.style.height = (element.clientHeight-40)+"px"; 
             console.log(element.clientHeight+"px");

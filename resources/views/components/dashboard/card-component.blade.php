@@ -5,9 +5,10 @@
                 <b>{{ strtoupper('Stanje materijala') }}</b>
             </div>
     </div>
-    <div id="{{ $cardId }}_body">
-        <div style="overflow: visible;" >{{ $slot }}</div>
-               
+    
+    <div id="{{ $cardId }}_body" class="py-3 px-4 overflow-auto">
+        {{ $slot }}  
     </div>
     <script>setDashBoardCardBodyHeight("{{ $cardId }}")</script>
+    
 </div>
