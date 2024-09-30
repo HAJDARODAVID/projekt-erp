@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Resources;
+use App\Http\Controllers\Test;
 use App\Models\MaterialDocModel;
 use App\Models\SpecialPrivilege;
 use App\Models\MaterialMasterData;
@@ -253,8 +254,5 @@ Route::get('/clear', function() {
 
 });
 
-Route::get('test',function(){
-    return Resources::create([
-        'resources' => 'expenses-report-config',
-    ]);
-});
+Route::get('test', [Test::class, 'index']);
+
