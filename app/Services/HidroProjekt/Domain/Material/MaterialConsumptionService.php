@@ -12,7 +12,9 @@ use App\Exceptions\MissingArgumentException;
 use App\Exceptions\MaterialNotOnStockException;
 use App\Exceptions\MaterialDoesNotExistsException;
 use App\Exceptions\ConstructionSiteDoesNotExistsException;
+use App\Services\HidroProjekt\Domain\Movement\MovementService;
 use App\Services\HidroProjekt\Domain\Movement\MovementTypes;
+use App\Services\HidroProjekt\Domain\Storage\StorageLocation;
 
 class MaterialConsumptionService{
 
@@ -37,13 +39,26 @@ class MaterialConsumptionService{
         $this->user = Auth::user();
     }
 
+    public function consume(){
+        // foreach ($this->data as $item) {
+        //     dd($item);
+        // }
+        $mvtObj = new MovementService(
+            $this->mvt,
+            StorageLocation::CONSTRUCTION_SITE);
+        dd($mvtObj);
+    }
+
     public function addItemToConsumer($item){
         $this->newItem = $item;
         $validation = $this->isItemArray()
             ->areItemKeysSet()
             ->areItemKeysNotEmpty()
             ->isMaterialValid()
-            ->isMaterialOnConstructionSite();        
+            ->isMaterialOnConstructionSite(); 
+        $this->data[] = $this->newItem;
+        $this->newItem = NULL;
+        return $this;
     }
 
     private function setMvt($mvt){
@@ -104,7 +119,7 @@ class MaterialConsumptionService{
 
     private function isMaterialOnConstructionSite(){
         //Check if material is available on construction site stock
-        $stock = StorageStockItem::where('cons_id', $this->site->id)->where('mat_id', $this->newItem['mat_id'])->get();
+        $stock = StorageStockItem::where('cons_id', $this->site->id)->where('mat_id', $this->newItem['mat_id'])->where('qty', '>', 0)->get();
         if($stock->isEmpty()){
             $mat_id = $this->newItem['mat_id'];
             $this->newItem = NULL;

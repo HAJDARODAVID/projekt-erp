@@ -9,11 +9,15 @@ class Test extends Controller
 {
     public function index(){
         try {
-            $service = new MaterialConsumptionService(501,17);
-            $service->addItemToConsumer([
-                'mat_id' => '50125587',
-                'qty' => 52,
-            ]);
+            $mat = 500032;
+            $service = new MaterialConsumptionService(501,4);
+            for ($i=0; $i < 10; $i++) { 
+                $service->addItemToConsumer([
+                    'mat_id' => $mat,
+                    'qty' => 52+$i,
+                ]);
+            }
+            $service->consume();
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
