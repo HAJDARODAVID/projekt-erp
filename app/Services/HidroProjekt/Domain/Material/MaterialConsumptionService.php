@@ -2,12 +2,14 @@
 
 namespace App\Services\HidroProjekt\Domain\Material;
 
+use App\Models\StorageStockItem;
 use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ConstructionSiteModel;
 use App\Exceptions\MustBeArrayException;
 use App\Exceptions\NotAllowedMvtException;
 use App\Exceptions\MissingArgumentException;
+use App\Exceptions\MaterialNotOnStockException;
 use App\Exceptions\MaterialDoesNotExistsException;
 use App\Exceptions\ConstructionSiteDoesNotExistsException;
 use App\Services\HidroProjekt\Domain\Movement\MovementTypes;
@@ -23,6 +25,7 @@ class MaterialConsumptionService{
     private $site;
     private $user;
     private $data=[];
+    private $newItem = NULL;
 
     public function __construct(
         $mvt = NULL,
@@ -35,30 +38,12 @@ class MaterialConsumptionService{
     }
 
     public function addItemToConsumer($item){
-        //Check if $item is array
-        if(!is_array($item)){
-            return throw new MustBeArrayException;
-        }
-
-        //Check if the necessary keys are set
-        if(!isset($item['mat_id']) || !isset($item['qty'])){
-            return throw new MissingArgumentException('mat_id/qty[ERROR#001]');
-        }
-
-        //Check if the keys are not empty
-        if($item['mat_id'] == "" || $item['qty'] == ""){
-            return throw new MissingArgumentException('mat_id/qty[ERROR#002]');
-        }
-
-        //Check if material is valid
-        $mat = MaterialMasterData::where('id', $item['mat_id'])->where('active', TRUE)->get();
-        if($mat->isEmpty()){
-            return throw new MaterialDoesNotExistsException(['id' => $item['mat_id']]);
-        }
-
-        //Check if material is available on construction site stock
-
-        
+        $this->newItem = $item;
+        $validation = $this->isItemArray()
+            ->areItemKeysSet()
+            ->areItemKeysNotEmpty()
+            ->isMaterialValid()
+            ->isMaterialOnConstructionSite();        
     }
 
     private function setMvt($mvt){
@@ -77,6 +62,55 @@ class MaterialConsumptionService{
             return throw new ConstructionSiteDoesNotExistsException(['id' => $site_id]);
         }
         return $site->first();
+    }
+
+    private function isItemArray(){
+        //Check if $item is array
+        if(!is_array($this->newItem)){
+            $this->newItem = NULL;
+            return throw new MustBeArrayException;
+        }
+        return $this;
+    }
+
+    private function areItemKeysSet(){
+        //Check if the necessary keys are set
+        if(!isset($this->newItem['mat_id']) || !isset($this->newItem['qty'])){
+            $this->newItem = NULL;
+            return throw new MissingArgumentException('mat_id/qty[ERROR#001]');
+        }
+        return $this;
+    }
+
+    private function areItemKeysNotEmpty(){
+        //Check if the keys are not empty
+        if($this->newItem['mat_id'] == "" || $this->newItem['qty'] == ""){
+            $this->newItem = NULL;
+            return throw new MissingArgumentException('mat_id/qty[ERROR#002]');
+        }
+        return $this;
+    }
+
+    private function isMaterialValid(){
+        //Check if material is valid
+        $mat = MaterialMasterData::where('id', $this->newItem['mat_id'])->where('active', TRUE)->get();
+        if($mat->isEmpty()){
+            $mat_id = $this->newItem['mat_id'];
+            $this->newItem = NULL;
+            return throw new MaterialDoesNotExistsException(['id' => $mat_id]);
+        }
+        return $this;
+    }
+
+    private function isMaterialOnConstructionSite(){
+        //Check if material is available on construction site stock
+        $stock = StorageStockItem::where('cons_id', $this->site->id)->where('mat_id', $this->newItem['mat_id'])->get();
+        if($stock->isEmpty()){
+            $mat_id = $this->newItem['mat_id'];
+            $this->newItem = NULL;
+            return throw new MaterialNotOnStockException(['id' => $mat_id]);
+        }
+        return $this;
     }
     
 }

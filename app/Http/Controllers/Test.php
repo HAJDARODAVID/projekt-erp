@@ -11,8 +11,8 @@ class Test extends Controller
         try {
             $service = new MaterialConsumptionService(501,17);
             $service->addItemToConsumer([
-                'mat_id' => "",
-                'qty' => "tes",
+                'mat_id' => '50125587',
+                'qty' => 52,
             ]);
         } catch (\Exception $e) {
             dd($e->getMessage());
