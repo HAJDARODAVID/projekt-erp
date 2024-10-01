@@ -33,6 +33,10 @@ class CooperatorsExportWorkHoursTransformer
         return $this->data['list'];
     }
 
+    public function getSummarizedAttendance(){
+        return $this->data['summarized_by_worker'];
+    }
+
     public function isEmpty(){
         return $this->isEmpty;
     }
@@ -76,7 +80,18 @@ class CooperatorsExportWorkHoursTransformer
     }
 
     private function setSummarizedAttendance($att){
-        return NULL;
+        $data=[];
+        $workerObj=$att;
+        //dd($att->get());
+        $workers=$workerObj->get()->groupBy('worker_id');
+        foreach ($workers as $worker) { 
+            $date[]=[
+                '#' => $worker->first()->worker_id,
+                'Ime i prezime' =>$worker->first()->getWorkerInfo->firstName ." " . $worker->first()->getWorkerInfo->lastName,
+                'OS' => $worker->sum('work_hours'),
+            ];
+        }
+        return $date;
     }
 
     private function setCoop($coopId){
