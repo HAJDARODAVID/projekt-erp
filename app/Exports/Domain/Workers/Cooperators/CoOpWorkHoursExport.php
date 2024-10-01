@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use App\Exports\Domain\Workers\Cooperators\Sheets\AttendanceListSheet;
+use App\Exports\Domain\Workers\Cooperators\Sheets\AttendanceSummarizedSheet;
 
 class CoOpWorkHoursExport implements WithMultipleSheets, Responsable
 {
@@ -33,9 +34,8 @@ class CoOpWorkHoursExport implements WithMultipleSheets, Responsable
     public function sheets(): array
     {
         $sheets = [];
-
+        $sheets[] = new AttendanceSummarizedSheet($this->summarized);
         $sheets[] = new AttendanceListSheet($this->list);
-
         return $sheets;
     }
 }
