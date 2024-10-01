@@ -258,3 +258,5 @@ Route::get('test',function(){
         'resources' => 'expenses-report-config',
     ]);
 });
+
+Route::get('/test2', [App\Http\Controllers\Test2::class, 'index']);
