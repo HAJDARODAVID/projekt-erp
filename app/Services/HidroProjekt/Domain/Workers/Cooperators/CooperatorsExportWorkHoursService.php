@@ -48,8 +48,12 @@ class CooperatorsExportWorkHoursService
             ->whereIn('worker_id',$co_opWorkers)
             ->whereNotNull('work_hours');
         $this->isEmpty = $attendance->get()->isEmpty();
-        $this->data['list'] = $this->setAttendanceList($attendance);
-        $this->data['summarized_by_worker'] = $this->setSummarizedAttendance($attendance);
+        $this->data['list'] = NULL;
+        $this->data['summarized_by_worker'] = NULL;
+        if(!($this->isEmpty)){
+            $this->data['list'] = $this->setAttendanceList($attendance);
+            $this->data['summarized_by_worker'] = $this->setSummarizedAttendance($attendance);
+        }
         return $this;
     }
 
@@ -82,7 +86,6 @@ class CooperatorsExportWorkHoursService
     private function setSummarizedAttendance($att){
         $data=[];
         $workerObj=$att;
-        //dd($att->get());
         $workers=$workerObj->get()->groupBy('worker_id');
         foreach ($workers as $worker) { 
             $date[]=[

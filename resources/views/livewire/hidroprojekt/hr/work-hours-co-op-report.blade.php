@@ -1,20 +1,26 @@
 <div>
-    <div class="row g-3">
-        <div class="col-md-2">
-            <label for="inputState" class="form-label"><b>Godina</b></label>
-            <select id="inputState" class="form-select" wire:model.live='selectedYear'>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-            </select>
-          </div>
-        <div class="col-md-2">
-          <label for="inputState" class="form-label"><b>Mjesec</b></label>
-          <select id="inputState" class="form-select" wire:model.live='selectedMonth'>
-            @foreach ($months as $key => $month)
-                <option value="{{ $key }}">{{ $month }}</option>
-            @endforeach
-          </select>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="row g-3">
+            <div class="col-md-2" style="width: 200px">
+                <label for="inputState" class="form-label"><b>Godina</b></label>
+                <select id="inputState" class="form-select" wire:model.live='selectedYear'>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                </select>
+                </div>
+            <div class="col-md-2" style="width: 200px">
+                <label for="inputState" class="form-label"><b>Mjesec</b></label>
+                <select id="inputState" class="form-select" wire:model.live='selectedMonth'>
+                @foreach ($months as $key => $month)
+                    <option value="{{ $key }}">{{ $month }}</option>
+                @endforeach
+                </select>
+            </div>
         </div>
+        @livewire('hidroprojekt.hr.co-op-work-hours-export-modal', [
+            'year' => $s_year,
+            'month' => $s_month,
+            ], key('modal'.now()))
     </div>
     <hr>
 
