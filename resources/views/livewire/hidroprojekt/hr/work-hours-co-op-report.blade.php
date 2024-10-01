@@ -17,7 +17,7 @@
                 </select>
             </div>
         </div>
-        @livewire('hidroprojekt.hr.co-op-work-hours-export-modal', [
+        @livewire('hidroProjekt.hr.co-op-work-hours-export-modal', [
             'year' => $s_year,
             'month' => $s_month,
             ], key('modal'.now()))
