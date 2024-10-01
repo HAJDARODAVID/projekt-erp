@@ -101,7 +101,5 @@ class CooperatorsExportWorkHoursService
             return throw new InvalidCooperatorException($coopId);
         }
         return $coop->first();
-    }
-
-    
+    }    
 }
