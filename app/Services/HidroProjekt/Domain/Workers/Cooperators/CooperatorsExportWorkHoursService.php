@@ -9,7 +9,7 @@ use App\Models\CooperatorsModel;
 use App\Models\CooperatorWorkersModel;
 use App\Models\WorkingDayRecordModel;
 
-class CooperatorsExportWorkHoursTransformer
+class CooperatorsExportWorkHoursService
 {
     const FIXED_CONST = [
         532 => 'Čret',
