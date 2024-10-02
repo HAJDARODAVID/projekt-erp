@@ -17,7 +17,6 @@ class DailyDiaryWdrInfoForm extends Component
     public $stringLog;
     public $attendance;
     public $attendanceCoOp;
-    public $isPhone;
     /**
      * Create a new component instance.
      */
@@ -30,7 +29,6 @@ class DailyDiaryWdrInfoForm extends Component
         $stringLog,
         $attendance,
         $attendanceCoOp,
-        $isPhone=NULL,
     )
     {
         $this->wdr = $wdr;
@@ -41,7 +39,6 @@ class DailyDiaryWdrInfoForm extends Component
         $this->stringLog = $stringLog;
         $this->attendance = $attendance;
         $this->attendanceCoOp = $attendanceCoOp;
-        $this->isPhone = Agent::isPhone();
     }
 
     /**
@@ -49,6 +46,8 @@ class DailyDiaryWdrInfoForm extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.wp.daily-diary-wdr-info-form');
+        return view('components.wp.daily-diary-wdr-info-form',[
+            'isPhone' => Agent::isPhone(),
+        ]);
     }
 }
