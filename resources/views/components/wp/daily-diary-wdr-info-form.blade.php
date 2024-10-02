@@ -8,7 +8,9 @@
                 <div class="">Datum: {{ $wdr->date }}</div>
             </div>
             <div class="align-content-center">
-                {{-- <img src="{{ url('images/hidroprojekt_logo.png') }}"> --}}
+                @if (!$isPhone)
+                    <img src="{{ url('images/hidroprojekt_logo.png') }}"> 
+                @endif
             </div>
         </div>
         <hr>

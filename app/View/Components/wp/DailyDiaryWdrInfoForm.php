@@ -3,8 +3,9 @@
 namespace App\View\Components\wp;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use Jenssegers\Agent\Facades\Agent;
 
 class DailyDiaryWdrInfoForm extends Component
 {
@@ -16,6 +17,7 @@ class DailyDiaryWdrInfoForm extends Component
     public $stringLog;
     public $attendance;
     public $attendanceCoOp;
+    public $isPhone;
     /**
      * Create a new component instance.
      */
@@ -38,6 +40,7 @@ class DailyDiaryWdrInfoForm extends Component
         $this->stringLog = $stringLog;
         $this->attendance = $attendance;
         $this->attendanceCoOp = $attendanceCoOp;
+        $this->isPhone = Agent::isPhone();
     }
 
     /**
