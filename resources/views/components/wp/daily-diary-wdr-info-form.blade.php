@@ -20,7 +20,7 @@
                     <div class="border rounded-top p-2 shadow border-bottom-0" style="background-color: rgb(243, 243, 243)">
                         <b>Dnevnik radova:</b>
                     </div>
-                    <pre class="mt-2 text-break">{{ $stringLog }}</pre>
+                    <p class="mt-2 text-break">{!! nl2br(e($stringLog)) !!}</p>
                 </div>
                 <div class="">
                     <div class="border rounded-top p-2 shadow border-bottom-0 mb-2" style="background-color: rgb(243, 243, 243)">
