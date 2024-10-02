@@ -13,7 +13,7 @@ class DailyDiaryWdrInfoForm extends Component
     public $groupLeader;
     public $constSite;
     public $car;
-    public$carMileage;
+    public $carMileage;
     public $stringLog;
     public $attendance;
     public $attendanceCoOp;
@@ -29,7 +29,8 @@ class DailyDiaryWdrInfoForm extends Component
         $carMileage,
         $stringLog,
         $attendance,
-        $attendanceCoOp
+        $attendanceCoOp,
+        $isPhone=NULL,
     )
     {
         $this->wdr = $wdr;
