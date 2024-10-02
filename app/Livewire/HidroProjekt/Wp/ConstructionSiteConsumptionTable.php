@@ -13,17 +13,17 @@ class ConstructionSiteConsumptionTable extends DataTableComponent
     public $constSiteId = NULL;
     public $wdrId = NULL;
 
-    protected $model = ConstructionSiteConsumptionModel::class;
-
     public function configure(): void
     {
         $this->setPrimaryKey('id');
         $this->setSearchBlur();
+        $this->setEmptyMessage('Nema utrošenog materijala');
 
         if($this->wdrId){
             $this->setSearchStatus(false);
             $this->setPerPageAccepted([5,10]);
         }
+
     }
 
     public function columns(): array
