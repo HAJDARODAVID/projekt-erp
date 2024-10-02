@@ -2,12 +2,13 @@
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h3">#{{ $wdr->id }} - {{ $wdr->date }}: {{ $constSite->name }}</h1>
+  @if(Auth::user()->id != 1) <h1 class="h3">#{{ $wdr->id }} - {{ $wdr->date }}: {{ $constSite->name }}</h1> @endif
   </div>
 
   
   
   <div class="mx-5">
+    @if(Auth::user()->id != 1)
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item" role="presentation">
         <a class="nav-link active" id="simple-tab-0" data-bs-toggle="tab" href="#simple-tabpanel-0" role="tab" aria-controls="simple-tabpanel-0" aria-selected="true">Osnovne informacije</a>
@@ -19,18 +20,34 @@
         <a class="nav-link" id="simple-tab-2" data-bs-toggle="tab" href="#simple-tabpanel-2" role="tab" aria-controls="simple-tabpanel-2" aria-selected="false">Tab 3</a>
       </li> --}}
     </ul>
+    @endif
     <div class="tab-content pt-2" id="tab-content">
       <div class="tab-pane active" id="simple-tabpanel-0" role="tabpanel" aria-labelledby="simple-tab-0">
-        <x-wp.daily-diary-wdr-info
-          :groupLeader="$groupLeader"
-          :constSite="$constSite"
-          :car="$car"
-          :carMileage="$carMileage"
-          :stringLog="$stringLog"
-          :attendance="$attendance"
-          :attendanceCoOp="$attendanceCoOp"
-          :arst="$arst"
-        />
+        @if(Auth::user()->id != 1)
+          <x-wp.daily-diary-wdr-info
+            :groupLeader="$groupLeader"
+            :constSite="$constSite"
+            :car="$car"
+            :carMileage="$carMileage"
+            :stringLog="$stringLog"
+            :attendance="$attendance"
+            :attendanceCoOp="$attendanceCoOp"
+            :arst="$arst"
+          />
+        @endif
+        @if(Auth::user()->id == 1)
+          <x-wp.daily-diary-wdr-info-form
+            :wdr="$wdr"
+            :groupLeader="$groupLeader"
+            :constSite="$constSite"
+            :car="$car"
+            :carMileage="$carMileage"
+            :stringLog="$stringLog"
+            :attendance="$attendance"
+            :attendanceCoOp="$attendanceCoOp"
+            :arst="$arst"
+          />
+        @endif
       </div>
       {{-- <div class="tab-pane" id="simple-tabpanel-1" role="tabpanel" aria-labelledby="simple-tab-1">Tab 2 selected</div>
       <div class="tab-pane" id="simple-tabpanel-2" role="tabpanel" aria-labelledby="simple-tab-2">Tab 3 selected</div> --}}
