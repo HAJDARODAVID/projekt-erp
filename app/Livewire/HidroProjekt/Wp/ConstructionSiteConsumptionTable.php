@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Wp;
 
+use Jenssegers\Agent\Facades\Agent;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\ConstructionSiteConsumptionModel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -34,7 +35,8 @@ class ConstructionSiteConsumptionTable extends DataTableComponent
                 ->hideIf(TRUE),
             Column::make("#", "mat_id")
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->hideIf(Agent::isPhone()),
             Column::make("Materijal", "name")
                 ->sortable()
                 ->searchable(),
