@@ -24,7 +24,7 @@
             <hr class="my-2">
             <p>{{ $log->log }}</p>
             <hr class="my-2">
-            <button class="btn btn-success btn-sm">Više...</button>
+            <a  href="{{ route('hp_showWorkDayDiary', $log->getWorkingDayRecord->id) }}" class="btn btn-success btn-sm">Više...</a>
         </div>
     @endforeach
   </div>

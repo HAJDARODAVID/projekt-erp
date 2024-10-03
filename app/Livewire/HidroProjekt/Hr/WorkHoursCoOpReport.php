@@ -2,10 +2,11 @@
 
 namespace App\Livewire\HidroProjekt\Hr;
 
-use App\Services\HidroProjekt\HR\WorkHoursService;
 use Livewire\Component;
 use App\Services\Months;
 use Livewire\Attributes\On; 
+use App\Services\HidroProjekt\HR\WorkHoursService;
+use App\Livewire\HidroProjekt\Hr\CoOpWorkHoursExportModal;
 
 class WorkHoursCoOpReport extends Component
 {
@@ -38,6 +39,9 @@ class WorkHoursCoOpReport extends Component
 
     public function render()
     {
-        return view('livewire.hidroprojekt.hr.work-hours-co-op-report');
+        return view('livewire.hidroprojekt.hr.work-hours-co-op-report',[
+            's_year' => $this->selectedYear,
+            's_month' => $this->selectedMonth,
+        ]);
     }
 }

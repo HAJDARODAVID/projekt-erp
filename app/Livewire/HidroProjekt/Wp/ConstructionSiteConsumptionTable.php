@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Wp;
 
+use Jenssegers\Agent\Facades\Agent;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\ConstructionSiteConsumptionModel;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -9,14 +10,20 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class ConstructionSiteConsumptionTable extends DataTableComponent
 {
-    public $constSiteId;
-
-    protected $model = ConstructionSiteConsumptionModel::class;
+    public $constSiteId = NULL;
+    public $wdrId = NULL;
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
         $this->setSearchBlur();
+        $this->setEmptyMessage('Nema utrošenog materijala');
+
+        if($this->wdrId){
+            $this->setSearchStatus(false);
+            $this->setPerPageAccepted([5,10]);
+        }
+
     }
 
     public function columns(): array
@@ -24,13 +31,16 @@ class ConstructionSiteConsumptionTable extends DataTableComponent
         return [
             Column::make("const_site_id", "const_site_id")
                 ->hideIf(TRUE),
-            Column::make("#mat", "mat_id")
+            Column::make("wdr_id", "wdr_id")
+                ->hideIf(TRUE),
+            Column::make("#", "mat_id")
+                ->sortable()
+                ->searchable()
+                ->hideIf(Agent::isPhone()),
+            Column::make("Materijal", "name")
                 ->sortable()
                 ->searchable(),
-            Column::make("Material", "name")
-                ->sortable()
-                ->searchable(),
-            Column::make("Qty", "qty")
+            Column::make("Kol", "qty")
                 ->sortable(),
             Column::make("UOM", "uom_1")
                 ->sortable(),
@@ -43,13 +53,20 @@ class ConstructionSiteConsumptionTable extends DataTableComponent
                 )
                 ->html(),
             Column::make("Datum potrošnje", "consumption_date")
-                ->sortable(),   
+                ->sortable()
+                ->hideIf($this->wdrId),   
         ];
     }
 
     public function builder(): Builder{
-        $query = ConstructionSiteConsumptionModel::query()
-            ->where('const_site_id', $this->constSiteId);
+        $query = ConstructionSiteConsumptionModel::query();
+        if($this->constSiteId){
+            $query->where('const_site_id', $this->constSiteId);
+        }
+        if($this->wdrId){
+            $query->where('wdr_id', $this->wdrId);
+        }
+            
         return $query;
     }
 

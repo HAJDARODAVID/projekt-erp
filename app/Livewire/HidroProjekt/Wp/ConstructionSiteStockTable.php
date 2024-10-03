@@ -54,6 +54,8 @@ class ConstructionSiteStockTable extends DataTableComponent
                 ->sortable(),
             Column::make("Zadnja kretnja", "updated_at")
                 ->sortable(),
+            Column::make("", "id")
+                ->view("hidro-projekt.WP.constructionSiteStockTableActionBtn"),
         ];
     }
 
