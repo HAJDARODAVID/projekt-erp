@@ -5,7 +5,8 @@
 
     <div class="container">
 
-        <x-dashboard.layouts.layout-main />
+        {{-- <x-dashboard.layouts.layout-main /> --}}
+        @livewire('hidroProjekt.dashboard.main-layout')
 
     </div>
     {{-- @if (Auth::user()->id == 5)
