@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Layout1 extends Component implements DashboardLayoutInterface
+class LayoutMain extends Component implements DashboardLayoutInterface
 {
 
     /**
@@ -23,6 +23,6 @@ class Layout1 extends Component implements DashboardLayoutInterface
      */
     public function render(): View|Closure|string
     {
-        return view('components.dashboard.layouts.layout1');
+        return view('components.dashboard.layouts.layout-main');
     }
 }

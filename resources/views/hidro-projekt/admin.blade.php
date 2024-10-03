@@ -5,7 +5,7 @@
 
     <div class="container">
 
-        <x-dashboard.layouts.layout1 />
+        <x-dashboard.layouts.layout-main />
 
     </div>
     {{-- @if (Auth::user()->id == 5)
