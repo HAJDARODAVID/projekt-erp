@@ -4,10 +4,9 @@
     <x-snowflakes :show=FALSE />
 
     <div class="container">
-
-        {{-- <x-dashboard.layouts.layout-main /> --}}
-        @livewire('hidroProjekt.dashboard.main-layout')
-
+        @if (app('user_rights')->hasRight('dashboard'))
+            @livewire('hidroProjekt.dashboard.main-layout')
+        @endif
     </div>
     {{-- @if (Auth::user()->id == 5)
     <img src="{{ asset('images/happy.png') }}" class="rounded mx-auto d-block mt-2" alt="..." id="currentCarPic" style="height:250px; width:auto;max-width: 644px">   
