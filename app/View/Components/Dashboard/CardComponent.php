@@ -10,18 +10,31 @@ use Illuminate\Contracts\View\View;
 class CardComponent extends Component
 {
     const DEF_COLOR = "rgb(252, 252, 252)";
+    const DEF_LIVEWIRE_PATH = "hidroProjekt.dashboard.";
     const HEADER_COLOR = "rgb(236, 236, 236)";
     public $cardId;
     public $bgColor;
     public $headerColor;
+    public $height;
+    public $title;
+    public $livewire;
     /**
      * Create a new component instance.
      */
-    public function __construct($bgColor=NULL,$headerColor=NULL)
+    public function __construct(
+        $bgColor=NULL,
+        $headerColor=NULL, 
+        $height=NULL, 
+        $title = 'Lorem ipsum dolor',
+        $livewire = NULL,
+    )
     {
         $this->cardId = Str::uuid()->toString();
         $this->bgColor = $this->setBgColor($bgColor);
         $this->headerColor = $this->setHeaderColor($headerColor);
+        $this->height = $height;
+        $this->title = $title;
+        $this->livewire = $livewire;
     }
 
     /**
@@ -49,6 +62,8 @@ class CardComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.dashboard.card-component');
+        return view('components.dashboard.card-component',[
+            'lw_path' => self::DEF_LIVEWIRE_PATH,
+        ]);
     }
 }
