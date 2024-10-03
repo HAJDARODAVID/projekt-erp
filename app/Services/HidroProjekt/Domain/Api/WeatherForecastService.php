@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Services\HidroProjekt\Domain\Api;
+
+use DateTime;
+
+class WeatherForecastService{
+
+    const FORECAST_URL = "https://prognoza.hr/tri/3d_graf_i_simboli.xml";
+    private $forecastData =[];
+    private $data;
+    private $townData=NULL;
+
+    public function __construct(){
+        $this->forecastData = $this->getDataFromUrl();
+    }
+
+    public function toJson(){
+        $this->data = json_encode($this->forecastData);
+        return $this;
+    } 
+
+    public function toArray(){
+        $json = json_encode($this->forecastData);
+        $this->data = json_decode($json,TRUE);
+        return $this;
+    } 
+
+    public function formatArray(){
+        if(!is_array($this->data)){
+            return; //HERE PUT IN THROW EXCEPTION 
+        }
+        foreach ($this->data['grad'] as $key => $town) {
+            $this->data[$town["@attributes"]['ime']] = $town['dan'];
+            unset($this->data['grad'][$key]);
+        }
+        unset($this->data['grad']);
+        return $this;
+    }
+
+    public function town($town){
+        if(!is_array($this->data)){
+            return; //HERE PUT IN THROW EXCEPTION 
+        }
+        if(!isset($this->data[$town])){
+            return; //HERE PUT IN THROW EXCEPTION 
+        }
+        $this->townData = $this->data[$town];
+        return $this;
+    }
+
+    public function forDashboard(){
+        $newArray=[];
+        $today = new DateTime(now());
+        $tomorrow = (new DateTime(now()))->modify('+1 day');
+        $hours=[5,8,11,14,17];
+        foreach ($hours as $hour) {
+            $newArray[$today->format('d.m.Y')."."][$hour] = NULL;
+            $newArray[$tomorrow->format('d.m.Y')."."][$hour] = NULL;
+        }
+
+        //dd(in_array(5,$hours));
+
+        foreach ($this->townData as $key => $item) {
+            $datum = $item['@attributes']['datum'];
+            $sat = $item['@attributes']['sat'];
+            if(($datum == $today->format('d.m.Y') ."." || $datum == $tomorrow->format('d.m.Y') .".") && in_array($sat,$hours)){
+                $newArray[$datum][$this->townData[$key]['@attributes']['sat']] = $this->townData[$key];
+                unset($newArray[$datum][$this->townData[$key]['@attributes']['sat']]['@attributes']);
+            }
+        }
+       
+        $this->townData = $newArray;
+        return $this;
+    }
+
+    public function getLastChanged(){
+        return $this->data['izmjena'];
+    }
+
+    public function getTownData(){
+        return $this->townData;
+    }
+
+    private function getDataFromUrl(){
+        return simplexml_load_file(self::FORECAST_URL, "SimpleXMLElement", LIBXML_NOCDATA);
+    }
+    
+}

@@ -9,12 +9,16 @@
                 <td>14:00</td>
                 <td>17:00</td>
             </tr>
-            <tr>
-                <td>Četvrtak</td>
-            </tr>
-            <tr>
-                <td>Petak</td>
-            </tr>
+            @foreach ($weatherData as $day => $items)
+                <tr>
+                    <td>{{ $day }}</td>
+                    @foreach ($items as $hour)   
+                        <td>
+                            <x-dashboard.weather-card :hour="$hour" />
+                        </td>
+                    @endforeach
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
