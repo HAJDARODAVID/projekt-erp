@@ -8,7 +8,7 @@ class MainLayout extends Component
 {
     public $config = [
         'r1' => [
-            'height' => 200,
+            'height' => 250,
             'col' => [
                 'c1' =>[
                     'title' => 'TEST01'
@@ -17,13 +17,13 @@ class MainLayout extends Component
                     'title' => 'TEST02'
                 ],
                 'c3' =>[
-                    'title' => 'Livewire test',
+                    'title' => 'vremenska prognoza',
                     'livewire' => 'weather-forecast'
                 ],
             ]
         ],
         'r2' => [
-            'height' => 600,
+            'height' => 550,
             'col' => [
                 'c1' =>[
                     'title' => 'TEST03'

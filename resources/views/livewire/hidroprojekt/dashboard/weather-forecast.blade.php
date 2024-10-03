@@ -1,3 +1,20 @@
 <div>
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur esse sint pariatur iste eaque illo aliquid, ullam saepe quia ut reprehenderit minima, debitis iure cumque ducimus doloremque iusto tempora nam quo minus! A magnam laboriosam fugit doloremque sed praesentium corrupti veniam. Voluptate dolores aliquid possimus! Veniam iste molestias sequi ab blanditiis deserunt, ut temporibus officiis beatae ducimus? Ipsa, mollitia voluptates dolor quasi ab asperiores praesentium quisquam fugit perspiciatis placeat iste voluptas dicta, ipsam non vero earum molestias labore cum et reprehenderit? Nesciunt quam culpa eius officia corporis dolores quaerat quis iure. Necessitatibus voluptatum doloribus nam voluptas, ut architecto illum cum placeat quam ea eos? Iure laudantium fuga ipsam, praesentium temporibus excepturi distinctio ad minus rem, vero perspiciatis animi dolores quae pariatur, mollitia illo ipsum qui modi accusantium. Fugiat nemo dolorum officia, magni id consequuntur. Dicta, architecto id. Velit quaerat repudiandae reprehenderit libero, laborum totam, consequuntur temporibus dolore neque dolores maxime!
+    <table class="table">
+        <tbody>
+            <tr>
+                <td></td>
+                <td>5:00</td>
+                <td>8:00</td>
+                <td>11:00</td>
+                <td>14:00</td>
+                <td>17:00</td>
+            </tr>
+            <tr>
+                <td>Četvrtak</td>
+            </tr>
+            <tr>
+                <td>Petak</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
