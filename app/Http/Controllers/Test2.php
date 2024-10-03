@@ -8,15 +8,14 @@ use App\Services\HidroProjekt\Domain\Workers\Cooperators\CooperatorsExportWorkHo
 class Test2 extends Controller
 {
     public function index(){
-        try {
-            $workHoursDto = new CooperatorsExportWorkHoursService(2,6,2024);
-            return (new CoOpWorkHoursExport(
-                $workHoursDto->getAttendanceList(),
-                $workHoursDto->getSummarizedAttendance(),
-            ))->download('download.xlsx');
-            dd($workHoursDto);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
+        $url = "https://prognoza.hr/tri/3d_graf_i_simboli.xml";
+        $xml = simplexml_load_file($url, "SimpleXMLElement", LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $array = json_decode($json,TRUE);
+        foreach ($array['grad'] as $key => $town) {
+            $array[$town["@attributes"]['ime']] = $town['dan'];
+            unset($array['grad'][$key]);
         }
+        dd($array['Varazdin']);
     }
 }
