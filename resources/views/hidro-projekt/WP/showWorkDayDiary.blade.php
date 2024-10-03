@@ -46,6 +46,7 @@
             :attendance="$attendance"
             :attendanceCoOp="$attendanceCoOp"
             :arst="$arst"
+            :isPhone="$isPhone"
           />
         @endif
       </div>

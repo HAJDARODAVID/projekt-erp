@@ -10,6 +10,7 @@ use App\Models\CarMileageModel;
 use App\Models\CompanyCarsModel;
 use App\Models\ConstructionSiteModel;
 use App\Models\WorkingDayRecordModel;
+use Jenssegers\Agent\Facades\Agent;
 
 class WorkDayDiaryController extends Controller
 {
@@ -46,6 +47,7 @@ class WorkDayDiaryController extends Controller
             'attendance' => $attendance,
             'attendanceCoOp'=> $attendanceCoOp,
             'arst' => AttendanceModel::ABSENCE_REASON_SHT_TXT,
+            'isPhone' => Agent::isPhone(),
         ]);
     }
 }

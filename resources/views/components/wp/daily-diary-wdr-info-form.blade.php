@@ -11,7 +11,9 @@
                 {{-- @if (!$isPhone)
                     <img src="{{ url('images/hidroprojekt_logo.png') }}"> 
                 @endif --}}
-                <a href="{{ url()->previous() }}" class="btn btn-dark btn-lg"><i class="bi bi-arrow-return-left"></i></a>
+                @if (!$isPhone)
+                    <a href="{{ url()->previous() }}" class="btn btn-dark btn-lg"><i class="bi bi-arrow-return-left"></i></a> 
+                @endif
             </div>
         </div>
         <hr>
