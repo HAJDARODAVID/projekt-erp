@@ -18,7 +18,7 @@ class MainLayout extends Component
                 ],
                 'c3' =>[
                     'title' => 'Livewire test',
-                    'livewire' => 'test'
+                    'livewire' => 'weather-forecast'
                 ],
             ]
         ],
