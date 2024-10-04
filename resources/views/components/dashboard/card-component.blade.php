@@ -5,7 +5,7 @@
                 <b>{{ strtoupper($title) }}</b>
             </div>
     </div>
-    <div class="py-3 px-4 overflow-auto"  style="height: {{ $height-44 }}px">
+    <div class="py-3 px-4 overflow-auto @isset($center) align-content-center @endisset"  style="height: {{ $height-44 }}px">
         <div class="">
             @isset($livewire)
                 @livewire($lw_path . $livewire)
@@ -13,3 +13,4 @@
         </div>
     </div> 
 </div>
+

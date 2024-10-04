@@ -18,7 +18,8 @@ class MainLayout extends Component
                 ],
                 'c3' =>[
                     'title' => 'vremenska prognoza',
-                    'livewire' => 'weather-forecast'
+                    'comp_name' => 'weather-forecast',
+                    'center' => TRUE,
                 ],
             ]
         ],
@@ -27,7 +28,7 @@ class MainLayout extends Component
             'col' => [
                 'c1' =>[
                     'title' => 'Moji zadaci',
-                    'livewire' => 'to-do-list'
+                    'comp_name' => 'to-do-list'
                 ],
                 'c2' =>[
                     'title' => NULL

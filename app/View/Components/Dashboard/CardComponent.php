@@ -18,6 +18,7 @@ class CardComponent extends Component
     public $height;
     public $title;
     public $livewire;
+    public $center;
     /**
      * Create a new component instance.
      */
@@ -27,6 +28,7 @@ class CardComponent extends Component
         $height=NULL, 
         $title = 'Lorem ipsum dolor',
         $livewire = NULL,
+        $center =NULL,
     )
     {
         $this->cardId = Str::uuid()->toString();
@@ -35,6 +37,7 @@ class CardComponent extends Component
         $this->height = $height;
         $this->title = $title;
         $this->livewire = $livewire;
+        $this->center = $center;
     }
 
     /**

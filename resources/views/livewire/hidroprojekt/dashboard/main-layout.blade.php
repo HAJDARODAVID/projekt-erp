@@ -1,13 +1,4 @@
 <div class="" style="height: 800px">
-    {{-- <div class="row mb-3">
-        <x-dashboard.card-component livewire='test' />
-        <x-dashboard.card-component />
-
-    </div>
-    <div class="row mb-3">
-        <x-dashboard.card-component livewire='test' />
-    </div> --}}
-
     @foreach ($config as $row)
         @php
             $height = NULL;
@@ -17,12 +8,14 @@
             @foreach ($row['col'] as $col)
                 @php
                    $height = isset($col['height']) ? $col['height'] : $height_row;
-                   $lw_comp = isset($col['livewire']) ? $col['livewire'] : NULL; 
+                   $lw_comp = isset($col['comp_name']) ? $col['comp_name'] : NULL; 
+                   $center = isset($col['center']) ? $col['center'] : NULL; 
                 @endphp
                 <x-dashboard.card-component 
                     :title="$col['title']"
                     :livewire="$lw_comp"
                     :height='$height'
+                    :center='$center'
                 />   
             @endforeach
             
