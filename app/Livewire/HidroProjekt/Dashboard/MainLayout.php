@@ -83,7 +83,7 @@ class MainLayout extends Component
 
     public function mount()
     {
-        dd(DashboardTemplate::where('layout_name', 'Layout01')->first()->getTemplateArray());
+        //dd(DashboardTemplate::where('layout_name', 'Layout01')->first()->getTemplateArray());
     }
 
     public function render()
