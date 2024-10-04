@@ -59,8 +59,6 @@ class WeatherForecastService{
             $newArray[$tomorrow->format('d.m.Y')."."][$hour] = NULL;
         }
 
-        //dd(in_array(5,$hours));
-
         foreach ($this->townData as $key => $item) {
             $datum = $item['@attributes']['datum'];
             $sat = $item['@attributes']['sat'];
