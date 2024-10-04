@@ -26,7 +26,8 @@ class MainLayout extends Component
             'height' => 500,
             'col' => [
                 'c1' =>[
-                    'title' => 'TEST03'
+                    'title' => 'Moji zadaci',
+                    'livewire' => 'to-do-list'
                 ],
                 'c2' =>[
                     'title' => NULL
