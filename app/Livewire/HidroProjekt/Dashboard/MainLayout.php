@@ -3,6 +3,7 @@
 namespace App\Livewire\HidroProjekt\Dashboard;
 
 use Livewire\Component;
+use App\Models\DashboardTemplate;
 
 class MainLayout extends Component
 {
@@ -35,7 +36,55 @@ class MainLayout extends Component
                 ]
             ]
         ]
-            ];
+    ];
+
+    public $layout = [
+        'r1' => [
+            'height' => NULL,
+            'col' => [
+                'c1' =>[
+                    'title' => NULL,
+                    'comp_name' => NULL,
+                    'center' => NULL,
+                    'btn' => NULL,
+                ],
+                'c2' =>[
+                    'title' => NULL,
+                    'comp_name' => NULL,
+                    'center' => NULL,
+                    'btn' => NULL,
+                ],
+                'c3' =>[
+                    'title' => NULL,
+                    'comp_name' => NULL,
+                    'center' => NULL,
+                    'btn' => NULL,
+                ],
+            ]
+        ],
+        'r2' => [
+            'height' => NULL,
+            'col' => [
+                'c1' =>[
+                    'title' => NULL,
+                    'comp_name' => NULL,
+                    'center' => NULL,
+                    'btn' => NULL,
+                ],
+                'c2' =>[
+                    'title' => NULL,
+                    'comp_name' => NULL,
+                    'center' => NULL,
+                    'btn' => NULL,
+                ]
+            ]
+        ]
+    ];
+
+    public function mount()
+    {
+        dd(DashboardTemplate::where('layout_name', 'Layout01')->first()->getTemplateArray());
+    }
 
     public function render()
     {

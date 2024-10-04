@@ -18,7 +18,6 @@
                     :center='$center'
                 />   
             @endforeach
-            
         </div>
     @endforeach
 </div>
