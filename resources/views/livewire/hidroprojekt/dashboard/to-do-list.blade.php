@@ -1,7 +1,9 @@
 <div>
     <div class="list-group">
-        @for ($i = 1; $i < 15; $i++)
-            @livewire('hidroProjekt.dashboard.components.to-do-list-item')
-        @endfor
+        @foreach ($items as $item)
+            @livewire('hidroProjekt.dashboard.components.to-do-list-item',[
+                'item' => $item,
+            ])
+        @endforeach
     </div>
 </div>

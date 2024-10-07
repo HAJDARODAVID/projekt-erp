@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ToDoList extends Model
 {
     const STATUS_CANCELED = -1;
-    const STATUS_ACTIVE   = -1;
-    const STATUS_FINISHED = -2;
+    const STATUS_ACTIVE   = 1;
+    const STATUS_FINISHED = 2;
 
     const PRIORITY_LOW    = 10;
     const PRIORITY_MEDIUM = 20;
@@ -33,8 +33,4 @@ class ToDoList extends Model
     protected $fillable=[
         'user_id', 'from', 'task', 'status', 'priority', 'deadline'
     ];
-
-    public function getTemplateArray(){
-        return json_decode($this->attributes['temp'],true);
-    }
 }

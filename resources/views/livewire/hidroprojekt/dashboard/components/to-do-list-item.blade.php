@@ -1,12 +1,16 @@
-<div class="list-group-item list-group-item-danger py-1">
+<div class="list-group-item {{ $priority[$item->priority] }} py-1">
     <div class="d-flex justify-content-between align-items-center">
         <div class="">
             <div class="pb-1" style="font-size: 15px;">
-                <b>Cras justo odio</b>
+                <b>{{ $item->task }}</b>
             </div>
             <div style="font-size: 12px;">
-                <div class="">Od: Amet Consectetur</div> 
-                <div class="">Termin: 04.10.2024</div>
+                @if($item->from)
+                    <div class="">Od: Amet Consectetur</div> 
+                @endif
+                @if($item->deadline)
+                    <div class="">Termin: {{ $item->deadline }}</div>
+                @endif
             </div>
             
         </div>
@@ -16,3 +20,4 @@
         </div>
     </div>
 </div>
+
