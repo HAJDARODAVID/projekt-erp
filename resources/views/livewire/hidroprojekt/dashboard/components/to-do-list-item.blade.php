@@ -15,8 +15,8 @@
             
         </div>
         <div class="">
-            <button class="btn btn-success btn-sm shadow"><i class="bi bi-check"></i></button>
-            <button class="btn btn-danger btn-sm shadow"><i class="bi bi-x-circle"></i></button>
+            <button class="btn btn-success btn-sm shadow" wire:click='changeItemStatus(2)'><i class="bi bi-check"></i></button>
+            <button class="btn btn-danger btn-sm shadow" wire:click='changeItemStatus(-1)'><i class="bi bi-x-circle"></i></button>
         </div>
     </div>
 </div>

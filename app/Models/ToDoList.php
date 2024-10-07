@@ -27,6 +27,12 @@ class ToDoList extends Model
         self::PRIORITY_HIGH   => 'High',
     ];
 
+    const PRIORITY_HR = [
+        self::PRIORITY_LOW    => 'Nisko',
+        self::PRIORITY_MEDIUM => 'Srednje',
+        self::PRIORITY_HIGH   => 'Visoko',
+    ];
+
     use HasFactory;
 
     protected $table = 'to_do_list';
