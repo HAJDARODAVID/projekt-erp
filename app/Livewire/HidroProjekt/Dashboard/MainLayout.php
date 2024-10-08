@@ -29,7 +29,8 @@ class MainLayout extends Component
             'col' => [
                 'c1' =>[
                     'title' => 'Moji zadaci',
-                    'comp_name' => 'to-do-list'
+                    'comp_name' => 'to-do-list',
+                    'btn_comp' => 'add-new-task-modal'
                 ],
                 'c2' =>[
                     'title' => NULL
@@ -84,6 +85,7 @@ class MainLayout extends Component
     public function mount()
     {
         //dd(DashboardTemplate::where('layout_name', 'Layout01')->first()->getTemplateArray());
+        //dd($this->config);
     }
 
     public function render()
