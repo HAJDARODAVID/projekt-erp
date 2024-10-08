@@ -20,6 +20,10 @@ class ToDoList extends Component
         return $this->items = $this->getActiveToDoList();;
     }
 
+    public function refreshList(){
+        $this->items = $this->getActiveToDoList();
+    }
+
     private function getActiveToDoList(){
         return ToDoListModel::where('user_id', Auth::user()->id)
         ->where('status', ToDoListModel::STATUS_ACTIVE)
