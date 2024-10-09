@@ -33,7 +33,9 @@ class MainLayout extends Component
                     'btn_comp' => 'add-new-task-modal'
                 ],
                 'c2' =>[
-                    'title' => NULL
+                    'title' => 'obavjesti',
+                    'comp_name' => 'system-notifications',
+                    'btn_comp' => null
                 ]
             ]
         ]
