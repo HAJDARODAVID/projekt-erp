@@ -70,6 +70,21 @@
             </div>
         </div>
     </div>
+    <b>PRODAJA</b>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="form-group">
+                <label for="price">Prodajna cijena</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">€</div>
+                    </div>
+                    <input type="number" class="form-control @isset($save['s_price']) is-valid @endisset @isset($error['s_price']) is-invalid @endisset" id="price" wire:model.blur='mmInfo.s_price'>
+                </div>    
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
     @if ($type =='new')
         <button class="btn btn-success" wire:click='saveBtn()' @if($inProgress) disabled @endIf onclick="this.setAttribute('disabled', true)">SPREMI</button>    
     @endif
