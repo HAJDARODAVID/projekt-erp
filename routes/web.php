@@ -28,6 +28,7 @@ use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
+use App\Http\Controllers\SalesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -238,6 +239,14 @@ Route::prefix('/')
                 Route::controller(CostOverviewController::class)
                     ->group(function(){
                         Route::get('bill_overview','billOverview')->name('hp_billOverview');     
+                    });
+            });
+        
+        Route::prefix('/sale')
+            ->group(function(){
+                Route::controller(SalesController::class)
+                    ->group(function(){
+                        Route::get('/cash_register','cashRegister')->name('hp_cashRegister');     
                     });
             });
         
