@@ -41,7 +41,9 @@
                         <div class="form-group mb-2 mx-2" style="width: 250px" >
                             <input type="number" class="form-control" placeholder="Br. materijala">
                         </div>
-                        <button class="btn btn-success align-items-center" style="height: 38px"><i class="bi bi-plus-circle"></i></button>
+                        <button class="btn btn-success align-items-center" style="height: 38px" wire:click='toggleAddMaterialModal()'>
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
                     </div>
                     <hr class="m-0 my-2">
                     <div class="overflow-auto" style="height: 600px">
@@ -73,4 +75,10 @@
             </div>
         </div>
     </div>
+    <x-modal :show=$addMaterialModalShow :blur=TRUE>
+        <x-slot name="mainTitle">Proizvodi na stanju</x-slot>
+        <x-slot name='headerBtn'> 
+            <button class="btn btn-dark btn-sm" wire:click='toggleAddMaterialModal()' wire:loading.attr='disabled'>X</button>
+        </x-slot>
+    </x-modal>
 </div>
