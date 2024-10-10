@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Services\HidroProjekt\Domain\Notifications;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\Notifications;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+class NotificationsService{
+
+    private $user;
+    private $allNotifs;
+    private $userRights;
+
+    public function __construct()
+    {
+        $this->user = Auth::user();
+        $this->userRights = $this->canSeeNotifications();
+    }
+
+    private function canSeeNotifications(){
+        $userRights = Session::get('user_rights');
+        //dd($userRights);
+        foreach($userRights as $key => $right){
+            dd($key, $right);
+        }
+    }
+
+    public function getAllNotifications(){
+        $this->allNotifs = Notifications::get();
+        return $this;
+    }
+
+    public function count(){
+        return $this->allNotifs->count();
+    }
+
+    public function toArray(){
+        $array=[];
+        $i=1;
+        foreach ($this->allNotifs as $notif) {
+            $array[$i] = $notif;
+            $i++;
+        }
+        return $array;
+    }
+
+    public function createNewSysErrorNotification($e){
+        $userName = User::where('id', $this->user->id)->with('getWorker')->first()->getWorker->fullName;
+        $errorInfo = [
+            'message' => $e->getMessage(),
+            'file ' => $e->getFile() .' / at line: ' . $e->getLine(),
+            'path' => request()->decodedPath(),
+        ];
+        return Notifications::create([
+            'type' => Notifications::TYPE_SYS_ERROR,
+            'message' => 'User: '.$userName.' has encountered the following error: ' .$e->getMessage(),
+            'value' => json_encode($errorInfo),
+        ]);
+    }
+    
+}

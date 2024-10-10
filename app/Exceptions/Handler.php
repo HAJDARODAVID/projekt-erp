@@ -2,8 +2,9 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\Services\HidroProjekt\Domain\Notifications\NotificationsService;
 
 class Handler extends ExceptionHandler
 {
@@ -24,7 +25,9 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+            //log any Throwable to the system logging
+            $service = new NotificationsService;
+            $service->createNewSysErrorNotification($e);
         });
     }
 }

@@ -12,6 +12,33 @@
     {{-- SHOW ITEMS  --}}
     @if($itemCount != 0)
         <div class="row">
+            <div class="col">
+                @foreach ($items as $key => $item)
+                    @if ($item)
+                        @if($key % 2 == 1)
+                            @livewire('hidroProjekt.dashboard.components.system-notifications-alert-card',[
+                                'item' => $item,
+                            ])
+                        @endif
+                    @endif
+                    
+                @endforeach
+            </div>
+            <div class="col">
+                @foreach ($items as $key => $item)
+                    @if ($item)
+                        @if($key % 2 != 1)
+                            @livewire('hidroProjekt.dashboard.components.system-notifications-alert-card',[
+                                'item' => $item,
+                            ])
+                        @endif
+                    @endif
+                @endforeach
+            </div>
+        </div>
+        
+        <hr>
+        <div class="row">
             <div class="col-sm">
                 @livewire('hidroProjekt.dashboard.components.system-notifications-alert-card',[
                     'aType' => 'danger'
