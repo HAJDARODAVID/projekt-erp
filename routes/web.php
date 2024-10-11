@@ -28,6 +28,7 @@ use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
+use App\Services\HidroProjekt\Domain\Bookkeeping\ExpensesReportService;
 
 /*
 |--------------------------------------------------------------------------
@@ -254,9 +255,7 @@ Route::get('/clear', function() {
 });
 
 Route::get('test',function(){
-    return Resources::create([
-        'resources' => 'expenses-report-config',
-    ]);
+    return (new ExpensesReportService)->getDataForExportByMonth(9);
 });
 
 Route::get('/test2', [App\Http\Controllers\Test2::class, 'index']);

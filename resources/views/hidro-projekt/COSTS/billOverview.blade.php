@@ -8,7 +8,9 @@
                 @livewire('hidroProjekt.costs.add-new-bill-modal-component', key('add-new-bill'))
                 <x-v-divider></x-v-divider>
                 @livewire('hidroProjekt.costs.add-new-provider-modal')
-                @livewire('hidroProjekt.costs.add-new-category-modal')   
+                @livewire('hidroProjekt.costs.add-new-category-modal')  
+                <x-v-divider></x-v-divider> 
+                @livewire('hidroProjekt.costs.export-bills-btn')  
             </div>
         @endif     
     </div>
