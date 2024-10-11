@@ -4,7 +4,7 @@
             <div class="h5 px-4"><b>INTERNA BLAGAJNA</b></div>
         </div>
         <div class="row">
-            <div class="col-sm-4 p-3">
+            <div class="col-md-4 p-3">
                 <div class="alert alert-light m-0 mb-4 shadow">
                     <div class="form-group mb-3 mx-2">
                         <label for="">Kupca</label>
@@ -23,7 +23,7 @@
                 <div class="alert alert-light m-0 shadow">
                     <div class="form-group mb-3 mx-2">
                         <label for="">Ukupni iznos</label>
-                        <input type="text" class="form-control" disabled>
+                        <input type="number" class="form-control"  disabled wire:model='totalAmount'>
                     </div>
                     <hr class="m-0 my-2">
                     <div class="form-group mb-3 mx-2">
@@ -35,11 +35,11 @@
                     </div>    
                 </div>
             </div>
-            <div class="col-sm p-3">
+            <div class="col-md p-3">
                 <div class="alert alert-light shadow m-0" style="height: 700px">
                     <div class="d-flex mb-2">
                         <div class="form-group mb-2 mx-2" style="width: 250px" >
-                            <input type="number" class="form-control" placeholder="Br. materijala">
+                            <input type="number" class="form-control" placeholder="Br. materijala" wire:model.blur='matInput'>
                         </div>
                         <button class="btn btn-success align-items-center" style="height: 38px" wire:click='toggleAddMaterialModal()'>
                             <i class="bi bi-plus-circle"></i>
@@ -50,7 +50,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#Materijal</th>
+                                    <th>#</th>
                                     <th>Naziv proizvoda</th>
                                     <th>Kol.</th>
                                     <th>Cijena</th>
@@ -58,15 +58,15 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                @for ($i = 1; $i < 10; $i++)
+                                @foreach ($receiptItems as $mat_id => $item)
                                 <tr>
-                                    <td>500073</td>
-                                    <td>Dracolastic 150 A(15KG)+B(5KG) 20KG (polimercement)</td>
-                                    <td><input type="number" class="form-control" style="width: 70px"></td>
-                                    <td><input type="number" class="form-control" style="width: 100px"></td>
+                                    <td>{{ $mat_id }}</td>
+                                    <td>{{ $item['mat_name'] }}</td>
+                                    <td><input type="number" class="form-control form-control-sm" style="width: 70px" wire:model.blur='receiptItems.{{ $mat_id }}.s_qty'></td>
+                                    <td><input type="number" class="form-control form-control-sm" style="width: 100px" wire:model.blur='receiptItems.{{ $mat_id }}.s_amount'></td>
                                     <td><button class="btn btn-danger btn-sm align-items-center"><i class="bi bi-x-circle"></i></button></td>
-                                </tr>
-                                @endfor
+                                </tr>    
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -75,10 +75,12 @@
             </div>
         </div>
     </div>
-    <x-modal :show=$addMaterialModalShow :blur=TRUE>
-        <x-slot name="mainTitle">Proizvodi na stanju</x-slot>
+    <x-modal :show=$addMaterialModalShow :blur=TRUE size='lg'>
+        <x-slot name="mainTitle">Proizvodi na stanju skladišta</x-slot>
         <x-slot name='headerBtn'> 
             <button class="btn btn-dark btn-sm" wire:click='toggleAddMaterialModal()' wire:loading.attr='disabled'>X</button>
         </x-slot>
+        @livewire('hidroProjekt.sales.available-materials-table', [
+                    'theme' => "bootstrap-5"])
     </x-modal>
 </div>
