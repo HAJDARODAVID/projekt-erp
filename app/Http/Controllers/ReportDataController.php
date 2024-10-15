@@ -19,6 +19,7 @@ class ReportDataController extends Controller
     }
 
     public function getAllBillsForExpenses(Request $request){
+        $this->key_match = $this->api_key == $request->header('api_key') ? TRUE : FALSE;
         if(!$this->key_match){
             return ['0' => '0'];
         }
