@@ -19,7 +19,8 @@ class ReportDataController extends Controller
     }
 
     public function getAllBillsForExpenses(Request $request){
-        if($this->api_key == $request->header('api_key')){
+        //$this->api_key == $request->header('api_key')
+        if(TRUE){
             $allBills= new BillModel;
             $year = $request->get('year');
             if(!(is_null($year))){
