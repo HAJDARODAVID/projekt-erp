@@ -32,18 +32,17 @@ class ReportDataController extends Controller
     }
 
     public function getAllBillProviders(Request $request){
-        if(!($this->checkIfHasKey($request->header('api-key')))){
-            return;
+        if($this->key_match){
+            return response()->json(BillProviderModel::get()->get());
         }
-        return BillProviderModel::get();
+        return;
     }
 
     public function getAllBillCategories(Request $request){
-        if(!($this->checkIfHasKey($request->header('api-key')))){
-            return;
+        if($this->key_match){
+            return response()->json(BillCategoryModel::get()->get());
         }
-
-        return BillCategoryModel::get();
+        return;
     } 
 
 }
