@@ -19,16 +19,16 @@ class ReportDataController extends Controller
     }
 
     public function getAllBillsForExpenses(Request $request){
-        $this->key_match = $this->api_key == $request->header('api_key') ? TRUE : FALSE;
-        if(!$this->key_match){
-            return json_encode(['0' => 'ERROR', 'api_key' => $request->header('api_key')]);
+        if($this->api_key == $request->header('api_key')){
+            $allBills= new BillModel;
+            $year = $request->get('year');
+            if(!(is_null($year))){
+                $allBills = $allBills->whereYear('date', $year);
+            }
+            return json_encode($allBills->get());
+
         }
-        $allBills= new BillModel;
-        $year = $request->get('year');
-        if(!(is_null($year))){
-            $allBills = $allBills->whereYear('date', $year);
-        }
-        return json_encode($allBills->get());
+        return;
     }
 
     public function getAllBillProviders(Request $request){
