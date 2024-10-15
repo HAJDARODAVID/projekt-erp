@@ -33,14 +33,14 @@ class ReportDataController extends Controller
 
     public function getAllBillProviders(Request $request){
         if($this->key_match){
-            return response()->json(BillProviderModel::get()->get());
+            return response()->json(BillProviderModel::get());
         }
         return;
     }
 
     public function getAllBillCategories(Request $request){
         if($this->key_match){
-            return response()->json(BillCategoryModel::get()->get());
+            return response()->json(BillCategoryModel::get());
         }
         return;
     } 
