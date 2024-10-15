@@ -248,7 +248,7 @@ Route::prefix('/json')
     ->group(function(){
         Route::controller(ReportDataController::class)
             ->group(function(){
-                Route::get('bills.json','getAllBillsForExpenses')->name('hp_getAllBillsForExpenses');  
+                Route::get('bills','getAllBillsForExpenses')->name('hp_getAllBillsForExpenses');  
                 Route::get('bill_providers','getAllBillProviders')->name('hp_getAllBillProviders');  
                 Route::get('bill_categories','getAllBillCategories')->name('hp_getAllBillCategories');     
             });
