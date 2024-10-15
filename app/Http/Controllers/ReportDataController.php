@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class ReportDataController extends Controller
 {
-    private $api_key = '$2y$12$jdoVimL5yiR.Rza7LFWdzeknN8j68O4Oj7l7MnBkFQOQ78NvwkMlO';
+    //$2y$12$jdoVimL5yiR.Rza7LFWdzeknN8j68O4Oj7l7MnBkFQOQ78NvwkMlO
+    private $api_key = 'david';
     private $key_match = TRUE;
 
     public function __construct(Request $request)
@@ -20,7 +21,7 @@ class ReportDataController extends Controller
 
     public function getAllBillsForExpenses(Request $request){
         //$this->api_key == $request->header('api_key')
-        if(TRUE){
+        if($this->api_key == $request->header('api_key')){
             $allBills= new BillModel;
             $year = $request->get('year');
             if(!(is_null($year))){
