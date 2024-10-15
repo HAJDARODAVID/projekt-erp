@@ -27,9 +27,7 @@ class ReportDataController extends Controller
             if(!(is_null($year))){
                 $allBills = $allBills->whereYear('date', $year);
             }
-            //return json_encode($allBills->get());
             return response()->json($allBills->get());
-
         }
         return;
     }
