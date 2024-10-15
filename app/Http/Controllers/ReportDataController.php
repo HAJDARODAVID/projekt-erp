@@ -19,9 +19,9 @@ class ReportDataController extends Controller
     }
 
     public function getAllBillsForExpenses(Request $request){
-        // if(!$this->key_match){
-        //     return ['0' => '0'];
-        // }
+        if(!$this->key_match){
+            return ['0' => '0'];
+        }
         $allBills= new BillModel;
         $year = $request->get('year');
         if(!(is_null($year))){
