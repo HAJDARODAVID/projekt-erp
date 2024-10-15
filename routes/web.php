@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportingController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParametersController;
+use App\Http\Controllers\ReportDataController;
 use App\Http\Controllers\CostOverviewController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\AccessControlListController;
@@ -240,8 +241,15 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('bill_overview','billOverview')->name('hp_billOverview');     
                     });
+            });        
+    });
+
+Route::prefix('/json')
+    ->group(function(){
+        Route::controller(ReportDataController::class)
+            ->group(function(){
+                Route::get('json_for_expenses','getAllBillsForExpenses')->name('hp_getAllBillsForExpenses');     
             });
-        
     });
 
 Route::get('/clear', function() {
