@@ -1,37 +1,51 @@
 <div class="">
     <div class="rounded shadow border p-3">
         <div class="d-flex align-items-center rounded-top shadow" style="background-color: rgb(236, 236, 236);height:45px">
-            <div class="h5 px-4"><b>INTERNA BLAGAJNA</b></div>
+            <div class="h5 px-4"><b>PRODAJA MATERIJALA</b></div>
         </div>
         <div class="row">
             <div class="col-md-4 p-3">
                 <div class="alert alert-light m-0 mb-4 shadow">
                     <div class="form-group mb-3 mx-2">
                         <label for="">Kupca</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control @isset($error['buyer']) is-invalid @endisset" wire:model.blur='data.buyer'>
                     </div>
                     <hr class="m-0 my-2">
                     <div class="form-group mb-3 mx-2">
-                        <label for="">Način plačanja</label>
-                        <input type="text" class="form-control" placeholder="Kupac">
+                        <label for="">Način plaćanja</label>
+                        <select class="form-control" wire:model.change='data.pymt_method'>
+                            @foreach ($t_type as $t_Key => $type)
+                                <option value="{{ $t_Key }}">{{ $type }}</option> 
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group mb-3 mx-2">
-                        <label for="">Status plačanja</label>
-                        <input type="text" class="form-control" placeholder="Kupac">
+                        <label for="">Status plaćanja</label>
+                        <select class="form-control" wire:model.change='data.pymt_status'>
+                            @foreach ($p_status as $s_Key => $status)
+                                <option value="{{ $s_Key }}">{{ $status }}</option> 
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="alert alert-light m-0 shadow">
                     <div class="form-group mb-3 mx-2">
                         <label for="">Ukupni iznos</label>
-                        <input type="number" class="form-control"  disabled wire:model='totalAmount'>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">€</div>
+                            </div>
+                            <input type="number" class="form-control"  disabled wire:model='totalAmount'>
+                        </div>  
                     </div>
+                    
                     <hr class="m-0 my-2">
                     <div class="form-group mb-3 mx-2">
                         <label for="">Datum</label>
-                        <input type="text" class="form-control" placeholder="Kupac">
+                        <input type="date" class="form-control @isset($error['date']) is-invalid @endisset" wire:model.change='data.date'>
                     </div>
                     <div class="d-flex justify-content-center mb-3 mx-2 ">
-                        <button class="btn btn-dark btn-lg shadow" style="width: auto">IZRADI RAČUN</button>
+                        <button class="btn btn-dark btn-lg shadow" style="width: auto" wire:click='createNewOrder()'>KREIRAJ NALOG</button>
                     </div>    
                 </div>
             </div>
@@ -53,7 +67,7 @@
                                     <th>#</th>
                                     <th>Naziv proizvoda</th>
                                     <th>Kol.</th>
-                                    <th>Cijena</th>
+                                    <th>Cijena[€]</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -64,7 +78,7 @@
                                     <td>{{ $item['mat_name'] }}</td>
                                     <td><input type="number" class="form-control form-control-sm" style="width: 70px" wire:model.blur='receiptItems.{{ $mat_id }}.s_qty'></td>
                                     <td><input type="number" class="form-control form-control-sm" style="width: 100px" wire:model.blur='receiptItems.{{ $mat_id }}.s_amount'></td>
-                                    <td><button class="btn btn-danger btn-sm align-items-center"><i class="bi bi-x-circle"></i></button></td>
+                                    <td><button class="btn btn-danger btn-sm align-items-center" wire:click='removeItem({{ $mat_id }})'><i class="bi bi-x-circle"></i></button></td>
                                 </tr>    
                                 @endforeach
                             </tbody>

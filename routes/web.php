@@ -246,7 +246,7 @@ Route::prefix('/')
             ->group(function(){
                 Route::controller(SalesController::class)
                     ->group(function(){
-                        Route::get('/cash_register','cashRegister')->name('hp_cashRegister');     
+                        Route::get('/material_sale','materialSale')->name('hp_materialSale');     
                     });
             });
         

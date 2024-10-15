@@ -3,8 +3,12 @@
 namespace App\Livewire\HidroProjekt\Sales;
 
 use App\Models\MaterialMasterData;
+use App\Models\SalesOrder;
 use App\Models\StorageStockItem;
+use App\Services\HidroProjekt\Domain\Order\ORD001DTO;
+use App\Services\HidroProjekt\Domain\Order\SalesOrderService;
 use App\Services\HidroProjekt\STG\StorageLocation;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
@@ -14,13 +18,42 @@ class RegisterComponent extends Component
     public $receiptItems=[];
     public $matInput;
     public $totalAmount;
+    public $data=[];
+    public $error=[];
+
+    public $p_status = SalesOrder::ORDER_PAYMENT_STATUS;
+    public $t_type = SalesOrder::TRANSACTION_TYPES;
 
     public function mount(){
         $this->calculateTotalAmount();
+        $this->data['date']   = date('Y-m-d');
+        $this->data['pymt_status'] = SalesOrder::ORDER_PAID;
+        $this->data['pymt_method']   = SalesOrder::TRANSACTION_TYPE_CASH;
     }
 
     public function toggleAddMaterialModal(){
         return $this->addMaterialModalShow= $this->addMaterialModalShow == FALSE ? TRUE : FALSE;
+    }
+
+    public function createNewOrder(){
+        $this->error = [];
+        $validation = $this->validateData();
+        if($validation){
+            return $this->dispatch('show-alert-modal', [
+                'title' => 'Greška!',
+                'message' => "Molim popuniti sva polja!",
+                'type' => 'danger',
+            ]);
+        }
+        $dto = new ORD001DTO(
+            buyer: $this->data['date'],
+            pymt_method: $this->data['pymt_method'],
+            pymt_status: $this->data['pymt_status'],
+            date: $this->data['date'],
+            created_by: Auth::user()->id,
+            items: $this->receiptItems,
+        );
+        $service = new SalesOrderService($dto);
     }
 
     public function updatedMatInput($key){
@@ -62,12 +95,30 @@ class RegisterComponent extends Component
                         'type' => 'warning',
                     ]);
                 }
+                $this->receiptItems[$matId]['s_amount'] = $this->receiptItems[$matId]['s_qty']*$this->receiptItems[$matId]['price'];
+                $this->formatNumber($matId,'s_amount');
+                $this->calculateTotalAmount();
                 break;
+
+            case 's_amount':
+                    $this->formatNumber($matId,'s_amount');
+                    $this->calculateTotalAmount();
+                    break;
             
             default:
                 # code...
                 break;
         }
+    }
+
+    public function removeItem($matId){
+        unset($this->receiptItems[$matId]);
+        $this->calculateTotalAmount();
+        return;
+    }
+
+    private function formatNumber($mat, $key){
+        return $this->receiptItems[$mat][$key] = number_format($this->receiptItems[$mat][$key], 2, '.', '');
     }
 
     #[On('check-if-key-is-in-receipt')]
@@ -90,6 +141,7 @@ class RegisterComponent extends Component
         ];
         $newItem=$this->receiptItems[$row['mat_id']];
         $this->receiptItems[$row['mat_id']]['s_amount'] = $newItem['s_qty'] * $newItem['price'];
+        $this->formatNumber($row['mat_id'],'s_amount');
         $this->calculateTotalAmount();
         return;
     }
@@ -100,6 +152,32 @@ class RegisterComponent extends Component
             $total = $total + $item['s_amount'];
         }
         return $this->totalAmount = number_format(($total), 2, '.', '');
+    } 
+
+    private function validateData(){
+        $error=[];
+        if(!isset($this->data['buyer'])){
+            $error['buyer']=TRUE;
+        }
+
+        if(isset($this->data['buyer'])){
+            if($this->data['buyer'] == "" || $this->data['buyer'] == NULL){
+                $error['buyer']=TRUE;
+            }
+        }
+
+        if(!isset($this->data['date'])){
+            $error['date']=TRUE;
+        }
+
+        if(isset($this->data['date'])){
+            if($this->data['date'] == "" || $this->data['date'] == NULL){
+                $error['date']=TRUE;
+            }
+        }
+
+        $this->error = $error;
+        return count($error);
     } 
 
     public function render()

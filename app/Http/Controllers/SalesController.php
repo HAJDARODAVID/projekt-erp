@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
-    public function cashRegister(){
-        return view('hidro-projekt.SALES.cashRegister');
+    public function materialSale(){
+        return view('hidro-projekt.SALES.materialSale');
     }
 }
