@@ -11,17 +11,16 @@ use Illuminate\Support\Facades\Hash;
 class ReportDataController extends Controller
 {
     //$2y$12$jdoVimL5yiR.Rza7LFWdzeknN8j68O4Oj7l7MnBkFQOQ78NvwkMlO
-    private $api_key = 'david';
-    private $key_match = TRUE;
+    private $api_key = '$2y$12$jdoVimL5yiR.Rza7LFWdzeknN8j68O4Oj7l7MnBkFQOQ78NvwkMlO';
+    private $key_match = NULL;
 
     public function __construct(Request $request)
     {
-        $this->key_match = $this->api_key == $request->header('api_key') ? TRUE : FALSE;
+        $this->key_match = $this->api_key == $request->header('api-key') ? TRUE : FALSE;
     }
 
     public function getAllBillsForExpenses(Request $request){
-
-        if(TRUE){
+        if($this->key_match){
             $allBills= new BillModel;
             $year = $request->get('year');
             if(!(is_null($year))){
@@ -33,14 +32,14 @@ class ReportDataController extends Controller
     }
 
     public function getAllBillProviders(Request $request){
-        if(!($this->checkIfHasKey($request->header('api_key')))){
+        if(!($this->checkIfHasKey($request->header('api-key')))){
             return;
         }
         return BillProviderModel::get();
     }
 
     public function getAllBillCategories(Request $request){
-        if(!($this->checkIfHasKey($request->header('api_key')))){
+        if(!($this->checkIfHasKey($request->header('api-key')))){
             return;
         }
 
