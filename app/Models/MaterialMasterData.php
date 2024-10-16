@@ -19,6 +19,7 @@ class MaterialMasterData extends Model
         'supplier_id', 
         'uom_1', 
         'price',
+        's_price',
         'active',
     ];
 

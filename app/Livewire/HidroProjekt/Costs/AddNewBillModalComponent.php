@@ -35,6 +35,7 @@ class AddNewBillModalComponent extends Component
         $this->refreshTargetTable();
         $this->showSuccessCard = TRUE;
         $this->data=[];
+        $this->data['inc_pdv'] = TRUE;
         if ($this->bill) {
             $this->show=FALSE;
         }

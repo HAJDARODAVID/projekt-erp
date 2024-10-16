@@ -30,6 +30,8 @@ use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
 use App\Services\HidroProjekt\Domain\Bookkeeping\ExpensesReportService;
+use App\Http\Controllers\SalesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -241,7 +243,15 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('bill_overview','billOverview')->name('hp_billOverview');     
                     });
-            });        
+            }); 
+
+        Route::prefix('/sale')
+            ->group(function(){
+                Route::controller(SalesController::class)
+                    ->group(function(){
+                        Route::get('/material_sale','materialSale')->name('hp_materialSale');     
+                    });
+            });       
     });
 
 Route::prefix('/json')

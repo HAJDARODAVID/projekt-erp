@@ -14,6 +14,7 @@ class MovementTypes
     const BOOK_DIRECT_TO_CONSTRUCTION_SITE = 270;  // Movement where we book material directly to construction site
     const BOOK_TO_CONSUMPTION              = 501;  // Movement where we book material to consumption
     const BOOK_MANUALLY_TO_CONSUMPTION     = 509;  // Movement where we book material to consumption but manually (the group leader did not booked the material)
+    const BOOK_SALES_ORDER_MATERIAL        = 601;  // Movement where we book material that has been sold
     
     CONST BOOK_INVENTORY_REMOVE_STOCK     = 701;  // Inventory booking for removing all stock 
     CONST BOOK_INVENTORY_ADD_STOCK        = 702;  // Inventory booking for adding all stock from inventory item list
@@ -25,6 +26,7 @@ class MovementTypes
         self::BOOK_FROM_CONST_SITE_TO_STORAGE  => 'Gradilište --> skladište',
         self::BOOK_CORRECTION_ON_STORAGE_DOWN  => NULL,
         self::BOOK_DIRECT_TO_CONSTRUCTION_SITE => 'Dobavljač --> gradilište',
+        self::BOOK_SALES_ORDER_MATERIAL        => 'Prodaja'
     ];
  
     const MVT_TO_LOCATION = [
@@ -35,6 +37,7 @@ class MovementTypes
         self::BOOK_TO_CONSUMPTION              => StorageLocation::CONSTRUCTION_SITE,
         self::BOOK_MANUALLY_TO_CONSUMPTION     => StorageLocation::CONSTRUCTION_SITE,
         self::BOOK_DIRECT_TO_CONSTRUCTION_SITE => StorageLocation::CONSTRUCTION_SITE,
+        self::BOOK_SALES_ORDER_MATERIAL        => NULL,
     ];
 
     const MVT_ACTION_TYPE_ADD    = 1;
@@ -60,6 +63,7 @@ class MovementTypes
             self::MVT_ACTION_TYPE_REMOVE
         ],
         self::BOOK_DIRECT_TO_CONSTRUCTION_SITE => [self::MVT_ACTION_TYPE_ADD],
+        self::BOOK_SALES_ORDER_MATERIAL        => [self::MVT_ACTION_TYPE_REMOVE],
     ];
 
     const CONST_SITE_MVT = [self::BOOK_FROM_STORAGE_TO_CONST_SITE, self::BOOK_FROM_CONST_SITE_TO_STORAGE, self::BOOK_DIRECT_TO_CONSTRUCTION_SITE];
