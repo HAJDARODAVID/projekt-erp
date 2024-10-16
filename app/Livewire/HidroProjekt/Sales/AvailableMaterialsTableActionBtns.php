@@ -27,6 +27,6 @@ class AvailableMaterialsTableActionBtns extends Component
     }
     public function render()
     {
-        return view('livewire.hidroProjekt.sales.available-materials-table-action-btns');
+        return view('livewire.hidroprojekt.sales.available-materials-table-action-btns');
     }
 }
