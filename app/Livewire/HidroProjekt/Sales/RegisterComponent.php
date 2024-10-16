@@ -45,15 +45,30 @@ class RegisterComponent extends Component
                 'type' => 'danger',
             ]);
         }
-        $dto = new ORD001DTO(
-            buyer: $this->data['date'],
+        $orderDto = new ORD001DTO(
+            buyer: $this->data['buyer'],
             pymt_method: $this->data['pymt_method'],
             pymt_status: $this->data['pymt_status'],
             date: $this->data['date'],
             created_by: Auth::user()->id,
             items: $this->receiptItems,
         );
-        $service = new SalesOrderService($dto);
+        $service = new SalesOrderService($orderDto);
+        $result = $service->execute();
+        if($result['success']){
+            $this->data['buyer']       = NULL;
+            $this->data['date']        = date('Y-m-d');
+            $this->data['pymt_status'] = SalesOrder::ORDER_PAID;
+            $this->data['pymt_method'] = SalesOrder::TRANSACTION_TYPE_CASH;
+            $this->receiptItems        = [];
+            $order = $result['order'];
+            return $this->dispatch('show-alert-modal', [
+                'title' => 'USPJEŠNO!',
+                'message' => 'Kreiran prodajni nalog #'.str_pad($order->id, 5, '0', STR_PAD_LEFT).' - kupac: ' . $order->buyer,
+                'type' => 'success',
+            ]);
+
+        }
     }
 
     public function updatedMatInput($key){
