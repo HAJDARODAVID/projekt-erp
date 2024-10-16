@@ -11,7 +11,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 class ConstructionSiteConsumptionTable extends DataTableComponent
 {
     public $constSiteId = NULL;
-    public $wdrId = NULL;
+    public $wdrId = FALSE;
 
     public function configure(): void
     {
