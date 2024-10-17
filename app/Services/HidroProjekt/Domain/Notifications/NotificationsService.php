@@ -5,6 +5,7 @@ namespace App\Services\HidroProjekt\Domain\Notifications;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Notifications;
+use App\Models\NotificationSeen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -22,14 +23,18 @@ class NotificationsService{
 
     private function canSeeNotifications(){
         $userRights = Session::get('user_rights');
-        //dd($userRights);
+        $notifeUserRights = [];
         foreach($userRights as $key => $right){
-            dd($key, $right);
+            if (str_starts_with($right, 'sys-notif-')) {
+                $notifeUserRights[] = str_replace('sys-notif-', '', $right);
+            }
         }
+        return $this->userRights = $notifeUserRights;
     }
 
     public function getAllNotifications(){
-        $this->allNotifs = Notifications::get();
+        $seenNotifs = NotificationSeen::where('user_id', $this->user->id)->pluck('notife_id')->toArray();
+        $this->allNotifs = Notifications::whereIn('type', $this->userRights)->whereNotIn('id',$seenNotifs)->get();
         return $this;
     }
 
@@ -45,6 +50,14 @@ class NotificationsService{
             $i++;
         }
         return $array;
+    }
+
+    public function markAsSeen($id){
+        NotificationSeen::create([
+            'notife_id' => $id, 
+            'user_id' => $this->user->id,
+        ]);
+        return;
     }
 
     public function createNewSysErrorNotification($e){

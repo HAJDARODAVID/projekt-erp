@@ -3,15 +3,15 @@
         <div class="d-flex justify-content-between">
             <div class="">
                 <h6 class="m-0">{{ strtoupper($title) }}</h6>
-                <div style="font-size: 11px;">26.10.2024 16:55</div>  
+                <div style="font-size: 11px;">{{ $this->item->created_at }}</div>  
             </div>
-            <div class="px-2 rounded" style="cursor: pointer">
+            <div class="px-2 rounded" style="cursor: pointer" wire:click='markAsSeenBtn()'>
                 <b >x</b>
             </div>
         </div>
     <hr class="p-0 m-1 mb-2">
     </div>
-    <p>{{ $message }}</p>
+    <p class="text-break">{{ $message }}</p>
     <hr class="p-0 m-1 mb-2">
     <div class="d-flex justify-content-end">
         <button class="btn btn-sm">
