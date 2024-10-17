@@ -3,7 +3,7 @@
 @section('content')
     <x-snowflakes :show=FALSE />
 
-    <div class="">
+    <div class="px-3">
         @if (app('user_rights')->hasRight('dashboard'))
             @livewire('hidroProjekt.dashboard.main-layout')
         @endif
