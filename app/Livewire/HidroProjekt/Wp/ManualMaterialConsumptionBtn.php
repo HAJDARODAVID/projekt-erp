@@ -49,7 +49,7 @@ class ManualMaterialConsumptionBtn extends Component
             $dwrObj= $dwrObj->createNewWorkReportItem(
                     remark: "Potrošnja materijala bez radne evidencije",
                     type: DailyWorkReportService::WDR_TYPE_NO_WD_REPORT
-            );
+            )->createNewWOrkReportLog("Potrošnja materijala bez radne evidencije");
         }
         if($dwrObj->getAllReportsForCs()->isEmpty()){
             return $this->dispatch('show-alert-modal', [

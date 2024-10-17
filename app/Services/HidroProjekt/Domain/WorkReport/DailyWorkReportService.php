@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\Domain\WorkReport;
 
+use App\Models\WorkingDayLogModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WorkingDayRecordModel;
 
@@ -35,6 +36,15 @@ class DailyWorkReportService{
                             'work_type'            => $type,
                             'work_description'     => $remark
                         ]);
+        return $this;
+    }
+
+    public function createNewWOrkReportLog($log){
+        WorkingDayLogModel::create([
+            'working_day_record_id' => $this->wdrObj->id,
+            'construction_site_id' => $this->wdrObj->construction_site_id,
+            'log' => $log,
+        ]);
         return $this;
     }
 
