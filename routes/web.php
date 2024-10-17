@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportingController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParametersController;
+use App\Http\Controllers\ReportDataController;
 use App\Http\Controllers\CostOverviewController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\AccessControlListController;
@@ -28,6 +29,9 @@ use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
+use App\Services\HidroProjekt\Domain\Bookkeeping\ExpensesReportService;
+use App\Http\Controllers\SalesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -239,8 +243,25 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('bill_overview','billOverview')->name('hp_billOverview');     
                     });
+            }); 
+
+        Route::prefix('/sale')
+            ->group(function(){
+                Route::controller(SalesController::class)
+                    ->group(function(){
+                        Route::get('/material_sale','materialSale')->name('hp_materialSale');     
+                    });
+            });       
+    });
+
+Route::prefix('/json')
+    ->group(function(){
+        Route::controller(ReportDataController::class)
+            ->group(function(){
+                Route::get('bills','getAllBillsForExpenses')->name('hp_getAllBillsForExpenses');  
+                Route::get('bill_providers','getAllBillProviders')->name('hp_getAllBillProviders');  
+                Route::get('bill_categories','getAllBillCategories')->name('hp_getAllBillCategories');     
             });
-        
     });
 
 Route::get('/clear', function() {
@@ -254,9 +275,7 @@ Route::get('/clear', function() {
 });
 
 Route::get('test',function(){
-    return Resources::create([
-        'resources' => 'expenses-report-config',
-    ]);
+    return (new ExpensesReportService)->getDataForExportByMonth(9);
 });
 
 Route::get('/test2', [App\Http\Controllers\Test2::class, 'index']);

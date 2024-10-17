@@ -59,6 +59,7 @@ class ConstructionSiteService
         $workHourCost=[
             1 => (float)AppParametersModel::where('param_name_srt', 'bwhv-h')->where('active', TRUE)->first()->value,
             2 => (float)AppParametersModel::where('param_name_srt', 'bwhv-t')->where('active', TRUE)->first()->value,
+            4 => 0,
         ];
         $wdrAll = WorkingDayRecordModel::where('construction_site_id', $constSite)
             ->with('getAttendance', 'getUser.getWorker', 'getCarMileage')

@@ -8,9 +8,11 @@ use App\Models\ConstructionSiteModel;
 use App\Models\MaterialConsumptionModel;
 use App\Models\MaterialConsumptionItemModel;
 use App\Models\WorkingDayRecordModel;
+use App\Services\HidroProjekt\Domain\WorkReport\DailyWorkReportService;
 use App\Services\HidroProjekt\STG\MovementTypes;
 use App\Services\HidroProjekt\STG\MovementService;
 use App\Services\HidroProjekt\STG\StorageLocation;
+use Illuminate\Support\Facades\Auth;
 
 class ManualMaterialConsumptionBtn extends Component
 {
@@ -19,6 +21,7 @@ class ManualMaterialConsumptionBtn extends Component
     public $materialInfo;
     public $qty;
     public $row;
+    public $noWdr = FALSE;
 
     public function mount(){
         $this->constructionSiteInfo = ConstructionSiteModel::where('id', $this->row->cons_id)->first();
@@ -38,9 +41,17 @@ class ManualMaterialConsumptionBtn extends Component
             'mat_id' => $this->materialInfo->id,
             'qty'    => $this->qty
         ];
-        //Get last WDR for construction site
-        $wdr = WorkingDayRecordModel::where('construction_site_id', $this->constructionSiteInfo->id)->orderBy('id', 'desc')->get();
-        if($wdr->isEmpty()){
+        $dwrObj = new DailyWorkReportService(
+            constSite: $this->constructionSiteInfo->id,
+        );
+        if($this->noWdr){
+            //create new daily work report
+            $dwrObj= $dwrObj->createNewWorkReportItem(
+                    remark: "Potrošnja materijala bez radne evidencije",
+                    type: DailyWorkReportService::WDR_TYPE_NO_WD_REPORT
+            )->createNewWOrkReportLog("Potrošnja materijala bez radne evidencije");
+        }
+        if($dwrObj->getAllReportsForCs()->isEmpty()){
             return $this->dispatch('show-alert-modal', [
                 'title' => 'ERROR!',
                 'message' => "Za navedeno gradilište nema zapisa radnog dana na koji bi se material mogao utrošiti.",
@@ -49,7 +60,7 @@ class ManualMaterialConsumptionBtn extends Component
         }
         //Create new consumption item
         $consumption = MaterialConsumptionModel::create([
-            'wdr_id' => $wdr->first()->id,
+            'wdr_id' => $dwrObj->getAllReportsForCs()->getLastReport()->id,
             'booked' => MaterialConsumptionModel::STATUS_BOOKED,
         ]);
         $consumptionItems = MaterialConsumptionItemModel::create([

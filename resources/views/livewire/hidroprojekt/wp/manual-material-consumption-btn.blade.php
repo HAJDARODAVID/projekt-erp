@@ -23,7 +23,12 @@
                 </tr>
             </tbody>
         </table>
-        <div class="d-flex justify-content-center">
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" wire:model.live="noWdr">
+            <label class="form-check-label">Potrošnja materijala bez radne evidencije</label>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-center gap-3">
             <button class="btn btn-danger btn-lg" style="width: 100px" wire:click='sendMaterialToConsumption()'><i class="bi bi-box-arrow-right"></i></button>
         </div>
     </x-modal>
