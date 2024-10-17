@@ -11,10 +11,15 @@
         </div>
     <hr class="p-0 m-1 mb-2">
     </div>
-    <p class="text-break">{{ $message }}</p>
+    <p class="text-break" wire:loading.remove>{{ $message }}</p>
+    <div class="d-flex justify-content-center" >
+        <div class="spinner-border" role="status" style="display:none" wire:loading wire:target="markAsSeenBtn">
+            <span class="sr-only"></span>
+        </div>
+    </div> 
     <hr class="p-0 m-1 mb-2">
     <div class="d-flex justify-content-end">
-        <button class="btn btn-sm">
+        <button class="btn btn-sm" wire:loading.remove>
             <div class="alert alert-{{ $aType }} shadow p-0 m-0 px-3 py-0">Više...</div>
         </button>
     </div>
