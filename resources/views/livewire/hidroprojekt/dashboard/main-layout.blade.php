@@ -4,7 +4,7 @@
             $height = NULL;
             $height_row = isset($row['height']) ? $row['height'] : NULL;
         @endphp
-        <div class="row">
+        <div class="row gap-2">
             @foreach ($row['col'] as $col)
                 @php
                    $height = isset($col['height']) ? $col['height'] : $height_row;
