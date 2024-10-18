@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.60s>
     @if($itemCount == 0)
     <div class="alert alert-light shadow" role="alert">        
         <p class="pt-2">
