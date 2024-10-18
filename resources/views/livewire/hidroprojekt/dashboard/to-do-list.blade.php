@@ -1,4 +1,4 @@
-<div wire:poll.120s='refreshList()'>
+<div wire:poll.60s='refreshList()'>
     <div class="list-group">
         @foreach ($items as $item)
             @livewire('hidroProjekt.dashboard.components.to-do-list-item',[
