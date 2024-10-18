@@ -1,4 +1,4 @@
-<div class="container" style="height: 800px">
+<div class="mx-3" style="height: 800px">
     @foreach ($config as $row)
         @php
             $height = NULL;
