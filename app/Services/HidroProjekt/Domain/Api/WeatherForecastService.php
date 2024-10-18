@@ -10,6 +10,7 @@ class WeatherForecastService{
     private $forecastData =[];
     private $data;
     private $townData=NULL;
+    private $townArray=NULL;
 
     public function __construct(){
         $this->forecastData = $this->getDataFromUrl();
@@ -35,7 +36,20 @@ class WeatherForecastService{
             unset($this->data['grad'][$key]);
         }
         unset($this->data['grad']);
+        $this->setTownArray();
         return $this;
+    }
+
+    private function setTownArray(){
+        foreach ($this->data as $town => $data) {
+            $this->townArray[$town] = TRUE;
+        }
+        unset($this->townArray['izmjena']);
+        return;
+    }
+
+    public function getTownArray(){
+        return $this->townArray;
     }
 
     public function town($town){
