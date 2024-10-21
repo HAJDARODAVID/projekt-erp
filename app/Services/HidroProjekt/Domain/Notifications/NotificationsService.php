@@ -24,9 +24,11 @@ class NotificationsService{
     private function canSeeNotifications(){
         $userRights = Session::get('user_rights');
         $notifeUserRights = [];
-        foreach($userRights as $key => $right){
-            if (str_starts_with($right, 'sys-notif-')) {
-                $notifeUserRights[] = str_replace('sys-notif-', '', $right);
+        if(is_array($userRights)){
+            foreach($userRights as $key => $right){
+                if (str_starts_with($right, 'sys-notif-')) {
+                    $notifeUserRights[] = str_replace('sys-notif-', '', $right);
+                }
             }
         }
         return $this->userRights = $notifeUserRights;
