@@ -63,17 +63,20 @@ class NotificationsService{
     }
 
     public function createNewSysErrorNotification($e){
-        $userName = User::where('id', $this->user->id)->with('getWorker')->first()->getWorker->fullName;
-        $errorInfo = [
-            'message' => $e->getMessage(),
-            'file ' => $e->getFile() .' / at line: ' . $e->getLine(),
-            'path' => request()->decodedPath(),
-        ];
-        return Notifications::create([
-            'type' => Notifications::TYPE_SYS_ERROR,
-            'message' => 'User: '.$userName.' has encountered the following error: ' .$e->getMessage(),
-            'value' => json_encode($errorInfo),
-        ]);
+        if($this->user){
+            $userName = User::where('id', $this->user->id)->with('getWorker')->first()->getWorker->fullName;
+            $errorInfo = [
+                'message' => $e->getMessage(),
+                'file ' => $e->getFile() .' / at line: ' . $e->getLine(),
+                'path' => request()->decodedPath(),
+            ];
+            return Notifications::create([
+                'type' => Notifications::TYPE_SYS_ERROR,
+                'message' => 'User: '.$userName.' has encountered the following error: ' .$e->getMessage(),
+                'value' => json_encode($errorInfo),
+            ]);
+        }
+        
     }
     
 }
