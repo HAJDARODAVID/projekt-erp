@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3273fd8b71c84e4fdeacd574c609952",
+    "content-hash": "3306c29b70e55cac1522c33ad22a0fa1",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -7044,16 +7044,16 @@
     "packages-dev": [
         {
             "name": "deployer/deployer",
-            "version": "v7.3.3",
+            "version": "v7.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deployphp/deployer.git",
-                "reference": "3535bdb2f6360662bd95f6e26fce31dbc269af64"
+                "reference": "9d6397f25d8185622717e6e66d3eed737fd9d99b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deployphp/deployer/zipball/3535bdb2f6360662bd95f6e26fce31dbc269af64",
-                "reference": "3535bdb2f6360662bd95f6e26fce31dbc269af64",
+                "url": "https://api.github.com/repos/deployphp/deployer/zipball/9d6397f25d8185622717e6e66d3eed737fd9d99b",
+                "reference": "9d6397f25d8185622717e6e66d3eed737fd9d99b",
                 "shasum": ""
             },
             "bin": [
@@ -7083,7 +7083,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-07T10:27:12+00:00"
+            "time": "2024-10-12T20:42:52+00:00"
         },
         {
             "name": "fakerphp/faker",
