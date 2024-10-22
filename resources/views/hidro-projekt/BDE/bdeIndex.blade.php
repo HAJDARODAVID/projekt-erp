@@ -18,6 +18,14 @@
                     <div class="d-flex justify-content-center mb-2">   
                         <button class="btn btn-success" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button>
                     </div>
+                    <hr>
+                    <div class="d-flex justify-content-center mb-2">   
+                        <button class="btn btn-primary" style="height: 55px; width: 230px" 
+                            onclick="location.href='{{ route('hp_bdeOrderForm') }}'">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <b>NARUDŽBENICA</b>
+                        </button>
+                    </div>
 
                     @if ($activeInv && Auth::user()->id == 15)
                         <div class="d-flex justify-content-center mb-2">   
