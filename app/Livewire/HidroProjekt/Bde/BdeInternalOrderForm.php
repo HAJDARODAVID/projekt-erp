@@ -5,14 +5,17 @@ namespace App\Livewire\HidroProjekt\Bde;
 use Livewire\Component;
 use App\Models\MaterialMasterData;
 use App\Models\ConstructionSiteModel;
+use App\Services\HidroProjekt\Domain\Order\InternalOrder\InternalOrderService;
 
 class BdeInternalOrderForm extends Component
 {
     public $allCs;
     public $mmInfo;
-    public $selectedCs = 4;
+    public $selectedCs = NULL;
     public $items = [];
     public $error = [];
+    public $success = NULL;
+    public $remark = NULL;
 
     public function mount(){
         $this->items[time()] = [
@@ -35,7 +38,17 @@ class BdeInternalOrderForm extends Component
         if(!$validation){
             return;
         }
-        dd($validation);
+        $service = new InternalOrderService();
+        $service->createNewInternalOrder($this->selectedCs, $this->items, $this->remark);
+        $this->success = 'Uspješno kreirana narudžbenica: ' . $service->getOrder()->id . '!';
+        $this->items = [];
+        $this->items[time()] = [
+            'mat' => NULL,
+            'qty' => NULL,
+        ];
+        $this->selectedCs = NULL;
+        $this->remark = NULL;
+        return;
     }
 
     private function validateData(){
@@ -56,7 +69,9 @@ class BdeInternalOrderForm extends Component
                 $this->error[$key]['qty']=TRUE;
             }
         }
-        $isValid = count($this->error) ? FALSE : TRUE;
+        if(count($this->error) || count($this->items) == 0){
+            $isValid = FALSE;
+        }
         return $isValid;
     }
 
