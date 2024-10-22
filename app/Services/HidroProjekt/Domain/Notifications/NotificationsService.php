@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\Domain\Notifications;
 
+use App\Models\ConstructionSiteModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Notifications;
@@ -36,7 +37,7 @@ class NotificationsService{
 
     public function getAllNotifications(){
         $seenNotifs = NotificationSeen::where('user_id', $this->user->id)->pluck('notife_id')->toArray();
-        $this->allNotifs = Notifications::whereIn('type', $this->userRights)->whereNotIn('id',$seenNotifs)->get();
+        $this->allNotifs = Notifications::whereIn('type', $this->userRights)->whereNotIn('id',$seenNotifs)->orderBy('id','desc')->get();
         return $this;
     }
 
@@ -77,6 +78,19 @@ class NotificationsService{
             ]);
         }
         
+    }
+
+    public function createNewIntOrderNotification($userID, $csID, $orderID){
+        $userName = User::where('id', $userID)->with('getWorker')->first()->getWorker->fullName;
+        $consName = ConstructionSiteModel::where('id', $csID)->first()->name;
+        $info = [
+            'order_id' => $orderID,
+        ];
+        return Notifications::create([
+            'type' => Notifications::TYPE_INT_ORDER,
+            'message' => $userName.' šalje novu narudžbenicu za gradilište: ' . $consName,
+            'value' => json_encode($info),
+        ]);
     }
     
 }

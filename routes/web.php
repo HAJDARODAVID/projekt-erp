@@ -29,6 +29,7 @@ use App\Http\Controllers\HidroProjekt\HumanResourcesController;
 use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
+use App\Http\Controllers\InternalOrderController;
 use App\Services\HidroProjekt\Domain\Bookkeeping\ExpensesReportService;
 use App\Http\Controllers\SalesController;
 
@@ -68,7 +69,6 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
                 Route::get('/wd_record/{id}','workingDayEntry')->name('hp_workingDayEntry');
                 Route::get('/wd_record/consumption/{wd_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
                 Route::delete('/wd_record/{id}','deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
-
                 //Inventory routes
                 Route::get('construction_site_inv','constructionSiteMainInventory')->name('hp_bdeInventoryModule');
             });
@@ -76,6 +76,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
             ->group(function(){
                 Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
                 Route::put('/pass_reset', 'passwordChange')->name('bde_passwordChange');
+            });
+
+        Route::controller(InternalOrderController::class)
+            ->group(function(){
+                Route::get('/order_form', 'bdeOrderForm')->name('hp_bdeOrderForm');
             });
     });
 
