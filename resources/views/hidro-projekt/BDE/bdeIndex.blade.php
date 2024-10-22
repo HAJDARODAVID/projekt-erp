@@ -26,10 +26,14 @@
                             <b>NARUDŽBENICA</b>
                         </button>
                     </div>
-
-                    @if ($activeInv && Auth::user()->id == 15)
+                    <hr>
+                    @if ($activeInv)
                         <div class="d-flex justify-content-center mb-2">   
-                            <button class="btn btn-primary" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_bdeInventoryModule') }}'"><b>INVENTURA</b></button>
+                            <button class="btn btn-dark" style="height: 55px; width: 230px" 
+                                onclick="location.href='{{ route('hp_bdeInventoryModule') }}'">
+                                <i class="bi bi-list-check"></i>
+                                <b>INVENTURA</b>
+                            </button>
                         </div>
                     @endif
                     
