@@ -35,6 +35,7 @@ class AvailableMaterialsTable extends DataTableComponent
     }
 
     public function builder(): Builder{
-        return AvailableMaterialView::query();
+        return AvailableMaterialView::query()
+            ->orderBy('name', 'asc');
     }
 }
