@@ -32,6 +32,9 @@ class CreateNewWorkDiaryFromAdm extends Component
         if($this->show){
             $this->setData();
         }
+        if(!$this->show){
+            $this->resetAll();
+        }
         return;
     }
 
@@ -51,6 +54,8 @@ class CreateNewWorkDiaryFromAdm extends Component
             foreach ($this->attendance as $att) {
                 $attService->createNewWorkHoursAttendance($att['id'], $att['hours']);
             }
+            $this->resetAll();
+            $this->show = FALSE;
             return redirect()->route('hp_allWorkHours')->with('success', 'Uspješno kreiran zapis radnog dana!');
         }
         return;
@@ -105,7 +110,15 @@ class CreateNewWorkDiaryFromAdm extends Component
     }
 
     private function resetAll(){
-
+        $this->selectedLeader = NULL;
+        $this->date = NULL;
+        $this->constSite = NULL;
+        $this->workers = NULL;
+        $this->workerSearch = NULL;
+        $this->attendance = [];
+        $this->jobType = WorkingDayRecordModel::WORK_TYPE_HOME;
+        $this->error = [];
+        return;
     }
 
     private function dataValidation(){
