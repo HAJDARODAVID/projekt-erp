@@ -23,10 +23,8 @@ class AvailableMaterialsTable extends DataTableComponent
             Column::make("#", "id")
                 ->hideIf(TRUE),
             Column::make("#", "mat_id")
-                ->sortable()
                 ->searchable(),
             Column::make("Materijal", "name")
-                ->sortable()
                 ->searchable(),
             Column::make("Kol.", "qty"),
             Column::make('','id')
