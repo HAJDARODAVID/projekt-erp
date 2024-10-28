@@ -6,7 +6,6 @@ use App\Models\StorageStockItem;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Views\AvailableMaterialView;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Services\HidroProjekt\STG\StorageLocation;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class AvailableMaterialsTable extends DataTableComponent
