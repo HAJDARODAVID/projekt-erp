@@ -25,7 +25,10 @@ class SystemNotificationsAlertCard extends Component
     }
 
     private function setAType(){
-        return $this->item != NULL ? Notifications::TYPES_INFO[$this->item->type]['a_type'] : NULL;
+        if(isset(Notifications::TYPES_INFO[$this->item->type]['a_type'])){
+            return $this->item != NULL ? Notifications::TYPES_INFO[$this->item->type]['a_type'] : NULL;   
+        }
+        return 'light';
     }
 
     private function seMessage(){

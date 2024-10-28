@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\Domain\WorkReport;
 
+use App\Models\User;
 use App\Models\WorkingDayLogModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WorkingDayRecordModel;
@@ -39,12 +40,18 @@ class DailyWorkReportService{
         return $this;
     }
 
-    public function createNewWOrkReportLog($log){
+    public function createNewWorkReportLog($log){
         WorkingDayLogModel::create([
             'working_day_record_id' => $this->wdrObj->id,
             'construction_site_id' => $this->wdrObj->construction_site_id,
             'log' => $log,
         ]);
+        return $this;
+    }
+
+    public function setDifferentUser($id){
+        //$this->user = User::where('id', $id)->first();
+        $this->user = $id;
         return $this;
     }
 
@@ -64,5 +71,9 @@ class DailyWorkReportService{
 
     public function getLastReport(){
         return $this->wdrObj->orderBy('id', 'desc')->first();
+    }
+
+    public function getWdrObj(){
+        return $this->wdrObj;
     }
 }
