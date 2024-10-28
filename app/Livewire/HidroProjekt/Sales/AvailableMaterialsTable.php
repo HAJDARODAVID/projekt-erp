@@ -2,11 +2,12 @@
 
 namespace App\Livewire\HidroProjekt\Sales;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\StorageStockItem;
-use App\Services\HidroProjekt\STG\StorageLocation;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Views\AvailableMaterialView;
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use App\Services\HidroProjekt\STG\StorageLocation;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
 class AvailableMaterialsTable extends DataTableComponent
 {
@@ -25,7 +26,7 @@ class AvailableMaterialsTable extends DataTableComponent
             Column::make("#", "mat_id")
                 ->sortable()
                 ->searchable(),
-            Column::make("Materijal", "getMaterialInfo.name")
+            Column::make("Materijal", "name")
                 ->sortable()
                 ->searchable(),
             Column::make("Kol.", "qty"),
@@ -35,8 +36,6 @@ class AvailableMaterialsTable extends DataTableComponent
     }
 
     public function builder(): Builder{
-        return StorageStockItem::query()
-            ->where('str_loc', StorageLocation::MAIN_STORAGE)
-            ->where('qty', '!=', 0);
+        return AvailableMaterialView::query();
     }
 }
