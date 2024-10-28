@@ -16,7 +16,9 @@
               </select>
             </div>
         </div>
-        <div class="">
+        <div class="d-flex gap-2">
+            @livewire('hidroProjekt.hr.create-new-work-diary-from-adm')
+            <x-v-divider />
             <button class="btn btn-success btn-lg d-flex align-items-center" wire:click='exportAttendanceReport()'><i class="bi bi-file-earmark-spreadsheet"></i></button>
         </div>
     </div>

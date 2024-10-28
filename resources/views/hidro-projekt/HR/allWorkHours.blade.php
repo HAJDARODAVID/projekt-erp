@@ -10,6 +10,7 @@
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
+        <script>fadeAway('alert');</script>
     @endif
     
     @livewire('hidroProjekt.hr.work-hours-report',[
