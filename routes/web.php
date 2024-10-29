@@ -220,6 +220,7 @@ Route::prefix('/')
                 Route::controller(InternalDeliveryNoteController::class)
                     ->group(function(){
                         Route::get('internal_delivery_note','index')->name('hp_internalDeliveryNote');
+                        Route::get('internal_order','internalOrder')->name('hp_internalOrder');
                     });
             });
         
