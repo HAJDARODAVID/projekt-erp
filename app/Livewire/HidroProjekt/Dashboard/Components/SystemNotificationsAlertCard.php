@@ -13,11 +13,13 @@ class SystemNotificationsAlertCard extends Component
     public $title = "";
     public $message = "";
     public $item;
+    public $moreOption = NULL;
 
     public function mount(){
         $this->title = $this->setTitle();
         $this->message = $this->seMessage();
         $this->aType = $this->setAType();
+        $this->moreOption = $this->setMoreOption();
     }
 
     private function setTitle(){
@@ -32,9 +34,17 @@ class SystemNotificationsAlertCard extends Component
         return $this->item != NULL ? $this->item->message : NULL;
     }
 
+    private function setMoreOption(){
+        return $this->item != NULL ? Notifications::TYPES_INFO[$this->item->type]['moreOption'] : NULL;
+    }
+
     public function markAsSeenBtn(){
         (new NotificationsService())->markAsSeen($this->item->id);
         return $this->dispatch('refresh-system-notifications');
+    }
+
+    public function openMore(){
+        return $this->dispatch('open-system-notification-more-modal', $this->item);
     }
 
     public function render()

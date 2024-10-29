@@ -11,16 +11,15 @@ class Notifications extends Model
     const TYPE_INT_ORDER = 'int_order';
 
     const TYPES_INFO =[
-        'int_order' => [
-            'name' => 'Interna naruđbenica',
-        ],
         self::TYPE_SYS_ERROR => [
             'name' => 'System error',
             'a_type' => 'danger',
+            'moreOption' => NULL,
         ],
         self::TYPE_INT_ORDER => [
             'name' => 'interna narudžbenica',
             'a_type' => 'primary',
+            'moreOption' => 'internal-order-info',
         ],
     ];
 
