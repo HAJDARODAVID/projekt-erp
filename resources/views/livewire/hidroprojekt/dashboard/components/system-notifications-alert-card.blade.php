@@ -17,10 +17,12 @@
             <span class="sr-only"></span>
         </div>
     </div> 
-    <hr class="p-0 m-1 mb-2">
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-sm" wire:loading.remove>
-            <div class="alert alert-{{ $aType }} shadow p-0 m-0 px-3 py-0">Više...</div>
-        </button>
-    </div>
+    @if($moreOption)
+        <hr class="p-0 m-1 mb-2">
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-sm" wire:loading.remove wire:click='openMore()'>
+                <div class="alert alert-{{ $aType }} shadow p-0 m-0 px-3 py-0">Više...</div>
+            </button>
+        </div>
+    @endif
 </div>

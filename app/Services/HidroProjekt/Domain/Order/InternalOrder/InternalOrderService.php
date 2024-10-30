@@ -34,6 +34,16 @@ class InternalOrderService
         return $this->order;
     }
 
+    public function getOrderItems(){
+        return $this->orderItems;
+    }
+
+    public function getOrderById($id){
+        $this->order = IntOrder::where('id', $id)->first();
+        $this->orderItems = IntOrderItem::where('ord_id', $id)->get();
+        return $this;
+    }
+
     private function setCsId($csId){
         $this->csId = $csId;
         return $this;
