@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="py-3 px-4">
-                <textarea class="form-control" rows="4" style="resize: none;"></textarea>              
+                <textarea class="form-control" rows="4" style="resize: none;" wire:model='remark'></textarea>              
             </div>
         </div>
 
