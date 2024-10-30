@@ -39,9 +39,11 @@ class SystemNotificationMoreModal extends Component
                 $orderedBy = User::where('id', $order->getOrder()->ordered_by)->with('getWorker')->first()->getWorker->fullName;
                 $orderItems = [];
                 foreach ($order->getOrderItems() as $item) {
+                    $matInfo = MaterialMasterData::where('id', $item->mat_id)->first();
                     $orderItems[]=[
-                        'mat_name' => MaterialMasterData::where('id', $item->mat_id)->first()->name,
+                        'mat_name' => $matInfo->name,
                         'qty' => $item->qty,
+                        'uom' => $matInfo->uom_1,
                     ];
                 }
                 $this->mainData=[
