@@ -44,6 +44,13 @@ class InternalOrderService
         return $this;
     }
 
+    public function changeOrderStatus($newStatus){
+        $this->order->update([
+            'status' => $newStatus,
+        ]);
+        return $this;
+    }
+
     private function setCsId($csId){
         $this->csId = $csId;
         return $this;

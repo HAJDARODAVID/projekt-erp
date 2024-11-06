@@ -24,7 +24,7 @@ return new class extends Migration
                 FROM int_orders as io
                 LEFT JOIN users as us ON io.ordered_by = us.id
                 LEFT JOIN workers as wo ON us.worker_id = wo.id
-                LEFT JOIN construction_sites as cs ON io.const_id = cs.id;
+                LEFT JOIN construction_sites as cs ON io.const_id = cs.id
             )
         ");
     }
