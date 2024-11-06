@@ -66,14 +66,16 @@ class CoOpAttendanceModal extends Component
 
     public function save(){
         if(isset($this->hours['misc'])){
-            foreach($this->hours['misc'] as $key => $item){
-                if(!isset($item['table_id']) && ($item['hours'] != 0 || $item['hours'] != "")){
-                    AttendanceCoOpModel::create([
-                        'worker_id'             => $this->coOpWorker->id,
-                        'working_day_record_id' => $key,
-                        'work_hours'            => $item['hours'],
-                        'date'                  => $this->attendanceDate,
-                    ]);
+            if(!empty($this->hours['misc'][532])){
+                foreach($this->hours['misc'] as $key => $item){
+                    if(!isset($item['table_id']) && ($item['hours'] != 0 || $item['hours'] != "")){
+                        AttendanceCoOpModel::create([
+                            'worker_id'             => $this->coOpWorker->id,
+                            'working_day_record_id' => $key,
+                            'work_hours'            => $item['hours'],
+                            'date'                  => $this->attendanceDate,
+                        ]);
+                    }
                 }
             }
         }
