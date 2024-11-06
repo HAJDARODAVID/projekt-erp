@@ -12,6 +12,6 @@ class InternalDeliveryNoteController extends Controller
     }
 
     public function internalOrder(){
-        return "";
+        return view('hidro-projekt.WP.internalOrder');
     }
 }
