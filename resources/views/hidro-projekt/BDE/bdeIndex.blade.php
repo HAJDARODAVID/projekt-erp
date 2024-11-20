@@ -16,7 +16,8 @@
                         <x-bde.working-day-entry-card :entry="$entry"></x-bde.working-day-entry-card>
                     @endforeach
                     <div class="d-flex justify-content-center mb-2">   
-                        <button class="btn btn-success" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button>
+                        <button class="btn btn-danger" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button><br>
+                        <button class="btn btn-success" style="height: 65px; width: 230px" onclick="location.href='{{ route('createNewReport') }}'"><b>+ DODAJ NOVI ZAPIS - NEW</b></button>
                     </div>
 
                     @if ($activeInv && Auth::user()->id == 15)

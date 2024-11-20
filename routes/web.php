@@ -6,7 +6,9 @@ use App\Models\SpecialPrivilege;
 use App\Models\MaterialMasterData;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BdeController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportingController;
@@ -30,7 +32,6 @@ use App\Http\Controllers\HidroProjekt\ConstructionSiteController;
 use App\Http\Controllers\HidroProjekt\MaterialMasterDataController;
 use App\Http\Controllers\HidroProjekt\InternalDeliveryNoteController;
 use App\Services\HidroProjekt\Domain\Bookkeeping\ExpensesReportService;
-use App\Http\Controllers\SalesController;
 
 
 /*
@@ -76,6 +77,34 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
             ->group(function(){
                 Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
                 Route::put('/pass_reset', 'passwordChange')->name('bde_passwordChange');
+            });
+    });
+
+/**
+ * New BDE routes - feature_bde-remaster
+ */
+Route::prefix('/new/bde')
+    ->middleware(['auth'])
+    ->group(Function(){
+        Route::controller(BdeController::class)
+            ->group(function(){
+                //New
+                Route::get('/work_report/{id}','showBdeWorkReport')->name('showBdeWorkReport');
+                Route::get('/new_report','createNewReport')->name('createNewReport');
+                //Old
+                // Route::get('/my_entries','myEntries')->name('hp_myEntries');
+                // Route::get('/newEntry','newWorkingDayEntry')->name('hp_newWorkingDayEntry');
+                // Route::get('/wd_record/{id}','workingDayEntry')->name('hp_workingDayEntry');
+                // Route::get('/wd_record/consumption/{wd_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
+                // Route::delete('/wd_record/{id}','deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
+
+                //Inventory routes
+                // Route::get('construction_site_inv','constructionSiteMainInventory')->name('hp_bdeInventoryModule');
+            });
+        Route::controller(ProfileController::class)
+            ->group(function(){
+                // Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
+                // Route::put('/pass_reset', 'passwordChange')->name('bde_passwordChange');
             });
     });
 
