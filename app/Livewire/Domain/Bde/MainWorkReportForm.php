@@ -18,7 +18,7 @@ class MainWorkReportForm extends Component
 
     public $saveStatus=[]; 
 
-    public $form='main';
+    public $module='main';
 
     public function mount(){
         $this->dailyWorkReportToArray()->setJobSites();
@@ -57,10 +57,14 @@ class MainWorkReportForm extends Component
     }
 
     public function returnBtn(){
-        if($this->form == 'main'){
+        if($this->module == 'main'){
             return redirect()->route('home');
         }
-        return $this->form = 'main';
+        return $this->module = 'main';
+    }
+
+    public function selectModule($module){
+        return $this->module = $module;
     }
 
     public function render()

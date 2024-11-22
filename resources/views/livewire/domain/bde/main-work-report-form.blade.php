@@ -5,7 +5,7 @@
             <button class="btn btn-dark btn-sm" wire:click='returnBtn()'><i class="bi bi-arrow-return-left"></i></button> 
         </x-slot:title>
 
-        @if ($form == 'main')
+        @if ($module == 'main')
             {{-- DATE --}}
             <div class="">
                 <h1 class="h6 "><b>Datum</b></h1>
@@ -43,12 +43,6 @@
                     </div>
                 </div>
                 <x-spinner target='wdr.work_type' />
-
-                {{-- <div class="d-flex justify-content-center" >
-                    <div class="spinner-border" role="status" wire:loading>
-                        <span class="sr-only"></span>
-                    </div>
-                </div> --}}
                 <hr>
             </div>
             {{-- CAR --}}
@@ -56,7 +50,6 @@
                 'dailyWorkReport' => $dailyWorkReport,
             ])
             
-
             {{-- WORKER ATTENDANCE --}}
             <div>
                 <h1 class="h6"><b>Prisustvo radnika</b></h1>
@@ -65,7 +58,8 @@
                         <i class="bi bi-people-fill" style="color: red;"></i>&nbsp : &nbsp
                         <b style="color: red;">0</b>
                     </div>
-                    <div class="col d-flex justify-content-center"> <button class="btn btn-success"><i class="bi bi-person-plus"></i></button></div>
+                    <div class="col d-flex justify-content-center"> 
+                        <button class="btn btn-success" wire:click='selectModule("attendance")'><i class="bi bi-person-plus"></i></button></div>
                     </div>
                 <hr>
             </div>
@@ -96,7 +90,7 @@
                 </button>
             </div>
         @else
-            shieeeet  
+            @livewire('domain.bde.main-work-report-modules.'.$module.'.'.$module)  
         @endif
         
     </x-cards.card>
