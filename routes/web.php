@@ -93,10 +93,7 @@ Route::prefix('/new/bde')
                 Route::get('/new_report','createNewReport')->name('createNewReport');
                 //Old
                 // Route::get('/my_entries','myEntries')->name('hp_myEntries');
-                // Route::get('/newEntry','newWorkingDayEntry')->name('hp_newWorkingDayEntry');
-                // Route::get('/wd_record/{id}','workingDayEntry')->name('hp_workingDayEntry');
                 // Route::get('/wd_record/consumption/{wd_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
-                // Route::delete('/wd_record/{id}','deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
 
                 //Inventory routes
                 // Route::get('construction_site_inv','constructionSiteMainInventory')->name('hp_bdeInventoryModule');

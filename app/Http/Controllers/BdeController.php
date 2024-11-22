@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WorkingDayRecordModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\HidroProjekt\Domain\WorkReport\DailyWorkReportService;
@@ -21,15 +22,17 @@ class BdeController extends Controller
             return redirect()->route('home');
         }
 
-        return view('hidro-projekt.bde-new.work-report');
+        return view('hidro-projekt.bde-new.work-report',[
+            'dailyWorkReport' => $dailyWorkReport->getWdrObj(),
+        ]);
     }
 
     public function createNewReport(){
         if(Auth::user()){
             $dailyWorkReportService = new DailyWorkReportService();
-            $newWorkReport = $dailyWorkReportService->createNewWorkReportItem()->getWdrObj();
+            $newWorkReport = $dailyWorkReportService->createNewWorkReportItem(type: WorkingDayRecordModel::WORK_TYPE_HOME)->getWdrObj();
             return redirect()->route('showBdeWorkReport', $newWorkReport->id);
         }
-        return 'fuck';
+        return;
     }
 }
