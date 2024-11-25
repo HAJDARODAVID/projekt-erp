@@ -3,30 +3,50 @@
 namespace App\Services\HidroProjekt\Domain\Workers\Employes;
 
 use App\Models\AttendanceModel;
-use App\Models\User;
+use App\Models\WorkerModel;
+use App\Models\WorkingDayRecordModel;
 
 class AttendanceService
 {   
     private $wdrId;
     private $type;
     private $date;
+    private $attendance;
+    private $worker;
 
     public function __construct(
         $wdrId = NULL,
         $type  = NULL,
         $date  = NULL,
+        $worker = NULL, 
     )
     {
         $this->wdrId = $wdrId;
         $this->type  = $type;
-        $this->date  = $date;
+        $this->date  = $date != NULL ? $date : WorkingDayRecordModel::where('id', $this->wdrId)->first()->date;
+        $this->worker = $worker != NULL ? WorkerModel::where('id', $worker)->first() : NULL;
+        $this->attendance = $this->wdrId != NULL ? $this->setAttendance() : NULL;
     }
 
-    public function createNewWorkHoursAttendance($worker, $hours){
+    public function hasAttendance(){
+        return !($this->attendance->get()->isEmpty());
+    }
+
+    public function updateAttendanceHours($hours){
+        return $this->attendance->first()->update([
+            'work_hours' => $hours,
+        ]);
+    }
+
+    public function deleteAttendance(){
+        return $this->attendance->first()->delete();
+    }
+
+    public function createNewWorkHoursAttendance($worker = NULL, $hours, $type = NULL){
         $att = AttendanceModel::create([
-            'worker_id'             => $worker,
+            'worker_id'             => $worker != NULL ? $worker : $this->worker->id,
             'working_day_record_id' => $this->wdrId,
-            'type'                  => $this->type,
+            'type'                  => $type != NULL ? $type : $this->type,
             'work_hours'            => $hours,
             'date'                  => $this->date,
         ]);
@@ -43,5 +63,9 @@ class AttendanceService
             'absence_reason'        => $abs
         ]);
         return $this;
+    }
+
+    private function setAttendance(){
+        return AttendanceModel::where('working_day_record_id',$this->wdrId)->where('worker_id', $this->worker->id);
     }
 }

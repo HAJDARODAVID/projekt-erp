@@ -1,4 +1,4 @@
-<div class="modal modal-sm" id="spinner" wire:loading @if ($target)  wire:target="{{ $target }}" @endif>
+<div class="modal modal-sm" id="spinner" wire:loading @if ($target)  wire:target="{{ $target }}" @endif style="{{ $blur }}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

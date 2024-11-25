@@ -25,6 +25,11 @@ class WorkingDayRecordModel extends Model
         532 => 'Čret',
     );
 
+    const BDE_WORK_TYPES = array(
+        self::WORK_TYPE_HOME,
+        self::WORK_TYPE_FIELD_WORK,
+    );
+
     protected $table ="working_day_record";
 
     protected $fillable = [
