@@ -4,7 +4,7 @@ namespace App\Livewire\Domain\Bde\MainWorkReportModules\Attendance;
 
 use Livewire\Component;
 use Livewire\Attributes\On; 
-
+use Illuminate\Support\Facades\Session;
 class AddToAttendanceBtn extends Component
 {
     public $row;
@@ -15,7 +15,12 @@ class AddToAttendanceBtn extends Component
     }
 
     public function addToAttendance(){
-        $this->dispatch('add-worker-to-attendance', $this->row)->to(Attendance::class);
+        $array[$this->row->id] = ['name' => $this->row['firstName'] . ' ' . $this->row['lastName']];
+        $storage = Session::get('att_storage');
+        if($storage != NULL) {
+            $array = $storage + $array;
+        }
+        Session::put('att_storage', $array);
         $this->btnShow = FALSE;
     }
 

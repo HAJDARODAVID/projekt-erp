@@ -9,12 +9,17 @@ use Illuminate\View\Component;
 class ProcessingModal extends Component
 {
     public $target;
+    public $blur;
+    const BLUR_ATT = 'background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px)';
     /**
      * Create a new component instance.
      */
-    public function __construct($target=NULL)
+    public function __construct(
+        $target=NULL,
+        $blur = TRUE,)
     {
         $this->target = $target;
+        $this->blur = $blur ? self::BLUR_ATT : NULL;
     }
 
     /**

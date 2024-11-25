@@ -9,7 +9,9 @@ class WorkersTableModal extends Component
     public $show=false;
 
     public function toggleModal(){
-        //$this->dispatch('refresh-this')->to(WorkersForAttendanceTable::class);
+        if($this->show){
+            $this->dispatch('add-worker-to-attendance')->to(Attendance::class);
+        }
         return $this->show = !$this->show;
     }
 

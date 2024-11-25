@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class Attendance extends Component
 {
@@ -20,10 +21,12 @@ class Attendance extends Component
     }
 
     #[On('add-worker-to-attendance')]
-    public function addWorkerToAttendance($row){
-        $this->attendance[$row['id']] = [
-            'name' => $row['firstName'] . ' ' . $row['lastName']
-        ];
+    public function addWorkerToAttendance(){
+        if(is_array(Session::get('att_storage'))){
+            $this->attendance = Session::get('att_storage') + $this->attendance;
+        }
+        Session::forget('att_storage');
+        return;
     }
 
     #[On('ask-if-worker-is-in-attendance')]

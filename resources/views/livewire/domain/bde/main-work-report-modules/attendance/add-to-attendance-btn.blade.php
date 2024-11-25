@@ -3,4 +3,5 @@
         <button class="btn btn-success btn-sm" wire:click='addToAttendance()'><i class="bi bi-plus-circle"></i></button>  
     </div>
     <x-spinner />
+    <x-processing-modal target='addToAttendance'></x-processing-modal>
 </div>
