@@ -15,12 +15,7 @@ class AddToAttendanceBtn extends Component
     }
 
     public function addToAttendance(){
-        $array[$this->row->id] = ['name' => $this->row['firstName'] . ' ' . $this->row['lastName']];
-        $storage = Session::get('att_storage');
-        if($storage != NULL) {
-            $array = $storage + $array;
-        }
-        Session::put('att_storage', $array);
+        $this->dispatch('add-worker-to-attendance', $this->row)->to(Attendance::class);
         $this->btnShow = FALSE;
     }
 

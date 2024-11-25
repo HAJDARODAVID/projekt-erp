@@ -90,7 +90,9 @@
                 </button>
             </div>
         @else
-            @livewire('domain.bde.main-work-report-modules.'.$module.'.'.$module)  
+            @livewire('domain.bde.main-work-report-modules.'.$module.'.'.$module, [
+                'wdr' => $wdr,
+            ])  
         @endif
         
     </x-cards.card>
