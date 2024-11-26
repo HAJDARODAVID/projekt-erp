@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Domain\Bde\MainWorkReportModules\Attendance;
 
+use App\Models\AttendanceModel;
 use App\Models\User;
 use App\Services\HidroProjekt\Domain\Workers\Employes\AttendanceService;
 use App\Services\HidroProjekt\Domain\WorkReport\WorkReportAttendanceService;
@@ -15,6 +16,11 @@ class Attendance extends Component
     public $wdr;
     public $user;
     public $attendance = [];
+    public $absenceReason = [
+        'sick' => AttendanceModel::ABSENCE_REASON_SICK_LEAVE,
+        'paid' => AttendanceModel::ABSENCE_REASON_PAID_LEAVE,
+    ];
+    public $absenceReasonShtTxt = AttendanceModel::ABSENCE_REASON_SHT_TXT;
 
     public function mount(){
         $this->setUser();
@@ -23,12 +29,31 @@ class Attendance extends Component
     public function updatedAttendance($key, $value){
         if(substr($value, strlen($value)-5) == 'hours'){
             list($wdrID, $workerID, $col) = explode('.', $value);
-            $service = new AttendanceService($this->wdr['id'], NULL, NULL, $workerID);
+            $service = new AttendanceService($this->wdr['id'], $this->wdr['work_type'], NULL, $workerID);
             if($service->hasAttendance()){
                 $service->updateAttendanceHours($key);
+                if($key == ''){
+                    return $service->deleteAttendance();
+                }
             }
             if(!($service->hasAttendance())){
                 $service->createNewWorkHoursAttendance(NULL, $key, $this->wdr['work_type']);
+            }
+        }
+    }
+
+    public function setAttendanceToAbsence($reason, $workerID){
+        if(array_key_exists($reason, AttendanceModel::ABSENCE_REASON)){
+            $service = new AttendanceService($this->wdr['id'], NULL, NULL, $workerID);
+            if($service->hasAttendance()){
+                $service->updateAttendanceToAbsence($reason);
+                $this->attendance[$this->wdr['id']][$workerID]['hours'] = NULL;
+                $this->attendance[$this->wdr['id']][$workerID]['absence_reason'] = $reason;
+            }
+            if(!($service->hasAttendance())){
+                $service->createNewAbsenceAttendance($workerID, $reason);
+                $this->attendance[$this->wdr['id']][$workerID]['hours'] = NULL;
+                $this->attendance[$this->wdr['id']][$workerID]['absence_reason'] = $reason;
             }
         }
     }
@@ -58,7 +83,7 @@ class Attendance extends Component
     
     #[On('add-worker-to-attendance')]
     public function addWorkerToAttendance($row = NULL){
-        $this->attendance[$this->wdr['id']][$row['id']] = ['name' => $row['firstName'] . ' ' . $row['lastName']];
+        $this->attendance[$this->wdr['id']][$row['id']] = ['name' => $row['firstName'] . ' ' . $row['lastName'], 'gl' => FALSE];
         return;
     }
 

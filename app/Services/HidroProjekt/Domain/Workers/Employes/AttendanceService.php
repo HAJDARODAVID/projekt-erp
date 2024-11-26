@@ -34,7 +34,17 @@ class AttendanceService
 
     public function updateAttendanceHours($hours){
         return $this->attendance->first()->update([
-            'work_hours' => $hours,
+            'work_hours'     => $hours,
+            'type'           => $this->type,
+            'absence_reason' => NULL,
+        ]);
+    }
+
+    public function updateAttendanceToAbsence($reason){
+        return $this->attendance->first()->update([
+            'work_hours'     => NULL,
+            'type'           => NULL,
+            'absence_reason' => $reason,
         ]);
     }
 

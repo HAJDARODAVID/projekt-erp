@@ -2,8 +2,9 @@
 
 namespace App\Services\HidroProjekt\Domain\WorkReport;
 
-use App\Models\AttendanceModel;
 use App\Models\WorkerModel;
+use App\Models\AttendanceModel;
+use Illuminate\Support\Facades\Auth;
 
 class WorkReportAttendanceService{
 
@@ -30,6 +31,7 @@ class WorkReportAttendanceService{
                 'name' => WorkerModel::where('id', $att->worker_id)->first()->fullName,
                 'hours' => $att->work_hours,
                 'absence_reason' => $att->absence_reason,
+                'gl' => $att->worker_id == Auth::user()->worker_id ? TRUE : FALSE,
             ];
         }
         return $array;
