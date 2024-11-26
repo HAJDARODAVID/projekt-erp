@@ -10,7 +10,7 @@
           <tr>
             <td scope="row">{{ $user->getWorker->fullName }}</td>
             <td>
-                <input type="number" class="form-control form-control-sm" style="width: 70px" wire:model.blur='attendance.{{ $wdr['id'] }}.{{ $user->getWorker->id }}.hours'>
+                <input type="number" class="form-control form-control-sm @isset($saveState[$user->getWorker->id]) is-valid @endisset" style="width: 70px" wire:model.blur='attendance.{{ $wdr['id'] }}.{{ $user->getWorker->id }}.hours'>
             </td>
           </tr>
         </tbody>
@@ -36,7 +36,7 @@
                     <td scope="row">{{ $worker['name'] }}</td>
                     <td>
                         <div class="d-flex justify-content-end gap-1">
-                          <input type="number" class="form-control form-control-sm" style="width: 50px" wire:model.blur='attendance.{{ $wdr['id'] }}.{{ $workerID }}.hours' 
+                          <input type="number" class="form-control form-control-sm @isset($saveState[$workerID]) is-valid @endisset" style="width: 50px" wire:model.blur='attendance.{{ $wdr['id'] }}.{{ $workerID }}.hours' 
                           placeholder="@isset($worker['absence_reason']) {{ $absenceReasonShtTxt[$worker['absence_reason']] }}@endisset">
                           <x-v-divider />
                           <button class="btn btn-primary btn-sm p-0 px-1" wire:click='setAttendanceToAbsence({{ $absenceReason['paid'] }},{{ $workerID }})'>GO</button>

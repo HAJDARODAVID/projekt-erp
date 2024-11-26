@@ -22,28 +22,34 @@ class Attendance extends Component
     ];
     public $absenceReasonShtTxt = AttendanceModel::ABSENCE_REASON_SHT_TXT;
 
+    public $saveState = [];
+
     public function mount(){
         $this->setUser();
     }
 
     public function updatedAttendance($key, $value){
         if(substr($value, strlen($value)-5) == 'hours'){
+            $this->reset('saveState');
             list($wdrID, $workerID, $col) = explode('.', $value);
             $service = new AttendanceService($this->wdr['id'], $this->wdr['work_type'], NULL, $workerID);
             if($service->hasAttendance()){
                 $service->updateAttendanceHours($key);
                 if($key == ''){
+                    $this->saveState[$workerID] = TRUE;
                     return $service->deleteAttendance();
                 }
             }
             if(!($service->hasAttendance())){
                 $service->createNewWorkHoursAttendance(NULL, $key, $this->wdr['work_type']);
             }
+            $this->saveState[$workerID] = TRUE;
         }
     }
 
     public function setAttendanceToAbsence($reason, $workerID){
         if(array_key_exists($reason, AttendanceModel::ABSENCE_REASON)){
+            $this->reset('saveState');
             $service = new AttendanceService($this->wdr['id'], NULL, NULL, $workerID);
             if($service->hasAttendance()){
                 $service->updateAttendanceToAbsence($reason);
@@ -55,7 +61,8 @@ class Attendance extends Component
                 $this->attendance[$this->wdr['id']][$workerID]['hours'] = NULL;
                 $this->attendance[$this->wdr['id']][$workerID]['absence_reason'] = $reason;
             }
-        }
+            $this->saveState[$workerID] = TRUE;
+        }  
     }
 
     public function removeFromAttendance($workerId){
