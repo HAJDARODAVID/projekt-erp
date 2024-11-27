@@ -54,25 +54,28 @@
             <div>
                 <h1 class="h6"><b>Prisustvo radnika</b></h1>
                 <div class="row align-items-center">
-                    <div class="col d-flex justify-content-center">
-                        <i class="bi bi-people-fill" style="color: red;"></i>&nbsp : &nbsp
-                        <b style="color: red;">0</b>
+                    <div class="col d-flex justify-content-center" style="color: @if ($countAtt == 0) red @else black @endif;">
+                        <i class="bi bi-people-fill"></i>&nbsp : &nbsp
+                        <b>{{ $countAtt }}</b>
                     </div>
                     <div class="col d-flex justify-content-center"> 
-                        <button class="btn btn-success" wire:click='selectModule("attendance")'><i class="bi bi-person-plus"></i></button></div>
+                        <button class="btn btn-success" wire:click='selectModule("attendance")'><i class="bi bi-person-plus"></i></button>
                     </div>
+                </div>
                 <hr>
             </div>
             {{-- WORKER COOPERATOR --}}
             <div>
                 <h1 class="h6"><b>Prisustvo kooperanata</b></h1>
                 <div class="row align-items-center">
-                    <div class="col d-flex justify-content-center">
-                        <i class="bi bi-people-fill" style="color: red;"></i>&nbsp : &nbsp
-                        <b style="color: red;">0</b>
+                    <div class="col d-flex justify-content-center" style="color: @if ($countSubCont == 0) red @else black @endif;">
+                        <i class="bi bi-people-fill"></i>&nbsp : &nbsp
+                        <b>{{ $countSubCont }}</b>
                     </div>
-                    <div class="col d-flex justify-content-center"> <button class="btn btn-success"><i class="bi bi-person-plus"></i></button></div>
+                    <div class="col d-flex justify-content-center"> 
+                        <button class="btn btn-success" wire:click='selectModule("subcontractors")'><i class="bi bi-person-plus"></i></button>
                     </div>
+                </div>
                 <hr>
             </div>
 

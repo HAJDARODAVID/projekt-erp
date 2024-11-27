@@ -4,6 +4,8 @@ namespace App\Livewire\Domain\Bde;
 
 use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\Domain\JobSite\JobSiteService;
+use App\Services\HidroProjekt\Domain\Subcontractors\SubcontractorsAttendanceService;
+use App\Services\HidroProjekt\Domain\Workers\Employes\AttendanceService;
 use Livewire\Component;
 
 class MainWorkReportForm extends Component
@@ -18,10 +20,13 @@ class MainWorkReportForm extends Component
 
     public $saveStatus=[]; 
 
+    public $countSubCont = 0;
+    public $countAtt = 0;
+
     public $module='main';
 
     public function mount(){
-        $this->dailyWorkReportToArray()->setJobSites();
+        $this->dailyWorkReportToArray()->setJobSites()->countSubContInAttendance()->countWorkersInAttendance();
         //dd($this->wdr);
     }
 
@@ -60,11 +65,24 @@ class MainWorkReportForm extends Component
         if($this->module == 'main'){
             return redirect()->route('home');
         }
+        $this->countSubContInAttendance()->countWorkersInAttendance();
         return $this->module = 'main';
     }
 
     public function selectModule($module){
         return $this->module = $module;
+    }
+
+    public function countSubContInAttendance(){
+        $service = new SubcontractorsAttendanceService($this->wdr['id']);
+        $this->countSubCont = $service->countWorkersInAttendance();
+        return $this;
+    }
+
+    public function countWorkersInAttendance(){
+        $service = new AttendanceService($this->wdr['id']);
+        $this->countAtt = $service->countWorkersInAttendance();
+        return $this;
     }
 
     public function render()
