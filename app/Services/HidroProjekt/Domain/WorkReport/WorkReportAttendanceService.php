@@ -46,4 +46,11 @@ class WorkReportAttendanceService{
         $count = $attService->countWorkersInAttendance() + $attSubConst->countWorkersInAttendance();
         return $count;
     }
+
+    public function removeAllFromAttendance(){
+        foreach ($this->attendance as $att) {
+            $att->delete();
+        }
+        return $this;
+    }
 }

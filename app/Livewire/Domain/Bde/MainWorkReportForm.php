@@ -6,6 +6,7 @@ use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\Domain\JobSite\JobSiteService;
 use App\Services\HidroProjekt\Domain\Subcontractors\SubcontractorsAttendanceService;
 use App\Services\HidroProjekt\Domain\Workers\Employes\AttendanceService;
+use App\Services\HidroProjekt\Domain\WorkReport\WorkReportAttendanceService;
 use Livewire\Component;
 
 class MainWorkReportForm extends Component
@@ -57,6 +58,8 @@ class MainWorkReportForm extends Component
     }
 
     public function deleteWorkReport(){
+        $service = new WorkReportAttendanceService($this->dailyWorkReport->id);
+        $service->removeAllFromAttendance();
         $this->dailyWorkReport->delete();
         return redirect()->route('home');
     }
