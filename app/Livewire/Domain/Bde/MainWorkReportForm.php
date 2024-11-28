@@ -55,6 +55,9 @@ class MainWorkReportForm extends Component
             $value => $key,
         ]);
         $this->saveStatus = [$value => 'true'];
+
+        $service = new WorkReportAttendanceService($this->wdr['id']);
+        $service->updateAllAttendance(['colName' => $value, 'value' => $key]);
     }
 
     public function deleteWorkReport(){

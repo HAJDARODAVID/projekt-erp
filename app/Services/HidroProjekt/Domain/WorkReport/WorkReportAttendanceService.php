@@ -53,4 +53,18 @@ class WorkReportAttendanceService{
         }
         return $this;
     }
+
+    public function updateAllAttendance($data=[]){
+        $columnDB = [
+            'work_type' => 'type',
+            'date' => 'date',
+        ];
+        if(array_key_exists($data['colName'], $columnDB)){
+            foreach ($this->attendance as $att) {
+                $att->update([
+                    $columnDB[$data['colName']] => $data['value'],
+                ]);
+            }
+        }
+    }
 }
