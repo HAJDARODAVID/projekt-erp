@@ -86,6 +86,12 @@
                 </button>
             </div>
 
+            <div class="col d-flex justify-content-center mb-2"> 
+                <button id="workLog" class="btn btn-success" style="width: 175px;" wire:click='selectModule("consumption")'>
+                    <i class="bi bi-cone"></i> MATERIJAL
+                </button>
+            </div>
+
             {{-- DELETE THIS WORK REPORT --}}
             <div class="col d-flex justify-content-center"> 
                 <button class="btn btn-danger " style="width: 175px" wire:click='deleteWorkReport()'>
