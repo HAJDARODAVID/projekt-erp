@@ -233,6 +233,7 @@ Route::prefix('/')
                     ->group(function(){
                         Route::get('work_logs_book','workLogsBook')->name('hp_workLogsBook'); 
                         Route::get('expenses','expensesReport')->name('hp_expensesReport');    
+                        Route::get('sum_by_construction_sites','sumByJobSite')->name('reportSumByJobSite');  
                         //expenses
                     });
             });
