@@ -18,6 +18,7 @@ class InternalDeliveryNoteConstructionSitesTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->setHideReorderColumnUnlessReorderingEnabled();
     }
 
     public function columns(): array
