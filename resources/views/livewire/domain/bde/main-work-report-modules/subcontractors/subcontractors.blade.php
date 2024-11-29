@@ -7,7 +7,7 @@
             <x-slot:title>{{ $contractorName }}</x-slot:title>
             @foreach ($contractor as $workerID => $worker)
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="">{{ $workerID }}-{{ $worker['name'] }}</div>
+                    <div class="">{{ $worker['name'] }}</div>
                     <div class="d-flex gap-1">
                         <input type="number" class="form-control form-control-sm @isset($saveState[$workerID]) is-valid @endisset" style="width: 65px" 
                         wire:model.blur='subcontractors.{{ $contractorName }}.{{ $workerID }}.hours'>

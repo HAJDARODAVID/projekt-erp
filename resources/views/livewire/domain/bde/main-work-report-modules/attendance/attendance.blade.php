@@ -4,7 +4,7 @@
 
     <table class="table" class="m-0 p-0">
         <thead>
-          <tr> <th scope="row">Poslovođa</th> <td>Sati</td> </tr>
+          <tr> <th scope="row">Poslovođa</th> <td class="text-end">Sati</td> </tr>
         </thead>
         <tbody>
           <tr>

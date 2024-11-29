@@ -60,6 +60,16 @@ class WorkReportAttendanceService{
             'date' => 'date',
         ];
         if(array_key_exists($data['colName'], $columnDB)){
+            if($columnDB[$data['colName']] == 'type'){
+                foreach ($this->attendance as $att) {
+                    if($att->type != NULL){
+                        $att->update([
+                            $columnDB[$data['colName']] => $data['value'],
+                        ]);
+                    }
+                }
+                return;
+            }
             foreach ($this->attendance as $att) {
                 $att->update([
                     $columnDB[$data['colName']] => $data['value'],
