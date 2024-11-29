@@ -17,14 +17,16 @@ return new class extends Migration
             (
                 SELECT 
                     md.id, 
-                    md.mvt_type, 
-                    cs.name, 
+                    mv.mvt, 
+                    cs.name as job_site_name, 
                     us.name as created_by, 
-                    md.created_at 
-                FROM `material_doc` as md
-                LEFT JOIN `material_mvt` as mv ON md.id = mv.mat_doc_id
-                LEFT JOIN `construction_sites` as cs ON mv.const_id = cs.id
+                    md.created_at  
+                FROM `material_mvt` as mv
+                LEFT JOIN `material_doc` as md ON md.id = mv.mat_doc_id
                 LEFT JOIN `users` as us ON md.created_by = us.id
+                LEFT JOIN `construction_sites` as cs ON cs.id = mv.const_id
+                WHERE mv.const_id IS NOT NULL
+                GROUP BY mv.mat_doc_id
             )
         ");
     }

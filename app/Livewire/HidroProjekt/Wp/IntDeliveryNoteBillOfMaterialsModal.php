@@ -25,7 +25,7 @@ class IntDeliveryNoteBillOfMaterialsModal extends Component
         $this->deliveryNoteBOM = $this->getBillOfMaterials();
         $this->constSite       = $this->getConstructionSite();
         $this->overAllValue    = $this->getOverAllValue();
-        $this->bookingType     = MovementTypes::MVT_DESC_HR[$this->row->mvt_type];
+        $this->bookingType     = MovementTypes::MVT_DESC_HR[$this->row->mvt];
         //dd($this->deliveryNoteBOM);
     }
 
