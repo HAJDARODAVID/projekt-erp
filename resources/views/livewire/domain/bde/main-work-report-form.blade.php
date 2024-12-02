@@ -81,7 +81,7 @@
 
             {{-- BTNS --}}
             <div class="col d-flex justify-content-center mb-2"> 
-                <button id="workLog" class="btn btn-dark " style="width: 175px;">
+                <button id="workLog" class="btn btn-dark " style="width: 175px;" wire:click='selectModule("work-diary")'>
                     <i class="bi bi-book"></i> DNEVNIK RADOVA
                 </button>
             </div>
