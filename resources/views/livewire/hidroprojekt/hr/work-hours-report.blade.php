@@ -53,33 +53,35 @@
                         <td>{{ $worker['monthlyHours'] }}</td>
                         <td>{{ $worker['paidLeave'] }}</td>
                         <td style="border-right: 1.5px solid #000000;">{{ $worker['sickLeave'] }}</td>
-                        @foreach ($worker['attendance'] as $key => $attendance)
-                            <?php 
-                                $daynum = date("N", strtotime($key));
-                                $cellStyle="";
-                                if($daynum > 5) {
-                                    $cellStyle="background-color:#c9c9c9"; 
-                                }
-                                if($daynum < 6 && $attendance=="" && $key< date("Y-m-d")){
-                                    $cellStyle="background-color:#FF311C"; 
-                                }
-                                if($attendance!=""){
-                                    $cellStyle="background-color:#38E327"; 
-                                }
-                                if($attendance=="GO"){
-                                    $cellStyle="background-color:#20BBE1"; 
-                                }
-                                if($attendance=="BO"){
-                                    $cellStyle="background-color:#F7AD2C"; 
-                                }
-                                if(is_int($attendance)){
-                                    if($attendance>12){
-                                        $cellStyle .= "; font-weight: bold;color: red;";
+                        @isset($worker['attendance'])
+                            @foreach ($worker['attendance'] as $key => $attendance)
+                                <?php 
+                                    $daynum = date("N", strtotime($key));
+                                    $cellStyle="";
+                                    if($daynum > 5) {
+                                        $cellStyle="background-color:#c9c9c9"; 
                                     }
-                                }
-                            ?>
-                            <td style="<?=$cellStyle?>" wire:click="openAttendanceModalForWorkerAndDay('{{ $worker['id'] }}', '{{ $key }}')">{{ $attendance }}</td>
-                        @endforeach
+                                    if($daynum < 6 && $attendance=="" && $key< date("Y-m-d")){
+                                        $cellStyle="background-color:#FF311C"; 
+                                    }
+                                    if($attendance!=""){
+                                        $cellStyle="background-color:#38E327"; 
+                                    }
+                                    if($attendance=="GO"){
+                                        $cellStyle="background-color:#20BBE1"; 
+                                    }
+                                    if($attendance=="BO"){
+                                        $cellStyle="background-color:#F7AD2C"; 
+                                    }
+                                    if(is_int($attendance)){
+                                        if($attendance>12){
+                                            $cellStyle .= "; font-weight: bold;color: red;";
+                                        }
+                                    }
+                                ?>
+                                <td style="<?=$cellStyle?>" wire:click="openAttendanceModalForWorkerAndDay('{{ $worker['id'] }}', '{{ $key }}')">{{ $attendance }}</td>
+                            @endforeach
+                        @endisset
                     </tr>
                 @endforeach
                 <tr>
