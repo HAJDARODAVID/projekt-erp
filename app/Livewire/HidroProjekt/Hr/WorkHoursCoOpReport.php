@@ -24,7 +24,7 @@ class WorkHoursCoOpReport extends Component
         $this->daysOfMonth=Months::dayOfMonth($this->selectedMonth, $this->selectedYear);
         $this->attendance = WorkHoursService::getAllAttendanceForMonthReportCoOp($this->selectedMonth, $this->selectedYear,$this->daysOfMonth);
 
-        dd( $this->attendance);
+        //dd( $this->attendance);
     }
 
     public function openAttendanceModalForWorkerAndDay($workerId=NULL, $date=NULL){

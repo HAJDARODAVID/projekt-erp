@@ -74,9 +74,11 @@
                         <td><b>{{ $groupName }}</b></td>
                         <td><b>{{  $overAllGroup }}</b></td>
                         <td style="border-right: 1.5px solid #000000;"><b>{{  number_format($overAllGroupCost,2) }}€</b></td>
-                        @foreach ($attendance['groupPerDay'][$groupName] as $days)
-                            <td><b>{{ $days }}</b></td>
-                        @endforeach
+                        @if($attendance['groupPerDay'])
+                            @foreach ($attendance['groupPerDay'][$groupName] as $days)
+                                <td><b>{{ $days }}</b></td>
+                            @endforeach
+                        @endif
                     </tr>
                 @endforeach
                 <tr>
