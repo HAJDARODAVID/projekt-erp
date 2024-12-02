@@ -167,7 +167,6 @@ class WorkHoursService
     }
 
     public static function getAllAttendanceForMonthReportCoOp($month, $year, $daysInMonth){
-        dd($month, $year, $daysInMonth);
         $sumPerDay=[];
         $baseWorkHourCost = (float)AppParametersModel::where('param_name_srt', 'bwh-c-o')->where('active', TRUE)->first()->value;
         $attendance = AttendanceCoOpModel::whereMonth('date', '=', $month)

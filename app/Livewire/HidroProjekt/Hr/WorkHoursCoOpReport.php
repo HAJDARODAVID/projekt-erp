@@ -22,6 +22,7 @@ class WorkHoursCoOpReport extends Component
     public function mount(){
         $this->years = Years::getYearsList();
         $this->daysOfMonth=Months::dayOfMonth($this->selectedMonth, $this->selectedYear);
+        dd($this->daysOfMonth, $this->selectedMonth, $this->selectedYear);
         $this->attendance = WorkHoursService::getAllAttendanceForMonthReportCoOp($this->selectedMonth, $this->selectedYear,$this->daysOfMonth);
 
         //dd( $this->attendance);
