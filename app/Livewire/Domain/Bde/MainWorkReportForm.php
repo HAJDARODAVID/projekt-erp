@@ -4,6 +4,8 @@ namespace App\Livewire\Domain\Bde;
 
 use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\Domain\JobSite\JobSiteService;
+use App\Services\HidroProjekt\Domain\Material\MaterialMovementService;
+use App\Services\HidroProjekt\Domain\Material\MovementTypes;
 use App\Services\HidroProjekt\Domain\Subcontractors\SubcontractorsAttendanceService;
 use App\Services\HidroProjekt\Domain\Workers\Employes\AttendanceService;
 use App\Services\HidroProjekt\Domain\WorkReport\WorkReportAttendanceService;
@@ -28,7 +30,13 @@ class MainWorkReportForm extends Component
 
     public function mount(){
         $this->dailyWorkReportToArray()->setJobSites()->countSubContInAttendance()->countWorkersInAttendance();
-        //dd($this->wdr);
+        //REMOVE THIS;
+        $item[0] = [
+            'mat_id' => 500000,
+            'qty' => 15,
+        ];
+        $service = new MaterialMovementService(MovementTypes::BOOK_TO_CONSUMPTION, $item,4);
+        $service->consumer();
     }
 
     private function setJobSites(){
