@@ -15,7 +15,7 @@
             {{-- JOB SITE  --}}
             <div class="">
                 <h1 class="h6 "><b>Gradilište</b></h1>
-                <select class="form-select form-select-sm @if (!$wdr['construction_site_id']) is-invalid @endif @isset ($saveStatus['construction_site_id']) is-valid @endisset" style="display:inline" wire:model.live="wdr.construction_site_id">
+                <select class="form-select form-select-sm @if (!$wdr['construction_site_id']) is-invalid @endif @isset ($saveStatus['construction_site_id']) is-valid @endisset" style="display:inline" wire:model.live="wdr.construction_site_id" >
                     <option value="NULL">Odaberi gradilište</option>
                     @foreach($jobSites as $jobSite)
                         <option value="{{$jobSite->id}}">{{$jobSite->name}}</option>
@@ -86,11 +86,13 @@
                 </button>
             </div>
 
-            <div class="col d-flex justify-content-center mb-2"> 
-                <button id="workLog" class="btn btn-success" style="width: 175px;" wire:click='selectModule("consumption")'>
-                    <i class="bi bi-cone"></i> MATERIJAL
-                </button>
-            </div>
+            @if($wdr['construction_site_id'])
+                <div class="col d-flex justify-content-center mb-2"> 
+                    <button id="workLog" class="btn btn-success" style="width: 175px;" wire:click='selectModule("consumption")'>
+                        <i class="bi bi-cone"></i> MATERIJAL
+                    </button>
+                </div>
+            @endif
 
             {{-- DELETE THIS WORK REPORT --}}
             <div class="col d-flex justify-content-center"> 

@@ -19,6 +19,14 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+    <script>
+        function fadeAway(id){
+          let milliseconds = 3000;
+          setTimeout(function () {
+              document.getElementById(id).remove();
+          }, milliseconds);
+        }
+    </script>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -79,5 +87,7 @@
             @yield('content')
         </main>
     </div>
+    @livewire('alert-modal')
+    @livewireScripts
 </body>
 </html>

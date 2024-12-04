@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Domain\Bde;
 
+use App\Models\MaterialConsumptionModel;
 use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\Domain\JobSite\JobSiteService;
 use App\Services\HidroProjekt\Domain\Material\MaterialMovementService;
@@ -17,6 +18,7 @@ class MainWorkReportForm extends Component
     public $wdr;
     public $selectedJobSite = NULL;
     public $jobSites = NULL;
+    public $hasConsumption = FALSE;
 
     public $bdeWorkTypes = WorkingDayRecordModel::BDE_WORK_TYPES;
     public $workName = WorkingDayRecordModel::WORK_TYPE;
@@ -29,14 +31,7 @@ class MainWorkReportForm extends Component
     public $module='main';
 
     public function mount(){
-        $this->dailyWorkReportToArray()->setJobSites()->countSubContInAttendance()->countWorkersInAttendance();
-        //REMOVE THIS;
-        $item[0] = [
-            'mat_id' => 500000,
-            'qty' => 15,
-        ];
-        $service = new MaterialMovementService(MovementTypes::BOOK_TO_CONSUMPTION, $item,4);
-        $service->consumer();
+        $this->dailyWorkReportToArray()->setJobSites()->countSubContInAttendance()->countWorkersInAttendance()->getHasConsumption();
     }
 
     private function setJobSites(){
@@ -69,10 +64,19 @@ class MainWorkReportForm extends Component
     }
 
     public function deleteWorkReport(){
-        $service = new WorkReportAttendanceService($this->dailyWorkReport->id);
-        $service->removeAllFromAttendance();
-        $this->dailyWorkReport->delete();
-        return redirect()->route('home');
+        $consumption = MaterialConsumptionModel::where('wdr_id', $this->wdr['id'])->get()->isEmpty();
+        if($consumption){
+            $service = new WorkReportAttendanceService($this->dailyWorkReport->id);
+            $service->removeAllFromAttendance();
+            $this->dailyWorkReport->delete();
+            return redirect()->route('home');
+        }
+        return $this->dispatch('show-alert-modal', [
+            'title' => 'Potrošnja materijala!',
+            'message' => 'U ovom zapisu postoji evidencija potrošnje materijala! Ukoliko je potrebno izbrisati ovaj zapis, molim obratite se administracijskom kadru.',
+            'type' => 'danger',
+        ]);
+        
     }
 
     public function returnBtn(){
@@ -96,6 +100,12 @@ class MainWorkReportForm extends Component
     public function countWorkersInAttendance(){
         $service = new AttendanceService($this->wdr['id']);
         $this->countAtt = $service->countWorkersInAttendance();
+        return $this;
+    }
+
+    private function getHasConsumption(){
+        $this->hasConsumption = MaterialConsumptionModel::where('wdr_id', $this->wdr['id'])->get()->isEmpty();
+        $this->hasConsumption = !$this->hasConsumption;
         return $this;
     }
 

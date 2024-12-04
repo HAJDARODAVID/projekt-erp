@@ -2,8 +2,10 @@
 
 namespace App\Services\HidroProjekt\Domain\Material;
 
-use App\Exceptions\MovementException;
 use App\Models\StorageStockItem;
+use App\Exceptions\MovementException;
+use App\Models\MaterialConsumptionItemModel;
+use App\Models\MaterialConsumptionModel;
 use App\Services\HidroProjekt\STG\StorageLocation;
 
 class MaterialMovementService{
@@ -11,6 +13,7 @@ class MaterialMovementService{
     private $mvt;
     private $items;
     private $jobSiteID;
+    private $wdrID;
     private $strLocation;
 
     private $matDoc = NULL;
@@ -21,11 +24,13 @@ class MaterialMovementService{
         $mvt = NULL,
         array $items = [],
         $jobSiteID = NULL,
+        $wdrID = NULL,
     )
     {
         $this->mvt = $this->setMovement($mvt);
         $this->items = $items;
         $this->jobSiteID = $jobSiteID;
+        $this->wdrID = $wdrID;
     }
 
     public function consumer(){
@@ -56,6 +61,28 @@ class MaterialMovementService{
                     $this->getStockItem($item['mat_id'])->removeFromStock($item);
                 }
             }
+        }
+        if($this->mvt = MovementTypes::BOOK_TO_CONSUMPTION){
+            $this->createNewConsumption();
+        }
+    }
+
+    private function createNewConsumption(){
+        if($this->wdrID){
+            $consDoc = MaterialConsumptionModel::create([
+                'wdr_id' => $this->wdrID,
+                'mat_doc_id' => $this->matDoc->id,
+                'booked' => MaterialConsumptionModel::STATUS_BOOKED,
+            ]);
+            foreach ($this->items as $item) {
+                MaterialConsumptionItemModel::create([
+                    'mat_cons_id' => $consDoc->id,
+                    'mat_id' => $item['mat_id'],
+                    'qty'=> $item['qty'],
+                ]);
+            }
+        }else{
+            //throw error if there is no wdrID
         }
     }
 
