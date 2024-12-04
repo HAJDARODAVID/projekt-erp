@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Domain\Bde;
 
+use App\Models\ConstructionSiteModel;
 use App\Models\MaterialConsumptionModel;
 use App\Models\WorkingDayRecordModel;
 use App\Services\HidroProjekt\Domain\JobSite\JobSiteService;
@@ -19,6 +20,7 @@ class MainWorkReportForm extends Component
     public $selectedJobSite = NULL;
     public $jobSites = NULL;
     public $hasConsumption = FALSE;
+    public $address;
 
     public $bdeWorkTypes = WorkingDayRecordModel::BDE_WORK_TYPES;
     public $workName = WorkingDayRecordModel::WORK_TYPE;
@@ -31,7 +33,7 @@ class MainWorkReportForm extends Component
     public $module='main';
 
     public function mount(){
-        $this->dailyWorkReportToArray()->setJobSites()->countSubContInAttendance()->countWorkersInAttendance()->getHasConsumption();
+        $this->dailyWorkReportToArray()->setJobSites()->countSubContInAttendance()->countWorkersInAttendance()->getHasConsumption()->setAddress();
     }
 
     private function setJobSites(){
@@ -57,6 +59,9 @@ class MainWorkReportForm extends Component
         $this->dailyWorkReport->update([
             $value => $key,
         ]);
+        if($value == 'construction_site_id'){
+            $this->setAddress();
+        }
         $this->saveStatus = [$value => 'true'];
 
         $service = new WorkReportAttendanceService($this->wdr['id']);
@@ -106,6 +111,17 @@ class MainWorkReportForm extends Component
     private function getHasConsumption(){
         $this->hasConsumption = MaterialConsumptionModel::where('wdr_id', $this->wdr['id'])->get()->isEmpty();
         $this->hasConsumption = !$this->hasConsumption;
+        return $this;
+    }
+
+    public function setAddress(){
+        if($this->wdr['construction_site_id']){
+            $jobSite = ConstructionSiteModel::where('id', $this->wdr['construction_site_id'])->first();
+            $this->address =[
+                'town' => $jobSite->town,
+                'street' => $jobSite->street,
+            ];
+        }
         return $this;
     }
 

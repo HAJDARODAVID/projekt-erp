@@ -25,8 +25,8 @@ class CheckIfAllWorkingDayHaveConstSite
         if($request->route()->getName() =='hp_deleteWorkingDayEntry'){
             return $next($request);
         }
-        if(Auth::user()->type == 3 && !is_null($workDayRecord) && $request->route()->getName() !='hp_workingDayEntry'){
-            return redirect()->route('hp_workingDayEntry', $workDayRecord->id);
+        if(Auth::user()->type == 3 && !is_null($workDayRecord) && $request->route()->getName() !='showBdeWorkReport'){
+            return redirect()->route('showBdeWorkReport', $workDayRecord->id);
         }
         return $next($request);
     }
