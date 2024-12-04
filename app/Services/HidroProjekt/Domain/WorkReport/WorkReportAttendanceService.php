@@ -2,6 +2,7 @@
 
 namespace App\Services\HidroProjekt\Domain\WorkReport;
 
+use App\Models\AttendanceCoOpModel;
 use App\Models\WorkerModel;
 use App\Models\AttendanceModel;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,11 @@ class WorkReportAttendanceService{
 
     public function removeAllFromAttendance(){
         foreach ($this->attendance as $att) {
+            $att->delete();
+        }
+        //HOTFIX: remove all SubContractors from attendance
+        $sub = AttendanceCoOpModel::where('working_day_record_id',$this->wdrID)->get(); 
+        foreach ($sub as $att) {
             $att->delete();
         }
         return $this;
