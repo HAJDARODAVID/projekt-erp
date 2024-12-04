@@ -42,4 +42,12 @@ class BdeController extends Controller
         }
         return;
     }
+
+    public function showMyReports(){
+        if(Auth::user()){
+            return view('hidro-projekt.bde-new.reports',[
+                'user' => Auth::user(), 
+            ]);
+        }
+    }
 }

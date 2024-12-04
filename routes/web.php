@@ -91,8 +91,8 @@ Route::prefix('/new/bde')
                 //New
                 Route::get('/work_report/{id}','showBdeWorkReport')->name('showBdeWorkReport');
                 Route::get('/new_report','createNewReport')->name('createNewReport');
+                Route::get('/my_reports','showMyReports')->name('showMyReports');
                 //Old
-                // Route::get('/my_entries','myEntries')->name('hp_myEntries');
                 // Route::get('/wd_record/consumption/{wd_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
 
                 //Inventory routes

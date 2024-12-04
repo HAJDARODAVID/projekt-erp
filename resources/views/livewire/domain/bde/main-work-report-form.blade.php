@@ -15,7 +15,7 @@
             {{-- JOB SITE  --}}
             <div class="">
                 <h1 class="h6 "><b>Gradilište</b></h1>
-                <select class="form-select form-select-sm @if (!$wdr['construction_site_id']) is-invalid @endif @isset ($saveStatus['construction_site_id']) is-valid @endisset" style="display:inline" wire:model.live="wdr.construction_site_id" >
+                <select class="form-select form-select-sm @if (!$wdr['construction_site_id']) is-invalid @endif @isset ($saveStatus['construction_site_id']) is-valid @endisset" style="display:inline" wire:model.live="wdr.construction_site_id" @if($hasConsumption) disabled @endif>
                     <option value="NULL">Odaberi gradilište</option>
                     @foreach($jobSites as $jobSite)
                         <option value="{{$jobSite->id}}">{{$jobSite->name}}</option>
