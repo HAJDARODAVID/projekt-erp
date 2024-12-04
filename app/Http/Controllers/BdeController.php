@@ -10,7 +10,7 @@ use App\Services\HidroProjekt\Domain\WorkReport\DailyWorkReportService;
 class BdeController extends Controller
 {
 
-    public function showBdeWorkReport($id){
+    public function showBdeWorkReport($id, Request $request){
         $dailyWorkReportService = new DailyWorkReportService();
         $dailyWorkReport = $dailyWorkReportService->findById($id);
         //if there is no entry for that id in db, redirect user to home page
@@ -22,8 +22,15 @@ class BdeController extends Controller
             return redirect()->route('home');
         }
 
+        //Set a flag for clearing local storage
+        $clear = FALSE;
+        if($request->get('clear') == 'TRUE'){
+            $clear = TRUE;
+        }
+
         return view('hidro-projekt.bde-new.work-report',[
             'dailyWorkReport' => $dailyWorkReport->getWdrObj(),
+            'clear' => $clear,
         ]);
     }
 
@@ -31,8 +38,16 @@ class BdeController extends Controller
         if(Auth::user()){
             $dailyWorkReportService = new DailyWorkReportService();
             $newWorkReport = $dailyWorkReportService->createNewWorkReportItem(type: WorkingDayRecordModel::WORK_TYPE_HOME)->getWdrObj();
-            return redirect()->route('showBdeWorkReport', $newWorkReport->id);
+            return redirect()->route('showBdeWorkReport', [$newWorkReport->id, 'clear' => 'TRUE']);
         }
         return;
+    }
+
+    public function showMyReports(){
+        if(Auth::user()){
+            return view('hidro-projekt.bde-new.reports',[
+                'user' => Auth::user(), 
+            ]);
+        }
     }
 }

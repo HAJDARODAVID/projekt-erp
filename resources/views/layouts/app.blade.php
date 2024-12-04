@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Hidro Projekt</title>
+    <title>Hidro-projekt</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -19,6 +19,14 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+    <script>
+        function fadeAway(id){
+          let milliseconds = 3000;
+          setTimeout(function () {
+              document.getElementById(id).remove();
+          }, milliseconds);
+        }
+    </script>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -57,7 +65,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('hp_myEntries') }}">Moji zapisi rada</a> 
+                                    <a class="dropdown-item" href="{{ route('showMyReports') }}">Moji zapisi rada</a> 
                                     <a class="dropdown-item" href="{{ route('bde_passwordChangeForm') }}">Promjeni lozinku</a> 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -79,5 +87,7 @@
             @yield('content')
         </main>
     </div>
+    @livewire('alert-modal')
+    @livewireScripts
 </body>
 </html>

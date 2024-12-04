@@ -85,10 +85,6 @@
     <script>
       function fadeAway(id){
         let milliseconds = 3000;
-
-        console.log('test');
-        
-
         setTimeout(function () {
             document.getElementById(id).remove();
         }, milliseconds);

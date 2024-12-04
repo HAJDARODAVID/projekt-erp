@@ -15,7 +15,7 @@
             {{-- JOB SITE  --}}
             <div class="">
                 <h1 class="h6 "><b>Gradilište</b></h1>
-                <select class="form-select form-select-sm @if (!$wdr['construction_site_id']) is-invalid @endif @isset ($saveStatus['construction_site_id']) is-valid @endisset" style="display:inline" wire:model.live="wdr.construction_site_id">
+                <select class="form-select form-select-sm @if (!$wdr['construction_site_id']) is-invalid @endif @isset ($saveStatus['construction_site_id']) is-valid @endisset" style="display:inline" wire:model.live="wdr.construction_site_id" @if($hasConsumption) disabled @endif>
                     <option value="NULL">Odaberi gradilište</option>
                     @foreach($jobSites as $jobSite)
                         <option value="{{$jobSite->id}}">{{$jobSite->name}}</option>
@@ -54,34 +54,45 @@
             <div>
                 <h1 class="h6"><b>Prisustvo radnika</b></h1>
                 <div class="row align-items-center">
-                    <div class="col d-flex justify-content-center">
-                        <i class="bi bi-people-fill" style="color: red;"></i>&nbsp : &nbsp
-                        <b style="color: red;">0</b>
+                    <div class="col d-flex justify-content-center" style="color: @if ($countAtt == 0) red @else black @endif;">
+                        <i class="bi bi-people-fill"></i>&nbsp : &nbsp
+                        <b>{{ $countAtt }}</b>
                     </div>
                     <div class="col d-flex justify-content-center"> 
-                        <button class="btn btn-success" wire:click='selectModule("attendance")'><i class="bi bi-person-plus"></i></button></div>
+                        <button class="btn btn-success" wire:click='selectModule("attendance")'><i class="bi bi-person-plus"></i></button>
                     </div>
+                </div>
                 <hr>
             </div>
             {{-- WORKER COOPERATOR --}}
             <div>
                 <h1 class="h6"><b>Prisustvo kooperanata</b></h1>
                 <div class="row align-items-center">
-                    <div class="col d-flex justify-content-center">
-                        <i class="bi bi-people-fill" style="color: red;"></i>&nbsp : &nbsp
-                        <b style="color: red;">0</b>
+                    <div class="col d-flex justify-content-center" style="color: @if ($countSubCont == 0) red @else black @endif;">
+                        <i class="bi bi-people-fill"></i>&nbsp : &nbsp
+                        <b>{{ $countSubCont }}</b>
                     </div>
-                    <div class="col d-flex justify-content-center"> <button class="btn btn-success"><i class="bi bi-person-plus"></i></button></div>
+                    <div class="col d-flex justify-content-center"> 
+                        <button class="btn btn-success" wire:click='selectModule("subcontractors")'><i class="bi bi-person-plus"></i></button>
                     </div>
+                </div>
                 <hr>
             </div>
 
             {{-- BTNS --}}
             <div class="col d-flex justify-content-center mb-2"> 
-                <button id="workLog" class="btn btn-dark " style="width: 175px;">
+                <button id="workLog" class="btn btn-dark " style="width: 175px;" wire:click='selectModule("work-diary")'>
                     <i class="bi bi-book"></i> DNEVNIK RADOVA
                 </button>
             </div>
+
+            @if($wdr['construction_site_id'])
+                <div class="col d-flex justify-content-center mb-2"> 
+                    <button id="workLog" class="btn btn-success" style="width: 175px;" wire:click='selectModule("consumption")'>
+                        <i class="bi bi-cone"></i> MATERIJAL
+                    </button>
+                </div>
+            @endif
 
             {{-- DELETE THIS WORK REPORT --}}
             <div class="col d-flex justify-content-center"> 

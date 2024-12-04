@@ -17,6 +17,7 @@ class MaterialConsumptionModel extends Model
 
     protected $fillable = [
         'wdr_id',
+        'mat_doc_id',
         'booked'
     ];
 

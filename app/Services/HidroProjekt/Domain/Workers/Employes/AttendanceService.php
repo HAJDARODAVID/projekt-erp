@@ -34,7 +34,17 @@ class AttendanceService
 
     public function updateAttendanceHours($hours){
         return $this->attendance->first()->update([
-            'work_hours' => $hours,
+            'work_hours'     => $hours,
+            'type'           => $this->type,
+            'absence_reason' => NULL,
+        ]);
+    }
+
+    public function updateAttendanceToAbsence($reason){
+        return $this->attendance->first()->update([
+            'work_hours'     => NULL,
+            'type'           => NULL,
+            'absence_reason' => $reason,
         ]);
     }
 
@@ -65,7 +75,13 @@ class AttendanceService
         return $this;
     }
 
+    public function countWorkersInAttendance(){
+        return AttendanceModel::where('working_day_record_id', $this->wdrId)->get()->count();
+    }
+
     private function setAttendance(){
-        return AttendanceModel::where('working_day_record_id',$this->wdrId)->where('worker_id', $this->worker->id);
+        if($this->worker){
+            return AttendanceModel::where('working_day_record_id',$this->wdrId)->where('worker_id', $this->worker->id);
+        }
     }
 }
