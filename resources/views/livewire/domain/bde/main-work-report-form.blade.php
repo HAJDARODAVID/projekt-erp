@@ -21,6 +21,13 @@
                         <option value="{{$jobSite->id}}">{{$jobSite->name}}</option>
                     @endforeach
                 </select>
+                
+                @if(isset($address['street']) && isset($address['town']))
+                    <div class="pt-2">
+                        {{ __('Adresa: ') }} 
+                        <a href="https://www.google.com/maps/place/{{$address['street'] . ' ' . $address['town']}}">{{$address['street'] . ' ' . $address['town']}}</a> 
+                    </div>  
+                @endif
                 <hr>
             </div>
             {{-- WORK TYPE --}}
