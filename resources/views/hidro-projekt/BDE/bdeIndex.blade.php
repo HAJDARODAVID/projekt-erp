@@ -12,11 +12,25 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @foreach($myRecords as $entry)
+                    {{-- Old work report cards --}}
+                    {{-- @foreach($myRecords as $entry)
                         <x-bde.working-day-entry-card :entry="$entry"></x-bde.working-day-entry-card>
+                    @endforeach --}}
+
+                    {{-- New work report cards - feature_bde-remaster --}}
+                    @foreach($myRecords as $entry)
+                        @livewire('domain.bde.work-report-card',[
+                            'entry' => $entry,
+                        ], key($entry->id . now()))
                     @endforeach
+
+                    <hr class="p-0 m-0 my-1 pb-1">
                     <div class="d-flex justify-content-center mb-2">   
-                        <button class="btn btn-success" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button>
+                        {{-- Old "create new working report" btn --}}
+                        {{-- <button class="btn btn-danger" style="height: 65px; width: 230px" onclick="location.href='{{ route('hp_newWorkingDayEntry') }}'"><b>+ DODAJ NOVI ZAPIS</b></button> --}}
+
+                        {{-- New btn - feature_bde-remaster --}}
+                        <button class="btn btn-success shadow" style="height: 65px; width: 230px" onclick="location.href='{{ route('createNewReport') }}'"><b>+ DODAJ NOVI ZAPIS</b></button>
                     </div>
 
                     @if ($activeInv && Auth::user()->id == 15)
@@ -25,7 +39,6 @@
                         </div>
                     @endif
                     
-
                 </div>
             </div>
         </div>
