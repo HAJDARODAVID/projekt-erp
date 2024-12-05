@@ -4,8 +4,9 @@
             <div class="col-md-2" style="width: 200px">
                 <label for="inputState" class="form-label"><b>Godina</b></label>
                 <select id="inputState" class="form-select" wire:model.live='selectedYear'>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
+                    @foreach ($years as $year)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endforeach
                 </select>
                 </div>
             <div class="col-md-2" style="width: 200px">
@@ -55,25 +56,29 @@
                             <td>{{ $attInfo['name'] }}</td>
                             <td>{{ $attInfo['overall'] }}</td>
                             <td style="border-right: 1.5px solid #000000;">{{ number_format($attInfo['cost'], 2) }}€</td>
-                            @foreach ($attInfo['dates'] as $key => $day)
-                                <?php 
-                                    $daynum = date("N", strtotime($key));
-                                    $cellStyle="";
-                                    if($daynum > 5) {
-                                        $cellStyle="background-color:#c9c9c9"; 
-                                    }
-                                ?>
-                                <td style="<?=$cellStyle?>" wire:click="openAttendanceModalForWorkerAndDay('{{ $attInfo['id'] }}', '{{ $key }}')">{{ $day }}</td>  
-                            @endforeach
+                            @isset($attInfo['dates'])
+                                @foreach ($attInfo['dates'] as $key => $day)
+                                    <?php 
+                                        $daynum = date("N", strtotime($key));
+                                        $cellStyle="";
+                                        if($daynum > 5) {
+                                            $cellStyle="background-color:#c9c9c9"; 
+                                        }
+                                    ?>
+                                    <td style="<?=$cellStyle?>" wire:click="openAttendanceModalForWorkerAndDay('{{ $attInfo['id'] }}', '{{ $key }}')">{{ $day }}</td>  
+                                @endforeach   
+                            @endisset
                         </tr>   
                     @endforeach
                     <tr style="background-color:#c9c9c9">
                         <td><b>{{ $groupName }}</b></td>
                         <td><b>{{  $overAllGroup }}</b></td>
                         <td style="border-right: 1.5px solid #000000;"><b>{{  number_format($overAllGroupCost,2) }}€</b></td>
-                        @foreach ($attendance['groupPerDay'][$groupName] as $days)
-                            <td><b>{{ $days }}</b></td>
-                        @endforeach
+                        @if($attendance['groupPerDay'])
+                            @foreach ($attendance['groupPerDay'][$groupName] as $days)
+                                <td><b>{{ $days }}</b></td>
+                            @endforeach
+                        @endif
                     </tr>
                 @endforeach
                 <tr>
