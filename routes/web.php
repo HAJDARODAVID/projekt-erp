@@ -197,6 +197,11 @@ Route::prefix('/')
                 Route::put('/cooperators_worker/{id}', 'deactivateCooperatorWorker')->name('hp_deactivateCooperatorWorker');
                 Route::put('/cooperators_update_worker/{id}', 'updateCooperatorWorker')->name('hp_updateCooperatorWorker');
 
+                /**
+                 * Remaster routes
+                 */
+                Route::get('time_tracker', 'timeTracker')->name('timeTracker');
+
 
                 //PDF routes
                 Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');

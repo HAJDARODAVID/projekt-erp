@@ -193,4 +193,9 @@ class HumanResourcesController extends Controller
         dd('im out');
     }
 
+
+    public function timeTracker(){
+        return view('hidro-projekt.hr-new.time-tracker');
+    }
+
 }
