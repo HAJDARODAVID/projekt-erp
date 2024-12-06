@@ -35,9 +35,9 @@ class TImeTrackerService
             foreach ($days as $day) {
                 $this->data[$workerID]['days'][$day] = $this->getAttendance($workerID,$day);
             }
-            $this->data[$workerID]['hours_overall'] = $this->getHoursOverall($workerID);
             $this->data[$workerID]['sick_leave'] = $this->getAbsenceCount($workerID, "sick_leave");
             $this->data[$workerID]['paid_leave'] = $this->getAbsenceCount($workerID, "paid_leave");
+            $this->data[$workerID]['hours_overall'] = $this->getHoursOverall($workerID) + ($this->data[$workerID]['paid_leave']*8);
             $this->data[$workerID]['planed_hours'] = $this->getPlanedHours($days);
         }
         return $this;
