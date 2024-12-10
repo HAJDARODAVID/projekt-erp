@@ -21,6 +21,7 @@ class Th extends Component
     public $borderStyle;
     public $bgStyle = NULL;
     public $sticky;
+    public $pointer;
     /**
      * Create a new component instance.
      */
@@ -35,6 +36,7 @@ class Th extends Component
         $borderStyle = NULL,
         $date = NULL,
         $sticky = FALSE,
+        $pointer = FALSE,
         )
     {
         $this->center = $center;
@@ -47,6 +49,7 @@ class Th extends Component
         $this->sticky = $sticky;
         $this->borderStyle = $this->setBorderStyle($borderStyle);
         $date != NULL ? $this->setBackgroundColor($date) : NULL;
+        $this->pointer = $pointer;
     }
 
     private function setBorderStyle($borderStyle){
@@ -72,6 +75,14 @@ class Th extends Component
         if($dayNum>5){
             $this->bgStyle = '#d4d4d4';
         }
+        if($this->isDateHoliday($date)){
+            $this->bgStyle = '#976EDB';
+        }
+    }
+
+    private function isDateHoliday($date){
+        $holiday = array('2024-12-25');
+        return in_array($date, $holiday);
     }
 
     /**

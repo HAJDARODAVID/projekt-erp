@@ -63,7 +63,7 @@ class TImeTrackerService
     private function getAttendance($workerID,$day){
         //Check if multiple absences
         $abs = AttendanceModel::where('worker_id',$workerID)->where('date', $day);
-        if($abs->where('absence_reason', '!=', NULL)->get()->count()>1){
+        if($abs->where('absence_reason', '!=', NULL)->get()->count()>1 || ($abs->where('absence_reason', '!=', NULL)->get()->count()>=1 && AttendanceModel::where('worker_id',$workerID)->where('date', $day)->get()->sum('work_hours')>0)){
             return 'ERR';
         }
         if($abs->where('absence_reason', '!=', NULL)->get()->count()==1){

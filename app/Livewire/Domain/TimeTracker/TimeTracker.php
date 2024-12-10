@@ -51,7 +51,7 @@ class TimeTracker extends Component
 
     public function showModalForDay($param=NULL){
         $param = $this->parametersToArray($param);
-        dd($param);
+        $this->dispatch('open-attendance-for-day-modal', $param)->to(DayAttendanceInfoModal::class);
     }
 
     private function parametersToArray($param){
@@ -62,6 +62,11 @@ class TimeTracker extends Component
             $array[$key] = $value;
         }
         return $array;
+    }
+
+    #[On('refresh-attendance-table')]
+    public function refreshThis(){
+        return;
     }
 
     public function render()

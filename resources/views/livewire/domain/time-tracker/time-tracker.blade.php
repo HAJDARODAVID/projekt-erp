@@ -47,6 +47,7 @@
                             <x-table.time-tracker-table.th  name='bo' :width='33' borderStyle='bb.5.double.gray-br.5.double.gray-bl.1.solid.gray' />
                             @foreach ($days as $day)
                                 <x-table.time-tracker-table.th  
+                                    :pointer=TRUE
                                     date='{{ $day }}'
                                     name='{{ date("d",strtotime($day))  }}' 
                                     :width='33' 
@@ -80,6 +81,7 @@
                                 {{-- DATA PER DAY --}}
                                 @foreach ($worker['days'] as $day => $value)
                                     <x-table.time-tracker-table.td 
+                                        :pointer=TRUE
                                         type='hours'
                                         date='{{ $day }}'
                                         :value='$value'

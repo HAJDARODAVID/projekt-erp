@@ -1,6 +1,7 @@
 <th 
     scope="col" 
     style="
+        @if($pointer) cursor: pointer; @endif
         @if($width) width: {{ $width }}px !important; @endif
         @if($br) border-right: {{ $br[0] }}px {{ $br[1] }} {{ $br[2] }} !important; @endif
         @if($bl) border-left: {{ $bl[0] }}px {{ $bl[1] }} {{ $bl[2] }} !important; @endif

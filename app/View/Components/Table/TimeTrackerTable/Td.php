@@ -24,11 +24,14 @@ class Td extends Component
     public $fontWeight = NULL;
     public $sticky;
     public $type;
+    public $pointer;
     public $wireClick;
+
     /**
      * Create a new component instance.
      */
     public function __construct(
+        $pointer = FALSE,
         $wireClick = [
             'method' => NULL,
             'param' => NULL
@@ -45,6 +48,7 @@ class Td extends Component
         $type = NULL,
         )
     {
+        $this->pointer = $pointer;
         $this->wireClick = $wireClick;
         $this->type = $type;
         $this->value = $this->setValue($value);
@@ -57,6 +61,8 @@ class Td extends Component
         $this->borderStyle = $this->setBorderStyle($borderStyle);
         $date != NULL ? $this->setBackgroundColor($date) : NULL;
         $this->setFontStyle();
+        
+        
     }
 
     private function setValue($value){
@@ -95,6 +101,9 @@ class Td extends Component
         if($dayNum<6 && is_null($this->value) && (strtotime($date) < strtotime(date('Y-m-d'))) ){
             $this->bgStyle = '#ff4747';
         }
+        if($this->isDateHoliday($date)){
+            $this->bgStyle = '#976EDB';
+        }
         if(is_numeric($this->value)){
             $this->bgStyle = '#04c90e';
         }
@@ -118,6 +127,11 @@ class Td extends Component
             $this->textColor = 'white';
             $this->fontWeight = 'bold';
         }
+    }
+
+    private function isDateHoliday($date){
+        $holiday = array('2024-12-25');
+        return in_array($date, $holiday);
     }
 
     /**
