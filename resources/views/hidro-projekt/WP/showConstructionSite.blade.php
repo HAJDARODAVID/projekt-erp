@@ -80,8 +80,10 @@
                         <td><b>Poslovođa</b></td>
                         <td><b>#</b></td>
                         <td><b>km</b></td>
-                        <td><b>Sati</b></td>
-                        <td><b>€</b></td>
+                        <td><b>Sati[H-P]</b></td>
+                        <td><b>€[H-P]</b></td>
+                        <td><b>Sati[CoOp]</b></td>
+                        <td><b>€[CoOp]</b></td>
                     </tr>
                 </thead>
 
@@ -95,6 +97,16 @@
                                 <td>{{ $info['carMileage'] }}</td>
                                 <td>{{ $info['workerHoursSum'] }}</td>
                                 <td>{{ $info['workerHoursCost'] }}</td>
+                                <td>
+                                    @isset($perDayHoursAndCostCoOp['tableData'][$wdr])
+                                        {{ $perDayHoursAndCostCoOp['tableData'][$wdr]['hours'] }}
+                                    @endisset
+                                </td>
+                                <td>
+                                    @isset($perDayHoursAndCostCoOp['tableData'][$wdr])
+                                        {{ $perDayHoursAndCostCoOp['tableData'][$wdr]['cost'] }}
+                                    @endisset
+                                </td>
                             </tr>
                         @endforeach
                     @endforeach

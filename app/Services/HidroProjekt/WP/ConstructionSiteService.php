@@ -99,16 +99,28 @@ class ConstructionSiteService
         $array = [];
         $sumOfWorkerCost=0;
         $sumOfWorkerHours=0;
+        $tableData=[];
         foreach ($wdrAll as $wdr) {
             $workerHoursSum =0;
             foreach ($wdr->getAttendanceCoOp as $att) {
                 $workerHoursSum += $att->work_hours;
+                if(!isset($tableData[$wdr->id]['hours'])){
+                    $tableData[$wdr->id]['hours'] = $att->work_hours;
+                }else{
+                    $tableData[$wdr->id]['hours'] = $tableData[$wdr->id]['hours']+$att->work_hours;
+                }
+                if(!isset($tableData[$wdr->id]['cost'])){
+                    $tableData[$wdr->id]['cost'] = $att->work_hours * $workHourCost;
+                }else{
+                    $tableData[$wdr->id]['cost'] = $tableData[$wdr->id]['cost']+ ($att->work_hours* $workHourCost);
+                }
             }
             $sumOfWorkerCost += $workerHoursSum * $workHourCost;
             $sumOfWorkerHours += $workerHoursSum;
         }
         $array['sumOfWorkerCost'] = $sumOfWorkerCost;
         $array['sumOfWorkerHours'] = $sumOfWorkerHours;
+        $array['tableData'] = $tableData;
         return $array;
     }
 
