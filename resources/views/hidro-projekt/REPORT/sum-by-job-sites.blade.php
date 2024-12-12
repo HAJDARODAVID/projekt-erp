@@ -7,6 +7,7 @@
           <div class="h5 px-4"><b>IZVJEŠTAJ GRADILIŠTA</b></div>
       </div>
       <div class="row">
+        @livewire('domain.tables.report.sum-info-by-job-site')
         <div class="px-4 pt-3">
           <div class="table-responsive">
             <table class="table">

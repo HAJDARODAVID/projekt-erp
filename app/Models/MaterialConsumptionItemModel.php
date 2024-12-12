@@ -16,4 +16,10 @@ class MaterialConsumptionItemModel extends Model
         'mat_id',
         'qty'
     ];
+
+    public function getCostAttribute(){
+        $materialPrice = MaterialMasterData::where('id', $this->attributes['mat_id'])->first()->price;
+        $amount = $this->attributes['qty']*$materialPrice;
+        return $amount;
+    }
 }
