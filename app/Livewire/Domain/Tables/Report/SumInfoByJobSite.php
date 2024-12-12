@@ -25,9 +25,15 @@ class SumInfoByJobSite extends Component
     private function makeColumns(){
         return [
             Column::make('Gradilište', 'name'),
-            Column::make('Zalihe na stanju', 'on_stock'),
-            Column::make('Potrošnja', 'consumption'),
-            Column::make('Radni sati[H-P]', 'work_hours_h'),
+            Column::make('Zalihe na stanju', 'on_stock')
+                ->setTd()
+                ->isCurrency(),
+            Column::make('Potrošnja', 'consumption')
+                ->setTd()
+                ->isCurrency(),
+            Column::make('Radni sati[H-P]', 'work_hours_h')
+                ->setTd()
+                ->isNumber(),
             Column::make('Radni sati[CoOp]', 'work_hours_c'),
         ];
     }
