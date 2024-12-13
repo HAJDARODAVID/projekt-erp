@@ -10,30 +10,29 @@ class Td extends Component
 {
     private $cellType = 'td';
     public $value;
-    public $style;
 
     public $numberFormat = FALSE;
     public $currencySymbol = NULL;
+    public $style ='';
     /**
      * Create a new component instance.
      */
     public function __construct(
         $value = NULL,
-        $style =[],
+        $param =[],
     )
     {
         $this->value = $value;
-        $this->style =  $style;
-        $this->setStyles($this->style);  
+        $this->setStyles($param);  
     }
 
-    private function setStyles($style){
-        if($style){
-            if($style->{$this->cellType}){
-                foreach ($style->{$this->cellType} as $method => $property) {
+    private function setStyles($param){
+        if($param){
+            if($param->{$this->cellType}){
+                foreach ($param->{$this->cellType} as $method => $property) {
                     if(method_exists(get_class($this), 'set'.ucfirst($method))){
                         $methodName = 'set'.ucfirst($method);
-                        return $this->$methodName($property);
+                        $this->$methodName($property);
                     }
                 }
             }
@@ -54,6 +53,12 @@ class Td extends Component
             if($param[0] == TRUE){
                 $this->numberFormat = $param[0];
             }
+        }
+    }
+
+    private function setBorder(?array $param){
+        if(isset($param[0])){
+            $this->style = $this->style.' '.$param[0];
         }
     }
 

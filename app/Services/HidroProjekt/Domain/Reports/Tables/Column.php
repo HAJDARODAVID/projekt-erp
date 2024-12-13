@@ -10,6 +10,13 @@ class Column
 
     const DEF_CURRENCY_SYMBOL = '€';
 
+    const ORIENTATION=[
+        'l' => 'left',
+        'r' => 'right',
+        't' => 'top',
+        'b' => 'bottom',
+    ];
+
     public $title;
     public $from;
     private $cellType = NULL;
@@ -32,11 +39,13 @@ class Column
 
     public function setTd(){
         $this->cellType = 'td';
+        $this->style[$this->cellType] = NULL;
         return $this;
     }
 
     public function setTh(){
         $this->cellType = 'th';
+        $this->style[$this->cellType] = NULL;
         return $this;
     }
 
@@ -54,7 +63,20 @@ class Column
         return $this;
     }
 
-    public function setBorder($orientation)
+    public function setBorder($orientation, $size = self::DEF_BORDER_PX, $style= self::DEF_BORDER_TYPE,$color= self::DEF_COLOR){
+        if($this->isCellTypeSet()){
+            $orientation = strtolower($orientation);
+            if(isset(self::ORIENTATION[$orientation])){
+                if(isset($this->style[$this->cellType]['border'])){
+                    $this->style[$this->cellType]['border'] = [$this->style[$this->cellType]['border'][0] .' '.'border-'.self::ORIENTATION[$orientation].': '.$size.'px '.$style.' '.$color.';'];
+                }
+                else{
+                    $this->style[$this->cellType]['border'] = ['border-'.self::ORIENTATION[$orientation].': '.$size.'px '.$style.' '.$color.';'];
+                }
+            }
+        }
+        return $this;
+    }
 
     private function isCellTypeSet(): bool{
         return $this->cellType != NULL ? TRUE : FALSE;

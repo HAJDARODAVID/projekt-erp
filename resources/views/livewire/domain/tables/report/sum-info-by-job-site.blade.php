@@ -13,7 +13,7 @@
           @foreach ($data as $id => $row)
                 <tr>
                     @foreach (json_decode($columns) as $column)
-                        <x-table.basic01.td value='{{ $row[$column->from] }}' :style="$column->style" />
+                        <x-table.basic01.td value='{{ $row[$column->from] }}' :param="$column->style" />
                     @endforeach
                 </tr>
             @endforeach

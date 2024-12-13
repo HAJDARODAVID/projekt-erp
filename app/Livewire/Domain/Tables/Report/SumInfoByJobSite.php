@@ -26,15 +26,23 @@ class SumInfoByJobSite extends Component
         return [
             Column::make('Gradilište', 'name'),
             Column::make('Zalihe na stanju', 'on_stock')
-                ->setTd()
-                ->isCurrency(),
+                ->setTd()->isCurrency(),
             Column::make('Potrošnja', 'consumption')
-                ->setTd()
-                ->isCurrency(),
+                ->setTd()->isCurrency(),
             Column::make('Radni sati[H-P]', 'work_hours_h')
-                ->setTd()
-                ->isNumber(),
-            Column::make('Radni sati[CoOp]', 'work_hours_c'),
+                ->setTd()->isNumber()->setBorder('l'),
+            Column::make('Radni sati[H-P] €', 'work_hours_h_cost')
+                ->setTd()->isCurrency()->setBorder('r'),
+            Column::make('Radni sati[CoOp]', 'work_hours_c')
+                ->setTd()->isNumber(),
+            Column::make('Radni sati[CoOp] €', 'work_hours_c_cost')
+                ->setTd()->isCurrency()->setBorder('r'),
+            Column::make('Radni sati', 'work_hours')
+                ->setTd()->isNumber(),
+            Column::make('Radni sati €', 'work_hours_cost')
+                ->setTd()->isCurrency(),
+            Column::make('Ukupno', 'overall')
+                ->setTd()->isCurrency(),
         ];
     }
 

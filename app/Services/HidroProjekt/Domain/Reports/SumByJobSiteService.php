@@ -41,8 +41,11 @@ class SumByJobSiteService
             ];
         }
         foreach ($data as $key => $items) {
+            $data[$key]['work_hours'] = $items['work_hours_h'] + $items['work_hours_c'];
             $data[$key]['work_hours_h_cost'] = $items['work_hours_h'] *$workHourCostH;
             $data[$key]['work_hours_c_cost'] = $items['work_hours_c'] *$workHourCostC;
+            $data[$key]['work_hours'] = $items['work_hours_h'] + $items['work_hours_c'];
+            $data[$key]['work_hours_cost'] = ($items['work_hours_h']*$workHourCostH) + ($items['work_hours_c']*$workHourCostC);
             $data[$key]['overall'] =($items['work_hours_h'] *$workHourCostH) + ($items['work_hours_c'] *$workHourCostC) + $items['consumption'];
         }
         return $data;
