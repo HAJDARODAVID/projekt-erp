@@ -26,23 +26,23 @@ class SumInfoByJobSite extends Component
         return [
             Column::make('Gradilište', 'name'),
             Column::make('Zalihe na stanju', 'on_stock')
-                ->setTd()->isCurrency(),
+                ->setTd()->isCurrency()->textCenter(),
             Column::make('Potrošnja', 'consumption')
-                ->setTd()->isCurrency(),
+                ->setTd()->isCurrency()->textCenter(),
             Column::make('Radni sati[H-P]', 'work_hours_h')
-                ->setTd()->isNumber()->setBorder('l'),
+                ->setTd()->isNumber()->setBorder('l')->textCenter(),
             Column::make('Radni sati[H-P] €', 'work_hours_h_cost')
-                ->setTd()->isCurrency()->setBorder('r'),
+                ->setTd()->isCurrency()->setBorder('r')->textCenter(),
             Column::make('Radni sati[CoOp]', 'work_hours_c')
-                ->setTd()->isNumber(),
+                ->setTd()->isNumber()->textCenter(),
             Column::make('Radni sati[CoOp] €', 'work_hours_c_cost')
-                ->setTd()->isCurrency()->setBorder('r'),
+                ->setTd()->isCurrency()->setBorder('r')->textCenter(),
             Column::make('Radni sati', 'work_hours')
-                ->setTd()->isNumber(),
+                ->setTd()->isNumber()->textCenter(),
             Column::make('Radni sati €', 'work_hours_cost')
-                ->setTd()->isCurrency(),
+                ->setTd()->isCurrency()->textCenter(),
             Column::make('Ukupno', 'overall')
-                ->setTd()->isCurrency(),
+                ->setTd()->isCurrency()->textCenter(),
         ];
     }
 

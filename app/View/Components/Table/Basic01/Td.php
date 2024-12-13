@@ -14,6 +14,7 @@ class Td extends Component
     public $numberFormat = FALSE;
     public $currencySymbol = NULL;
     public $style ='';
+    public $class ='';
     /**
      * Create a new component instance.
      */
@@ -59,6 +60,12 @@ class Td extends Component
     private function setBorder(?array $param){
         if(isset($param[0])){
             $this->style = $this->style.' '.$param[0];
+        }
+    }
+
+    private function setTextCenter(?array $param){
+        if(isset($param[0])){
+            $this->class = $this->class.' '.$param[0];
         }
     }
 

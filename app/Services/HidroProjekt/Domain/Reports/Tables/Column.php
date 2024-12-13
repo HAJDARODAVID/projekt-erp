@@ -78,6 +78,17 @@ class Column
         return $this;
     }
 
+    public function textCenter(){
+        if($this->isCellTypeSet()){         
+            if(isset($this->style[$this->cellType]['textCenter'])){
+                $this->style[$this->cellType]['textCenter'] = [$this->style[$this->cellType]['textCenter'][0] .' '.'text-center'];
+            }
+            else{
+                $this->style[$this->cellType]['textCenter'] = ['text-center'];
+            }
+        }
+    }
+
     private function isCellTypeSet(): bool{
         return $this->cellType != NULL ? TRUE : FALSE;
     }
