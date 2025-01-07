@@ -36,8 +36,8 @@ class WorkHoursReport extends Component
 
     public function exportAttendanceReport(){
         $service = new AttendanceService;
-        $data['summary']=$service->getDataForWorkerAttendanceReport($this->selectedMonth);
-        $data['per_day']=$service->getAllAttendanceDataForMonthly($this->selectedMonth);
+        $data['summary']=$service->getDataForWorkerAttendanceReport($this->selectedMonth, $this->selectedYear);
+        $data['per_day']=$service->getAllAttendanceDataForMonthly($this->selectedMonth, $this->selectedYear);
         $data['month'] = $this->selectedMonth;
         return (new AttendanceReportExport($data));
     }

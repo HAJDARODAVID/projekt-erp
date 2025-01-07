@@ -40,8 +40,8 @@ class AttendanceService
         return;
     }
 
-    public function getDataForWorkerAttendanceReport($month){
-        $att=AttendanceModel::whereMonth('date', $month)
+    public function getDataForWorkerAttendanceReport($month, $year = 2024){
+        $att=AttendanceModel::whereYear('date', '=', $year)->whereMonth('date', $month)
             ->with('getWorkerInfo')
             ->orderBy('worker_id', 'asc')
             ->get();
@@ -65,12 +65,13 @@ class AttendanceService
         return $data;
     }
 
-    public function getAllAttendanceDataForMonthly($month=3){
+    public function getAllAttendanceDataForMonthly($month=3, $year = 2024){
         $att = AttendanceModel::query()
             ->leftJoin('working_day_record', 'working_day_record.id', '=', 'attendance.working_day_record_id')
             ->leftJoin('construction_sites', 'construction_sites.id', '=', 'working_day_record.construction_site_id')
             ->leftJoin('workers', 'workers.id', '=', 'attendance.worker_id')
             ->select('attendance.date', 'attendance.worker_id', 'workers.firstName', 'workers.lastName','construction_sites.name', 'attendance.type', 'attendance.work_hours', 'attendance.absence_reason')
+            ->whereYear('attendance.date', $year)
             ->whereMonth('attendance.date', $month)
             ->get()->toArray();
         
