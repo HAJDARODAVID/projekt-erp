@@ -86,4 +86,8 @@ class JobSiteService{
     public function getAllJobSites(){
         return ConstructionSiteModel::where('status', ConstructionSiteModel::CONSTRUCTION_STATUS_ACTIVE)->get();
     } 
+
+    public function getJobSitesById(array $id){
+        return ConstructionSiteModel::whereIn('id', $id)->get();
+    } 
 }
