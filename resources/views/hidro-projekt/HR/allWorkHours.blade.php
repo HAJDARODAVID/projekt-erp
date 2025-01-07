@@ -15,6 +15,7 @@
     
     @livewire('hidroProjekt.hr.work-hours-report',[
         'selectedMonth' => date('m')*1,
+        'selectedYear' => date('Y')*1,
     ])
 
     @livewire('hidroProjekt.hr.worker-attendance-modal')

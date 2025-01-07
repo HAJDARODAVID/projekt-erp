@@ -3,7 +3,7 @@
         <div class="row g-3">
             <div class="col" style="width: 200px">
                 <label for="inputState" class="form-label"><b>Godina</b></label>
-                <select id="inputState" class="form-select">
+                <select id="inputState" class="form-select" wire:model.live='selectedYear'>
                       <option value="2024">2024</option>
                       <option value="2025">2025</option>
                 </select>

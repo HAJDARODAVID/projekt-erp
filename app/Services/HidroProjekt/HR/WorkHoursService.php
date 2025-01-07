@@ -27,9 +27,9 @@ class WorkHoursService
         return $attendanceWorker;
     }
 
-    public static function getAllAttendanceForMonthReport($month, $planedHours){
+    public static function getAllAttendanceForMonthReport($month, $planedHours, $year = 2024){
         $workers = self::getAllAttendanceWorkers();
-        $attendance = AttendanceModel::whereMonth('date', '=', $month)->get();
+        $attendance = AttendanceModel::whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
         $completeAttendance=[];
         $cumulativeHours['planedHours']=0;
         $cumulativeHours['workHours']=0;

@@ -14,6 +14,7 @@ class WorkHoursReport extends Component
 {
     public $months = Months::MONTHS_HR;
     public $selectedMonth;
+    public $selectedYear;
     public $daysOfMonth;
     public $completeAttendance;
     public $daySum;
@@ -23,9 +24,9 @@ class WorkHoursReport extends Component
 
     #[On('refreshWorkHoursComponentHPWorker')] 
     public function mount(){
-        $this->daysOfMonth=Months::dayOfMonth($this->selectedMonth);
+        $this->daysOfMonth=Months::dayOfMonth($this->selectedMonth, $this->selectedYear);
         $this->planedHours = WorkHoursService::getPlanedHoursForMonth($this->selectedMonth);
-        $this->attendanceReport = WorkHoursService::getAllAttendanceForMonthReport($this->selectedMonth, $this->planedHours);
+        $this->attendanceReport = WorkHoursService::getAllAttendanceForMonthReport($this->selectedMonth, $this->planedHours, $this->selectedYear);
         $this->completeAttendance= $this->attendanceReport['attendance'];
         $this->cumulative = $this->attendanceReport['cumulative']; 
     }
