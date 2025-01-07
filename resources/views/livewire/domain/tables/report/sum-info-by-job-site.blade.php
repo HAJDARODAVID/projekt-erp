@@ -5,6 +5,7 @@
         <thead>
           <tr>
             @foreach (json_decode($columns) as $column)
+               {{ dd($column) }}
                 <th>{{ $column->title }}</th>
             @endforeach
           </tr>
