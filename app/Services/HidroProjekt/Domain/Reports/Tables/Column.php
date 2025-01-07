@@ -87,6 +87,7 @@ class Column
                 $this->style[$this->cellType]['textCenter'] = ['text-center'];
             }
         }
+        return $this;
     }
 
     private function isCellTypeSet(): bool{

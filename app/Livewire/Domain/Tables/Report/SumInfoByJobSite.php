@@ -29,14 +29,14 @@ class SumInfoByJobSite extends Component
                 ->setTd()->isCurrency()->textCenter(),
             Column::make('Potrošnja', 'consumption')
                 ->setTd()->isCurrency()->textCenter(),
-            Column::make('Radni sati[H-P]', 'work_hours_h')
-                ->setTd()->isNumber()->setBorder('l')->textCenter(),
-            Column::make('Radni sati[H-P] €', 'work_hours_h_cost')
-                ->setTd()->isCurrency()->setBorder('r')->textCenter(),
-            Column::make('Radni sati[CoOp]', 'work_hours_c')
-                ->setTd()->isNumber()->textCenter(),
-            Column::make('Radni sati[CoOp] €', 'work_hours_c_cost')
-                ->setTd()->isCurrency()->setBorder('r')->textCenter(),
+            // Column::make('Radni sati[H-P]', 'work_hours_h')
+            //     ->setTd()->isNumber()->setBorder('l')->textCenter(),
+            // Column::make('Radni sati[H-P] €', 'work_hours_h_cost')
+            //     ->setTd()->isCurrency()->setBorder('r')->textCenter(),
+            // Column::make('Radni sati[CoOp]', 'work_hours_c')
+            //     ->setTd()->isNumber()->textCenter(),
+            // Column::make('Radni sati[CoOp] €', 'work_hours_c_cost')
+            //    ->setTd()->isCurrency()->setBorder('r')->textCenter(),
             Column::make('Radni sati', 'work_hours')
                 ->setTd()->isNumber()->textCenter(),
             Column::make('Radni sati €', 'work_hours_cost')
