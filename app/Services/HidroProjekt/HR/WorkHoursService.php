@@ -30,6 +30,7 @@ class WorkHoursService
     public static function getAllAttendanceForMonthReport($month, $planedHours, $year = 2024){
         $workers = self::getAllAttendanceWorkers();
         $attendance = AttendanceModel::whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
+        dd($attendance);
         $completeAttendance=[];
         $cumulativeHours['planedHours']=0;
         $cumulativeHours['workHours']=0;
