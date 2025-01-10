@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\Attributes\Url;
 use App\Services\HidroProjekt\Domain\Workers\TimeTracker\TImeTrackerService;
 use App\Services\Months;
+use Livewire\Attributes\On;
 
 class TimeTracker extends Component
 {
@@ -66,7 +67,7 @@ class TimeTracker extends Component
 
     #[On('refresh-attendance-table')]
     public function refreshThis(){
-        return;
+        return $this->setDays()->setTimeTrackerData();
     }
 
     public function render()

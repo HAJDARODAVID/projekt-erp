@@ -40,6 +40,10 @@ class AttendanceService
         ]);
     }
 
+    public function updateAttendance(array $data){
+        return $this->attendance->first()->update($data);
+    }
+
     public function updateAttendanceToAbsence($reason){
         return $this->attendance->first()->update([
             'work_hours'     => NULL,
@@ -83,6 +87,11 @@ class AttendanceService
         if($this->worker){
             return AttendanceModel::where('working_day_record_id',$this->wdrId)->where('worker_id', $this->worker->id);
         }
+    }
+
+    public function setWdr($wdr){
+        $this->wdrId = $wdr;
+        return $this;
     }
 
     public function getAttendanceById($id){

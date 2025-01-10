@@ -12,15 +12,18 @@ class AttendanceModel extends Model
 
     const ABSENCE_REASON_SICK_LEAVE = 10;
     const ABSENCE_REASON_PAID_LEAVE = 20;
+    const ABSENCE_REASON_HOLIDAY    = 30;
 
     const ABSENCE_REASON = array(
         self::ABSENCE_REASON_SICK_LEAVE => 'Sick leave',
         self::ABSENCE_REASON_PAID_LEAVE => 'Paid leave',
+        self::ABSENCE_REASON_HOLIDAY    => 'Holiday',
     );
 
     const ABSENCE_REASON_SHT_TXT = array(
         self::ABSENCE_REASON_SICK_LEAVE => 'BO',
         self::ABSENCE_REASON_PAID_LEAVE => 'GO',
+        self::ABSENCE_REASON_HOLIDAY    => 'BL',
     );
 
     protected $table = 'attendance';

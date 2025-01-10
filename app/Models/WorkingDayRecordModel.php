@@ -21,6 +21,12 @@ class WorkingDayRecordModel extends Model
         self::WORK_TYPE_MISC_WORK  => 'Režija',
     );
 
+    const WORK_TYPE_SHT = array(
+        self::WORK_TYPE_HOME       => 'D',
+        self::WORK_TYPE_FIELD_WORK => 'T',
+        self::WORK_TYPE_MISC_WORK  => 'R',
+    );
+
     const MISC_WORK_LIST = array(
         532 => 'Čret',
     );

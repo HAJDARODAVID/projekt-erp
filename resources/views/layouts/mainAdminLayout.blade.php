@@ -79,6 +79,7 @@
     
     <!-- Custom styles for this template -->
     <link href="{{ url('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url('css/customStyle.css') }}" rel="stylesheet">
     
   </head>
   <body>

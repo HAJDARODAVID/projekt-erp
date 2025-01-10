@@ -113,6 +113,9 @@ class Td extends Component
         if($this->value == 'BO'){
             $this->bgStyle = '#f09618';
         }
+        if($this->value == 'BL'){
+            $this->bgStyle = '#976EDB';
+        }
         if($this->value == 'ERR'){
             $this->bgStyle = 'black';
         }
@@ -125,6 +128,9 @@ class Td extends Component
         }
         if($this->value == 'ERR'){
             $this->textColor = 'white';
+            $this->fontWeight = 'bold';
+        }
+        if($this->value == 'GO' || $this->value == 'BO' || $this->value == 'BL' || $this->value == 'GO'){
             $this->fontWeight = 'bold';
         }
     }
