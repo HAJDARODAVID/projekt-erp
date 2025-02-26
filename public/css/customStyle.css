@@ -3,3 +3,25 @@
     -moz-appearance: none !important;
     appearance: none !important;
 }
+
+.calendar-cell-header-bg-color {
+    background: rgb(129, 128, 128);
+    background: linear-gradient(0deg, rgb(101, 120, 143) 0%, rgb(69, 89, 114) 100%);
+    /* box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important */
+}
+
+.calendar-cell-weekend-bg-color {
+    background: rgb(255, 220, 220);
+    background: linear-gradient(312deg, rgba(255, 220, 220, 1) 0%, rgba(242, 156, 128, 1) 100%);
+    color: rgb(114, 47, 47);
+}
+
+.calendar-cell-previous-month-bg-color {
+    background: rgb(223, 223, 223);
+    background: linear-gradient(312deg, rgba(223, 223, 223, 1) 0%, rgba(149, 149, 149, 1) 100%);
+    color: rgb(107, 107, 107);
+}
+
+.calendar-cell-is-selected {
+    border: 2px solid #ff8473 !important;
+}

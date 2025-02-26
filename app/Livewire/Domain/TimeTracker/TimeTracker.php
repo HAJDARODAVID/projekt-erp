@@ -55,6 +55,11 @@ class TimeTracker extends Component
         $this->dispatch('open-attendance-for-day-modal', $param)->to(DayAttendanceInfoModal::class);
     }
 
+    public function showCalendarModal($param=NULL){
+        $param = $this->parametersToArray($param);
+        $this->dispatch('open-calendar-modal', $param)->to(WorkerCalendarModal::class);
+    }
+
     private function parametersToArray($param){
         $array = [];
         $paramPair = explode(',',$param);

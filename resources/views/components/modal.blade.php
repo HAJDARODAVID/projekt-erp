@@ -1,5 +1,6 @@
-<div class="modal @if ($size) modal-{{ $size }} @endif" style="display: @if($show) block @endif; {{ $blur }};">
-    <div class="modal-dialog @if ($position) {{ $position }} @endif" role="document">
+<div class="modal @if ($size) modal-{{ $size }} @endif" style="display: @if($show) block @endif; {{ $blur }}; @if($z) z-index: {{ $z }}; @endIf">
+    <div class="modal-dialog @if ($position) {{ $position }} @endif" role="document" 
+        style="@if($customWidth) max-width: {{ $customWidth }}px !important @endif">
         <div class="modal-content">
             @if ($alert)
                 <div class="alert @if ($aType) alert-{{ $aType }} @endif mb-0" role="alert">
@@ -13,7 +14,7 @@
                     <div class="modal-header d-flex justify-content-between align-items-center">
                             <div>
                                 <h5 class="modal-title">
-                                    {{ $mainTitle }}
+                                    {{ $mainTitle }} 
                                 </h5>
                                 @if ($secTitle)
                                     <p class="mb-0">{{ $secTitle }}</p>  

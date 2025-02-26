@@ -19,6 +19,12 @@ class AttendanceModel extends Model
         self::ABSENCE_REASON_PAID_LEAVE => 'Paid leave',
         self::ABSENCE_REASON_HOLIDAY    => 'Holiday',
     );
+    
+    const ABSENCE_REASON_ALLOWED = array(
+        self::ABSENCE_REASON_SICK_LEAVE,
+        self::ABSENCE_REASON_PAID_LEAVE,
+        self::ABSENCE_REASON_HOLIDAY,
+    );
 
     const ABSENCE_REASON_SHT_TXT = array(
         self::ABSENCE_REASON_SICK_LEAVE => 'BO',

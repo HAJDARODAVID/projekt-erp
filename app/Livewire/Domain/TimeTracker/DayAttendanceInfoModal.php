@@ -39,7 +39,7 @@ class DayAttendanceInfoModal extends Component
     public function openModal($param){
         $this->refreshTable = FALSE;
         $this->param = $param;
-        $this->setUpData()->wdrToArray()->wdrAttendanceArray();
+        $this->setUpData()->wdrToArray()->wdrAttendanceArray()->nullingNewHours();
         $this->show = !$this->show;
     }
 
@@ -47,7 +47,9 @@ class DayAttendanceInfoModal extends Component
         $this->reset('date', 'worker', 'attendanceObj','attendance', 'wdrObj', 'wdr', 'error');
         $this->show = !$this->show;
         if($this->refreshTable){
-            return $this->dispatch('refresh-attendance-table')->to(TimeTracker::class);
+            $this->dispatch('refresh-attendance-calendar')->to(WorkerCalendarModal::class);
+            $this->dispatch('refresh-attendance-table')->to(TimeTracker::class);
+            return;
         }
     }
 
@@ -151,6 +153,16 @@ class DayAttendanceInfoModal extends Component
         if($key == "" || $key == 0 || $key == NULL){
             $this->oldValue[$col] = $this->attendance[$attID][$col];
         }        
+    }
+
+    private function nullingNewHours(){
+        $this->newHours = [
+            'wdr'   => NULL,
+            'cs'    => NULL,
+            'hours' => NULL,
+            'type' => 1,
+        ];
+        return $this;
     }
 
     public function updatedAttendance($key,$value){

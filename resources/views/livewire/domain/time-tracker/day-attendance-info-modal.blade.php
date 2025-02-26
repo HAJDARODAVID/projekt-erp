@@ -1,5 +1,5 @@
 <div>
-    <x-modal :show=$show :blur=TRUE size='lg'>
+    <x-modal :show=$show :blur=TRUE size='lg' z=9999>
         <x-slot:mainTitle>@isset($worker) #{{ sprintf('%04d', $worker->id) }} | {{ $worker->fullName }} @endisset</x-slot:mainTitle>
         <x-slot:secTitle>@isset($worker) {{ $date }} @endisset</x-slot:secTitle>
         <x-slot:headerBtn>

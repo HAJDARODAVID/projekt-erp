@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\ClassMerger;
+use App\Helpers\IsCell;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -185,6 +187,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'ClassMerger' => ClassMerger::class,
+        'IsCell' => IsCell::class,
     ])->toArray(),
 
 ];

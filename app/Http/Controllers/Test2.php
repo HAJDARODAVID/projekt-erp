@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exports\Domain\Workers\Cooperators\CoOpWorkHoursExport;
+use App\Models\User;
 use App\Services\HidroProjekt\Domain\Api\WeatherForecastService;
 use App\Services\HidroProjekt\Domain\Workers\Cooperators\CooperatorsExportWorkHoursService;
+use App\Services\HidroProjekt\Domain\Workers\Employes\Attendance;
 
 class Test2 extends Controller
 {
@@ -18,8 +20,14 @@ class Test2 extends Controller
         //     unset($array['grad'][$key]);
         // }
         // dd($array['Varazdin']);
-        $service = new WeatherForecastService;
-        $data=$service->toArray()->formatArray()->town('Varazdin')->getTownData();
-        dd($service->toArray()->formatArray()->town('Varazdin')->forDashboard()->getTownData());
+        // $service = new WeatherForecastService;
+        // $data=$service->toArray()->formatArray()->town('Varazdin')->getTownData();
+        // dd($service->toArray()->formatArray()->town('Varazdin')->forDashboard()->getTownData());
+
+        $test = Attendance::init()
+            ->workDiary(464)
+            ->worker(31)
+            ->find();
+        dd($test->get()->first());
     }
 }

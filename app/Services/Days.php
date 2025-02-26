@@ -16,5 +16,14 @@ class Days
         6 => 'SUB',
         7 => 'NED',
     ];
+    const DAY_NAME_HR = [
+        1 => 'ponedjeljak',
+        2 => 'utorak',
+        3 => 'srijeda',
+        4 => 'četvrtak',
+        5 => 'petak',
+        6 => 'subota',
+        7 => 'nedjelja',
+    ];
 
 }

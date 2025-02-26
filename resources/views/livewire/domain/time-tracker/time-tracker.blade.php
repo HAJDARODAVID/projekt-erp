@@ -59,7 +59,11 @@
                         @foreach ($data as $workerID => $worker)
                             <tr>
                                 {{-- WORKER NAME --}}
-                                <x-table.time-tracker-table.td :center=FALSE :sticky=FALSE> 
+                                <x-table.time-tracker-table.td :center=FALSE :sticky=FALSE :pointer=TRUE
+                                    :wireClick='[
+                                        "method" => "showCalendarModal", 
+                                        "param" => "workerID.$workerID,month.$selMonth,year.$selYear"
+                                    ]'> 
                                     <x-slot:value>
                                         <span class="d-inline-block text-truncate" style="max-width: 150px;">{{ $worker["fullName"] }}</span>
                                     </x-slot:value>
