@@ -58,7 +58,10 @@
             <div class="col-md">
                 <div class="">
                     <div class="border rounded-top p-2 shadow border-bottom-0 mb-2" style="background-color: rgb(243, 243, 243)">
-                        <b>Prisustvo radnika:</b>
+                        <div class="d-flex justify-content-between">
+                            <b>Prisustvo radnika:</b>
+                            @livewire('domain.attendance.add-workers-to-report-btn')
+                        </div>
                     </div>
                     <div class="mt-2">
                         <table class="table">
