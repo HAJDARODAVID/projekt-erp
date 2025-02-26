@@ -6,6 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+/**
+ * This will create a new nav tabs component.
+ * To add the items in the property $tabs add the names of the tab items.
+ * Ex: :tabs="['Tab name 01', 'Tab name 02']"
+ * And pass the selected tab key to the property $selectedTab so that it will show as active
+ */
 class NavTabs extends Component
 {
     public array $tabs;

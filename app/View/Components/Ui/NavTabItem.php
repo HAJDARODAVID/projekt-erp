@@ -6,13 +6,16 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+/**
+ * This component will create a single tab item.
+ */
 class NavTabItem extends Component
 {
     public $title;
     public $tabKey;
     public $method;
-    //public $selectedTab;
     public $active = FALSE;
+
     /**
      * Create a new component instance.
      */
