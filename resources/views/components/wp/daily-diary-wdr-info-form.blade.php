@@ -60,7 +60,9 @@
                     <div class="border rounded-top p-2 shadow border-bottom-0 mb-2" style="background-color: rgb(243, 243, 243)">
                         <div class="d-flex justify-content-between">
                             <b>Prisustvo radnika:</b>
-                            @livewire('domain.attendance.add-workers-to-report-btn')
+                            @livewire('domain.attendance.add-workers-to-report-btn',[
+                                'wdr' => $wdr
+                            ])
                         </div>
                     </div>
                     <div class="mt-2">

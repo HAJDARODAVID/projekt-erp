@@ -17,6 +17,8 @@ class AddWorkersToReportBtn extends Component
      */
     use BasicModal;
     use BasicTabSelector;
+
+    public $wdr;
     
     public function render()
     {

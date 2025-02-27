@@ -84,4 +84,8 @@ class AttendanceService
             return AttendanceModel::where('working_day_record_id',$this->wdrId)->where('worker_id', $this->worker->id);
         }
     }
+
+    public function getAttendance(){
+        return $this->attendance;
+    }
 }
