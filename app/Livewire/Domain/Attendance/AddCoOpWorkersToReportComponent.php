@@ -3,13 +3,13 @@
 namespace App\Livewire\Domain\Attendance;
 
 use Livewire\Component;
-use App\Models\WorkerModel;
-use App\Services\HidroProjekt\Domain\Workers\Employes\AttendanceService;
+use App\Models\CooperatorWorkersModel;
+use App\Services\HidroProjekt\Domain\Workers\Cooperators\CoOpWorkerAttendance;
 
 /**
- * In this component you will have the components for adding workers to the report.
+ * In this component you will have the components for adding co-op-workers to the report.
  */
-class AddWorkersToReportComponent extends Component
+class AddCoOpWorkersToReportComponent extends Component
 {
     /**
      * In here you will have the work diary ID. 
@@ -44,15 +44,15 @@ class AddWorkersToReportComponent extends Component
         if($key==""){
             return $this->workers = NULL;
         }
-        return $this->workers = WorkerModel::where('firstName', 'like', '%'.$key.'%')
-        ->orWhere('lastName', 'like', '%'.$key.'%')->get();
+        return $this->workers = CooperatorWorkersModel::where('firstName', 'like', '%'.$key.'%')
+        ->orWhere('lastName', 'like', '%'.$key.'%')->with('getCoOpInfo')->get();
     }
 
     /**
      * This method will be triggered when you click on a worker to be added to attendance.
      */
     public function addToAttendance($id){
-        $worker = WorkerModel::where('id',$id)->first();
+        $worker = CooperatorWorkersModel::where('id',$id)->with('getCoOpInfo')->first();
         foreach ($this->attendance as $array) {
             if(in_array($worker->id,$array)){
                 return;
@@ -60,7 +60,7 @@ class AddWorkersToReportComponent extends Component
         }
         $this->attendance[] = [
             'id' => $worker->id,
-            'worker' => $worker->fullName,
+            'worker' => $worker->fullName . '['. $worker->getCoOpInfo->name . ']',
             'hours' => NULL,
         ];
         $this->workers = NULL;
@@ -111,17 +111,13 @@ class AddWorkersToReportComponent extends Component
     public function save(){
         $validation = $this->dataValidation();
         if($validation){
-            $attService = new AttendanceService(
-                $this->wdr->id,
-                $this->wdr->jobType,
-                $this->wdr->date
-            );
+            $attService = new CoOpWorkerAttendance();
             foreach ($this->attendance as $att) {
-                $workerAttendance = new AttendanceService($this->wdr->id, $this->wdr->jobType, $this->wdr->date, $att['id']);
-                if($workerAttendance->hasAttendance()){
-                    $workerAttendance->updateAttendanceHours($att['hours']);
-                }else{
-                    $attService->createNewWorkHoursAttendance($att['id'], $att['hours']);
+                $attService->setWdrID($this->wdr->id)->setWorkerID($att['id'])->setDate($this->wdr->date)->setHours($att['hours'])->setAttendance();
+                if($attService->hasAttendanceForThisReport()){
+                    $attService->updateAttendanceHours($att['hours']);
+                }else {
+                    $attService->writeNewAttendance();
                 }
             }
             $this->reset('attendance', 'error', 'workerSearch', 'workers');
@@ -129,9 +125,8 @@ class AddWorkersToReportComponent extends Component
         return;
     }
 
-
     public function render()
     {
-        return view('livewire.domain.attendance.add-workers-to-report-component');
+        return view('livewire.domain.attendance.add-co-op-workers-to-report-component');
     }
 }

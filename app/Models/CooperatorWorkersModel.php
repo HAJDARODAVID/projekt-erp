@@ -29,4 +29,8 @@ class CooperatorWorkersModel extends Model
     public function getCoOpInfo():HasOne{
         return $this->hasOne(CooperatorsModel::class, 'id','cooperator_id');
     }
+
+    public function getFullNameAttribute(){
+        return $this->attributes['firstName'] .' '. $this->attributes['lastName'];
+    }
 }
