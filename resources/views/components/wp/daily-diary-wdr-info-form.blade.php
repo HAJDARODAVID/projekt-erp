@@ -60,41 +60,11 @@
                     <div class="border rounded-top p-2 shadow border-bottom-0 mb-2" style="background-color: rgb(243, 243, 243)">
                         <div class="d-flex justify-content-between">
                             <b>Prisustvo radnika:</b>
-                            @livewire('domain.attendance.add-workers-to-report-btn',[
-                                'wdr' => $wdr
-                            ])
+                            @livewire('domain.attendance.add-workers-to-report-btn',['wdr' => $wdr])
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                <td><b>Ime, prezime</b></td>
-                                <td><b>Sati</b></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($attendance as $att)
-                                <tr>
-                                    <td>{{ $att->getWorkerInfo->firstName }} {{ $att->getWorkerInfo->lastName }}</td>
-                                    <td>
-                                        @if ($att->work_hours) 
-                                            {{ $att->work_hours }} 
-                                        @else
-                                            @if ($att->absence_reason) {{ $arst[$att->absence_reason]}} @endif   
-                                        @endif        
-                                    </td> 
-                                </tr>  
-                                @endforeach
-                                @foreach ($attendanceCoOp as $attCoOp)
-                                    <tr>
-                                        <td>{{ $attCoOp->getWorkerInfo->firstName }} {{ $attCoOp->getWorkerInfo->lastName }} [{{ $attCoOp->getWorkerInfo->getCoOpInfo->name }}]</td>
-                                        <td>{{ $attCoOp->work_hours }}</td> 
-                                    </tr>  
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    {{-- ATTENDANCE TABLE COMPONENT --}}
+                    @livewire('domain.attendance.attendance-table-for-daily-report',['wdr' => $wdr])
                 </div>
             </div>
         </div>        

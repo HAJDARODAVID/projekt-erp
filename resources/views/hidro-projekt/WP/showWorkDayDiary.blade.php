@@ -12,8 +12,6 @@
       :car="$car"
       :carMileage="$carMileage"
       :stringLog="$stringLog"
-      :attendance="$attendance"
-      :attendanceCoOp="$attendanceCoOp"
       :arst="$arst"
       :isPhone="$isPhone"
     />

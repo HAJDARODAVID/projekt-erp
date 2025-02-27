@@ -124,11 +124,11 @@ class AddWorkersToReportComponent extends Component
                     $attService->createNewWorkHoursAttendance($att['id'], $att['hours']);
                 }
             }
+            $this->dispatch('refresh-attendance-table-for-daily-report')->to(AttendanceTableForDailyReport::class);
             $this->reset('attendance', 'error', 'workerSearch', 'workers');
         }
         return;
     }
-
 
     public function render()
     {

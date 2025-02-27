@@ -120,6 +120,7 @@ class AddCoOpWorkersToReportComponent extends Component
                     $attService->writeNewAttendance();
                 }
             }
+            $this->dispatch('refresh-attendance-table-for-daily-report')->to(AttendanceTableForDailyReport::class);
             $this->reset('attendance', 'error', 'workerSearch', 'workers');
         }
         return;

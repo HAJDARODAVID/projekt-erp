@@ -15,8 +15,6 @@ class DailyDiaryWdrInfoForm extends Component
     public $car;
     public $carMileage;
     public $stringLog;
-    public $attendance;
-    public $attendanceCoOp;
     public $isPhone;
     /**
      * Create a new component instance.
@@ -28,8 +26,6 @@ class DailyDiaryWdrInfoForm extends Component
         $car,
         $carMileage,
         $stringLog,
-        $attendance,
-        $attendanceCoOp,
         $isPhone,
     )
     {
@@ -39,8 +35,6 @@ class DailyDiaryWdrInfoForm extends Component
         $this->car = $car;
         $this->carMileage = $carMileage;
         $this->stringLog = $stringLog;
-        $this->attendance = $attendance;
-        $this->attendanceCoOp = $attendanceCoOp;
         $this->isPhone = $isPhone;
     }
 
