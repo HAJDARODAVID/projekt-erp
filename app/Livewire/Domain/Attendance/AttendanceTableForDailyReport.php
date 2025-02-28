@@ -3,9 +3,11 @@
 namespace App\Livewire\Domain\Attendance;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\AttendanceModel;
 use App\Models\AttendanceCoOpModel;
-use Livewire\Attributes\On;
+use App\Services\HidroProjekt\Domain\Workers\Employes\AttendanceService;
+use App\Services\HidroProjekt\Domain\Workers\Cooperators\CoOpWorkerAttendance;
 
 class AttendanceTableForDailyReport extends Component
 {
@@ -38,6 +40,27 @@ class AttendanceTableForDailyReport extends Component
     public function setAttendance(){
         $this->attendance = AttendanceModel::where('working_day_record_id', $this->wdr->id)->with('getWorkerInfo')->get();
         $this->attendanceCoOp = AttendanceCoOpModel::where('working_day_record_id', $this->wdr->id)->where('work_hours', '!=', NULL)->with('getWorkerInfo', 'getWorkerInfo.getCoOpInfo')->get();
+    }
+
+    /**
+     * With this method you are able to to remove the attendance for CoOp-Workers.
+     * This will be called with wire:click
+     */
+    public function removeCoOpAttendance($attID){
+        $att = CoOpWorkerAttendance::findById($attID)->delete();
+        $this->setAttendance();
+        return;
+    }
+
+    /**
+     * With this method you are able to to remove the attendance for HidroProjekt-Workers.
+     * This will be called with wire:click
+     */
+    public function removeHpAttendance($attID){
+        $att = new AttendanceService($this->wdr->id, date: $this->wdr->date);
+        $att->findAttendanceByID($attID)->deleteAttendance();
+        $this->setAttendance();
+        return;
     }
 
     public function render()

@@ -5,6 +5,7 @@
           <tr>
             <th>IME / PREZIME</th>
             <th>SATI</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -18,12 +19,18 @@
                         @if ($att->absence_reason) {{ $arst[$att->absence_reason]}} @endif   
                     @endif        
                 </td> 
+                <td>
+                    <button class="btn btn-danger btn-sm p-0 px-1" wire:click='removeHpAttendance({{ $att->id }})'><i class="bi bi-trash p-0 m-0"></i></button>
+                </td>
             </tr>  
             @endforeach
             @foreach ($attendanceCoOp as $attCoOp)
                 <tr>
                     <td>{{ $attCoOp->getWorkerInfo->firstName }} {{ $attCoOp->getWorkerInfo->lastName }} [{{ $attCoOp->getWorkerInfo->getCoOpInfo->name }}]</td>
                     <td>{{ $attCoOp->work_hours }}</td> 
+                    <td>
+                        <button class="btn btn-danger btn-sm p-0 px-1" wire:click='removeCoOpAttendance({{ $attCoOp->id }})'><i class="bi bi-trash p-0 m-0"></i></button>
+                    </td>
                 </tr>  
             @endforeach
         </tbody>

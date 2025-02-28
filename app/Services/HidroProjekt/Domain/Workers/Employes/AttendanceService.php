@@ -88,4 +88,9 @@ class AttendanceService
     public function getAttendance(){
         return $this->attendance;
     }
+
+    public function findAttendanceByID($attID){
+        $this->attendance = AttendanceModel::where('id', $attID);
+        return $this;
+    }
 }

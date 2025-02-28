@@ -41,13 +41,14 @@ class CoOpWorkerAttendance
         $wdrID    = NULL,
         $hours    = NULL,
         $date     = NULL,
+        $attID    = NULL,
     )
     {
         $this->workerID = $workerID;
         $this->wdrID    = $wdrID;
         $this->hours    = $hours;
         $this->date     = $date;
-        $this->setAttendance();
+        $this->setAttendance($attID);
     }
 
     /**
@@ -84,9 +85,14 @@ class CoOpWorkerAttendance
 
     /**
      * This will set the attendance for the given data.
-     * It will first check if there is a daily report ID set, then the date. 
+     * It will first check the argument then if there is a daily report ID set, then the date. 
      */
-    public function setAttendance():void{
+    public function setAttendance($attID = NULL):void{
+        //If the attendance ID is passed as a argument
+        if($attID !== NULL){
+            $this->attendance = AttendanceCoOpModel::where('id', $attID)->first();
+            return;
+        }
         //If the wdrID and workerID is set then give attendance based on that and return
         if($this->wdrID && $this->workerID){
             $this->attendance = AttendanceCoOpModel::where('working_day_record_id', $this->wdrID)->where('worker_id', $this->workerID)->first();
@@ -135,8 +141,27 @@ class CoOpWorkerAttendance
         return;
     }
 
+    /**
+     * Update the hours.
+     * I know, shocking.
+     */
     public function updateAttendanceHours($newHours){
         $this->attendance->update(['work_hours' => $newHours]);
+        return $this;
+    }
+
+    /**
+     * With this static function you can create a object with the attendance set to the given attID 
+     */
+    public static function findById($attID){
+        return new self(attID: $attID);
+    }
+
+    /**
+     * Delete the attendance model 
+     */
+    public function delete(){
+        $this->attendance->delete();
         return $this;
     }
 

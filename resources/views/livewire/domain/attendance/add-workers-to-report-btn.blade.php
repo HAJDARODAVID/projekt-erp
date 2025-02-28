@@ -1,6 +1,6 @@
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
-    <button class="btn btn-success btn-sm" wire:click='toggleModal()'><i class="bi bi-person-plus"></i></button>
+    <button class="btn btn-success btn-sm" wire:click='toggleModal()'><i class="bi bi-person-plus p-0 m-0"></i></button>
 
     <x-modal :show=$show :footer=FALSE :blur=TRUE>
         <x-slot:mainTitle>PRISUSTVO DNEVNIKA</x-slot:mainTitle>
