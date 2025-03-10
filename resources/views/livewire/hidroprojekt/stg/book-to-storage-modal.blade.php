@@ -25,7 +25,7 @@
                             <div class="col col-md-2">
                                 <div class="form-group">
                                     <label for="qty">QTY</label>
-                                    <input type="text" class="form-control @isset($error[$key]['qty']) is-invalid @endisset" id="qty" wire:model.live='bookingOrder.{{ $key }}.qty'>
+                                    <input type="number" class="form-control @isset($error[$key]['qty']) is-invalid @endisset" id="qty" wire:model.live='bookingOrder.{{ $key }}.qty'>
                                 </div>
                             </div>
                             <div class="col col-md-2 d-flex align-items-end">
