@@ -1,0 +1,1 @@
+<div class="vr @if($px) px-{{ $px }}@endif @if($mx) mx-{{ $mx }}@endif"></div>

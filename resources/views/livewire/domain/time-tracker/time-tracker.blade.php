@@ -1,10 +1,5 @@
 <div class="">
     <div class="rounded shadow border p-3">
-        {{-- HEADER CARD --}}
-        <div class="d-flex align-items-center rounded-top shadow mb-2" style="background-color: rgb(236, 236, 236);height:45px">
-            <div class="h5 px-4"><b>EVIDENCIJA RADNIH SATI</b></div>
-        </div>
-        
         <div class="px-3">
             {{-- OPTION / MENU BAR --}}
             <div class="row">

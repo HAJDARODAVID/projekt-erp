@@ -195,7 +195,9 @@ class HumanResourcesController extends Controller
 
 
     public function timeTracker(){
-        return view('hidro-projekt.hr-new.time-tracker');
+        return view('hidro-projekt.hr-new.time-tracker',[
+            'pageTitle' => 'Evidencija radnih sati'
+        ]);
     }
 
 }
