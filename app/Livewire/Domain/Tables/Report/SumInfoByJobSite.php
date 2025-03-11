@@ -19,7 +19,6 @@ class SumInfoByJobSite extends Component
         $service = new SumByJobSiteService();
         $this->data = $service->execute();
         $this->columns = json_encode($this->makeColumns());
-        //dd($this->columns);
     }
 
     private function makeColumns(){
@@ -40,6 +39,8 @@ class SumInfoByJobSite extends Component
             Column::make('Radni sati', 'work_hours')
                 ->setTd()->isNumber()->textCenter(),
             Column::make('Radni sati €', 'work_hours_cost')
+                ->setTd()->isCurrency()->textCenter(),
+            Column::make('Trošak vozila €', 'car_cost')
                 ->setTd()->isCurrency()->textCenter(),
             Column::make('Ukupno', 'overall')
                 ->setTd()->isCurrency()->textCenter(),

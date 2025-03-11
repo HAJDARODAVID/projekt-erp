@@ -2,11 +2,12 @@
 
 namespace App\Services\HidroProjekt\Domain\JobSite;
 
-use App\Models\ConstructionSiteModel;
-use App\Models\MaterialConsumptionModel;
-use App\Models\MaterialMasterData;
 use App\Models\StorageStockItem;
+use App\Models\AppParametersModel;
+use App\Models\MaterialMasterData;
+use App\Models\ConstructionSiteModel;
 use App\Models\WorkingDayRecordModel;
+use App\Models\MaterialConsumptionModel;
 
 class JobSiteService{
 
@@ -90,4 +91,20 @@ class JobSiteService{
     public function getJobSitesById(array $id){
         return ConstructionSiteModel::whereIn('id', $id)->get();
     } 
+
+    public function getCarCostForConstSite(){
+        $workHourCost= (float)AppParametersModel::where('param_name_srt', 'bwcc')->where('active', TRUE)->first()->value;
+        $wdrAll = WorkingDayRecordModel::where('construction_site_id', $this->jobSiteOBJ->first()->id)
+            ->with('getCarMileage')->get();
+        $carMileage = 0;
+        foreach ($wdrAll as $wdr) {
+            foreach ($wdr->getCarMileage as $car) {
+                if(!is_null($car->start_mileage) && !is_null($car->end_mileage)){
+                    $carMileage += $car->end_mileage - $car->start_mileage;
+                }
+            }
+        }
+        $array['carCost'] = $carMileage * $workHourCost;
+        return $array;
+    }
 }

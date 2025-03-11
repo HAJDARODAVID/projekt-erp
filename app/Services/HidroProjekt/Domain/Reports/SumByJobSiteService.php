@@ -32,12 +32,14 @@ class SumByJobSiteService
         $data=[];
         foreach ($this->jobSites as $jSite) {
             $jobSiteService = new JobSiteService($jSite->id);
+            //dd($jobSiteService->getCarCostForConstSite());
             $data[$jSite->id] = [
                 'name' => $jSite->name,
                 'on_stock' => $jobSiteService->getMaterialsOnStock()->sum('cost'),
                 'consumption' => $this->getJobSiteInfo($jSite->id)['consumption'],
                 'work_hours_h' => $this->getJobSiteInfo($jSite->id)['work_hours_h'],
                 'work_hours_c' => $this->getJobSiteInfo($jSite->id)['work_hours_c'],
+                'car_cost' => $jobSiteService->getCarCostForConstSite()['carCost'],
             ];
         }
         foreach ($data as $key => $items) {
@@ -46,7 +48,7 @@ class SumByJobSiteService
             $data[$key]['work_hours_c_cost'] = $items['work_hours_c'] *$workHourCostC;
             $data[$key]['work_hours'] = $items['work_hours_h'] + $items['work_hours_c'];
             $data[$key]['work_hours_cost'] = ($items['work_hours_h']*$workHourCostH) + ($items['work_hours_c']*$workHourCostC);
-            $data[$key]['overall'] =($items['work_hours_h'] *$workHourCostH) + ($items['work_hours_c'] *$workHourCostC) + $items['consumption'];
+            $data[$key]['overall'] =($items['work_hours_h'] *$workHourCostH) + ($items['work_hours_c'] *$workHourCostC) + $items['consumption'] + $items['car_cost'];
         }
         return $data;
     }
@@ -78,4 +80,6 @@ class SumByJobSiteService
             'work_hours_c' => $attendanceCoOp->sum('work_hours'),
         ];
     }
+
+    
 }
