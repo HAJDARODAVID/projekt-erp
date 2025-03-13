@@ -109,7 +109,7 @@
       @php $title = isset($pageTitle) ? $pageTitle : NULL; @endphp
       <x-ui.layout.header :pageTitle=$title />
       <div class="flex-grow-1 d-flex">
-        <div class="col-md-2 col-lg-2 d-md-block collapse bg-light flex-grow-1" id="main-menu-container">
+        <div class="col-md-2 col-lg-2 collapse bg-light flex-grow-1" id="main-menu-container">
           <div class="d-flex flex-column position-sticky  pt-2">
             @livewire('main-menu') 
             @livewire('my-profile-component')

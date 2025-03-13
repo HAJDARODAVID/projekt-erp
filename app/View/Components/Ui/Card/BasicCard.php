@@ -14,6 +14,8 @@ class BasicCard extends Component
     public $resetP;
     public $header;
     public $overflow;
+    public $search;
+    public $searchModel;
 
     /**
      * Create a new component instance.
@@ -25,6 +27,9 @@ class BasicCard extends Component
         $resetP = FALSE,
         $header = FALSE,
         $overflow = FALSE,
+        $search = FALSE,
+        $searchModel = NULL,
+
     )
     {
         $this->title = $title;
@@ -33,6 +38,9 @@ class BasicCard extends Component
         $this->resetP = $resetP;
         $this->header = $header;
         $this->overflow = $overflow;
+        $this->search = $search;
+        $this->searchModel = $searchModel;
+        
     }
 
     /**

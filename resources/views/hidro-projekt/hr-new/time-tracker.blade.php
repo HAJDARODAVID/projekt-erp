@@ -11,10 +11,6 @@
 
 @section('content') 
 <x-ui.container.f-w-container>     
-    <x-ui.card.basic-card>
-        <x-slot name='title'>Evidencija radnih sati </x-slot>
-        
-        @livewire('domain.time-tracker.time-tracker')
-    </x-ui.card.basic-card> 
+    @livewire('domain.time-tracker.time-tracker-module')
 </x-ui.container.f-w-container>
 @endsection

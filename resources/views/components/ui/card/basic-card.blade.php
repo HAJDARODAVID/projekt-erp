@@ -8,6 +8,10 @@
             @if ($title) <x-ui.v-divider mx=2 /> @endif
             {{ $tabs }}
           @endif
+          @if ($search)
+            @if ($title) <x-ui.v-divider mx=2 /> @endif
+            <input type="text" class="form-control form-control-sm" placeholder="Search" wire:model.live.debounce.250ms="{{ $searchModel }}">
+          @endif
         </div>
       </div>
         
