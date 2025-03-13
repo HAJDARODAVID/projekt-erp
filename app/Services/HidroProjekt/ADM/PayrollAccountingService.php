@@ -197,7 +197,12 @@ class PayrollAccountingService
         }
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
-            $field_1 = $attendance->where('type', 1)->count();
+            $typeCountArray=[];
+            foreach ($attendance as $att) {
+                if($att->type == 1 && array_search($att->date, $typeCountArray) === FALSE) $typeCountArray[] =$att->date;
+                if($att->type == 2 && array_search($att->date, $typeCountArray) !== FALSE) unset($typeCountArray[array_search($att->date, $typeCountArray)]);
+            }
+            $field_1 = count($typeCountArray);
             return (float)$field_1;
         }
         return (float)0;
@@ -215,8 +220,12 @@ class PayrollAccountingService
         }
         if(isset($this->attendance->groupBy('worker_id')[$workerId])){
             $attendance = $this->attendance->groupBy('worker_id')[$workerId];
-            $field_1 = $attendance->where('type', 2)->count();
-            return (float)$field_1;
+            $typeCountArray=[];
+            foreach ($attendance as $att) {
+                if($att->type == 2 && array_search($att->date, $typeCountArray) === FALSE) $typeCountArray[] =$att->date;
+            }
+            $field_2 = count($typeCountArray);
+            return (float)$field_2;
         }
         return (float)0;
     }
@@ -330,6 +339,9 @@ class PayrollAccountingService
     }
 
     protected function getValuesFromPayrollData($workerId, $valueKey = NULL){
+        if(is_null($this->payroll->getPayrollItems->where('worker_id',$workerId)->first())){
+            return;
+        }
         $data = json_decode($this->payroll->getPayrollItems->where('worker_id',$workerId)->first()->payroll_data);
         if($valueKey){
             return $data->$valueKey;
