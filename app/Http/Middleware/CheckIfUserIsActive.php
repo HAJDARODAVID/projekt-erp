@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckIfUserIsActive
@@ -16,9 +17,13 @@ class CheckIfUserIsActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd($request->all());
-        if(Auth::user()->active != 1){
-            return $next($request);
+        if(Auth::user()){
+            if(Auth::user()->active != 1){
+                Auth::logout();
+                Session::flush();
+                return redirect('/');
+
+            }
         }
         return $next($request);
     }
