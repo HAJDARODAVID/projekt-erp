@@ -59,7 +59,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
  * All routes related to onside data
  */
  Route::prefix('/bde')
-    ->middleware(['checkIfUSerIsActive', 'auth','emptyWorkingDay'])
+    ->middleware(['auth','emptyWorkingDay','checkIfUSerIsActive'])
     ->group(Function(){
         Route::controller(WorkDayRecordController::class)
             ->group(function(){
