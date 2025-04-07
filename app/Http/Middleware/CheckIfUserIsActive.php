@@ -19,7 +19,7 @@ class CheckIfUserIsActive
     {
         if(Auth::user()){
             if(Auth::user()->active != 1){
-                dd(Auth::user());
+                //dd(Auth::user());
                 Auth::logout();
                 Session::flush();
                 return redirect('/');
