@@ -50,9 +50,10 @@ class TimeTracker extends Component
         return $this;
     }
 
+    /**THIS WILL BE CHANGED */
     public function showModalForDay($param=NULL){
         $param = $this->parametersToArray($param);
-        $this->dispatch('open-attendance-for-day-modal', $param)->to(DayAttendanceInfoModal::class);
+        $this->dispatch('open-worker-info',$param)->to(TimeTrackerModule::class);
     }
 
     public function showCalendarModal($param=NULL){

@@ -4,6 +4,7 @@ namespace App\Livewire\Domain\TimeTracker;
 
 use App\Models\User;
 use App\Models\WorkerModel;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -21,6 +22,7 @@ class TimeTrackerPerWorker extends Component
         $this->workerList = $this->getAllWorkers()->get();
     }
 
+    #[On('select-worker')]
     public function selectWorker($workerID){
         if($this->selectedWorker == $workerID){
             $this->selectedWorker = NULL;

@@ -16,7 +16,7 @@ class TimeTrackerWorkerInfoContainer extends Component
     public $worker = NULL;
 
     public function mount(){
-        $this->setTabs(['Kalendar', 'Tjedan']);
+        $this->setTabs(['Kalendar', 'Tjedan', 'Dan']);
         $this->worker = new stdClass();
         $this->worker->fullName = 'N/A';
     }
@@ -28,7 +28,12 @@ class TimeTrackerWorkerInfoContainer extends Component
             $this->worker->fullName = 'N/A';
             return;
         }
-        $this->worker = WorkerModel::where('id', $wID)->first();
+        $this->worker = WorkerModel::where('id', $wID)->first(); 
+    }
+
+    #[On('set-info-for-worker')]
+    public function setInfoForSpecificWorker($param){
+        $this->selectTab(2);
     }
 
     public function render()

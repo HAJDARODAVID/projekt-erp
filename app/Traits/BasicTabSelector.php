@@ -9,6 +9,8 @@ use Livewire\Attributes\On;
 trait BasicTabSelector{
     public $tabs = [];
     public $selectedTab = 0;
+
+    #[On('select-tab')]
     public function selectTab($tab){
         return $this->selectedTab = $tab;
     }
