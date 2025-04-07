@@ -2,9 +2,10 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\CheckIfAllWorkingDayHaveConstSite;
 use App\Http\Middleware\UserRights;
+use App\Http\Middleware\CheckIfUserIsActive;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\CheckIfAllWorkingDayHaveConstSite;
 
 class Kernel extends HttpKernel
 {
@@ -68,5 +69,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'userRights' => UserRights::class,
         'emptyWorkingDay' => CheckIfAllWorkingDayHaveConstSite::class,
+        'checkIfUSerIsActive' => CheckIfUserIsActive::class,
     ];
 }
