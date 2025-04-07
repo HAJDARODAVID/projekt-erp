@@ -16,7 +16,7 @@ class CheckIfUserIsActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd($request);
+        dd($request->all());
         if(Auth::user()->active != 1){
             return $next($request);
         }
