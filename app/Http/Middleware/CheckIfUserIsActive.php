@@ -16,7 +16,6 @@ class CheckIfUserIsActive
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd(Auth::user());
         if(Auth::user()->active != 1){
             return redirect()->route('home');
         }
