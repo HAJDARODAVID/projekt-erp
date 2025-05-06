@@ -2,9 +2,10 @@
 
 namespace App\Livewire\Domain\Storage;
 
-use App\Models\StorageStockItem;
-use App\Services\HidroProjekt\STG\StorageLocation;
 use Livewire\Component;
+use App\Models\StorageStockItem;
+use App\Exports\Domain\Storage\StorageStockExport;
+use App\Services\HidroProjekt\STG\StorageLocation;
 
 class StorageExcelExport extends Component
 {
@@ -19,6 +20,14 @@ class StorageExcelExport extends Component
      * Define available types.
      */
     private $typesAvailable = ['STG', 'CONS'];
+
+    /**
+     * Define the file names here.
+     */
+    private $fileNames = [
+        'STG'  => 'Stanje skladišta',
+        'CONS' => 'Stanje gradilišta'
+    ];
 
     public function getExportData(){
         /**If there is no type defined, return empty */
@@ -52,18 +61,17 @@ class StorageExcelExport extends Component
                 return;
                 break;
         }
-        dd($array);
-        return;
+        return (new StorageStockExport($array, $this->type))->download($this->fileNames[$this->type] .' - '. time() .'.xlsx');
     }
 
     private function getStockToArray($stock){
         return [
-                'mat_id'          => $stock->mat_id,
-                'mat_name'        => $stock->getMaterialInfo->name,
-                'mat_job_site'    => $stock->cons_id == NULL ? NULL : $stock->getConstructionSiteInfo->name,
-                'mat_qty'         => $stock->qty,
-                'mat_value'       => $stock->cost,
-                'mat_last_update' => $stock->updated_at->format('Y-m-d H:i:s'),
+                '#'          => $stock->mat_id,
+                'Materijal'        => $stock->getMaterialInfo->name,
+                'Gradilište'    => $stock->cons_id == NULL ? NULL : $stock->getConstructionSiteInfo->name,
+                'Količina'         => $stock->qty,
+                'Vrijednost[€]'       => number_format($stock->cost, 2, '.', ''),
+                'Zadnja promjena' => $stock->updated_at->format('Y-m-d H:i:s'),
             ];
     }
 
