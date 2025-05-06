@@ -38,6 +38,7 @@ class StorageExcelExport extends Component
 
         /**Define the array for the data */
         $array = [];
+        $overAll = 0;
         
         switch ($this->type) {
             /**Prepare data for the main storage export */
@@ -45,6 +46,7 @@ class StorageExcelExport extends Component
                 foreach($allStock as $stock){
                     if($stock->str_loc == StorageLocation::MAIN_STORAGE){
                         $array[] = $this->getStockToArray($stock);
+                        $overAll = $overAll + $stock->cost;
                     }
                 }
                 break;
@@ -53,6 +55,7 @@ class StorageExcelExport extends Component
                 foreach($allStock as $stock){
                     if($stock->str_loc == StorageLocation::CONSTRUCTION_SITE){
                         $array[] = $this->getStockToArray($stock);
+                        $overAll = $overAll + $stock->cost;
                     }
                 }
                 break;
@@ -61,17 +64,30 @@ class StorageExcelExport extends Component
                 return;
                 break;
         }
+        $array[] = $this->addOverallCost($overAll);
+        $overAll = 0;
         return (new StorageStockExport($array, $this->type))->download($this->fileNames[$this->type] .' - '. time() .'.xlsx');
     }
 
     private function getStockToArray($stock){
         return [
-                '#'          => $stock->mat_id,
-                'Materijal'        => $stock->getMaterialInfo->name,
-                'Gradilište'    => $stock->cons_id == NULL ? NULL : $stock->getConstructionSiteInfo->name,
-                'Količina'         => $stock->qty,
-                'Vrijednost[€]'       => number_format($stock->cost, 2, '.', ''),
+                '#'               => $stock->mat_id,
+                'Materijal'       => $stock->getMaterialInfo->name,
+                'Gradilište'      => $stock->cons_id == NULL ? NULL : $stock->getConstructionSiteInfo->name,
+                'Količina'        => $stock->qty,
+                'Vrijednost[€]'   => number_format($stock->cost, 2, '.', ''),
                 'Zadnja promjena' => $stock->updated_at->format('Y-m-d H:i:s'),
+            ];
+    }
+
+    private function addOverallCost($cost){
+        return [
+                '#'               => NULL,
+                'Materijal'       => NULL,
+                'Gradilište'      => NULL,
+                'Količina'        => NULL,
+                'Vrijednost[€]'   => $cost,
+                'Zadnja promjena' => NULL,
             ];
     }
 
