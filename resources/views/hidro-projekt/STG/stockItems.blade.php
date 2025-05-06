@@ -14,7 +14,7 @@
 
     <div class="d-flex justify-content-between">
       @livewire('hidroProjekt.stg.book-to-storage-modal')  
-      @livewire('domain.storage.storage-excel-export', ['type' => 'CONS'])  
+      @livewire('domain.storage.storage-excel-export', ['type' => 'STG'])  
     </div>
   
   <hr> 

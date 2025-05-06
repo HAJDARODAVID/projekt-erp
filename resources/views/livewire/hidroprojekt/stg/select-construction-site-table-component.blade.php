@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="">
-            <button class="btn btn-success btn-lg d-flex align-items-center" ><i class="bi bi-file-earmark-spreadsheet"></i></button>
+            @livewire('domain.storage.storage-excel-export', ['type' => 'CONS'])  
         </div> 
     </div>   
     <hr>
