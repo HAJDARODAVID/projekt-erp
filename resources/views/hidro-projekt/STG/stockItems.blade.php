@@ -12,7 +12,11 @@
         </div>
     @endif
 
-  @livewire('hidroProjekt.stg.book-to-storage-modal')  
+    <div class="d-flex justify-content-between">
+      @livewire('hidroProjekt.stg.book-to-storage-modal')  
+      @livewire('domain.storage.storage-excel-export', ['type' => 'CONS'])  
+    </div>
+  
   <hr> 
 
     @livewire('hidroProjekt.stg.storage-stock-items-table',[
