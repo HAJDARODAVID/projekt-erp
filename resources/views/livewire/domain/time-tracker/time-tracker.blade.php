@@ -87,7 +87,7 @@
                                         :bl="[1,'solid','rgb(192,195,199)']" 
                                         :wireClick='[
                                             "method" => "showModalForDay", 
-                                            "param" => "date.$day,workerID.$workerID"
+                                            "param" => "date.$day,workerID.$workerID,tab.2"
                                         ]'/> 
                                 @endforeach 
                             </tr>  

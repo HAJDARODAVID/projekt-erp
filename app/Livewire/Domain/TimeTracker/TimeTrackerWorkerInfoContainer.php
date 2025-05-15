@@ -14,6 +14,9 @@ class TimeTrackerWorkerInfoContainer extends Component
 {
     use BasicTabSelector;
     public $worker = NULL;
+    public $date = NULL;
+    public $cw = NULL;
+    public $month = NULL;
 
     public function mount(){
         $this->setTabs(['Kalendar', 'Tjedan', 'Dan']);
@@ -33,7 +36,12 @@ class TimeTrackerWorkerInfoContainer extends Component
 
     #[On('set-info-for-worker')]
     public function setInfoForSpecificWorker($param){
-        $this->selectTab(2);
+        $this->setDateData($param['date'])->selectTab($param['tab']);
+    }
+
+    private function setDateData($date){
+        $this->date = $date;
+        return $this;
     }
 
     public function render()

@@ -65,6 +65,56 @@
     </x-ui.nav.tab-content>
 
     <x-ui.nav.tab-content tabKey=2 :selectedTab=$selectedTab >
-        Dan
+        <div class="row">
+          <div class="col-md-3">
+            <b>Radna evidencija / sati po danu:</b>
+            <hr>
+            <div class="form-group mb-2">
+              <label>Datum</label>
+              <input type="date" class="form-control" wire:model='date'>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <b>Prisustvo</b>
+              <div class="flex-grow-1 ms-2" style="border-bottom: 1px solid #999999;"></div>
+              <button class="btn btn-danger p-0 mx-2" style="height: 15px; width: 15px"></button>
+            </div>
+            <div class="form-group mb-2">
+              <label>Radna evidencija</label>
+              <select id="disabledSelect" class="form-control">
+                <option>Disabled select</option>
+              </select>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+              <div class="form-group mb-3">
+                <label>Radni sati / odsutnost</label>
+                <input type="text" class="form-control">
+              </div>
+              <button class="btn btn-success" style="height: 40px">GO</button>
+              <button class="btn btn-success" style="height: 40px">BO</button>
+              <button class="btn btn-success" style="height: 40px">BL</button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <b>Prisustvo</b>
+              <div class="flex-grow-1 ms-2" style="border-bottom: 1px solid #999999;"></div>
+              <button class="btn btn-danger p-0 mx-2" style="height: 15px; width: 15px"></button>
+            </div>
+            <div class="form-group mb-2">
+              <label>Radna evidencija</label>
+              <select id="disabledSelect" class="form-control">
+                <option>Disabled select</option>
+              </select>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+              <div class="form-group mb-3">
+                <label>Radni sati / odsutnost</label>
+                <input type="text" class="form-control">
+              </div>
+              <button class="btn btn-success" style="height: 40px">GO</button>
+              <button class="btn btn-success" style="height: 40px">BO</button>
+              <button class="btn btn-success" style="height: 40px">BL</button>
+            </div>
+          </div>
+        </div>
     </x-ui.nav.tab-content>
 </x-ui.card.basic-card>
