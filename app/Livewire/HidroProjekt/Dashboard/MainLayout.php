@@ -12,12 +12,9 @@ class MainLayout extends Component
             'height' => 300,
             'col' => [
                 'c1' =>[
-                    'title' => 'TEST01'
+                    'title' => ''
                 ],
                 'c2' =>[
-                    'title' => 'TEST02'
-                ],
-                'c3' =>[
                     'title' => 'vremenska prognoza',
                     'comp_name' => 'weather-forecast',
                     'center' => TRUE,

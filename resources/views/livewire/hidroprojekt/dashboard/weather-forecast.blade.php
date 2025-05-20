@@ -20,7 +20,7 @@
                         <b>{{ $dayShort[date('N',strtotime($day))] }}</b><br>
                         {{ date('d.m',strtotime($day)) }}
                     </td>
-                    @foreach ($items as $hour)   
+                    @foreach ($items as $hour)
                         <td>
                             <x-dashboard.weather-card :hour="$hour" />
                         </td>

@@ -67,8 +67,8 @@ class WeatherForecastService{
         $newArray=[];
         $today = new DateTime(now());
         $tomorrow = (new DateTime(now()))->modify('+1 day');
-        //$hours=[5,8,11,14,17];
-        $hours=[4,7,10,13,16];
+        $hours=[5,8,11,14,17];
+        //$hours=[4,7,10,13,16];
         foreach ($hours as $hour) {
             $newArray[$today->format('d.m.Y')."."][$hour] = NULL;
             $newArray[$tomorrow->format('d.m.Y')."."][$hour] = NULL;
