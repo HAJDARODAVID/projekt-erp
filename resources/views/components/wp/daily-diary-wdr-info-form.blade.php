@@ -3,7 +3,10 @@
         <div class="d-flex justify-content-between">
             <div class="">
                 <div class="h4">{{ $constSite->name }}</div>
-                <div class="h6">Poslovođa: {{ $groupLeader->getWorker->firstName }} {{ $groupLeader->getWorker->lastName }}</div>
+                @php
+                    $groupLeaderName = !is_null($groupLeader->getWorker) ? $groupLeader->getWorker->fullName : $groupLeader->getCooperator->fullName
+                @endphp
+                <div class="h6">Poslovođa: {{ $groupLeaderName }}</div>
                 <div class="">Adresa: {{ $constSite->street }} {{ $constSite->town }}</div>
                 <div class="">Datum: {{ $wdr->date }}</div>
             </div>

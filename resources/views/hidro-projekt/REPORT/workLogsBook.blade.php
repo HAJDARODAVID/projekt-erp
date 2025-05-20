@@ -12,7 +12,12 @@
         <div class="alert alert-secondary" role="alert">
             <span class="alert-heading">
                 <b>
-                    {{ $log->getWorkingDayRecord->getUser->getWorker->fullName }}
+                    @if(!is_null($log->getWorkingDayRecord->getUser->getWorker))
+                        {{ $log->getWorkingDayRecord->getUser->getWorker->fullName }}
+                    @endif
+                    @if(!is_null($log->getWorkingDayRecord->getUser->getCooperator))
+                        {{ $log->getWorkingDayRecord->getUser->getCooperator->fullName }}
+                    @endif
                 </b>
             </span><br>
             <span class="alert-heading">

@@ -2,20 +2,22 @@
     <h1 class="h5"><b class="">Radni sati [Hidro-Projekt]</b></h1>
     <hr class="m-0 p-0 py-1">
 
-    <table class="table" class="m-0 p-0">
-        <thead>
-          <tr> <th scope="row">Poslovođa</th> <td class="text-end">Sati</td> </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td scope="row">{{ $user->getWorker->fullName }}</td>
-            <td>
-                <input type="number" class="form-control form-control-sm @isset($saveState[$user->getWorker->id]) is-valid @endisset" style="width: 70px" wire:model.blur='attendance.{{ $wdr['id'] }}.{{ $user->getWorker->id }}.hours'>
-            </td>
-          </tr>
-        </tbody>
-    </table>
-    <hr class="m-0 p-0 py-2">
+    @if(Auth::user()->type != 5)
+      <table class="table" class="m-0 p-0">
+          <thead>
+            <tr> <th scope="row">Poslovođa</th> <td class="text-end">Sati</td> </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row">{{ $user->getWorker->fullName }}</td>
+              <td>
+                  <input type="number" class="form-control form-control-sm @isset($saveState[$user->getWorker->id]) is-valid @endisset" style="width: 70px" wire:model.blur='attendance.{{ $wdr['id'] }}.{{ $user->getWorker->id }}.hours'>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+      <hr class="m-0 p-0 py-2">
+    @endif
 
     <div class="d-flex justify-content-between align-items-center">
         <span class="mx-2"><b>Prisustvo</b></span>

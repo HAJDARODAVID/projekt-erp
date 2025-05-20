@@ -14,16 +14,18 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    const USER_TYPE_MANAGER = 1;
-    const USER_TYPE_ADMIN_STAFF = 2;
+    const USER_TYPE_MANAGER      = 1;
+    const USER_TYPE_ADMIN_STAFF  = 2;
     const USER_TYPE_GROUP_LEADER = 3;
-    const USER_TYPE_SUPER_ADMIN = 4;
+    const USER_TYPE_SUPER_ADMIN  = 4;
+    const USER_TYPE_COOPERATOR   = 5;
 
     const USER_TYPE = array(
-        self::USER_TYPE_MANAGER => 'Manager',
-        self::USER_TYPE_ADMIN_STAFF => 'Administration staff',
+        self::USER_TYPE_MANAGER      => 'Manager',
+        self::USER_TYPE_ADMIN_STAFF  => 'Administration staff',
         self::USER_TYPE_GROUP_LEADER => 'Group leader',
-        self::USER_TYPE_SUPER_ADMIN => 'Super admin',
+        self::USER_TYPE_SUPER_ADMIN  => 'Super admin',
+        self::USER_TYPE_COOPERATOR   => 'Cooperator',
     );
 
     const DEFAULT_PASSWORD = 123456;
@@ -45,6 +47,7 @@ class User extends Authenticatable
         'password',
         'type',
         'worker_id',
+        'coop_id',
         'active',
         'inv_update',
     ];
@@ -76,6 +79,10 @@ class User extends Authenticatable
 
     public function getWorker():HasOne{
         return $this->hasOne(WorkerModel::class, 'id','worker_id');
+    }
+
+     public function getCooperator():HasOne{
+        return $this->hasOne(CooperatorWorkersModel::class, 'id','coop_id');
     }
 
     public function getSpecialPrivilege():HasMany{

@@ -26,7 +26,12 @@ class Attendance extends Component
 
     public function mount(){
         $this->setUser();
-        $this->attendance[$this->wdr['id']][$this->user->getWorker->id]=[]; 
+        if(Auth::user()->type == 3){
+            $this->attendance[$this->wdr['id']][$this->user->getWorker->id]=[];
+        }else{
+            $this->attendance[$this->wdr['id']]=[];
+        }
+         
     }
 
     public function updatedAttendance($key, $value){

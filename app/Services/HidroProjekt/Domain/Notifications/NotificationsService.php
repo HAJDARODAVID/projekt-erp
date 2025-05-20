@@ -64,7 +64,8 @@ class NotificationsService{
 
     public function createNewSysErrorNotification($e){
         if($this->user){
-            $userName = User::where('id', $this->user->id)->with('getWorker')->first()->getWorker->fullName;
+            $userName = User::where('id', $this->user->id)->with('getWorker', 'getCooperator')->first();
+            $userName = !is_null($userName->getWorker) ? $userName->getWorker->fullName : $userName->getCooperator->fullName;
             $errorInfo = [
                 'message' => $e->getMessage(),
                 'file ' => $e->getFile() .' / at line: ' . $e->getLine(),

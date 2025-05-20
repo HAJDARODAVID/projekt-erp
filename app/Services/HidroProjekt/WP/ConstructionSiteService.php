@@ -40,13 +40,15 @@ class ConstructionSiteService
     }
 
     public function getAllLogsForConstructionSiteString($constSite){
-        $wdrModel=WorkingDayRecordModel::where('construction_site_id', $constSite)->with('getLogs', 'getUser.getWorker')->get();
+        $wdrModel=WorkingDayRecordModel::where('construction_site_id', $constSite)->with('getLogs', 'getUser.getWorker', 'getUser.getCooperator')->get();
         $stringLog="";
         //dd($wdrModel);
         foreach ($wdrModel as $workingDay) {
             foreach ($workingDay->getLogs as $logs) {
-                $stringLog .= "[" . $workingDay->getUser->getWorker->firstName . " ";
-                $stringLog .= $workingDay->getUser->getWorker->lastName . " - ";
+                $userName = "";
+                if(!is_null($workingDay->getUser->getWorker)) $userName =$workingDay->getUser->getWorker->fullName;
+                if(!is_null($workingDay->getUser->getCooperator)) $userName =$workingDay->getUser->getCooperator->fullName;
+                $stringLog .= "[" . $userName . " - ";
                 $stringLog .= $logs->created_at . "]\n";
                 $stringLog .= $logs->log . "\n";
                 $stringLog .= "\n";
@@ -62,7 +64,7 @@ class ConstructionSiteService
             4 => 0,
         ];
         $wdrAll = WorkingDayRecordModel::where('construction_site_id', $constSite)
-            ->with('getAttendance', 'getUser.getWorker', 'getCarMileage')
+            ->with('getAttendance', 'getUser.getWorker', 'getUser.getCooperator', 'getCarMileage')
             ->orderBy('date','desc')
             ->get();
         $array = [];
@@ -77,10 +79,11 @@ class ConstructionSiteService
             foreach ($wdr->getAttendance as $att) {
                 $workerHoursSum += $att->work_hours;
             }
+            $groupeLeader = !is_null($wdr->getUser->getWorker) ? $wdr->getUser->getWorker->fullName : $wdr->getUser->getCooperator->fullName;
             $array[$wdr->date][$wdr->id]=[
                 'workerHoursSum' => $workerHoursSum,
                 'workerHoursCost' => $workerHoursSum * $workHourCost[$wdr->work_type],
-                'groupeLeader' => $wdr->getUser->getWorker->firstName . ' ' . $wdr->getUser->getWorker->lastName,
+                'groupeLeader' => $groupeLeader,
                 'carMileage' => $carMileage,
             ];
             $sumOfWorkerCost += $workerHoursSum * $workHourCost[$wdr->work_type];

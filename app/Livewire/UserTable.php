@@ -25,6 +25,8 @@ class UserTable extends DataTableComponent
         return [
             Column::make("worker_id", "worker_id")
                 ->hideIf(TRUE),
+            Column::make("coop_id", "coop_id")
+                ->hideIf(TRUE),
             Column::make("#", "id")
                 ->sortable(),
             Column::make("Ime", "name")

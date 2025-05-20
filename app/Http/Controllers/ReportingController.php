@@ -20,6 +20,7 @@ class ReportingController extends Controller
                 'getWorkingDayRecord', 
                 'getWorkingDayRecord.getConstructionSite',
                 'getWorkingDayRecord.getUser.getWorker',
+                'getWorkingDayRecord.getUser.getCooperator',
             )
             ->paginate(15);
         return view('hidro-projekt.REPORT.workLogsBook',[

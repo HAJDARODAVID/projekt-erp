@@ -2,6 +2,7 @@
 
 namespace App\Livewire\HidroProjekt\Adm;
 
+use App\Models\CooperatorWorkersModel;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\WorkerModel;
@@ -16,8 +17,14 @@ class EditUserModal extends Component
     public $workerInfo;
 
     public function mount(){
-        $this-> data = $this->row->toArray();
-        $this->workerInfo = WorkerModel::find($this->row->worker_id)->toArray();
+        $this->data = $this->row->toArray();
+        $this->workerInfo =  $this->setWorkerInfo($this->row);
+    }
+
+    private function setWorkerInfo($row){
+        if(!is_null($row->worker_id)) return WorkerModel::find($row->worker_id)->toArray();
+        if(!is_null($row->coop_id)) return CooperatorWorkersModel::find($row->coop_id)->toArray();
+        return NULL;
     }
 
     public function activateUser(){

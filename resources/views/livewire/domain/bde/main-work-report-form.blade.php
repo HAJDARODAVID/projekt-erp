@@ -58,19 +58,19 @@
             ])
             
             {{-- WORKER ATTENDANCE --}}
-            <div>
-                <h1 class="h6"><b>Prisustvo radnika</b></h1>
-                <div class="row align-items-center">
-                    <div class="col d-flex justify-content-center" style="color: @if ($countAtt == 0) red @else black @endif;">
-                        <i class="bi bi-people-fill"></i>&nbsp : &nbsp
-                        <b>{{ $countAtt }}</b>
+                <div>
+                    <h1 class="h6"><b>Prisustvo radnika</b></h1>
+                    <div class="row align-items-center">
+                        <div class="col d-flex justify-content-center" style="color: @if ($countAtt == 0) red @else black @endif;">
+                            <i class="bi bi-people-fill"></i>&nbsp : &nbsp
+                            <b>{{ $countAtt }}</b>
+                        </div>
+                        <div class="col d-flex justify-content-center"> 
+                            <button class="btn btn-success" wire:click='selectModule("attendance")'><i class="bi bi-person-plus"></i></button>
+                        </div>
                     </div>
-                    <div class="col d-flex justify-content-center"> 
-                        <button class="btn btn-success" wire:click='selectModule("attendance")'><i class="bi bi-person-plus"></i></button>
-                    </div>
+                    <hr>
                 </div>
-                <hr>
-            </div>
             {{-- WORKER COOPERATOR --}}
             <div>
                 <h1 class="h6"><b>Prisustvo kooperanata</b></h1>

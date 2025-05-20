@@ -24,12 +24,14 @@ class WorkDayDiaryController extends Controller
         $constSite = ConstructionSiteModel::where('id', $wdr->construction_site_id)->first();
         $car=CompanyCarsModel::where('id', $wdr->car_id)->first();
         $carMileage = CarMileageModel::where('wdr_id', $wdr->id)->first();
-        $groupLeader = User::where('id', $wdr->user_id)->with('getWorker')->first();
+        $groupLeader = User::where('id', $wdr->user_id)->with('getWorker', 'getCooperator')->first();
 
         $stringLog="";
         foreach ($wdr->getLogs as $logs) {
-            $stringLog .= "[" . $groupLeader->getWorker->firstName . " ";
-            $stringLog .= $groupLeader->getWorker->lastName . " - ";
+            $userName = "";
+            if(!is_null($groupLeader->getWorker)) $userName =$groupLeader->getWorker->fullName;
+            if(!is_null($groupLeader->getCooperator)) $userName =$groupLeader->getCooperator->fullName;
+            $stringLog .= "[" .  $userName . " - ";
             $stringLog .= $logs->created_at . "]\n";
             $stringLog .= $logs->log . "\n";
             $stringLog .= "\n";

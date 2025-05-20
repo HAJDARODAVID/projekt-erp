@@ -50,7 +50,7 @@ class HomeController extends Controller
             }
         }
         
-        if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER){
+        if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER || Auth::user()->type == User::USER_TYPE_COOPERATOR){
             return view('hidro-projekt.BDE.bdeIndex',[
                 'myRecords' => WorkingDayRecordModel::where('user_id', Auth::user()->id)->where('date', date('Y-m-d'))->with('getConstructionSite')->get(),
                 'activeInv' => InventoryCheckingModel::where('status', InventoryCheckingModel::INVENTORY_STATUS_ACTIVE)->first(),
