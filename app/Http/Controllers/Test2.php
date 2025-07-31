@@ -8,7 +8,8 @@ use App\Services\HidroProjekt\Domain\Workers\Cooperators\CooperatorsExportWorkHo
 
 class Test2 extends Controller
 {
-    public function index(){
+    public function index()
+    {
         // $url = "https://prognoza.hr/tri/3d_graf_i_simboli.xml";
         // $xml = simplexml_load_file($url, "SimpleXMLElement", LIBXML_NOCDATA);
         // $json = json_encode($xml);
@@ -19,7 +20,12 @@ class Test2 extends Controller
         // }
         // dd($array['Varazdin']);
         $service = new WeatherForecastService;
-        $data=$service->toArray()->formatArray()->town('Varazdin')->getTownData();
+        $data = $service->toArray()->formatArray()->town('Varazdin')->getTownData();
         dd($service->toArray()->formatArray()->town('Varazdin')->forDashboard()->getTownData());
+    }
+
+    public function newLayout()
+    {
+        return view('module-container');
     }
 }

@@ -58,23 +58,23 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
  * BDE(betriebsdatenerfassung): DE --> operational data collection
  * All routes related to onside data
  */
- Route::prefix('/bde')
-    ->middleware(['auth','emptyWorkingDay','checkIfUSerIsActive'])
-    ->group(Function(){
+Route::prefix('/bde')
+    ->middleware(['auth', 'emptyWorkingDay', 'checkIfUSerIsActive'])
+    ->group(function () {
         Route::controller(WorkDayRecordController::class)
-            ->group(function(){
-                Route::get('/','index')->name('hp_bdeHome');
-                Route::get('/my_entries','myEntries')->name('hp_myEntries');
-                Route::get('/newEntry','newWorkingDayEntry')->name('hp_newWorkingDayEntry');
-                Route::get('/wd_record/{id}','workingDayEntry')->name('hp_workingDayEntry');
-                Route::get('/wd_record/consumption/{wd_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
-                Route::delete('/wd_record/{id}','deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
+            ->group(function () {
+                Route::get('/', 'index')->name('hp_bdeHome');
+                Route::get('/my_entries', 'myEntries')->name('hp_myEntries');
+                Route::get('/newEntry', 'newWorkingDayEntry')->name('hp_newWorkingDayEntry');
+                Route::get('/wd_record/{id}', 'workingDayEntry')->name('hp_workingDayEntry');
+                Route::get('/wd_record/consumption/{wd_id}', 'materialConsumption')->name('hp_consSiteMaterialConsumption');
+                Route::delete('/wd_record/{id}', 'deleteWorkingDayEntry')->name('hp_deleteWorkingDayEntry');
 
                 //Inventory routes
-                Route::get('construction_site_inv','constructionSiteMainInventory')->name('hp_bdeInventoryModule');
+                Route::get('construction_site_inv', 'constructionSiteMainInventory')->name('hp_bdeInventoryModule');
             });
         Route::controller(ProfileController::class)
-            ->group(function(){
+            ->group(function () {
                 Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
                 Route::put('/pass_reset', 'passwordChange')->name('bde_passwordChange');
             });
@@ -85,13 +85,13 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
  */
 Route::prefix('/new/bde')
     ->middleware(['auth'])
-    ->group(Function(){
+    ->group(function () {
         Route::controller(BdeController::class)
-            ->group(function(){
+            ->group(function () {
                 //New
-                Route::get('/work_report/{id}','showBdeWorkReport')->name('showBdeWorkReport');
-                Route::get('/new_report','createNewReport')->name('createNewReport');
-                Route::get('/my_reports','showMyReports')->name('showMyReports');
+                Route::get('/work_report/{id}', 'showBdeWorkReport')->name('showBdeWorkReport');
+                Route::get('/new_report', 'createNewReport')->name('createNewReport');
+                Route::get('/my_reports', 'showMyReports')->name('showMyReports');
                 //Old
                 // Route::get('/wd_record/consumption/{wd_id}','materialConsumption')->name('hp_consSiteMaterialConsumption');
 
@@ -99,7 +99,7 @@ Route::prefix('/new/bde')
                 // Route::get('construction_site_inv','constructionSiteMainInventory')->name('hp_bdeInventoryModule');
             });
         Route::controller(ProfileController::class)
-            ->group(function(){
+            ->group(function () {
                 // Route::get('/pass_reset', 'passwordChangeForm')->name('bde_passwordChangeForm');
                 // Route::put('/pass_reset', 'passwordChange')->name('bde_passwordChange');
             });
@@ -111,71 +111,71 @@ Route::prefix('/new/bde')
  * All routes related to business monitoring and planning 
  */
 Route::prefix('/')
-    ->middleware(['auth','userRights'])
-    ->group(Function(){
+    ->middleware(['auth', 'userRights'])
+    ->group(function () {
 
         /**
          * Admin routes
          */
         Route::prefix('/adm')
-            ->group(function(){
+            ->group(function () {
                 Route::controller(AdminController::class)
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('/users', 'users')->name('hp_users');
                     });
                 Route::controller(TicketController::class)
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('/tickets', 'tickets')->name('hp_tickets');
                         Route::get('/tickets/{id}', 'showTicket')->name('hp_showTicket');
                         Route::post('/new_tickets', 'newTicket')->name('hp_newTicket');
                     });
                 Route::controller(ParametersController::class)
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('/app_params', 'appParams')->name('hp_appParams');
                     });
                 Route::prefix('/master_data')
-                ->group(function(){
-                    Route::controller(MaterialMasterDataController::class)
-                    ->group(function(){
-                        Route::get('master_material', 'masterMaterial')->name('hp_masterMaterial');
-                        Route::get('master_material/{id}', 'showMaterial')->name('hp_showMaterial');
-                        Route::get('new_material', 'createNewMaterialForm')->name('hp_createNewMaterialForm');
+                    ->group(function () {
+                        Route::controller(MaterialMasterDataController::class)
+                            ->group(function () {
+                                Route::get('master_material', 'masterMaterial')->name('hp_masterMaterial');
+                                Route::get('master_material/{id}', 'showMaterial')->name('hp_showMaterial');
+                                Route::get('new_material', 'createNewMaterialForm')->name('hp_createNewMaterialForm');
+                            });
+                        Route::controller(SuppliersController::class)
+                            ->group(function () {
+                                Route::get('suppliers', 'index')->name('hp_suppliers');
+                                Route::get('new_supplier', 'newSupplier')->name('hp_newSupplier');
+                            });
                     });
-                    Route::controller(SuppliersController::class)
-                    ->group(function(){
-                        Route::get('suppliers', 'index')->name('hp_suppliers');
-                        Route::get('new_supplier', 'newSupplier')->name('hp_newSupplier');
-                    });
-                });
                 Route::prefix('/inventory_checking')
-                    ->group(function(){
+                    ->group(function () {
                         Route::controller(MainInventoryController::class)
-                        ->group(function(){
-                            Route::get('material', 'materialChecking')->name('hp_materialChecking');
-                            Route::get('material_results', 'materialInventoryResults')->name('hp_materialCheckingResults');
-                            Route::get('list', 'activeInventoryCheckingList')->name('hp_activeInventoryCheckingList');
-                            Route::get('/{inv_name}', 'activeInventoryChecking')->name('hp_activeInventoryChecking');
+                            ->group(function () {
+                                Route::get('material', 'materialChecking')->name('hp_materialChecking');
+                                Route::get('material_results', 'materialInventoryResults')->name('hp_materialCheckingResults');
+                                Route::get('list', 'activeInventoryCheckingList')->name('hp_activeInventoryCheckingList');
+                                Route::get('/{inv_name}', 'activeInventoryChecking')->name('hp_activeInventoryChecking');
 
-                            Route::get('qr_reader/{inv_name}', 'inventoryQrReader')->name('hp_inventoryQrReader');
-                        });
+                                Route::get('qr_reader/{inv_name}', 'inventoryQrReader')->name('hp_inventoryQrReader');
+                            });
                     });
                 Route::prefix('/acl')
-                    ->group(function(){
+                    ->group(function () {
                         Route::controller(AccessControlListController::class)
-                        ->group(function(){
-                            Route::get('/', 'accessControlList')->name('hp_acl');
-                        });
+                            ->group(function () {
+                                Route::get('/', 'accessControlList')->name('hp_acl');
+                            });
                     });
-                
+
                 Route::controller(CalculatorController::class)
-                    ->group(function(){
-                        Route::get('calculator','index')->name('hp_calculator');
+                    ->group(function () {
+                        Route::get('calculator', 'index')->name('hp_calculator');
                     });
             });
 
         Route::controller(HumanResourcesController::class)
             ->prefix('/hr')
-            ->group(function(){
+            ->group(function () {
                 Route::get('/', 'index');
 
                 Route::get('/workers', 'allWorkers')->name('hp_allWorkers');
@@ -199,34 +199,32 @@ Route::prefix('/')
 
 
                 //PDF routes
-                Route::get('payroll_labels_pdf','payrollLabels')->name('hp_payrollLabels');
+                Route::get('payroll_labels_pdf', 'payrollLabels')->name('hp_payrollLabels');
             });
 
-            Route::prefix('/hr')
-                ->group(function(){
-                    Route::controller(PayrollController::class)
-                    ->group(function(){
-                        Route::get('payroll','payrollForMonths')->name('hp_payrollForMonths');
+        Route::prefix('/hr')
+            ->group(function () {
+                Route::controller(PayrollController::class)
+                    ->group(function () {
+                        Route::get('payroll', 'payrollForMonths')->name('hp_payrollForMonths');
                     });
-
             });
 
         Route::controller(AssetsController::class)
             ->prefix('/assets')
-            ->group(function(){
+            ->group(function () {
 
                 Route::get('/fleet', 'companyCars')->name('hp_companyCars');
                 Route::get('/fleet/{plates}', 'showCompanyCar')->name('hp_showCompanyCar');
                 Route::post('/fleet', 'addCompanyCars')->name('hp_addCompanyCars');
-                Route::post('/fleet/carAvatar','uploadCarAvatarImage')->name('hp_uploadCarAvatarImage');
-                Route::put('/fleet/deactivate/{id}','deactivateCar')->name('hp_deactivateCar');
-
+                Route::post('/fleet/carAvatar', 'uploadCarAvatarImage')->name('hp_uploadCarAvatarImage');
+                Route::put('/fleet/deactivate/{id}', 'deactivateCar')->name('hp_deactivateCar');
             });
 
         Route::prefix('/wp')
-            ->group(function(){
+            ->group(function () {
                 Route::controller(ConstructionSiteController::class)
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('/construction_sites', 'constructionSites')->name('hp_constructionSites');
                         Route::get('/construction_sites/{id}', 'showConstructionSite')->name('hp_showConstructionSite');
                         Route::get('/construction_sites/materials/{id}', 'showConstructionSiteMaterials')->name('hp_showConstructionSiteMaterials');
@@ -234,75 +232,74 @@ Route::prefix('/')
                         Route::post('/construction_sites', 'addNewConstructionSites')->name('hp_addNewConstructionSites');
                     });
                 Route::controller(WorkDayDiaryController::class)
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('work_day_diaries', 'workDayDiaries')->name('hp_workDayDiaries');
                         Route::get('work_day_diaries/{id}', 'showWorkDayDiary')->name('hp_showWorkDayDiary');
                     });
                 Route::controller(InternalDeliveryNoteController::class)
-                    ->group(function(){
-                        Route::get('internal_delivery_note','index')->name('hp_internalDeliveryNote');
+                    ->group(function () {
+                        Route::get('internal_delivery_note', 'index')->name('hp_internalDeliveryNote');
                     });
             });
-        
+
         Route::prefix('/stg')
-            ->group(function(){
+            ->group(function () {
                 Route::controller(StorageController::class)
-                    ->group(function(){
-                        Route::get('stock_items','storageStockItems')->name('hp_storageStockItems');  
-                        Route::get('construction_stock_items','constructionStockItems')->name('hp_constructionStockItems');    
+                    ->group(function () {
+                        Route::get('stock_items', 'storageStockItems')->name('hp_storageStockItems');
+                        Route::get('construction_stock_items', 'constructionStockItems')->name('hp_constructionStockItems');
                     });
             });
 
         Route::prefix('/report')
-            ->group(function(){
+            ->group(function () {
                 Route::controller(ReportingController::class)
-                    ->group(function(){
-                        Route::get('work_logs_book','workLogsBook')->name('hp_workLogsBook'); 
-                        Route::get('expenses','expensesReport')->name('hp_expensesReport');    
-                        Route::get('sum_by_construction_sites','sumByJobSite')->name('reportSumByJobSite');  
+                    ->group(function () {
+                        Route::get('work_logs_book', 'workLogsBook')->name('hp_workLogsBook');
+                        Route::get('expenses', 'expensesReport')->name('hp_expensesReport');
+                        Route::get('sum_by_construction_sites', 'sumByJobSite')->name('reportSumByJobSite');
                         //expenses
                     });
             });
 
         Route::prefix('/costs')
-            ->group(function(){
+            ->group(function () {
                 Route::controller(CostOverviewController::class)
-                    ->group(function(){
-                        Route::get('bill_overview','billOverview')->name('hp_billOverview');     
+                    ->group(function () {
+                        Route::get('bill_overview', 'billOverview')->name('hp_billOverview');
                     });
-            }); 
+            });
 
         Route::prefix('/sale')
-            ->group(function(){
+            ->group(function () {
                 Route::controller(SalesController::class)
-                    ->group(function(){
-                        Route::get('/material_sale','materialSale')->name('hp_materialSale');     
+                    ->group(function () {
+                        Route::get('/material_sale', 'materialSale')->name('hp_materialSale');
                     });
-            });       
-    });
-
-Route::prefix('/json')
-    ->group(function(){
-        Route::controller(ReportDataController::class)
-            ->group(function(){
-                Route::get('bills','getAllBillsForExpenses')->name('hp_getAllBillsForExpenses');  
-                Route::get('bill_providers','getAllBillProviders')->name('hp_getAllBillProviders');  
-                Route::get('bill_categories','getAllBillCategories')->name('hp_getAllBillCategories');     
             });
     });
 
-Route::get('/clear', function() {
+Route::prefix('/json')
+    ->group(function () {
+        Route::controller(ReportDataController::class)
+            ->group(function () {
+                Route::get('bills', 'getAllBillsForExpenses')->name('hp_getAllBillsForExpenses');
+                Route::get('bill_providers', 'getAllBillProviders')->name('hp_getAllBillProviders');
+                Route::get('bill_categories', 'getAllBillCategories')->name('hp_getAllBillCategories');
+            });
+    });
+
+Route::get('/clear', function () {
     Artisan::call('cache:clear');
     Artisan::call('route:cache');
     Artisan::call('view:clear');
     Artisan::call('config:cache');
     echo  "all cleared ...";
     return;
-
 });
 
-Route::get('test',function(){
+Route::get('test', function () {
     return (new ExpensesReportService)->getDataForExportByMonth(9);
 });
 
-Route::get('/test2', [App\Http\Controllers\Test2::class, 'index']);
+Route::get('/test2', [App\Http\Controllers\Test2::class, 'newLayout']);
