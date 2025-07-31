@@ -9,4 +9,14 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    const MODULE = null;
+
+    protected function module($component = 'index')
+    {
+        return view('module-container', [
+            'module' => static::MODULE ?? NULL,
+            'component' => $component,
+        ]);
+    }
 }

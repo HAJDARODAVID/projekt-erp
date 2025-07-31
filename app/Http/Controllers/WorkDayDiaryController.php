@@ -14,30 +14,37 @@ use Jenssegers\Agent\Facades\Agent;
 
 class WorkDayDiaryController extends Controller
 {
-    
-    public function workDayDiaries(){
-        return view('hidro-projekt.WP.workDayDiaries');
+
+    const MODULE = 'workday-diary';
+
+    public function workDayDiaries(Request $request)
+    {
+        return $this->module();
+        //return view('hidro-projekt.WP.workDayDiaries');
     }
 
-    public function showWorkDayDiary($id){
+
+
+    public function showWorkDayDiary($id)
+    {
         $wdr = WorkingDayRecordModel::where('id', $id)->with('getLogs')->first();
         $constSite = ConstructionSiteModel::where('id', $wdr->construction_site_id)->first();
-        $car=CompanyCarsModel::where('id', $wdr->car_id)->first();
+        $car = CompanyCarsModel::where('id', $wdr->car_id)->first();
         $carMileage = CarMileageModel::where('wdr_id', $wdr->id)->first();
         $groupLeader = User::where('id', $wdr->user_id)->with('getWorker', 'getCooperator')->first();
 
-        $stringLog="";
+        $stringLog = "";
         foreach ($wdr->getLogs as $logs) {
             $userName = "";
-            if(!is_null($groupLeader->getWorker)) $userName =$groupLeader->getWorker->fullName;
-            if(!is_null($groupLeader->getCooperator)) $userName =$groupLeader->getCooperator->fullName;
+            if (!is_null($groupLeader->getWorker)) $userName = $groupLeader->getWorker->fullName;
+            if (!is_null($groupLeader->getCooperator)) $userName = $groupLeader->getCooperator->fullName;
             $stringLog .= "[" .  $userName . " - ";
             $stringLog .= $logs->created_at . "]\n";
             $stringLog .= $logs->log . "\n";
             $stringLog .= "\n";
         }
-        
-        return view('hidro-projekt.WP.showWorkDayDiary',[
+
+        return view('hidro-projekt.WP.showWorkDayDiary', [
             'wdr' => $wdr,
             'groupLeader' => $groupLeader,
             'constSite' => $constSite,

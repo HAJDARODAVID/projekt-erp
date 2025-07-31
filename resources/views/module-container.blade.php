@@ -1,5 +1,5 @@
 @extends('layouts.app-admin')
 
 @section('content')
-    TEEEEEEEEEEST
+    @livewire("modules.$module.$component")
 @endsection
