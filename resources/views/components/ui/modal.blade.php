@@ -3,7 +3,7 @@
     <div class="modal-content" style="border-radius: 0px">
       <div class="modal-header">
         <h5 class="modal-title">{{ mb_strtoupper($title) }}</h5>
-        <x-gui-elements.btn type="dar.sm" icon="x-lg" :wClickMethod=$closeModelMethod />
+        <x-ui.btn type="dar.sm" icon="x-lg" :wClickMethod=$closeModelMethod />
       </div>
       <div class="modal-body">
         {{ $slot }}

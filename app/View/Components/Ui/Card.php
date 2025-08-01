@@ -11,6 +11,10 @@ class Card extends Component
     public $title;
     public $extend;
     public $extendClassAtt;
+    public $headerActions;
+    public $loading;
+    public $noBodyPadding;
+    public $border;
     /**
      * Create a new component instance.
      */
@@ -18,11 +22,18 @@ class Card extends Component
         $title = NULL,
         $extend = TRUE,
         $extendClassAtt = NULL,
-    )
-    {
+        $headerActions = NULL,
+        $loading = FALSE,
+        $noBodyPadding = FALSE,
+        $border = TRUE,
+    ) {
         $this->title = $title;
         $this->extend = $extend;
         $this->extendClassAtt = $this->extend == TRUE ? 'flex-fill h-100 d-flex flex-column' : NULL;
+        $this->headerActions = $headerActions;
+        $this->loading = $loading;
+        $this->noBodyPadding = $noBodyPadding == TRUE ? 'p-0' : NULL;
+        $this->border = $border == TRUE ? NULL : 'no-border-style';
     }
 
     /**

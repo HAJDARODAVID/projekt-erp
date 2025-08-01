@@ -8,6 +8,7 @@ trait ModalTrait
 
     public function openModal(): void
     {
+        if (method_exists($this, 'beforeOpenModal')) $this->beforeOpenModal();
         $this->modalStatus = TRUE;
     }
 

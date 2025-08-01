@@ -185,6 +185,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'WorkdayTypes' => App\Services\WorkdayDiary\Types::class,
     ])->toArray(),
 
 ];
