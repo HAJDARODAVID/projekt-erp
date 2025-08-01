@@ -15,6 +15,8 @@ class Input extends Component
     public $wModelEvent;
     public $prepend;
     public $append;
+    public $inputGroupSize;
+    public $removeAddOnXP;
 
     /**
      * Create a new component instance.
@@ -27,6 +29,8 @@ class Input extends Component
         $wModelEvent = 'blur',
         $prepend = NULL,
         $append = NULL,
+        $size = NULL,
+        $removeAddOnXP = NULL,
     ) {
         $this->type = $type;
         $this->label = $label;
@@ -35,6 +39,18 @@ class Input extends Component
         $this->wModelEvent = $wModelEvent;
         $this->prepend = $prepend;
         $this->append = $append;
+        $this->inputGroupSize = $size == NULL ? NULL : $this->setInputGroupSize($size);
+        $this->removeAddOnXP = $removeAddOnXP === TRUE ? 'px-0' : NULL;
+    }
+
+    private function setInputGroupSize($size)
+    {
+        $availableSizes = [
+            'sm' => 'input-group-sm',
+            'lg' => 'input-group-lg'
+        ];
+        if (key_exists($size, $availableSizes)) return $availableSizes[$size];
+        return NULL;
     }
 
     /**
