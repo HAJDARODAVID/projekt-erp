@@ -14,7 +14,7 @@
                 'class' => 'form-control '
                 ]) }} 
             placeholder="{{ $placeholder }}" 
-            style="border-radius: 0px"
+            style="{{ implode('; ', $style) }}"
             wire:model.{{ $wModelEvent }} = '{{ $wModel }}'
         >
         @if ($append)

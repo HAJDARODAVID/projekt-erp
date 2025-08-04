@@ -17,6 +17,9 @@ class Input extends Component
     public $append;
     public $inputGroupSize;
     public $removeAddOnXP;
+    public $width;
+
+    public $style = [];
 
     /**
      * Create a new component instance.
@@ -31,6 +34,7 @@ class Input extends Component
         $append = NULL,
         $size = NULL,
         $removeAddOnXP = NULL,
+        $width = NULL,
     ) {
         $this->type = $type;
         $this->label = $label;
@@ -41,6 +45,9 @@ class Input extends Component
         $this->append = $append;
         $this->inputGroupSize = $size == NULL ? NULL : $this->setInputGroupSize($size);
         $this->removeAddOnXP = $removeAddOnXP === TRUE ? 'px-0' : NULL;
+
+        $this->noBorderRadius()
+            ->width($width);
     }
 
     private function setInputGroupSize($size)
@@ -51,6 +58,18 @@ class Input extends Component
         ];
         if (key_exists($size, $availableSizes)) return $availableSizes[$size];
         return NULL;
+    }
+
+    private function noBorderRadius()
+    {
+        $this->style[] = 'border-radius: 0px';
+        return $this;
+    }
+
+    private function width($value)
+    {
+        if ($value !== NULL) $this->style[] = 'width: ' . $value . 'px';
+        return $this;
     }
 
     /**

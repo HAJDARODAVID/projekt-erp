@@ -37,6 +37,7 @@ class Btn extends Component
     public $iconName = FALSE;
     public $iconPosition = self::ICON_POSITION['start'];
     public $wClickMethod = NULL;
+    public $wClickParam = NULL;
     public $link;
     /**
      * Create a new component instance.
@@ -46,11 +47,13 @@ class Btn extends Component
         $type = NULL,
         $icon = NULL,
         $wClickMethod = NULL,
+        $wClickParam = NULL,
         $link = NULL,
     ) {
         $this->setBtnType($type)->setIcon($icon);
         $this->text = $text != NULL ? $text : NULL;
         $this->wClickMethod = $wClickMethod;
+        $this->wClickParam = $wClickParam;
         $this->link = $link;
     }
 
@@ -64,6 +67,11 @@ class Btn extends Component
             if (($att[1] != "" || $att[1] != NULL) && array_key_exists($att[1], self::BTN_SIZE)) $this->btnSize = self::BTN_SIZE[$att[1]];
         }
         return $this;
+    }
+
+    private function setParams($params)
+    {
+        return explode(', ', $params);
     }
 
     private function setIcon($icon = NULL)

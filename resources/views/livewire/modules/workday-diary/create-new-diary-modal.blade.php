@@ -19,7 +19,10 @@
                         </div>
                         <hr>
                         <x-ui.select :options=$constructionSites label="Gradilište" initOption="Gradilište..." class="form-select-sm" wModel="diaryInfo.consId" />
-                        <div class="mt-2"><x-ui.select :options=$groupLeaders label="Poslovođa" initOption="Poslovođa..." class="form-select-sm" wModel="diaryInfo.gLeaderId" /></div>
+                        <div class="row mt-2">
+                            <div class="col"><x-ui.select :options=$groupLeaders label="Poslovođa" initOption="Poslovođa..." class="form-select-sm" wModel="diaryInfo.gLeaderId" /></div>
+                            <div class="col"><x-ui.input class="form-select-sm {{ isset($error['date']) ?  'is-invalid' : NULL }}" label="Datum" type="date" wModel="diaryInfo.date" /></div>
+                        </div>
                         <hr>
                         <div class="mt-2"><x-ui.select :options=$companyCars label="Vozilo" initOption="Vozilo..." class="form-select-sm" wModel="diaryInfo.carId" /></div>
                         @isset($diaryInfo['carId'])
@@ -36,12 +39,12 @@
                     </x-ui.card>
                 </div>
                 <div class="col-md">
-                    <x-ui.card title="PRISUSTVO">
+                    <x-ui.card title="PRISUSTVO" loading="addWorkerToAttendance, removeWorkerFromAttendance">
                         <div class="row"><div class="col-md-6 d-flex gap-2">
-                            <x-ui.input placeholder="Traži..." size="sm" wModel='searchWorkerInput' :removeAddOnXP=TRUE> 
-                                @if ($searchWorkerInput != NULL || $searchWorkerInput != "")
+                            <x-ui.input placeholder="Traži..." size="sm" :removeAddOnXP=TRUE wire:model.live.debounce.250ms='workerSearch'> 
+                                @if ($workerSearch != NULL || $workerSearch != "")
                                     <x-slot:append>
-                                        <x-ui.btn type="lig.sm" icon="trash" />
+                                        <x-ui.btn type="lig.sm" icon="trash" wClickMethod="resetSearchInput" />
                                     </x-slot:append>
                                 @endif
                                 
@@ -51,19 +54,51 @@
                             <x-ui.btn type="lig.sm" icon="search" />
                         </div></div>
                         <hr>
+                        @if($workerSearch)
+                            <div class="d-flex flex-wrap gap-2 my-2">
+                                @foreach ($workers['myWorkers'] as $worker)
+                                    <x-ui.btn type="lig.sm" wClickMethod="addWorkerToAttendance" wClickParam="{{$worker->id}}, {{$worker->fullName}}, myWorkers">{{ $worker->fullName }}</x-ui.btn>
+                                @endforeach
+                                @foreach ($workers['cooperators'] as $worker)
+                                    <x-ui.btn type="lig.sm" wClickMethod="addWorkerToAttendance" wClickParam="{{$worker->id}}, {{$worker->fullName}}-{{ $worker->getCoOpInfo->name }}, cooperators">{{ $worker->fullName }}-{{ $worker->getCoOpInfo->name }} </x-ui.btn>
+                                @endforeach
+                            </div>
+                            <hr>
+                        @endif
                         @isset($attendance)
                             <table class="table table-sm" style="table-layout: auto;">
                                 <thead>
-                                    <th>Ime/prezime</th>
+                                    <th>Ime prezime</th>
                                     <th>Sati</th>
                                     <th style="white-space: nowrap;"></th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>David</td>
-                                        <td>5</td>
-                                        <td style="white-space: nowrap;"><x-ui.btn type="lig.sm" icon="trash" /></td>
-                                    </tr>
+                                    @isset($attendance['myWorkers'])
+                                        @foreach ($attendance['myWorkers'] as $workerID => $workerData)
+                                            <tr>
+                                                <td>{{ $workerData['name'] }}</td>
+                                                <td><x-ui.input width=10 size="sm" wModel='attendance.myWorkers.{{ $workerID }}.attTime' /></td>
+                                                <td style="white-space: nowrap;">
+                                                    <x-ui.btn type="lig.sm" icon="trash" wClickMethod="removeWorkerFromAttendance" wClickParam="{{ $workerID }}, myWorkers"/>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        
+                                    @endisset
+
+                                    @isset($attendance['cooperators'])
+                                        @foreach ($attendance['cooperators'] as $workerID => $workerData)
+                                            <tr>
+                                                <td>{{ $workerData['name'] }}</td>
+                                                <td><x-ui.input width=10 size="sm" wModel='attendance.cooperators.{{ $workerID }}.attTime' /></td>
+                                                <td style="white-space: nowrap;">
+                                                    <x-ui.btn type="lig.sm" icon="trash" wClickMethod="removeWorkerFromAttendance" wClickParam="{{ $workerID }}, cooperators" />
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        
+                                    @endisset
+                                    
                                 </tbody>
                             </table>
                         @endisset
@@ -75,6 +110,7 @@
                 </div>
             </div>
         </x-ui.card>
+        {{ var_dump($attendance) }}
         
         <x-slot:footerRight><x-ui.btn type="suc" icon="save" wClickMethod="createNewDiary" /></x-slot:footerRight>
     </x-ui.modal>

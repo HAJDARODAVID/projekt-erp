@@ -25,9 +25,13 @@ class CooperatorsModel extends Model
         'status',
     ];
 
-    public function getAllWorkers():HasMany{
+    public function getAllWorkers(): HasMany
+    {
         return $this->hasMany(CooperatorWorkersModel::class, 'cooperator_id', 'id');
     }
 
-
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['firstName'] . ' ' . $this->attributes['lastName'];
+    }
 }
