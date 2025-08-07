@@ -6,12 +6,12 @@ use Livewire\Component;
 use App\Traits\ModalTrait;
 use App\Traits\ExplodeParams;
 use App\Traits\ValidationTrait;
-use App\Models\WorkingDayLogModel;
 use App\Services\WorkdayDiary\Types;
 use App\Services\Employees\WorkersService;
 use App\Services\Assets\AllCompanyCarsService;
 use App\Services\Employees\GroupLeaderService;
 use App\Services\ConstructionSite\AllConstructionSitesService;
+use App\Services\WorkdayDiary\CreateNewWorkdayDiaryService;
 
 class CreateNewDiaryModal extends Component
 {
@@ -51,6 +51,17 @@ class CreateNewDiaryModal extends Component
 
         /**If validation returns TRUE then go to service, otherwise set up errors  */
         if ($validation) {
+            $service = new CreateNewWorkdayDiaryService();
+            $service->setUser($this->diaryInfo['gLeaderId'] ?? NULL)
+                ->setJobSiteId($this->diaryInfo['consId'] ?? NULL)
+                ->setCarId($this->diaryInfo['carId'] ?? NULL)
+                ->setDate($this->diaryInfo['date'] ?? NULL)
+                ->setWorkType($this->diaryInfo['workdayType'] ?? NULL)
+                ->setLog($this->diaryInfo['comment'] ?? NULL);
+            $service = $service->execute();
+            if ($service['success']) {
+                return redirect()->route('hp_showWorkDayDiary', [$service['newDiary']->id]);
+            }
         } else {
             $this->error = $this->getAllValidationErrors();
         }

@@ -34,7 +34,7 @@
                         <hr>
                         <div class="mt-2">
                             <label>Komentar</label>
-                            <textarea class="form-control no-border-radius" style="width: 100%" rows="5"></textarea>
+                            <textarea class="form-control no-border-radius" style="width: 100%" rows="5" wire:model.blur='diaryInfo.comment'></textarea>
                         </div>
                     </x-ui.card>
                 </div>
@@ -77,7 +77,7 @@
                                         @foreach ($attendance['myWorkers'] as $workerID => $workerData)
                                             <tr>
                                                 <td>{{ $workerData['name'] }}</td>
-                                                <td><x-ui.input width=10 size="sm" wModel='attendance.myWorkers.{{ $workerID }}.attTime' /></td>
+                                                <td><x-ui.input type="number" width=10 size="sm" wModel='attendance.myWorkers.{{ $workerID }}.attTime' /></td>
                                                 <td style="white-space: nowrap;">
                                                     <x-ui.btn type="lig.sm" icon="trash" wClickMethod="removeWorkerFromAttendance" wClickParam="{{ $workerID }}, myWorkers"/>
                                                 </td>
@@ -90,7 +90,7 @@
                                         @foreach ($attendance['cooperators'] as $workerID => $workerData)
                                             <tr>
                                                 <td>{{ $workerData['name'] }}</td>
-                                                <td><x-ui.input width=10 size="sm" wModel='attendance.cooperators.{{ $workerID }}.attTime' /></td>
+                                                <td><x-ui.input type="number" width=10 size="sm" wModel='attendance.cooperators.{{ $workerID }}.attTime' /></td>
                                                 <td style="white-space: nowrap;">
                                                     <x-ui.btn type="lig.sm" icon="trash" wClickMethod="removeWorkerFromAttendance" wClickParam="{{ $workerID }}, cooperators" />
                                                 </td>
@@ -105,13 +105,10 @@
                         @empty($attendance)
                             <div class="d-flex justify-content-center"><i>Nema zapisa radnika u prisustvu</i></div>
                         @endempty
-                    </x-ui.card>
-                    
+                    </x-ui.card>    
                 </div>
             </div>
-        </x-ui.card>
-        {{ var_dump($attendance) }}
-        
+        </x-ui.card>        
         <x-slot:footerRight><x-ui.btn type="suc" icon="save" wClickMethod="createNewDiary" /></x-slot:footerRight>
     </x-ui.modal>
 </div>
