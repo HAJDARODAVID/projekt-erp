@@ -57,4 +57,14 @@ class GetAttendanceService
     {
         dd($this);
     }
+
+    public function getMyWorkerAttendance()
+    {
+        return $this->myWorkerAttendance;
+    }
+
+    public function getCooperatorAttendance()
+    {
+        return $this->cooperatorAttendance;
+    }
 }
