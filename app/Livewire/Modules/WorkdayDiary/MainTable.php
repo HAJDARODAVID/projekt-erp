@@ -36,6 +36,10 @@ class MainTable extends DataTableComponent
                 ->sortable(),
             Column::make("Vozilo", "car_plates")
                 ->sortable(),
+            Column::make("")
+                ->label(
+                    fn($row, Column $column) => view('components.table.table-actions', ['row' => $row, 'livewire' => 'modules.workday-diary.table-actions'])
+                )->html(),
         ];
     }
 

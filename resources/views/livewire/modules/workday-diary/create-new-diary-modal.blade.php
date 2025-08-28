@@ -18,19 +18,22 @@
                             @endforeach
                         </div>
                         <hr>
-                        <x-ui.select :options=$constructionSites label="Gradilište" initOption="Gradilište..." class="form-select-sm" wModel="diaryInfo.consId" />
+                        <x-ui.select :options=$constructionSites label="Gradilište" initOption="Gradilište..." class="form-select-sm {{ isset($error['consId']) ?  'is-invalid' : NULL }}" wModel="diaryInfo.consId" />
                         <div class="row mt-2">
                             <div class="col"><x-ui.select :options=$groupLeaders label="Poslovođa" initOption="Poslovođa..." class="form-select-sm" wModel="diaryInfo.gLeaderId" /></div>
                             <div class="col"><x-ui.input class="form-select-sm {{ isset($error['date']) ?  'is-invalid' : NULL }}" label="Datum" type="date" wModel="diaryInfo.date" /></div>
                         </div>
                         <hr>
                         <div class="mt-2"><x-ui.select :options=$companyCars label="Vozilo" initOption="Vozilo..." class="form-select-sm" wModel="diaryInfo.carId" /></div>
-                        @isset($diaryInfo['carId'])
-                            <div class="row mt-1">
-                                <div class="col-md"><x-ui.input label="Početno stanje"  size="sm" append="km"/></div>
-                                <div class="col-md"><x-ui.input label="Završno stanje"  size="sm" append="km"/></div>
-                            </div>
-                        @endisset
+                        {{-- TODO: treba sloziti da se moze upisati kilometraža --}}
+                        {{-- @isset($diaryInfo['carId'])
+                            @if($diaryInfo['carId'])
+                                <div class="row mt-1">
+                                    <div class="col-md"><x-ui.input label="Početno stanje"  size="sm" append="km"/></div>
+                                    <div class="col-md"><x-ui.input label="Završno stanje"  size="sm" append="km"/></div>
+                                </div>
+                            @endif
+                        @endisset --}}
                         <hr>
                         <div class="mt-2">
                             <label>Komentar</label>

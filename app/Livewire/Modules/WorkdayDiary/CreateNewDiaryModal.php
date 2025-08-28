@@ -9,6 +9,7 @@ use App\Traits\ValidationTrait;
 use App\Services\WorkdayDiary\Types;
 use App\Services\Employees\WorkersService;
 use App\Services\Assets\AllCompanyCarsService;
+use App\Services\Attendance\CreateAttendanceService;
 use App\Services\Employees\GroupLeaderService;
 use App\Services\ConstructionSite\AllConstructionSitesService;
 use App\Services\WorkdayDiary\CreateNewWorkdayDiaryService;
@@ -16,6 +17,8 @@ use App\Services\WorkdayDiary\CreateNewWorkdayDiaryService;
 class CreateNewDiaryModal extends Component
 {
     use ModalTrait, ExplodeParams, ValidationTrait;
+
+    const ATTENDANCE_TYPES = ['myWorkers', 'cooperators'];
 
     public $searchWorkerInput;
 
@@ -47,20 +50,52 @@ class CreateNewDiaryModal extends Component
         /**Set the validation rules, and check if all good man */
         $validation = $this->addValidationAttributeRules([
             'date' => 'required',
+            'consId' => 'required',
         ])->attributesValidation($this->diaryInfo);
 
         /**If validation returns TRUE then go to service, otherwise set up errors  */
         if ($validation) {
-            $service = new CreateNewWorkdayDiaryService();
-            $service->setUser($this->diaryInfo['gLeaderId'] ?? NULL)
+            /**Create a new diary */
+            $createNewWorkdayDiaryService = new CreateNewWorkdayDiaryService();
+            $createNewWorkdayDiaryService->setUser($this->diaryInfo['gLeaderId'] ?? NULL)
                 ->setJobSiteId($this->diaryInfo['consId'] ?? NULL)
                 ->setCarId($this->diaryInfo['carId'] ?? NULL)
                 ->setDate($this->diaryInfo['date'] ?? NULL)
                 ->setWorkType($this->diaryInfo['workdayType'] ?? NULL)
                 ->setLog($this->diaryInfo['comment'] ?? NULL);
-            $service = $service->execute();
-            if ($service['success']) {
-                return redirect()->route('hp_showWorkDayDiary', [$service['newDiary']->id]);
+            $createNewWorkdayDiaryService = $createNewWorkdayDiaryService->execute();
+
+            if ($createNewWorkdayDiaryService['success']) {
+                /**If we created a new diary check if we have workers in attendance */
+                foreach (self::ATTENDANCE_TYPES as $type) {
+                    /**Set the right object */
+                    $createAttendanceService = NULL;
+                    switch ($type) {
+                        case 'myWorkers':
+                            $createAttendanceService = CreateAttendanceService::myWorker();
+                            break;
+                        case 'cooperators':
+                            $createAttendanceService = CreateAttendanceService::cooperator();
+                            break;
+                    }
+                    /**Check if the attendance data is set correctly */
+                    if (isset($this->attendance[$type])) {
+                        if (is_array($this->attendance[$type])) {
+                            foreach ($this->attendance[$type] as $workerId => $data) {
+                                if ($data['attTime']) {
+                                    $createAttendanceService->setWorkerID($workerId)
+                                        ->setDiaryID($createNewWorkdayDiaryService['newDiary']->id)
+                                        ->setType($this->diaryInfo['workdayType'])
+                                        ->setWorkHours($data['attTime'])
+                                        ->setDate($this->diaryInfo['date']);
+                                    $createAttendanceService->execute();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return redirect()->route('hp_showWorkDayDiary', [$createNewWorkdayDiaryService['newDiary']->id]);
             }
         } else {
             $this->error = $this->getAllValidationErrors();
@@ -88,6 +123,7 @@ class CreateNewDiaryModal extends Component
         if (!isset($this->attendance[$for][$id])) {
             $this->attendance[$for][$id] = [
                 'name' => $name,
+                'attTime' => NULL,
             ];
         }
         $this->reset('workerSearch', 'workers');
@@ -100,6 +136,13 @@ class CreateNewDiaryModal extends Component
     {
         extract($this->explodeParams($params, ['id', 'for']));
         unset($this->attendance[$for][$id]);
+    }
+
+    public function updatedDiaryInfo($value, $key)
+    {
+        if ($key == 'carId') {
+            if ($value == 'init-option') unset($this->diaryInfo['carId']);
+        }
     }
 
     /**
