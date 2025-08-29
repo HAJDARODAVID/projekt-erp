@@ -100,7 +100,6 @@ class CreateNewDiaryModal extends Component
                     }
                 }
 
-                //return redirect()->route('hp_showWorkDayDiary', [$createNewWorkdayDiaryService['newDiary']->id]);
                 $this->resetData();
                 $this->closeModal();
                 $this->dispatch('refresh-work-diary-table')->to(WorkDiaryTable::class);
