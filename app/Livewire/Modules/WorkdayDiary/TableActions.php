@@ -4,7 +4,7 @@ namespace App\Livewire\Modules\WorkdayDiary;
 
 use Livewire\Component;
 use App\Traits\ModalTrait;
-use App\Livewire\Modules\WorkdayDiary\MainTable;
+use App\Livewire\Modules\WorkdayDiary\WorkDiaryTable;
 use App\Services\WorkdayDiary\DeleteWorkdayDiaryService;
 
 class TableActions extends Component
@@ -25,7 +25,7 @@ class TableActions extends Component
         $service = $service->execute($attendanceFlag);
 
         if ($service['success']) {
-            $this->dispatch('refresh-work-diary-table')->to(MainTable::class);
+            $this->dispatch('refresh-work-diary-table')->to(WorkDiaryTable::class);
             $this->closeModal();
         }
     }

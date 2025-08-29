@@ -9,13 +9,16 @@ use Livewire\Attributes\On;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
-class MainTable extends DataTableComponent
+class WorkDiaryTable extends DataTableComponent
 {
     //protected $model = WorkDayDiaryViewModel::class;
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+            ->setTableRowUrl(function ($row) {
+                return route('hp_showWorkDayDiary', $row->id);
+            });
     }
 
     public function columns(): array
@@ -38,6 +41,7 @@ class MainTable extends DataTableComponent
             Column::make("Vozilo", "car_plates")
                 ->sortable(),
             Column::make("")
+                ->unclickable()
                 ->label(
                     fn($row, Column $column) => view('components.table.table-actions', ['row' => $row, 'livewire' => 'modules.workday-diary.table-actions'])
                 )->html(),

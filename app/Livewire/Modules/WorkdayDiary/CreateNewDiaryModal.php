@@ -95,7 +95,10 @@ class CreateNewDiaryModal extends Component
                     }
                 }
 
-                return redirect()->route('hp_showWorkDayDiary', [$createNewWorkdayDiaryService['newDiary']->id]);
+                //return redirect()->route('hp_showWorkDayDiary', [$createNewWorkdayDiaryService['newDiary']->id]);
+                $this->closeModal();
+                $this->dispatch('refresh-work-diary-table')->to(WorkDiaryTable::class);
+                return $this->dispatch('notify', ['message' => 'Kreiran novi dnevnik radova!', 'type' => 'success']);
             }
         } else {
             $this->error = $this->getAllValidationErrors();
