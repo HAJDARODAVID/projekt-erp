@@ -5,6 +5,7 @@ namespace App\Livewire\Modules\WorkdayDiary;
 use Livewire\Component;
 use App\Traits\ModalTrait;
 use App\Models\WorkingDayRecordModel;
+use App\Livewire\Modules\WorkdayDiary\MainTable;
 use App\Services\Attendance\GetAttendanceService;
 use App\Services\WorkdayDiary\DeleteWorkdayDiaryService;
 
@@ -24,9 +25,11 @@ class TableActions extends Component
         $attendanceFlag = $attendanceFlag == 'true' ? TRUE : FALSE;
         $service = new DeleteWorkdayDiaryService($this->row->id);
         $service = $service->execute($attendanceFlag);
-        //dd($attendanceFlag);
-        //GetAttendanceService::byWdr($this->row->id)->execute();
-        //WorkingDayRecordModel::find($this->row->id)->delete();
+
+        if ($service['success']) {
+            $this->dispatch('refresh-work-diary-table')->to(MainTable::class);
+            $this->closeModal();
+        }
     }
 
     public function render()

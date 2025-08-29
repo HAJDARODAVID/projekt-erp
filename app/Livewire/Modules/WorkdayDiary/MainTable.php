@@ -5,6 +5,7 @@ namespace App\Livewire\Modules\WorkdayDiary;
 use App\Models\User;
 use App\Models\WorkDayDiaryViewModel;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 
@@ -47,7 +48,7 @@ class MainTable extends DataTableComponent
     {
         return WorkDayDiaryViewModel::query()
             ->where('construction_site_id', '!=', NULL)
-            ->orderBy('date', 'desc');
+            ->orderBy('id', 'desc');
     }
 
     public function getUserName($row)
@@ -55,5 +56,11 @@ class MainTable extends DataTableComponent
         $user = User::where('id', $row->user_id)->with('getWorker', 'getCooperator')->first();
         if (!is_null($user->getWorker)) return $user->getWorker->fullName;
         if (!is_null($user->getCooperator)) return $user->getCooperator->fullName;
+    }
+
+    #[On('refresh-work-diary-table')]
+    public function refreshMe()
+    {
+        return;
     }
 }

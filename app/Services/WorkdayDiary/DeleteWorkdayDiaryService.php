@@ -41,8 +41,9 @@ class DeleteWorkdayDiaryService
         /**Go thru my workers and alter the attendance */
         $myWorkersAttendance = $attendanceService->getMyWorkerAttendance();
         foreach ($myWorkersAttendance as $att) {
-            dd($att);
-            //$attendanceService = RemoveAttendanceService::myWorker()
+            $removeAttendanceService = RemoveAttendanceService::myWorker($att->id);
+            if ($keepAttendance) $removeAttendanceService->removeOnlyFromWdr();
+            $removeAttendanceService->execute();
         }
 
         /**Go thru cooperators and alter the attendance */
@@ -50,9 +51,12 @@ class DeleteWorkdayDiaryService
         foreach ($cooperatorsAttendance as $att) {
             $removeAttendanceService = RemoveAttendanceService::cooperator($att->id);
             if ($keepAttendance) $removeAttendanceService->removeOnlyFromWdr();
-            //dd($removeAttendanceService);
             $removeAttendanceService->execute();
         }
-        dd($attendanceService);
+
+        /**Delete now the work diary */
+        $this->workDayDiary->delete();
+
+        return ['success' => true];
     }
 }
