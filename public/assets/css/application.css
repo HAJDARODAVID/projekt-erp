@@ -45,3 +45,7 @@
 .no-border-style {
     border-style: none;
 }
+
+.no-bg-color {
+    background-color: rgb(255, 255, 255, 0)
+}

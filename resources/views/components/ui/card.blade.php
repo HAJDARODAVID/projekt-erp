@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'card '. $extendClassAtt . ' ' . $border]) }} style="border-radius: 0px;">
+<div {{ $attributes->merge(['class' => 'card '. $extendClassAtt . ' ' . $border . ' ' . $noBgColor]) }} style="border-radius: 0px;">
     @if($title || $headerActions) 
         <div class="card-header" >
             <div class="d-flex justify-content-between">

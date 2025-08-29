@@ -15,6 +15,7 @@ class Card extends Component
     public $loading;
     public $noBodyPadding;
     public $border;
+    public $noBgColor;
     /**
      * Create a new component instance.
      */
@@ -26,6 +27,7 @@ class Card extends Component
         $loading = FALSE,
         $noBodyPadding = FALSE,
         $border = TRUE,
+        $noBgColor = NULL,
     ) {
         $this->title = $title;
         $this->extend = $extend;
@@ -34,6 +36,7 @@ class Card extends Component
         $this->loading = $loading;
         $this->noBodyPadding = $noBodyPadding == TRUE ? 'p-0' : NULL;
         $this->border = $border == TRUE ? NULL : 'no-border-style';
+        $this->noBgColor = $noBgColor == TRUE ? 'no-bg-color' : NULL;
     }
 
     /**
