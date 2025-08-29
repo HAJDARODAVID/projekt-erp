@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.3",
         "maatwebsite/excel": "^3.1",
+        "phpoffice/phpword": "^1.4",
         "rappasoft/laravel-livewire-tables": "^3.7"
     },
     "require-dev": {

@@ -15,6 +15,7 @@ use App\Http\Controllers\ReportingController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\ReportDataController;
+use App\Http\Controllers\WordReaderController;
 use App\Http\Controllers\CostOverviewController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\AccessControlListController;
@@ -303,3 +304,6 @@ Route::get('test', function () {
 });
 
 Route::get('/test2', [App\Http\Controllers\Test2::class, 'newLayout']);
+
+// Route to handle the file upload and reading
+Route::get('/read-word', [WordReaderController::class, 'readDocument']);
