@@ -42,6 +42,11 @@ class CreateNewDiaryModal extends Component
         $this->groupLeaders = GroupLeaderService::getAllForSelect();
     }
 
+    public function beforeCloseModal()
+    {
+        $this->resetData();
+    }
+
     public function createNewDiary()
     {
         /**Reset the errors on each call */
