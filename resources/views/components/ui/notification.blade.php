@@ -6,7 +6,7 @@
             this.notifications.push({ id, message, type });
             setTimeout(() => {
                 this.notifications = this.notifications.filter(n => n.id !== id);
-            }, 3000);
+            }, 4000);
            
         }
     }"
