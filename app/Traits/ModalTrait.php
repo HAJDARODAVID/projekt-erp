@@ -14,6 +14,7 @@ trait ModalTrait
 
     public function closeModal(): void
     {
+        if (method_exists($this, 'beforeCloseModal')) $this->beforeCloseModal();
         $this->modalStatus = FALSE;
     }
 }

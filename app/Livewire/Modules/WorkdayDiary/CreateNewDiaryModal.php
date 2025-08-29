@@ -96,6 +96,7 @@ class CreateNewDiaryModal extends Component
                 }
 
                 //return redirect()->route('hp_showWorkDayDiary', [$createNewWorkdayDiaryService['newDiary']->id]);
+                $this->resetData();
                 $this->closeModal();
                 $this->dispatch('refresh-work-diary-table')->to(WorkDiaryTable::class);
                 return $this->dispatch('notify', ['message' => 'Kreiran novi dnevnik radova!', 'type' => 'success']);
@@ -154,6 +155,16 @@ class CreateNewDiaryModal extends Component
     public function resetSearchInput()
     {
         return $this->reset('workerSearch');
+    }
+
+    /**
+     * This will reset all the workday diary data
+     */
+    private function resetData()
+    {
+        $this->diaryInfo = [];
+        $this->diaryInfo['workdayType'] = Types::home();
+        $this->attendance = NULL;
     }
 
     public function render()
