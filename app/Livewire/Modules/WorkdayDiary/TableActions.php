@@ -4,9 +4,7 @@ namespace App\Livewire\Modules\WorkdayDiary;
 
 use Livewire\Component;
 use App\Traits\ModalTrait;
-use App\Models\WorkingDayRecordModel;
 use App\Livewire\Modules\WorkdayDiary\MainTable;
-use App\Services\Attendance\GetAttendanceService;
 use App\Services\WorkdayDiary\DeleteWorkdayDiaryService;
 
 class TableActions extends Component
