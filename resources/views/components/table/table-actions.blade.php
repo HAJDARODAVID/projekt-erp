@@ -1,4 +1,4 @@
-<div class="">
+<div>
     @isset($livewire)
         @livewire($livewire, ['row' => $row], key("".now()))
     @endisset

@@ -19,6 +19,20 @@ class WorkDiaryTable extends DataTableComponent
             ->setTableRowUrl(function ($row) {
                 return route('hp_showWorkDayDiary', $row->id);
             });
+
+        $this->setTdAttributes(function (Column $column, $row, $columnIndex, $rowIndex) {
+            if ($column->getTitle() == "") {
+                return [
+                    'style' => 'width: 20px !Important',
+                ];
+            } elseif ($column->isField('id')) {
+
+                return [
+                    'style' => 'width: 20px !Important',
+                ];
+            }
+            return [];
+        });
     }
 
     public function columns(): array
@@ -40,11 +54,11 @@ class WorkDiaryTable extends DataTableComponent
                 ->sortable(),
             Column::make("Vozilo", "car_plates")
                 ->sortable(),
-            Column::make("")
+            Column::make("", "testis")
                 ->unclickable()
                 ->label(
                     fn($row, Column $column) => view('components.table.table-actions', ['row' => $row, 'livewire' => 'modules.workday-diary.table-actions'])
-                )->html(),
+                ),
         ];
     }
 
