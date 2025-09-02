@@ -42,6 +42,8 @@ class WorkDiaryTable extends DataTableComponent
                 ->sortable(),
             Column::make("user_id", "user_id")
                 ->hideIf(TRUE),
+            Column::make("construction_site_id", "construction_site_id")
+                ->hideIf(TRUE),
             Column::make("Korisnik")
                 ->label(
                     fn($row, Column $column) => $this->getUserName($row)
