@@ -13,7 +13,12 @@
         </div>
       @else
         <div class="modal-header">
-          <h5 class="modal-title">{{ mb_strtoupper($title) }}</h5>
+          <div class="">
+            <h5 class="modal-title">{{ mb_strtoupper($title) }}</h5>
+            @if($subtitle)
+              {{ $subtitle }}
+            @endif
+          </div>
           <x-ui.btn type="dar.sm" icon="x-lg" :wClickMethod=$closeModelMethod />
         </div>
         <div class="modal-body">

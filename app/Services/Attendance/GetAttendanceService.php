@@ -4,6 +4,8 @@ namespace App\Services\Attendance;
 
 use App\Models\AttendanceCoOpModel;
 use App\Models\AttendanceModel;
+use App\Models\CooperatorWorkersModel;
+use App\Models\WorkerModel;
 
 /**
  * Class CreateAttendanceService.php.
@@ -66,5 +68,37 @@ class GetAttendanceService
     public function getCooperatorAttendance()
     {
         return $this->cooperatorAttendance;
+    }
+
+    /**
+     * Alter the attendance data for the edit attendance component.
+     */
+    public function createDataForEditAttendanceComponent()
+    {
+        $myWorkersArray = [];
+        $cooperatorsArray = [];
+        foreach ($this->myWorkerAttendance as $att) {
+            if ($att->work_hours != NULL) {
+                $worker = WorkerModel::find($att->worker_id);
+                $myWorkersArray[$worker->id] = [
+                    'att_id' => $att->id,
+                    'name' => $worker->fullName,
+                    'att_time' => $att->work_hours
+                ];
+            }
+        }
+        foreach ($this->cooperatorAttendance as $att) {
+            if ($att->work_hours != NULL) {
+                $worker = CooperatorWorkersModel::with('getCoOpInfo')->find($att->worker_id);
+                $cooperatorsArray[$worker->id] = [
+                    'att_id' => $att->id,
+                    'name' => $worker->fullName . '-' . $worker->getCoOpInfo->name,
+                    'att_time' => $att->work_hours
+                ];
+            }
+        }
+        $this->myWorkerAttendance = $myWorkersArray;
+        $this->cooperatorAttendance = $cooperatorsArray;
+        return $this;
     }
 }

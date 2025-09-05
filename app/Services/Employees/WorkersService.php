@@ -7,6 +7,7 @@ use App\Models\WorkerModel;
 use App\Traits\MagicStatic;
 use App\Models\CooperatorsModel;
 use App\Models\CooperatorWorkersModel;
+use App\Models\User;
 
 /**
  * Class GetAllWorkersService.
@@ -29,8 +30,14 @@ class WorkersService
     /**
      * Get all the workers from the DB
      */
-    protected function myWorkers()
+    protected function myWorkers(bool $withGroupLeader = FALSE)
     {
+        if ($withGroupLeader) {
+            $workersID = WorkerModel::where('is_worker', TRUE)->pluck('id')->toArray();
+            $groupLeaderID = User::where('type', User::USER_TYPE_GROUP_LEADER)->pluck('worker_id')->toArray();
+            $this->myWorkers = WorkerModel::whereIn('id', array_merge($workersID, $groupLeaderID));
+            return $this;
+        }
         $this->myWorkers = WorkerModel::where('is_worker', TRUE);
         return $this;
     }

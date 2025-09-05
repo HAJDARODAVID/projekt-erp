@@ -18,6 +18,7 @@ class Modal extends Component
     public $id;
     public $wKey;
     public $alert;
+    public $subtitle;
 
     /**
      * Create a new component instance.
@@ -32,6 +33,7 @@ class Modal extends Component
         $id = NULL,
         $wKey = NULL,
         $alert = NULL,
+        $subtitle = NULL,
     ) {
         $this->title = $title;
         $this->modalStatus = $modalStatus;
@@ -42,6 +44,7 @@ class Modal extends Component
         $this->id = $id;
         $this->wKey = $wKey;
         $this->alert = $alert;
+        $this->subtitle = $subtitle;
     }
 
     /**

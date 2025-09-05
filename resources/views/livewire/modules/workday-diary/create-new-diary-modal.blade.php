@@ -52,9 +52,9 @@
                                 @endif
                                 
                             </x-ui.input>
-                            
-                            <div class="vr"></div>
-                            <x-ui.btn type="lig.sm" icon="search" />
+                            {{-- TODO: ADD search modal here --}}
+                            {{-- <div class="vr"></div>
+                            <x-ui.btn type="lig.sm" icon="search" /> --}}
                         </div></div>
                         <hr>
                         @if($workerSearch)
