@@ -28,4 +28,19 @@ class Test2 extends Controller
     {
         return view('module-container');
     }
+
+    public function changeLog()
+    {
+        // Get the last released tag. This command finds the most recent tag.
+        $lastTag = exec('git describe --tags --abbrev=0');
+
+
+
+        // **CORRECTED**
+        // Using single quotes around the format string to prevent the bash syntax error.
+        $changelog = exec("git log --pretty=format:'- %s (%h)' --no-merges");
+
+        dd($changelog);
+        return 'im in';
+    }
 }
