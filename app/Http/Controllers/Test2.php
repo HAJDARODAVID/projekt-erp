@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Exports\Domain\Workers\Cooperators\CoOpWorkHoursExport;
 use App\Services\HidroProjekt\Domain\Api\WeatherForecastService;
 use App\Services\HidroProjekt\Domain\Workers\Cooperators\CooperatorsExportWorkHoursService;
@@ -42,5 +43,12 @@ class Test2 extends Controller
 
         dd($changelog);
         return 'im in';
+    }
+
+    public function qr()
+    {
+        $qrCode = QrCode::size(150)->generate('name:david;surname:hajdarovic');
+        return response($qrCode)->header('Content-Type', 'image/svg+xml');
+        return view('test', compact('qrCode'));
     }
 }

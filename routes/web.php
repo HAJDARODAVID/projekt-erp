@@ -302,4 +302,4 @@ Route::get('test', function () {
     return (new ExpensesReportService)->getDataForExportByMonth(9);
 });
 
-Route::get('/test2', [App\Http\Controllers\Test2::class, 'changeLog']);
+Route::get('/test2', [App\Http\Controllers\Test2::class, 'qr']);
