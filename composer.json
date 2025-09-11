@@ -5,10 +5,10 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "elibyy/tcpdf-laravel": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
-        "intervention/image": "^3.2",
+        "intervention/image": "^2.7",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -16,7 +16,9 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.3",
         "maatwebsite/excel": "^3.1",
-        "rappasoft/laravel-livewire-tables": "^3.7"
+        "rappasoft/laravel-livewire-tables": "^3.7",
+        "spatie/browsershot": "^3.61",
+        "spatie/laravel-pdf": "^1.1"
     },
     "require-dev": {
         "deployer/deployer": "^7.4",
