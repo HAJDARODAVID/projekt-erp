@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Router;
 use App\Exports\Domain\Workers\Cooperators\CoOpWorkHoursExport;
 use App\Services\HidroProjekt\Domain\Api\WeatherForecastService;
 use App\Services\HidroProjekt\Domain\Workers\Cooperators\CooperatorsExportWorkHoursService;
@@ -42,5 +43,35 @@ class Test2 extends Controller
 
         dd($changelog);
         return 'im in';
+    }
+
+    public function getGetRouts(Router $router)
+    {
+        // Get the entire collection of routes registered in the application.
+        $allRoutes = $router->getRoutes();
+
+        // Initialize an array to store the filtered GET routes.
+        $getRoutes = [];
+
+        // Iterate over the entire route collection.
+        foreach ($allRoutes as $route) {
+            //dd($route->methods());
+            // Check if the route's methods include 'GET'.
+            // The `getMethods()` method returns an array of HTTP verbs for the route.
+            if (in_array('GET', $route->methods())) {
+                // For each route, add key information to our array.
+                $getRoutes[] = [
+                    'uri'       => $route->uri,
+                    'name'      => $route->getName(),
+                    'action'    => $route->getActionName(),
+                    'methods'   => $route->methods()[0],
+                ];
+            }
+        }
+
+        // Return the array of GET routes as a JSON response.
+        return response()->json([
+            'get_routes' => $getRoutes
+        ]);
     }
 }
