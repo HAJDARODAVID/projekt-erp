@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Modules\WorkdayDiary;
 
+use App\Models\AttendanceCoOpModel;
+use App\Models\AttendanceModel;
 use Livewire\Component;
 use App\Traits\ModalTrait;
 use App\Services\Assets\AllCompanyCarsService;
+use App\Services\Attendance\EditAttendanceService;
 use App\Services\Employees\GroupLeaderService;
 use App\Services\ConstructionSite\AllConstructionSitesService;
 use App\Services\WorkdayDiary\EditWorkdayDiaryService;
@@ -88,6 +91,14 @@ class EditDiaryModal extends Component
                     return $this->diaryInfo['date'] = $this->wdd->date ?? NULL;
                 }
                 $service->setDate($value)->execute();
+                $attIDsMyWorkers = AttendanceModel::where('working_day_record_id', $this->row->id)->pluck('id')->toArray();
+                $attIDsCoOp = AttendanceCoOpModel::where('working_day_record_id', $this->row->id)->pluck('id')->toArray();
+                foreach ($attIDsMyWorkers as $att) {
+                    EditAttendanceService::myWorker($att)->changeDate($value);
+                }
+                foreach ($attIDsCoOp as $att) {
+                    EditAttendanceService::cooperator($att)->changeDate($value);
+                }
                 $this->save['date'] = TRUE;
                 break;
             case 'carId':
