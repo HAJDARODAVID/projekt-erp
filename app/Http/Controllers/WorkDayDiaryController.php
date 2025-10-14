@@ -27,6 +27,7 @@ class WorkDayDiaryController extends Controller
     public function workDayDiaries()
     {
         return $this->module();
+        //TODO: delete this after production is IO
         //return view('hidro-projekt.WP.workDayDiaries');
     }
 
