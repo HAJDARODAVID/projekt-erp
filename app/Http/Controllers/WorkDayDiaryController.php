@@ -15,15 +15,20 @@ use Jenssegers\Agent\Facades\Agent;
 class WorkDayDiaryController extends Controller
 {
 
+    /**Define the module name */
     const MODULE = 'workday-diary';
 
+    /**
+     * Main page for the work day diaries.
+     * Show table of work day diaries, and CRUD option.
+     * 
+     * @return view Livewire module  
+     */
     public function workDayDiaries()
     {
         return $this->module();
         //return view('hidro-projekt.WP.workDayDiaries');
     }
-
-
 
     public function showWorkDayDiary($id)
     {
