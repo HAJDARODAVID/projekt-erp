@@ -24,7 +24,7 @@ class WorkDayDiaryController extends Controller
      * 
      * @return view Livewire module  
      */
-    public function workDayDiaries()
+    public function getAllWorkDayDiaries()
     {
         return $this->module();
         //TODO: DELETE THIS! after production is IO

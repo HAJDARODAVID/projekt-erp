@@ -233,7 +233,7 @@ Route::prefix('/')
                     });
                 Route::controller(WorkDayDiaryController::class)
                     ->group(function () {
-                        Route::get('work_day_diaries', 'workDayDiaries')->name('hp_workDayDiaries');
+                        Route::get('work-day-diaries', 'getAllWorkDayDiaries')->name('getAllWorkDayDiaries');
                         Route::get('work_day_diaries/{id}', 'showWorkDayDiary')->name('hp_showWorkDayDiary');
                     });
                 Route::controller(InternalDeliveryNoteController::class)
