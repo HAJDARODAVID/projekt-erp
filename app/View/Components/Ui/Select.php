@@ -13,6 +13,7 @@ class Select extends Component
     public $wModelEvent;
     public $options;
     public $initOption;
+    public $tooltip;
     /**
      * Create a new component instance.
      */
@@ -22,12 +23,14 @@ class Select extends Component
         $wModel = NULL,
         $wModelEvent = 'change',
         $initOption = NULL,
+        $tooltip = NULL,
     ) {
         $this->options = $options;
         $this->label = $label;
         $this->wModel = $wModel;
         $this->wModelEvent = $wModelEvent;
         $this->initOption = $initOption;
+        $this->tooltip = $tooltip;
     }
 
     /**

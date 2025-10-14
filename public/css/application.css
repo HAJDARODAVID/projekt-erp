@@ -41,3 +41,76 @@
 .hide-spinner {
     display: none !important;
 }
+
+.help-icon {
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.help-icon:hover {
+    color: #1d4ed8;
+    /* Tailwind blue-700 on hover */
+}
+
+/* Custom styling for the ? icon */
+.help-icon-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Manually style the div to look like a Bootstrap tooltip */
+.bootstrap-mimic-tooltip {
+    /* Mimics Bootstrap's default dark background and text */
+    background-color: #212529;
+    /* Black/Dark Gray */
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.35rem;
+    /* Small rounding */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    z-index: 1080;
+    /* High z-index */
+    max-width: 250px;
+}
+
+/* Arrow styling (mimicking Bootstrap's bottom arrow for 'top' placement) */
+.bootstrap-mimic-tooltip::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    /* Position below the box */
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #212529 transparent transparent transparent;
+    /* Arrow color matches background */
+}
+
+.tool-tip {
+    position: absolute;
+    left: 100%;
+    top: 100%;
+    transform: translateX(-50%);
+    margin-top: 2px;
+    z-index: 9999;
+}

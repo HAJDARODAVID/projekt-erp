@@ -20,7 +20,7 @@
                         <hr>
                         <x-ui.select :options=$constructionSites label="Gradilište" initOption="Gradilište..." class="form-select-sm {{ isset($error['consId']) ?  'is-invalid' : NULL }}" wModel="diaryInfo.consId" />
                         <div class="row mt-2">
-                            <div class="col"><x-ui.select :options=$groupLeaders label="Poslovođa" initOption="Poslovođa..." class="form-select-sm" wModel="diaryInfo.gLeaderId" /></div>
+                            <div class="col"><x-ui.select :options=$groupLeaders label="Poslovođa" initOption="Poslovođa..." class="form-select-sm" wModel="diaryInfo.gLeaderId" tooltip="Ako nema odabranog poslovođe, dnevnik rada kreirat će se na ime korisnika koji koji trenutno stvara novi dnevnik!" /></div>
                             <div class="col"><x-ui.input class="form-select-sm {{ isset($error['date']) ?  'is-invalid' : NULL }}" label="Datum" type="date" wModel="diaryInfo.date" /></div>
                         </div>
                         <hr>

@@ -49,3 +49,16 @@
 .no-bg-color {
     background-color: rgb(255, 255, 255, 0)
 }
+
+.tool-tip {
+    position: absolute;
+    left: 150%;
+    top: 100%;
+    transform: translateX(0%);
+    margin-top: 2px;
+    z-index: 9999;
+    padding: 3px;
+    box-shadow: 2px 2px 4px #747373;
+    background-color: rgb(243, 243, 243);
+    font-size: 12px;
+}
