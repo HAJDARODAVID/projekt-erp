@@ -17,7 +17,7 @@ class WorkDayDiaryController extends Controller
 
     const MODULE = 'workday-diary';
 
-    public function workDayDiaries(Request $request)
+    public function workDayDiaries()
     {
         return $this->module();
         //return view('hidro-projekt.WP.workDayDiaries');
