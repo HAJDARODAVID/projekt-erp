@@ -15,6 +15,14 @@
                         {{ $headerInput }}
                     </div>
                 @endif
+                @if ($tabLinks && $title)
+                   <div class="vr"></div> 
+                @endif
+                @if($tabLinks)
+                    <div class="">
+                        <x-ui.module.tab-links :routes=$tabLinks />
+                    </div>
+                @endif
             </div>
             <div class="">{{ $actionsBtn }}</div>
         </div>

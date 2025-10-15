@@ -18,6 +18,7 @@ use App\Http\Controllers\ReportDataController;
 use App\Http\Controllers\CostOverviewController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\AccessControlListController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
 use App\Http\Controllers\HidroProjekt\TicketController;
@@ -114,6 +115,17 @@ Route::prefix('/')
     ->middleware(['auth', 'userRights'])
     ->group(function () {
 
+        /**
+         * All routes for controlling the application settings
+         */
+        Route::prefix('/app')
+            ->group(function () {
+                Route::controller(ApplicationController::class)
+                    ->group(function () {
+                        Route::get('/', 'index')->name('applicationDashboard');
+                        Route::get('/routes', 'getAllApplicationRoutes')->name('getAllApplicationRoutes');
+                    });
+            });
         /**
          * Admin routes
          */
