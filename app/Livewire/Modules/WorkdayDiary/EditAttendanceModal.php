@@ -117,7 +117,7 @@ class EditAttendanceModal extends Component
                             if ($data['att_id'] == NULL) {
                                 $createAttendanceService->setWorkerID($workerId)
                                     ->setDiaryID($this->row->id)
-                                    ->setType($this->row['workdayType'])
+                                    ->setType($this->row->work_type)
                                     ->setWorkHours($data['att_time'])
                                     ->setDate($this->row['date']);
                                 $createAttendanceService->execute();
