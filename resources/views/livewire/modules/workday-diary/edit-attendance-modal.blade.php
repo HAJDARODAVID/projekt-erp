@@ -8,7 +8,7 @@
             <b>Datum:</b> {{ $row->date }}   
         </x-slot:subtitle>
         
-        <x-ui.card loading="addWorkerToAttendance, removeWorkerFromAttendance">
+        <x-ui.card loading="addWorkerToAttendance, removeWorkerFromAttendance, saveAttendance">
             <div class="row">
                 <div class="col-md-6 d-flex gap-2">
                     <x-ui.input placeholder="Traži..." size="sm" :removeAddOnXP=TRUE wire:model.live.debounce.250ms='workerSearch'> 
