@@ -48,9 +48,26 @@ class EditAttendanceService
         return new self($id, self::COOPERATOR_TYPE);
     }
 
+    /**
+     * Set and save only the attendance model date.
+     * 
+     * @return void
+     */
     public function changeDate($date): void
     {
         $this->attendanceModel->date = $date;
+        $this->attendanceModel->save();
+        return;
+    }
+
+    /**
+     * Set and save only the attendance model type.
+     * 
+     * @return void
+     */
+    public function changeType($type): void
+    {
+        $this->attendanceModel->type = $type;
         $this->attendanceModel->save();
         return;
     }

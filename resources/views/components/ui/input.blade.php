@@ -1,6 +1,11 @@
 <div class="form-group">
     @if ($label)
-       <label>{{ $label }}</label> 
+       <div class="d-flex gap-1">
+            <label>{{ $label }}</label>
+            @if($tooltip)
+                <x-ui.tool-tips :message=$tooltip/>
+            @endif
+        </div>
     @endif
     <div class="input-group {{ $inputGroupSize }}"> 
         @if ($prepend)

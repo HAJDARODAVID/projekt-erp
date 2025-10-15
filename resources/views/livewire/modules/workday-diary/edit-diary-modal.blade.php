@@ -26,7 +26,7 @@
                         <x-ui.select :options=$constructionSites label="Gradilište" initOption="Gradilište..." class="form-select-sm {{ isset($error['consId']) ?  'is-invalid' : NULL }} {{ isset($save['consId']) ?  'is-valid' : NULL }}" wModel="diaryInfo.consId" />
                         <div class="row mt-2">
                             <div class="col"><x-ui.select :options=$groupLeaders label="Poslovođa" initOption="Poslovođa..." class="form-select-sm {{ isset($error['gLeaderId']) ?  'is-invalid' : NULL }} {{ isset($save['gLeaderId']) ?  'is-valid' : NULL }}" wModel="diaryInfo.gLeaderId" /></div>
-                            <div class="col"><x-ui.input class="form-select-sm {{ isset($error['date']) ?  'is-invalid' : NULL }} {{ isset($save['date']) ?  'is-valid' : NULL }}" label="Datum" type="date" wModel="diaryInfo.date" wModelEvent="live"/></div>
+                            <div class="col"><x-ui.input class="form-select-sm {{ isset($error['date']) ?  'is-invalid' : NULL }} {{ isset($save['date']) ?  'is-valid' : NULL }}" label="Datum" type="date" wModel="diaryInfo.date" wModelEvent="live" tooltip="Promjena datuma primjenit će se na prisustvo radnika"/></div>
                         </div>
                         <hr>
                         <div class="mt-2"><x-ui.select :options=$companyCars label="Vozilo" initOption="Vozilo..." class="form-select-sm {{ isset($error['carId']) ?  'is-invalid' : NULL }} {{ isset($save['carId']) ?  'is-valid' : NULL }}" wModel="diaryInfo.carId" /></div>

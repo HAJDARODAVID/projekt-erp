@@ -18,7 +18,7 @@ class Input extends Component
     public $inputGroupSize;
     public $removeAddOnXP;
     public $width;
-
+    public $tooltip;
     public $style = [];
 
     /**
@@ -35,6 +35,7 @@ class Input extends Component
         $size = NULL,
         $removeAddOnXP = NULL,
         $width = NULL,
+        $tooltip = NULL,
     ) {
         $this->type = $type;
         $this->label = $label;
@@ -45,6 +46,7 @@ class Input extends Component
         $this->append = $append;
         $this->inputGroupSize = $size == NULL ? NULL : $this->setInputGroupSize($size);
         $this->removeAddOnXP = $removeAddOnXP === TRUE ? 'px-0' : NULL;
+        $this->tooltip = $tooltip;
 
         $this->noBorderRadius()
             ->width($width);

@@ -65,9 +65,14 @@ class EditDiaryModal extends Component
         $this->save = [];
         $this->wdd = (new GetWorkdayDiaryService($this->row->id))->getWorkDayDiary();
         $service = new EditWorkdayDiaryService($this->row->id);
+        $attIDsMyWorkers = AttendanceModel::where('working_day_record_id', $this->row->id)->pluck('id')->toArray();
+        $attIDsCoOp = AttendanceCoOpModel::where('working_day_record_id', $this->row->id)->pluck('id')->toArray();
         switch ($key) {
             case 'workdayType':
                 $service->setWorkType($value)->execute();
+                foreach ($attIDsMyWorkers as $att) {
+                    EditAttendanceService::myWorker($att)->changeType($value);
+                }
                 break;
             case 'consId':
                 if ($value == "init-option") {
@@ -91,8 +96,6 @@ class EditDiaryModal extends Component
                     return $this->diaryInfo['date'] = $this->wdd->date ?? NULL;
                 }
                 $service->setDate($value)->execute();
-                $attIDsMyWorkers = AttendanceModel::where('working_day_record_id', $this->row->id)->pluck('id')->toArray();
-                $attIDsCoOp = AttendanceCoOpModel::where('working_day_record_id', $this->row->id)->pluck('id')->toArray();
                 foreach ($attIDsMyWorkers as $att) {
                     EditAttendanceService::myWorker($att)->changeDate($value);
                 }
