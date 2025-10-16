@@ -6,22 +6,31 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
+    /**Define the module name */
+    const MODULE = 'app-settings';
+
     public function __construct()
     {
-        $this->setMainTitle('Application settings')
+        $this->setMainTitle('App control center')
             ->setTabLinks([
                 'applicationDashboard' => 'Home',
-                'getAllApplicationRoutes' => 'Routes',
+                'getAllApplicationModules' => 'Modules',
             ]);
     }
 
+    /**
+     * Show the application dashboard.
+     */
     public function index()
     {
         return $this->module();
     }
 
-    public function getAllApplicationRoutes()
+    /**
+     * Show all the application GET routes.
+     */
+    public function getAllApplicationModules()
     {
-        return $this->module();
+        return $this->module('modules');
     }
 }

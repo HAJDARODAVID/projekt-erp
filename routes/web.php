@@ -123,7 +123,7 @@ Route::prefix('/')
                 Route::controller(ApplicationController::class)
                     ->group(function () {
                         Route::get('/', 'index')->name('applicationDashboard');
-                        Route::get('/routes', 'getAllApplicationRoutes')->name('getAllApplicationRoutes');
+                        Route::get('/routes', 'getAllApplicationModules')->name('getAllApplicationModules');
                     });
             });
         /**
