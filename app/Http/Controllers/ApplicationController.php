@@ -7,15 +7,12 @@ use Illuminate\Http\Request;
 class ApplicationController extends Controller
 {
     /**Define the module name */
-    const MODULE = 'app-settings';
+    protected $module = 'app-settings';
 
-    public function __construct()
+    public function moduleConfig()
     {
         $this->setMainTitle('App control center')
-            ->setTabLinks([
-                'applicationDashboard' => 'Home',
-                'getAllApplicationModules' => 'Modules',
-            ]);
+            ->setTabLinks();
     }
 
     /**

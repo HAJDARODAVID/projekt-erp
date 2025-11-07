@@ -56,7 +56,7 @@ class WorkDiaryTable extends DataTableComponent
                 ->sortable(),
             Column::make("Vozilo", "car_plates")
                 ->sortable(),
-            Column::make("", "testis")
+            Column::make("", "actions")
                 ->unclickable()
                 ->label(
                     fn($row, Column $column) => view('components.table.table-actions', ['row' => $row, 'livewire' => 'modules.workday-diary.table-actions'])

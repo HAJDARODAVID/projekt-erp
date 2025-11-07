@@ -14,17 +14,28 @@ class NavTabContent extends Component
 {
     public $tabKey;
     public $active = FALSE;
-    
+    public $divHeight = NULL;
+
     /**
      * Create a new component instance.
      */
     public function __construct(
         $tabKey,
-        $selectedTab,
-    )
-    {
+        $divHeight = NULL,
+        $selectedTab = NULL,
+    ) {
         $this->tabKey = $tabKey;
+        $this->divHeight = $this->setHeight($divHeight);
         $this->active = $this->tabKey == $selectedTab ? TRUE : FALSE;
+    }
+
+    private function setHeight($divHeight)
+    {
+        switch ($divHeight) {
+            case 'full':
+                return "h-100 d-flex flex-column";
+                break;
+        }
     }
 
     /**

@@ -34,6 +34,7 @@
         </div>
     </div>
     <x-ui.notification />
+    @livewire('exception-modal')
     <!-- JavaScript to handle the loading state -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {

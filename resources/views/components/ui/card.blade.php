@@ -1,6 +1,6 @@
 <div {{ $attributes->merge(['class' => 'card '. $extendClassAtt . ' ' . $border . ' ' . $noBgColor]) }} style="border-radius: 0px;">
     @if($title || $headerActions) 
-        <div class="card-header" >
+        <div class="card-header" style="@if($headerHight) height: {{$headerHight}}px; @endif">
             <div class="d-flex justify-content-between">
                 <div class="">{{ $title }}</div>
                 @if ($headerActions)
@@ -10,8 +10,8 @@
         </div>
     @endif
 
-    <div class="card-body position-relative {{ $noBodyPadding }}" style="overflow: hidden">
-        <div wire:target="{{ $loading }}" wire:loading.class="blurred-content">
+    <div class="card-body position-relative {{ $noBodyPadding }} d-flex flex-column flex-fill" style="overflow: hidden">
+        <div class="d-flex flex-column flex-fill" wire:target="{{ $loading }}" wire:loading.class="blurred-content">
             {{ $slot }}
         </div>
         @if ($loading)

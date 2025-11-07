@@ -62,3 +62,68 @@
     background-color: rgb(243, 243, 243);
     font-size: 12px;
 }
+
+.table-fixed-rows {
+    table-layout: auto;
+    /* or fixed if you want fixed column widths */
+    width: 100%;
+}
+
+.table-fixed-rows thead th,
+.table-fixed-rows tbody td {
+    padding: .25rem .5rem;
+    /* reduce cell padding if needed */
+    line-height: 1.1;
+    /* control height via line-height */
+    vertical-align: middle;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* force a fixed visual row height */
+.table-fixed-rows tbody tr {
+    height: 45px;
+    /* desired row height */
+    min-height: 45px;
+    max-height: 45px;
+}
+
+.activated-list-item {
+    background-color: rgb(201, 201, 201);
+}
+
+/* remove default list styles and layout the small dot */
+.custom-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.custom-list>li {
+    margin: 0;
+    padding: 0;
+}
+
+/* create the dot with a pseudo-element (must have content) */
+.custom-list>li::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #6c757d;
+    /* default gray */
+}
+
+/* color variants */
+.status-green::before {
+    background-color: #28a745 !important;
+}
+
+.status-red::before {
+    background: #dc3545 !important;
+}

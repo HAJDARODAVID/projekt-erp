@@ -10,13 +10,16 @@ use Illuminate\View\Component;
 class TabLinks extends Component
 {
     public $routes;
+    public $specialIndexIcon;
     /**
      * Create a new component instance.
      */
     public function __construct(
         $routes = [],
+        $specialIndexIcon = NULL,
     ) {
         $this->routes = $this->checkIfRoutesExists($routes);
+        $this->specialIndexIcon = $specialIndexIcon;
     }
 
     /**

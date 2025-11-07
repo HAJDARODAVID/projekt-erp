@@ -10,6 +10,7 @@ trait TabTrait
     public function setTabs(array $tabs)
     {
         $this->tabs = $tabs;
+        $this->activeTab = array_key_first($this->tabs) ?? 0;
         return $this;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User\UserType;
 use Illuminate\Routing\Router;
 use App\Exports\Domain\Workers\Cooperators\CoOpWorkHoursExport;
 use App\Services\HidroProjekt\Domain\Api\WeatherForecastService;
@@ -73,5 +74,11 @@ class Test2 extends Controller
         return response()->json([
             'get_routes' => $getRoutes
         ]);
+    }
+
+    public function helperTesting()
+    {
+        dd(UserType::init()->getAssignableTypes('hr'));
+        return UserType::init()->getAssignableTypes('hr');
     }
 }

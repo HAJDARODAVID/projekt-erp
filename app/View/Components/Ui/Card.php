@@ -16,6 +16,7 @@ class Card extends Component
     public $noBodyPadding;
     public $border;
     public $noBgColor;
+    public $headerHight;
     /**
      * Create a new component instance.
      */
@@ -28,6 +29,7 @@ class Card extends Component
         $noBodyPadding = FALSE,
         $border = TRUE,
         $noBgColor = NULL,
+        $headerHight = NULL,
     ) {
         $this->title = $title;
         $this->extend = $extend;
@@ -37,6 +39,7 @@ class Card extends Component
         $this->noBodyPadding = $noBodyPadding == TRUE ? 'p-0' : NULL;
         $this->border = $border == TRUE ? NULL : 'no-border-style';
         $this->noBgColor = $noBgColor == TRUE ? 'no-bg-color' : NULL;
+        $this->headerHight = $headerHight;
     }
 
     /**

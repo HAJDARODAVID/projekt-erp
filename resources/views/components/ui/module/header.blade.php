@@ -1,6 +1,6 @@
 <div class="">
     <div class="px-2 pb-2">
-        <div class="d-flex justify-content-between align-items-center gap-1">
+        <div class="d-flex justify-content-between align-items-center gap-1" style="height: 39px">
             <div class="d-flex gap-2">
                 @if($title)
                     <div class="align-content-center">
@@ -20,7 +20,7 @@
                 @endif
                 @if($tabLinks)
                     <div class="">
-                        <x-ui.module.tab-links :routes=$tabLinks />
+                        <x-ui.module.tab-links :routes=$tabLinks :specialIndexIcon=$specialIndexIcon />
                     </div>
                 @endif
             </div>

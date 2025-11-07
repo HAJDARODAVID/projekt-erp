@@ -2,9 +2,9 @@
 
 namespace [namespace];
 
-use Livewire\Component;
+use App\Livewire\LivewireController;
 
-class [class] extends Component
+class [class] extends LivewireController
 {
     public function render()
     {

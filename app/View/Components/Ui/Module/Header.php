@@ -12,6 +12,7 @@ class Header extends Component
     public $actionsBtn;
     public $headerInput;
     public $tabLinks;
+    public $specialIndexIcon;
     /**
      * Create a new component instance.
      */
@@ -20,11 +21,13 @@ class Header extends Component
         $actionsBtn = NULL,
         $headerInput = NULL,
         $tabLinks = NULL,
+        $specialIndexIcon = NULL,
     ) {
         $this->title = $title;
         $this->actionsBtn = $actionsBtn;
         $this->headerInput = $headerInput;
         $this->tabLinks = $tabLinks;
+        $this->specialIndexIcon = $specialIndexIcon;
     }
 
     /**

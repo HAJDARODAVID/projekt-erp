@@ -12,22 +12,22 @@ trait ValidationTrait
     /**
      * Store all the defined rules for validation
      */
-    private $validation_rules = [];
+    protected $validation_rules = [];
 
     /**
      * When the validation starts, here will be all the attributes pass from wherever
      */
-    private $validationAttributes = [];
+    protected $validationAttributes = [];
 
     /**
      * Store all attribute errors
      */
-    private $validationErrors = [];
+    protected $validationErrors = [];
 
     /**
      * Add a rule for single data set.
      */
-    private function addValidationRule(string $name, string $rule)
+    protected function addValidationRule(string $name, string $rule)
     {
         $this->validation_rules[$name] = $rule;
         return $this;
@@ -36,7 +36,7 @@ trait ValidationTrait
     /**
      * Add rules for validation
      */
-    private function addValidationAttributeRules(array $rules)
+    protected function addValidationAttributeRules(array $rules)
     {
         $this->validation_rules = $rules;
         return $this;
@@ -48,7 +48,7 @@ trait ValidationTrait
      * @param array $data The input array, which can contain the data for validation.
      * @return bool Return true if the validation has passed of false if failed.
      */
-    private function attributesValidation(array $data)
+    protected function attributesValidation(array $data)
     {
         /**Reset all validation errors */
         $this->validationErrors = [];
@@ -75,7 +75,7 @@ trait ValidationTrait
         return count($this->validationErrors) > 0 ? FALSE : TRUE;
     }
 
-    private function getAllValidationErrors()
+    protected function getAllValidationErrors()
     {
         return $this->validationErrors;
     }
@@ -83,7 +83,7 @@ trait ValidationTrait
     /**
      * Given attribute must be set
      */
-    private function required($name): bool
+    protected function required($name): bool
     {
         if (!array_key_exists($name, $this->validationAttributes)) {
             $this->validationErrors[$name] = TRUE;
@@ -99,7 +99,7 @@ trait ValidationTrait
     /**
      * Given attribute be max len of 
      */
-    private function max($name, $len): bool
+    protected function max($name, $len): bool
     {
         if (isset($this->validationAttributes[$name]) && strlen($this->validationAttributes[$name]) <= $len) {
             return TRUE;
@@ -111,7 +111,7 @@ trait ValidationTrait
     /**
      * Given attribute be min len of 
      */
-    private function min($name, $len): bool
+    protected function min($name, $len): bool
     {
         if (isset($this->validationAttributes[$name]) && strlen($this->validationAttributes[$name]) >= $len) {
             return TRUE;
@@ -123,7 +123,7 @@ trait ValidationTrait
     /**
      * Given attribute must be type of date
      */
-    private function date($name): bool
+    protected function date($name): bool
     {
         if (isset($this->validationAttributes[$name])) {
             if ($this->validationAttributes[$name] == "" || $this->validationAttributes[$name] == NULL) return TRUE;
@@ -141,7 +141,7 @@ trait ValidationTrait
     /**
      * Given attribute must be allowed option
      */
-    private function allowedOptions($name, $array): bool
+    protected function allowedOptions($name, $array): bool
     {
         if (!json_validate($array)) {
             $this->validationErrors[$name] = TRUE;
@@ -154,5 +154,21 @@ trait ValidationTrait
             $this->validationErrors[$name] = TRUE;
             return FALSE;
         }
+    }
+
+    /**
+     * Check if given attribute is a valid email
+     * 
+     * @param string $name Attribute name
+     * @return bool
+     */
+    protected function email(string $name): bool
+    {
+        // FILTER_VALIDATE_EMAIL uses PHP's robust internal filtering mechanism.
+        if (filter_var($this->validationAttributes[$name], FILTER_VALIDATE_EMAIL) === false) {
+            $this->validationErrors[$name] = TRUE;
+            return FALSE;
+        }
+        return TRUE;
     }
 }

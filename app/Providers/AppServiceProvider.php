@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Helpers\UserRightsHelper;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,13 +34,13 @@ class AppServiceProvider extends ServiceProvider
         // -- Check if user has right
         Blade::directive('hasRights', function ($expression) {
             $right = 0;
-            if(Session::get('user_rights')){
+            if (Session::get('user_rights')) {
                 $right = in_array($expression, Session::get('user_rights')) ? TRUE : 0;
             }
 
-            if($right){
+            if ($right) {
                 return "<?php if(TRUE): ?>";
-            }else{
+            } else {
                 return "<?php if(FALSE): ?>";
             }
         });

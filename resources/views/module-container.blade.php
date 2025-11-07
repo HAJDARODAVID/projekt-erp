@@ -3,7 +3,7 @@
 @section('content')
 <div class="mt-3">
     @if ($mainTitle) 
-        <x-ui.module.header :title=$mainTitle :tabLinks=$tabLinks>
+        <x-ui.module.header :title=$mainTitle :tabLinks=$tabLinks :specialIndexIcon=$specialIndexIcon >
             {{-- <x-slot:actionsBtn> @livewire('modules.workday-diary.create-new-diary-modal') </x-slot> --}}
         </x-ui.module-header>
     @endif

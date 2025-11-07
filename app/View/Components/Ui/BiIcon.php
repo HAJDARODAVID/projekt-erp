@@ -10,6 +10,7 @@ class BiIcon extends Component
 {
     const ICON_ALIAS = [
         'save' => 'floppy',
+        'add' => 'plus-circle',
     ];
 
     public $icon = NULL;

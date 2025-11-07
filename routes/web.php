@@ -11,14 +11,15 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\ReportingController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\ParametersController;
 use App\Http\Controllers\ReportDataController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CostOverviewController;
 use App\Http\Controllers\WorkDayDiaryController;
 use App\Http\Controllers\AccessControlListController;
-use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
 use App\Http\Controllers\HidroProjekt\TicketController;
@@ -115,17 +116,6 @@ Route::prefix('/')
     ->middleware(['auth', 'userRights'])
     ->group(function () {
 
-        /**
-         * All routes for controlling the application settings
-         */
-        Route::prefix('/app')
-            ->group(function () {
-                Route::controller(ApplicationController::class)
-                    ->group(function () {
-                        Route::get('/', 'index')->name('applicationDashboard');
-                        Route::get('/routes', 'getAllApplicationModules')->name('getAllApplicationModules');
-                    });
-            });
         /**
          * Admin routes
          */
@@ -314,4 +304,49 @@ Route::get('test', function () {
     return (new ExpensesReportService)->getDataForExportByMonth(9);
 });
 
-Route::get('/test2', [App\Http\Controllers\Test2::class, 'getGetRouts']);
+Route::get('/test2', [App\Http\Controllers\Test2::class, 'helperTesting']);
+
+/**
+ * VERSION 3.0.0
+ */
+Route::prefix('/')
+    ->middleware(['auth'])
+    ->group(function () {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Application settings
+        |--------------------------------------------------------------------------
+        |
+        | Here is where all the routes regarding the application controls are.
+        | For defining the modules, routes etc. The menu controls and component controls.
+        |
+        */
+        Route::prefix('/app')
+            ->group(function () {
+                Route::controller(ApplicationController::class)
+                    ->group(function () {
+                        Route::get('/', 'index')->name('applicationDashboard');
+                        Route::get('/modules', 'getAllApplicationModules')->name('getAllApplicationModules');
+                    });
+            });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Human resources
+        |--------------------------------------------------------------------------
+        |
+        | Register here all the routes that will be used in the human resources.
+        |
+        */
+        Route::prefix('/hr')
+            ->group(function () {
+                Route::controller(EmployeesController::class)
+                    ->prefix('/employees')
+                    ->group(function () {
+                        Route::get('/', 'index')->name('getAllEmployees');
+                        Route::get('/info', 'getWorkerInfo')->name('getWorkerInfo');
+                        Route::get('/workplaces', 'getWorkplacesInfo')->name('getWorkplacesInfo');
+                    });
+            });
+    });

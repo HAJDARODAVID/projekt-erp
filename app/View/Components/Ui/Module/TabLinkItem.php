@@ -12,6 +12,7 @@ class TabLinkItem extends Component
     public $routeName;
     public $title;
     public $active;
+    public $specialIndexIcon;
     /**
      * Create a new component instance.
      */
@@ -19,10 +20,12 @@ class TabLinkItem extends Component
         $routeName = NULL,
         $title = NULL,
         $active = FALSE,
+        $specialIndexIcon = NULL,
     ) {
         $this->routeName = $routeName;
         $this->title = $title;
         $this->active = $this->checkIfThisRouteIsActive();
+        $this->specialIndexIcon = $specialIndexIcon;
     }
 
     private function checkIfThisRouteIsActive()

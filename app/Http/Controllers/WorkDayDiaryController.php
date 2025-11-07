@@ -16,7 +16,7 @@ class WorkDayDiaryController extends Controller
 {
 
     /**Define the module name */
-    const MODULE = 'workday-diary';
+    protected $module = 'workday-diary';
 
     /**
      * Main page for the work day diaries.
