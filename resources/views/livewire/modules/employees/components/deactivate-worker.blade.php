@@ -1,5 +1,5 @@
 <div>
-    <x-ui.btn type="lig.sm" icon="trash" wClickMethod="openModal" />
+    <x-ui.btn type="dan.sm" icon="trash" wClickMethod="openModal" />
 
     <x-ui.modal title='deaktivacija radnika' :modalStatus=$modalStatus>
         <x-ui.card :noBodyPadding=TRUE loading="closeModal, disableWorker" :border=FALSE>
