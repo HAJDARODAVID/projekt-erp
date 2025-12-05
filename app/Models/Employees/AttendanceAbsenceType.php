@@ -1,0 +1,103 @@
+<?php
+
+namespace App\Models\Employees;
+
+class AttendanceAbsenceType
+{
+    private $type;
+
+    const ABSENCE_TYPE_SICK_LEAVE = 10;
+    const ABSENCE_TYPE_PAID_LEAVE = 20;
+    const ABSENCE_TYPE_HOLIDAY    = 30;
+
+    const ABSENCE_TYPE = [
+        self::ABSENCE_TYPE_SICK_LEAVE => 'Sick leave',
+        self::ABSENCE_TYPE_PAID_LEAVE => 'Paid leave',
+        self::ABSENCE_TYPE_HOLIDAY    => 'Holiday',
+    ];
+
+    /** Array of types that should be excluded from other */
+    private $excludedTypes = [];
+
+    private function __construct($type)
+    {
+        if (key_exists($type, self::ABSENCE_TYPE)) $this->type = $type;
+    }
+
+    /**
+     * Create a new empty instance
+     * 
+     * @return self
+     */
+    public static function init()
+    {
+        return new self(NULL);
+    }
+
+    /**
+     * Set a new instance from a absence type
+     * 
+     * @param string $type Passthru the absence type
+     * @return self
+     */
+    public static function setByType(string $type)
+    {
+        return new self($type);
+    }
+
+    /**
+     * Set a new instance for sick leave
+     * 
+     * @return self
+     */
+    public static function setTypeSickLeave()
+    {
+        return new self(self::ABSENCE_TYPE_SICK_LEAVE);
+    }
+
+    /**
+     * Set a new instance for paid leave
+     * 
+     * @return self
+     */
+    public static function setTypePaidLeave()
+    {
+        return new self(self::ABSENCE_TYPE_PAID_LEAVE);
+    }
+
+    /**
+     * Set a new instance for holiday
+     * 
+     * @return self
+     */
+    public static function setTypeHoliday()
+    {
+        return new self(self::ABSENCE_TYPE_HOLIDAY);
+    }
+
+    /**
+     * Get the type description
+     * 
+     * @return string
+     */
+    public function description()
+    {
+        return self::ABSENCE_TYPE[$this->type];
+    }
+
+    /**
+     * Get the all the employee type
+     * 
+     * @return array
+     */
+    public function getAllType($exclude = TRUE)
+    {
+        $output = self::ABSENCE_TYPE;
+        if ($exclude) {
+            foreach ($this->excludedTypes as $type) {
+                unset($output[$type]);
+            }
+        }
+        return array_keys($output);
+    }
+}

@@ -17,6 +17,7 @@
     <link href="{{ url('assets/css/application.css') }}" rel="stylesheet">
 </head>
 <body class="h-100">
+    @livewire('exception-modal')
     <x-ui.layouts.header />
     <div class="container-fluid">
         <div class="row">
@@ -34,9 +35,9 @@
         </div>
     </div>
     <x-ui.notification />
-    @livewire('exception-modal')
+    
     <!-- JavaScript to handle the loading state -->
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get references to the spinner and content elements
             const spinnerContainer = document.getElementById('spinner-container');
@@ -48,12 +49,41 @@
             // Show the main content
             mainContent.style.display = 'block';
         });
+    </script> --}}
+    <script>
+
+        const clockElement = document.getElementById('clock-display');
+
+        /**
+         * Updates the clock and date display.
+         */
+        function updateClock() {
+            const now = new Date();
+            
+            // Format the time (HH:MM:SS AM/PM)
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+
+            // Update the DOM elements
+            clockElement.textContent = timeString;
+        }
+
+        // 1. Initial call to display the clock immediately
+        updateClock();
+
+        // 2. Set up an interval to call updateClock() every 1000 milliseconds (1 second)
+        setInterval(updateClock, 1000);
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
     </script>
     <script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url('assets/js/dashboard.js') }}"></script>
+    {{-- <script src="{{ url('assets/js/dashboard.js') }}"></script> --}}
     @livewireScripts
 </body>
 </html>

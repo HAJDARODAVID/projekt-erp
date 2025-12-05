@@ -20,7 +20,9 @@
                 ]) }} 
             placeholder="{{ $placeholder }}" 
             style="{{ implode('; ', $style) }}"
+            @if($wModel)
             wire:model.{{ $wModelEvent }} = '{{ $wModel }}'
+            @endif
         >
         @if ($append)
             <div class="input-group-append">

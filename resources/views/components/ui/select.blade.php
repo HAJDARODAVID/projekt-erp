@@ -1,5 +1,3 @@
-
-
 <div class="form-group">
     @if ($label)
         <div class="d-flex gap-1">
@@ -10,7 +8,9 @@
         </div>
     @endif
     <select {{ $attributes->merge(['class' => 'no-border-radius form-select ']) }}
-        wire:model.{{ $wModelEvent }} = '{{ $wModel }}' >
+        @if($wModel)
+        wire:model.{{ $wModelEvent }} = '{{ $wModel }}'
+        @endif >
         @if ($initOption)
             <option value="init-option" selected>{{ $initOption }}</option>
         @endif

@@ -15,6 +15,7 @@ class NavTabItem extends Component
     public $tabKey;
     public $method;
     public $active = FALSE;
+    public $py;
 
     /**
      * Create a new component instance.
@@ -24,12 +25,13 @@ class NavTabItem extends Component
         $tabKey,
         $method,
         $selectedTab,
-    )
-    {
+        $py,
+    ) {
         $this->title = $title;
         $this->tabKey = $tabKey;
         $this->method = $method;
         $this->active = $selectedTab == $tabKey ? TRUE : FALSE;
+        $this->py = $py;
     }
 
     /**

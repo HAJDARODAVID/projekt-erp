@@ -53,6 +53,19 @@ class BaseService
     }
 
     /**
+     * Sets the data payload.
+     *
+     * @param array $data
+     * @return $this
+     */
+    protected function setData(array $data = []): self
+    {
+        $this->success = true;
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
      * Gets the complete structured response array.
      * * @return array
      */

@@ -24,7 +24,7 @@
                     </div>
                 @endif
             </div>
-            <div class="">{{ $actionsBtn }}</div>
+            <div class="d-flex gap-2">{{ $actionsBtn }}</div>
         </div>
     </div>
     <hr class="m-0 mb-3">

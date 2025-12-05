@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class VDivider extends Component
 {
+    public $px;
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(
+        $px = 1,
+    ) {
+        $this->px = $px;
     }
 
     /**

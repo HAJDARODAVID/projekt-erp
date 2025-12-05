@@ -27,10 +27,25 @@ class Controller extends BaseController
     /**Sets the index tab icon  */
     protected $specialIndexIcon = NULL;
 
+    /**All the additional middleware attributes for a controller */
+    protected $middlewareAttributes = [];
+
+    /**Define the module actions */
+    protected $moduleAction = [];
+
+    /**Define the module actions */
+    protected $additionalAction = [];
+
     public function __construct(Request $request)
     {
         $this->request = $request;
         if (method_exists(get_class($this), 'moduleConfig')) $this->moduleConfig();
+
+        /**
+         * Set the middleware for a controller .
+         * The auth middleware is set for all controllers  
+         */
+        $this->middleware(array_merge(['auth'], $this->middlewareAttributes));
     }
 
     /**
@@ -51,6 +66,8 @@ class Controller extends BaseController
             'mainTitle'        => $this->mainTitle,
             'tabLinks'         => $this->tabLinks,
             'specialIndexIcon' => $this->specialIndexIcon,
+            'moduleAction'     => $this->moduleAction,
+            'additionalAction' => $this->additionalAction,
         ]);
     }
 
@@ -125,5 +142,45 @@ class Controller extends BaseController
         $livewireCheck = explode('\\', $explodedAction[0]);
         if ($livewireCheck[0] == 'Livewire') return 'Livewire';
         return class_basename($explodedAction[0]);
+    }
+
+    /**
+     * Set all the middleware that need to be used in this controller.
+     * 
+     * @param array $middleware All aliases for the controller
+     * @return Controller
+     */
+    protected function middlewareAttributes(...$middleware)
+    {
+        $this->middlewareAttributes = $middleware;
+        return $this;
+    }
+
+    /**
+     * Set module actions.
+     * Use in constructor for all the method to have access, od redefine it in the method.
+     * Note: use the full path for the component.
+     * 
+     * @param array $actions
+     * @return Controller
+     */
+    public function setModuleActions(...$actions)
+    {
+        $this->moduleAction = $actions;
+        return $this;
+    }
+
+    /**
+     * Set additional module actions.
+     * Meant to use in a method to define additional action.
+     * Note: use the full path for the component.
+     * 
+     * @param array $actions
+     * @return Controller
+     */
+    public function setAdditionalActions(...$actions)
+    {
+        $this->additionalAction = $actions;
+        return $this;
     }
 }

@@ -17,6 +17,7 @@ class NavTabs extends Component
     public array $tabs;
     public $wireClickSelectTabMethod;
     public $selectedTab;
+    public $py;
     /**
      * Create a new component instance.
      */
@@ -24,11 +25,12 @@ class NavTabs extends Component
         array $tabs,
         $selectedTab,
         $wireClickSelectTabMethod = 'selectTab',
-    )
-    {
+        $py = NULL,
+    ) {
         $this->tabs = $tabs;
         $this->wireClickSelectTabMethod = $wireClickSelectTabMethod;
         $this->selectedTab = $selectedTab;
+        $this->py = $py;
     }
 
     /**

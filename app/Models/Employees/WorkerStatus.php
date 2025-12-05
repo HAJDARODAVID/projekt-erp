@@ -16,6 +16,12 @@ class WorkerStatus
         self::WORKER_STATUS_INACTIVE        => 'inactive',
     ];
 
+    const WORKER_STATUS_INDICATOR = [
+        self::WORKER_STATUS_ACTIVE          => 'green',
+        self::WORKER_STATUS_LONG_SICK_LEAVE => 'orange',
+        self::WORKER_STATUS_INACTIVE        => 'red',
+    ];
+
     const WORKER_STATUS_DESCRIPTION_HR = [
         self::WORKER_STATUS_ACTIVE => 'Aktivno zaposlen',
         self::WORKER_STATUS_INACTIVE     => 'Nije zaposlen',
@@ -95,5 +101,18 @@ class WorkerStatus
     public function description()
     {
         return self::WORKER_STATUS_DESCRIPTION_HR[$this->status];
+    }
+
+    /**
+     * Define and get the the statuses for employed workers 
+     * 
+     * @return array
+     */
+    public function areEmployed()
+    {
+        return [
+            self::WORKER_STATUS_ACTIVE,
+            self::WORKER_STATUS_LONG_SICK_LEAVE
+        ];
     }
 }

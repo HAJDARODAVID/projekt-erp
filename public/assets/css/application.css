@@ -127,3 +127,16 @@
 .status-red::before {
     background: #dc3545 !important;
 }
+
+.status-orange::before {
+    background: #ffa011 !important;
+}
+
+.overflow-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    /* or set a width as needed */
+    display: block;
+}

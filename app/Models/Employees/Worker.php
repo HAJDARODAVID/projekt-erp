@@ -13,16 +13,6 @@ class Worker extends Model
 {
     use HasFactory;
 
-    const DEFAULT_COMPANY = 'HIDRO-PROJEKT';
-
-    const WORKER_STATUS_EMPLOYED = 1;
-    const WORKER_STATUS_EX_EMPLOYEE = -1;
-
-    const WORKER_STATUS_DESCRIPTION_HR = [
-        self::WORKER_STATUS_EMPLOYED => 'Zaposlen',
-        self::WORKER_STATUS_EX_EMPLOYEE => 'Nije zaposlen',
-    ];
-
     protected $attributes = [
         'status' => WorkerStatus::WORKER_STATUS_ACTIVE,
     ];
@@ -66,6 +56,6 @@ class Worker extends Model
 
     public function getStatusDescriptionCroAttribute()
     {
-        return self::WORKER_STATUS_DESCRIPTION_HR[$this->attributes['status']];
+        return WorkerStatus::setByStatus($this->attributes['status'])->description();
     }
 }

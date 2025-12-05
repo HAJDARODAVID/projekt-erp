@@ -47,5 +47,11 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('endHasRights', function () {
             return "<?php endif; ?>";
         });
+
+        // -- Translator
+        Blade::directive('translator', function ($expression) {
+            //TODO:stavi tu jezik iz session
+            return translator($expression, 'hr');
+        });
     }
 }

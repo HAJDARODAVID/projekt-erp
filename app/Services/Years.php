@@ -7,18 +7,18 @@ namespace App\Services;
  */
 class Years
 {
-    public static function getYearsList(){
+    public static function getYearsList()
+    {
         $currentYear = date("Y");
         $yearZero = 2024;
-        $goBack=$currentYear - $yearZero;
-        $years=[];
+        $goBack = $currentYear - $yearZero;
+        $years = [];
 
-        for ($i=0; $i <= $goBack ; $i++) { 
-            $year[]=$yearZero+$i;
+        for ($i = 0; $i <= $goBack; $i++) {
+            $year[$yearZero + $i] = $yearZero + $i;
         }
-        $year[]=$currentYear+1;
+        $year[$currentYear + 1] = $currentYear + 1;
 
         return $year;
     }
-
 }

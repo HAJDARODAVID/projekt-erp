@@ -40,6 +40,7 @@ class Btn extends Component
     public $wClickParam = NULL;
     public $link;
     public $disabled = FALSE;
+    public $stopPropagation = FALSE;
     /**
      * Create a new component instance.
      */
@@ -51,6 +52,7 @@ class Btn extends Component
         $wClickParam = NULL,
         $link = NULL,
         $disabled = FALSE,
+        $stopPropagation = FALSE,
     ) {
         $this->setBtnType($type)->setIcon($icon);
         $this->text = $text != NULL ? $text : NULL;
@@ -58,6 +60,7 @@ class Btn extends Component
         $this->wClickParam = $wClickParam;
         $this->link = $link;
         $this->disabled = $disabled;
+        $this->stopPropagation = $stopPropagation;
     }
 
     private function setBtnType($type = NULL)
