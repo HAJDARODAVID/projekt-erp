@@ -7,6 +7,7 @@
         @if (Auth::user()->id == 1)
             TESTING
         @endif
+        <hr>
         @if (app('user_rights')->hasRight('dashboard'))
             @livewire('hidroProjekt.dashboard.main-layout')
         @endif
