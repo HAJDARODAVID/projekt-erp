@@ -16,6 +16,12 @@ class AttendanceAbsenceType
         self::ABSENCE_TYPE_HOLIDAY    => 'Holiday',
     ];
 
+    const ABSENCE_TYPE_SHT = [
+        self::ABSENCE_TYPE_SICK_LEAVE => 'SL',
+        self::ABSENCE_TYPE_PAID_LEAVE => 'PL',
+        self::ABSENCE_TYPE_HOLIDAY    => 'HD',
+    ];
+
     /** Array of types that should be excluded from other */
     private $excludedTypes = [];
 
@@ -86,6 +92,16 @@ class AttendanceAbsenceType
     }
 
     /**
+     * Get the type short form description
+     * 
+     * @return string
+     */
+    public function shortDesc()
+    {
+        return self::ABSENCE_TYPE_SHT[$this->type];
+    }
+
+    /**
      * Get the all the employee type
      * 
      * @return array
@@ -99,5 +115,35 @@ class AttendanceAbsenceType
             }
         }
         return array_keys($output);
+    }
+
+    /**
+     * Get short form for sick leave.
+     * 
+     * @return string
+     */
+    public function getSickLeaveSht()
+    {
+        return self::ABSENCE_TYPE_SHT[self::ABSENCE_TYPE_SICK_LEAVE];
+    }
+
+    /**
+     * Get short form for paid leave.
+     * 
+     * @return string
+     */
+    public function getPaidLeaveSht()
+    {
+        return self::ABSENCE_TYPE_SHT[self::ABSENCE_TYPE_PAID_LEAVE];
+    }
+
+    /**
+     * Get short form for holiday
+     * 
+     * @return string
+     */
+    public function getHolidaySht()
+    {
+        return self::ABSENCE_TYPE_SHT[self::ABSENCE_TYPE_HOLIDAY];
     }
 }

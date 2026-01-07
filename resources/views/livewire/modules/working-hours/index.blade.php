@@ -11,8 +11,8 @@
         <x-slot:headerActions>
             <x-ui.btn type="dan.sm" icon="trash" />
         </x-slot:headerActions>
-        <x-ui.card class="flex-fill d-flex flex-column">
-            @livewire('modules.working-hours.components.table', ['tableData' => $data])
+        <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear">
+            @livewire('modules.working-hours.components.table', ['tableData' => $data], key('working-hours'.now()))
         </x-ui.card>
     </x-ui.card>
 </div>

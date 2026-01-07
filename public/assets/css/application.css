@@ -140,3 +140,20 @@
     /* or set a width as needed */
     display: block;
 }
+
+.sticky-header {
+    /* Enable the sticky behavior */
+    position: sticky;
+    /* Stick it exactly at the top (top: 0) of its scrollable container */
+    top: 0;
+    /* Crucial for aesthetics: 
+            Set a background color to hide the rows as they scroll underneath. 
+            Use a color that matches the Bootstrap table header or white.
+            */
+    background-color: #f7f7f7;
+    /* Light grey, typical Bootstrap header color */
+    z-index: 10;
+    /* Ensure it stays above the scrolling table body */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2);
+    /* Optional subtle shadow */
+}

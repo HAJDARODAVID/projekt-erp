@@ -1,10 +1,12 @@
 <div class="p-3 pt-0" style="position: absolute;top: 0; right: 0; bottom: 0; left: 0; margin-top: 10px;margin-bottom: 10px; overflow-y: auto">
-    <table class="table table-responsive">
-        <thead>
-            <tr>
+    <table class="table table-responsive table-bordered">
+        <thead style="border-bottom: 1.5px solid #000000;">
+            <tr >
                 <th></th>
                 @foreach ($data->getDates() as $date)
-                    <th>{{ $date->format('d') }}</th>
+                    <x-ui.tables.working-hours-report.th att="text:center.width:35px" day="{{ $date->format('N') }}">
+                        {{ $date->format('d') }}
+                    </x-ui.tables.working-hours-report.th>
                 @endforeach
                 
             </tr>
@@ -20,7 +22,18 @@
                         </div>
                     </td>
                     @foreach ($data->getDates() as $date)
-                        <td>{{ $data->date($date)->worker($id)->attendance() }}</td>
+                        @if ($loop->first)
+                            <x-ui.tables.working-hours-report.td 
+                                :date=$date 
+                                attendance="{{ $data->date($date)->worker($id)->attendance() }}" 
+                                att="border:left-01-solid-red"
+                            />
+                        @else
+                            <x-ui.tables.working-hours-report.td 
+                                :date=$date 
+                                attendance="{{ $data->date($date)->worker($id)->attendance() }}" 
+                            />
+                        @endif
                     @endforeach
                 </tr>
             @endforeach

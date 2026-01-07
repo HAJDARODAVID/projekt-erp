@@ -2,8 +2,9 @@
 
 namespace App\Services\Attendance;
 
-use App\Services\Months;
 use DateTime;
+use App\Services\Months;
+use App\Models\Employees\AttendanceAbsenceType;
 
 /**
  * Class WorkerHoursDataObject.
@@ -51,6 +52,7 @@ class WorkerHoursDataObject
         if ($att) {
             if ($att['error']) return 'ERR';
             if ($att['hours']) return $att['hours'];
+            if (count($att['absence']) > 0) return AttendanceAbsenceType::setByType($att['absence'][0])->shortDesc();
         } else {
             return NULL;
         }

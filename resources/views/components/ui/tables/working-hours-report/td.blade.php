@@ -1,0 +1,1 @@
+<td {{ $attributes->merge(['style' => $style]) }}>{{ $slot }}{{translator($attendance)}}</td>

@@ -69,10 +69,22 @@ class GetWorkersMonthlyHoursReportService extends BaseService
                 /**If the absence is set do the thing */
                 if ($att->absence_reason != NULL) {
                     $output[$att->worker_id]['attendance'][$att->date]['absence'][] = $att->absence_reason;
+                    //dd($att->absence_reason, $output[$att->worker_id]);
                     /**If there is more than one reason set the flag to true */
                     if (count($output[$att->worker_id]['attendance'][$att->date]['absence']) > 1) $output[$att->worker_id]['attendance'][$att->date]['error'] = TRUE;
                 }
             }
+
+            /**
+             * If you are getting data from the current year and month, put all the workers in the output regardless if thy have attendance data.
+             * But only put the active users to the output.
+             */
+            if ($this->year == now()->format('Y') && $this->month == now()->format('n')) {
+                foreach ($this->workers as $id => $wInfo) {
+                    if (!key_exists($id, $output) && in_array($wInfo['status'], WorkerStatus::init()->areEmployed())) $output[$id]['worker-info'] = $wInfo;
+                }
+            }
+
 
             /**Put the finished data to the payload response */
             ksort($output);
