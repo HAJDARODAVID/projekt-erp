@@ -4,6 +4,9 @@
     <x-snowflakes :show=FALSE />
 
     <div class="">
+        @if (Auth::user()->id == 1)
+            TESTING
+        @endif
         @if (app('user_rights')->hasRight('dashboard'))
             @livewire('hidroProjekt.dashboard.main-layout')
         @endif
