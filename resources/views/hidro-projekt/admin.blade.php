@@ -5,7 +5,8 @@
 
     <div class="">
         @if (Auth::user()->id == 1)
-            TESTING
+            TESTING: <br>
+            @livewire('test.wire-click')
         @endif
         <hr>
         @if (app('user_rights')->hasRight('dashboard'))
