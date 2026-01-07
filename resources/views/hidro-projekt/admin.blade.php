@@ -1,7 +1,7 @@
 @extends('layouts.mainAdminLayout')
 
 @section('content')
-    <x-snowflakes :show=TRUE />
+    <x-snowflakes :show=FALSE />
 
     <div class="">
         @if (app('user_rights')->hasRight('dashboard'))
