@@ -9,7 +9,10 @@ class Table extends LivewireController
 {
     public $tableData;
 
-    public function mount() {}
+    public function openDayAttendanceModal(string $param = "")
+    {
+        dd('im in', date('Y-m-d', $param), (new WorkerHoursDataObject($this->tableData))->getWorkers());
+    }
 
     public function render()
     {

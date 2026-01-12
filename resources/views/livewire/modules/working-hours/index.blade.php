@@ -9,7 +9,12 @@
             </div>
         </x-slot:title>
         <x-slot:headerActions>
-            <x-ui.btn type="dan.sm" icon="trash" />
+            <div class="d-flex gap-2">
+                @livewire('modules.workday-diary.create-new-diary-modal')
+                <x-v-divider px=0 />
+                <x-ui.btn type="dan.sm" icon="trash" />
+            </div>
+            
         </x-slot:headerActions>
         <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear">
             @livewire('modules.working-hours.components.table', ['tableData' => $data], key('working-hours'.now()))

@@ -4,7 +4,7 @@
             <tr >
                 <th></th>
                 @foreach ($data->getDates() as $date)
-                    <x-ui.tables.working-hours-report.th att="text:center.width:35px" day="{{ $date->format('N') }}">
+                    <x-ui.tables.working-hours-report.th att="text:center.width:35px" day="{{ $date->format('N') }}" lwAction="openDayAttendanceModal" lwActionAtt="{{ $date->format('U') }}">
                         {{ $date->format('d') }}
                     </x-ui.tables.working-hours-report.th>
                 @endforeach

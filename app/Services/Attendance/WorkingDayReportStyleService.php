@@ -109,4 +109,16 @@ class WorkingDayReportStyleService
         }
         return [];
     }
+
+    /**
+     * Return the style for cursor pointer.
+     * 
+     * @return array
+     */
+    public function clickableField()
+    {
+        return [
+            'cursor' => 'pointer',
+        ];
+    }
 }

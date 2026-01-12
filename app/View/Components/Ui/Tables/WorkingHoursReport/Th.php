@@ -13,11 +13,16 @@ class Th extends Component
     private $styleObject;
     public $style = [];
     public $class;
+
+    public $lwAction = NULL;
+    public $lwActionAtt = NULL;
     /**
      * Create a new component instance.
      */
-    public function __construct($att = NULL, $day = NULL)
+    public function __construct($att = NULL, $day = NULL, $lwAction = NULL, $lwActionAtt = NULL)
     {
+        $this->lwAction = $lwAction;
+        $this->lwActionAtt = $lwActionAtt;
         $this->styleObject = new WorkingDayReportStyleService();
         $att = explode('.', $att);
         foreach ($att as $item) {
@@ -27,6 +32,7 @@ class Th extends Component
             if (method_exists(get_class($this), $method)) $this->$method($attribute);
         }
         if ($day > 5) $this->style = array_merge($this->style, $this->styleObject->weekendStyle());
+        $this->style = array_merge($this->style, $this->styleObject->clickableField());
     }
 
     /**
