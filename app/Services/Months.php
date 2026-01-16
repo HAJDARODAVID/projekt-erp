@@ -23,7 +23,7 @@ class Months
     const MONTH_NOVEMBER  = 11;
     const MONTH_DECEMBER  = 12;
 
-    const MONTHS_HR=array(
+    const MONTHS_HR = array(
         self::MONTH_JANUARY   => 'Siječanj',
         self::MONTH_FEBRUARY  => 'Veljača',
         self::MONTH_MARCH     => 'Ožujak',
@@ -38,18 +38,36 @@ class Months
         self::MONTH_DECEMBER  => 'Prosinac',
     );
 
-    public static function dayOfMonth($month, $year=2024){
-        $startDate = date_create($year.'-'.$month.'-01');
-        if($month == 12){
-            $endDate = date_create(date("Y-m-d",strtotime($year + 1 .'-01-01')));
-        }else{
-            $endDate = date_create(date("Y-m-d",strtotime($year.'-'.$month + 1 .'-01')));
+    public static function dayOfMonth($month, $year = 2024)
+    {
+        $startDate = date_create($year . '-' . $month . '-01');
+        if ($month == 12) {
+            $endDate = date_create(date("Y-m-d", strtotime($year + 1 . '-01-01')));
+        } else {
+            $endDate = date_create(date("Y-m-d", strtotime($year . '-' . $month + 1 . '-01')));
         }
         $interval = new DateInterval('P1D');
         $date_range = new DatePeriod($startDate, $interval, $endDate);
-        $dayArray=[];
+        $dayArray = [];
         foreach ($date_range as $day) {
-            $dayArray[]=$day->format("Y-m-d");
+            $dayArray[] = $day->format("Y-m-d");
+        }
+        return $dayArray;
+    }
+
+    public static function daysOfMonth($month, $year = 2024)
+    {
+        $startDate = date_create($year . '-' . $month . '-01');
+        if ($month == 12) {
+            $endDate = date_create(date("Y-m-d", strtotime($year + 1 . '-01-01')));
+        } else {
+            $endDate = date_create(date("Y-m-d", strtotime($year . '-' . $month + 1 . '-01')));
+        }
+        $interval = new DateInterval('P1D');
+        $date_range = new DatePeriod($startDate, $interval, $endDate);
+        $dayArray = [];
+        foreach ($date_range as $day) {
+            $dayArray[] = $day;
         }
         return $dayArray;
     }

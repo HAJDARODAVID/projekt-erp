@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','emptyWorkingDay','checkIfUSerIsActive']);
+        $this->middleware(['auth', 'emptyWorkingDay', 'checkIfUSerIsActive']);
     }
 
     /**
@@ -30,57 +30,65 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {   
+    {
         //Check if the user is on phone, and put into session
-        if(!Session::get('is_phone')){
+        if (!Session::get('is_phone')) {
             Session::put('is_phone', Agent::isPhone());
+        }
+
+        //Set the user language
+        if (!Session::get('lang')) {
+            Session::put('lang', Auth::user()->lang);
         }
 
         //Get the user update indicator
         $invokeUserUpdate = Auth::user()->inv_update;
 
         //Fill the session with user rights
-        if(!Session::get('user_rights') || $invokeUserUpdate){
+        if (!Session::get('user_rights') || $invokeUserUpdate) {
             Session::put('user_rights', $this->getUserRights());
-            if($invokeUserUpdate){
+            if ($invokeUserUpdate) {
+                //Set the user language
+                Session::put('lang', Auth::user()->lang);
                 Artisan::call('view:clear');
                 User::where('id', Auth::user()->id)->first()->update([
                     'inv_update' => FALSE,
                 ]);
             }
         }
-        
-        if(Auth::user()->type == User::USER_TYPE_GROUP_LEADER || Auth::user()->type == User::USER_TYPE_COOPERATOR){
-            return view('hidro-projekt.BDE.bdeIndex',[
+
+        if (Auth::user()->type == User::USER_TYPE_GROUP_LEADER || Auth::user()->type == User::USER_TYPE_COOPERATOR) {
+            return view('hidro-projekt.BDE.bdeIndex', [
                 'myRecords' => WorkingDayRecordModel::where('user_id', Auth::user()->id)->where('date', date('Y-m-d'))->with('getConstructionSite')->get(),
                 'activeInv' => InventoryCheckingModel::where('status', InventoryCheckingModel::INVENTORY_STATUS_ACTIVE)->first(),
             ]);
-        }else{
+        } else {
             return view('hidro-projekt.admin');
-        }  
+        }
     }
 
-    private function getUserRights(){
+    private function getUserRights()
+    {
         $user = Auth::user();
-        $userRights=[];
+        $userRights = [];
         $userInfo = User::where('id', $user->id)
             ->with(
-                'getSpecialPrivilege', 
+                'getSpecialPrivilege',
                 'getSpecialPrivilege.getResources',
                 'getUserRoles.getRoles.getRoleResources.getResource'
-                )
+            )
             ->first();
         $specialPrivileges = $userInfo->getSpecialPrivilege;
         $roles =  $userInfo->getUserRoles;
         //Get special privileges
         foreach ($specialPrivileges as $resource) {
-            $userRights[]=$resource->getResources->first()->resources;
+            $userRights[] = $resource->getResources->first()->resources;
         }
         //dd($roles);
         //Get roles privileges
         foreach ($roles as $role) {
             foreach ($role->getRoles->getRoleResources as $resource) {
-                $userRights[]=$resource->getResource->resources;
+                $userRights[] = $resource->getResource->resources;
             }
         }
         //remove duplicates

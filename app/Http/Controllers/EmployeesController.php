@@ -28,7 +28,7 @@ class EmployeesController extends Controller
      */
     public function getWorkerInfo()
     {
-        return $this->module('workers-info');
+        return $this->module('worker-info');
     }
 
     /**

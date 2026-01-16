@@ -2,6 +2,9 @@
 
 namespace App\Models\User;
 
+use App\Models\User;
+use App\Models\User\User as UserNew;
+
 class UserType
 {
     private $type;
@@ -144,5 +147,16 @@ class UserType
         }
         asort($output);
         return $output;
+    }
+
+    /**
+     * Check if the given user is a super admin.
+     * 
+     * @param UserNew|User $user User model
+     * @return bool
+     */
+    public function isUserSAdmin(UserNew|User $user)
+    {
+        return $user->user_type == self::USER_TYPE_SUPER_ADMIN;
     }
 }

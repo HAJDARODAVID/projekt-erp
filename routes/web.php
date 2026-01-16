@@ -19,6 +19,7 @@ use App\Http\Controllers\ReportDataController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CostOverviewController;
 use App\Http\Controllers\WorkDayDiaryController;
+use App\Http\Controllers\WorkingHoursController;
 use App\Http\Controllers\AccessControlListController;
 use App\Http\Controllers\HidroProjekt\AdminController;
 use App\Http\Controllers\HidroProjekt\AssetsController;
@@ -345,8 +346,13 @@ Route::prefix('/')
                     ->prefix('/employees')
                     ->group(function () {
                         Route::get('/', 'index')->name('getAllEmployees');
-                        Route::get('/info', 'getWorkerInfo')->name('getWorkerInfo');
-                        Route::get('/workplaces', 'getWorkplacesInfo')->name('getWorkplacesInfo');
+                        Route::get('/worker-info', 'getWorkerInfo')->name('getWorkerInfo');
+                        Route::get('/workplaces-info', 'getWorkplacesInfo')->name('getWorkplacesInfo');
+                    });
+                Route::controller(WorkingHoursController::class)
+                    ->prefix('/working-hours')
+                    ->group(function () {
+                        Route::get('/', 'index')->name('getEmployeeWorkingHours');
                     });
             });
     });

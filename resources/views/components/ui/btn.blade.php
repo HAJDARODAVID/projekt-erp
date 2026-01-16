@@ -15,7 +15,8 @@
 @else
     <button 
         class="btn {{ $btnColor }} @if($btnSize){{ $btnSize }} @endif shadow" 
-        style="border-radius: 0px!Important;" wire:click="{{ $wClickMethod }}('{{ $wClickParam }}')" @if ($disabled) disabled @endif>
+        style="border-radius: 0px!Important;" wire:click="{{ $wClickMethod }}('{{ $wClickParam }}')" @if ($disabled) disabled @endif
+        @if ($stopPropagation) onclick="event.stopPropagation();" @endif>
         <div class="d-flex align-items-center gap-2">
             @if ($iconPosition == 'start')
                 <x-ui.bi-icon :icon=$iconName />

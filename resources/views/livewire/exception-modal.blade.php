@@ -1,4 +1,4 @@
-<div class="modal helvetica modal-bg-blur" id="exceptionErrorMessage" style="display: @if($showModal) block @endif">
+<div class="modal helvetica modal-bg-blur" id="exceptionErrorMessage" style="display: @if($showModal) block @endif;  z-index: 6000;">
     <div class="modal-dialog" role="document">
         <div class="modal-content no-border-radius">
             <div class="alert alert-danger mb-0" role="alert">

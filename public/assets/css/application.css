@@ -127,3 +127,79 @@
 .status-red::before {
     background: #dc3545 !important;
 }
+
+.status-orange::before {
+    background: #ffa011 !important;
+}
+
+.overflow-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    /* or set a width as needed */
+    display: block;
+}
+
+.sticky-header {
+    /* Enable the sticky behavior */
+    position: sticky;
+    /* Stick it exactly at the top (top: 0) of its scrollable container */
+    top: 0;
+    /* Crucial for aesthetics: 
+            Set a background color to hide the rows as they scroll underneath. 
+            Use a color that matches the Bootstrap table header or white.
+            */
+    background-color: #f7f7f7;
+    /* Light grey, typical Bootstrap header color */
+    z-index: 10;
+    /* Ensure it stays above the scrolling table body */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2);
+    /* Optional subtle shadow */
+}
+
+body.livewire-loading {
+    cursor: wait !important;
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* above other content */
+    background: rgba(0, 0, 0, 0.5);
+    /* optional: for overlay */
+}
+
+.dot-anim {
+    opacity: 0;
+    animation: dotFade 1.5s infinite;
+}
+
+.dot1 {
+    animation-delay: 0s;
+}
+
+.dot2 {
+    animation-delay: 0.3s;
+}
+
+.dot3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes dotFade {
+    0%, 80% {
+        opacity: 0;
+    }
+
+    20%, 60% {
+        opacity: 1;
+    }
+}

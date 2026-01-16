@@ -12,7 +12,8 @@ class ApplicationController extends Controller
     public function moduleConfig()
     {
         $this->setMainTitle('App control center')
-            ->setTabLinks();
+            ->setTabLinks()
+            ->middlewareAttributes('s-admin-access-only');
     }
 
     /**

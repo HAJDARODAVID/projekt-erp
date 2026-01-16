@@ -19,6 +19,9 @@ class WorkersTable extends DataTableComponent
         $this->setPrimaryKey('id');
         // $this->setPerPageAccepted([15, 25, 50, 100]);
         // $this->setPerPage(15);
+        $this->setTableRowUrl(function ($row) {
+            return route('getWorkerInfo', ['worker' => $row->id]);
+        });
 
         $this->setTdAttributes(function (Column $column, $row, $columnIndex, $rowIndex) {
             if ($column->getTitle() == "") {
@@ -54,10 +57,10 @@ class WorkersTable extends DataTableComponent
             Column::make("DATUM ZAPOŠLJENJA", "doe"),
             Column::make("UGOVOR TRAJE DO", "ced"),
             Column::make("", "actions")
-                ->unclickable()
                 ->label(
                     fn($row, Column $column) => view('components.table.table-actions', ['row' => $row, 'livewire' => 'modules.employees.components.table-actions'])
-                ),
+                )
+                ->unclickable(),
         ];
     }
 
