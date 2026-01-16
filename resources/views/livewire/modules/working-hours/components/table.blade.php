@@ -16,6 +16,8 @@
                 <tr>
                     <td>
                         <div class="d-flex gap-2">
+                            <x-ui.employees.status-indicator :empID=$id />
+                            <x-v-divider px=0 />
                             <div class="">{{ str_pad($id, 3, '0', STR_PAD_LEFT) }}</div>
                             <x-v-divider px=0 />
                             <div class="">{{ $worker['name'] }}</div>
@@ -39,4 +41,7 @@
             @endforeach
         </tbody>
     </table>
+    @livewire('modules.working-hours.components.day-attendance-for-all-workers-modal');
+    
+    <x-ui.please-wait loading="openDayAttendanceModal"/>
 </div>

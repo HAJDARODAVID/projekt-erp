@@ -16,7 +16,7 @@
             </div>
             
         </x-slot:headerActions>
-        <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear">
+        <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear, refreshMe">
             @livewire('modules.working-hours.components.table', ['tableData' => $data], key('working-hours'.now()))
         </x-ui.card>
     </x-ui.card>

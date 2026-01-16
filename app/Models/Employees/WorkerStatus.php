@@ -29,7 +29,7 @@ class WorkerStatus
 
     private function __construct($status)
     {
-        if (key_exists($status, self::WORKER_STATUS_DESCRIPTION_HR)) $this->status = $status;
+        if (key_exists($status, self::WORKER_STATUS_DESCRIPTION)) $this->status = $status;
     }
 
     /**
@@ -114,5 +114,25 @@ class WorkerStatus
             self::WORKER_STATUS_ACTIVE,
             self::WORKER_STATUS_LONG_SICK_LEAVE
         ];
+    }
+
+    /**
+     * Check if the user is active 
+     * 
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->status == self::WORKER_STATUS_ACTIVE ? TRUE : FALSE;
+    }
+
+    /**
+     * Get the status indicator class.
+     * 
+     * @return string 
+     */
+    public function getWorkerStatusIndicator()
+    {
+        return self::WORKER_STATUS_INDICATOR[$this->status];
     }
 }

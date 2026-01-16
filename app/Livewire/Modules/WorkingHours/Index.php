@@ -9,6 +9,7 @@ use App\Livewire\ExceptionModal;
 use App\Livewire\LivewireController;
 use App\Services\Attendance\WorkerHoursDataObject;
 use App\Services\Employees\GetWorkersMonthlyHoursReportService;
+use Livewire\Attributes\On;
 
 class Index extends LivewireController
 {
@@ -43,6 +44,9 @@ class Index extends LivewireController
             $this->dispatch('show-exception-modal', $service['message'])->to(ExceptionModal::class);
         }
     }
+
+    #[On('refresh-attendance-report')]
+    public function refreshMe() {}
 
     public function render()
     {

@@ -22,6 +22,8 @@ class AttendanceAbsenceType
         self::ABSENCE_TYPE_HOLIDAY    => 'HD',
     ];
 
+    private $massAssignable = [self::ABSENCE_TYPE_PAID_LEAVE, self::ABSENCE_TYPE_HOLIDAY];
+
     /** Array of types that should be excluded from other */
     private $excludedTypes = [];
 
@@ -48,7 +50,7 @@ class AttendanceAbsenceType
      */
     public static function setByType(string $type)
     {
-        return new self($type);
+        return key_exists($type, self::ABSENCE_TYPE) ? new self($type) : NULL;
     }
 
     /**
@@ -79,6 +81,16 @@ class AttendanceAbsenceType
     public static function setTypeHoliday()
     {
         return new self(self::ABSENCE_TYPE_HOLIDAY);
+    }
+
+    /**
+     * Get the type code
+     * 
+     * @return string
+     */
+    public function code()
+    {
+        return $this->type;
     }
 
     /**
@@ -145,5 +157,15 @@ class AttendanceAbsenceType
     public function getHolidaySht()
     {
         return self::ABSENCE_TYPE_SHT[self::ABSENCE_TYPE_HOLIDAY];
+    }
+
+    /**
+     * Get mass assignable types
+     * 
+     * @return array
+     */
+    public function getMassAssignable()
+    {
+        return $this->massAssignable;
     }
 }

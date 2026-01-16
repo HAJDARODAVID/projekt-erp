@@ -157,3 +157,49 @@
     box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2);
     /* Optional subtle shadow */
 }
+
+body.livewire-loading {
+    cursor: wait !important;
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* above other content */
+    background: rgba(0, 0, 0, 0.5);
+    /* optional: for overlay */
+}
+
+.dot-anim {
+    opacity: 0;
+    animation: dotFade 1.5s infinite;
+}
+
+.dot1 {
+    animation-delay: 0s;
+}
+
+.dot2 {
+    animation-delay: 0.3s;
+}
+
+.dot3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes dotFade {
+    0%, 80% {
+        opacity: 0;
+    }
+
+    20%, 60% {
+        opacity: 1;
+    }
+}

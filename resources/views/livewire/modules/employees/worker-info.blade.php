@@ -27,9 +27,7 @@
                                     </div>
                                 </x-slot:slotLeft>
                                 <x-slot:slotRight>
-                                    <ul class="custom-list">
-                                        <li class="status-{{$worker['indicator'] }}" ></li> 
-                                    </ul>
+                                    <x-ui.employees.status-indicator empID="{{ $worker['id'] }}" />
                                 </x-slot:slotRight>
                             </x-ui.list-item>
                             @endforeach

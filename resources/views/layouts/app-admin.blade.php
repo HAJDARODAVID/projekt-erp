@@ -17,6 +17,7 @@
     <link href="{{ url('assets/css/application.css') }}" rel="stylesheet">
 </head>
 <body class="h-100">
+    
     @livewire('exception-modal')
     <x-ui.layouts.header />
     <div class="container-fluid">
@@ -35,21 +36,19 @@
         </div>
     </div>
     <x-ui.notification />
-    
+    @livewireScripts
     <!-- JavaScript to handle the loading state -->
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get references to the spinner and content elements
-            const spinnerContainer = document.getElementById('spinner-container');
-            const mainContent = document.getElementById('main-content');
-
-            // Hide the spinner
-            spinnerContainer.style.display = 'none';
-
-            // Show the main content
-            mainContent.style.display = 'block';
+    {{-- TODO: Fix this so on loading a spiner is shown --}}
+    <script>
+        document.addEventListener('livewire:load', () => {
+            Livewire.hook('message.sent', () => {
+                document.body.classList.add('livewire-loading');
+            });
+            Livewire.hook('message.processed', () => {
+                document.body.classList.remove('livewire-loading');
+            });
         });
-    </script> --}}
+    </script>
     <script>
 
         const clockElement = document.getElementById('clock-display');
@@ -84,6 +83,6 @@
     </script>
     <script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script>
     {{-- <script src="{{ url('assets/js/dashboard.js') }}"></script> --}}
-    @livewireScripts
+    
 </body>
 </html>
