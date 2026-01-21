@@ -22,49 +22,55 @@ class AlertModal extends Component
     public $show = FALSE;
 
     #[On('show-alert-modal')]
-    public function openAlertModal($data = []){
-        if(!empty($data) && is_array($data)){
+    public function openAlertModal($data = [])
+    {
+        if (!empty($data) && is_array($data)) {
             foreach ($data as $key => $value) {
                 try {
-                    if(!property_exists(get_class($this), $key)){
+                    if (!property_exists(get_class($this), $key)) {
                         throw new MissingPropertyException($key);
                     }
-                    if(!method_exists(get_class($this),'set'.ucfirst($key))){
-                        throw new MissingMethodException('set'.ucfirst($key));
+                    if (!method_exists(get_class($this), 'set' . ucfirst($key))) {
+                        throw new MissingMethodException('set' . ucfirst($key));
                     }
-                    $method = 'set'.ucfirst($key);
+                    $method = 'set' . ucfirst($key);
                     $this->$method($value);
                 } catch (Exception $e) {
-                    return $this->dispatch('show-exception-modal',$e->getMessage());
+                    return $this->dispatch('show-exception-modal', $e->getMessage());
                 }
             }
             $this->show = TRUE;
         }
     }
 
-    protected function setMessage($value){
+    protected function setMessage($value)
+    {
         return $this->message = $value;
     }
 
-    protected function setTitle($value){
+    protected function setTitle($value)
+    {
         return $this->title = $value;
     }
 
-    protected function setSize($value){
-        if(in_array($value, self::SIZE_OPTIONS)){
+    protected function setSize($value)
+    {
+        if (in_array($value, self::SIZE_OPTIONS)) {
             return $this->size = $value;
         }
         return $this->size = NULL;
     }
 
-    protected function setType($value){
-        if(in_array($value, self::TYPE_OPTIONS)){
+    protected function setType($value)
+    {
+        if (in_array($value, self::TYPE_OPTIONS)) {
             return $this->type = $value;
         }
         return $this->type = NULL;
     }
 
-    public function closeAlert(){
+    public function closeAlert()
+    {
         return $this->show = FALSE;
     }
 

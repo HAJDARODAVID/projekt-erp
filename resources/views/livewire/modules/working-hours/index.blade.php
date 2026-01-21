@@ -11,6 +11,7 @@
         <x-slot:headerActions>
             <div class="d-flex gap-2">
                 @livewire('modules.workday-diary.create-new-diary-modal')
+                @livewire('modules.working-hours.components.monthly-hours-report-modal', ['month' => $selectedMonth, 'year' => $selectedYear], key('monthly.report.'.now()))
                 <x-v-divider px=0 />
                 <x-ui.btn type="dan.sm" icon="trash" />
             </div>

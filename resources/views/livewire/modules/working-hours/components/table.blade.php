@@ -1,8 +1,8 @@
 <div class="p-3 pt-0" style="position: absolute;top: 0; right: 0; bottom: 0; left: 0; margin-top: 10px;margin-bottom: 10px; overflow-y: auto">
     <table class="table table-responsive table-bordered">
-        <thead style="border-bottom: 1.5px solid #000000;">
-            <tr >
-                <th></th>
+        <thead style="border-bottom: 3px double #3f3f3f;">
+            <tr>
+                <th style="border-right: 3px double #3f3f3f;"></th>
                 @foreach ($data->getDates() as $date)
                     <x-ui.tables.working-hours-report.th att="text:center.width:35px" day="{{ $date->format('N') }}" lwAction="openDayAttendanceModal" lwActionAtt="{{ $date->format('U') }}">
                         {{ $date->format('d') }}
@@ -28,7 +28,7 @@
                             <x-ui.tables.working-hours-report.td 
                                 :date=$date 
                                 attendance="{{ $data->date($date)->worker($id)->attendance() }}" 
-                                att="border:left-01-solid-red"
+                                att="border:left-03-double-#3f3f3f"
                             />
                         @else
                             <x-ui.tables.working-hours-report.td 
@@ -43,5 +43,5 @@
     </table>
     @livewire('modules.working-hours.components.day-attendance-for-all-workers-modal');
     
-    <x-ui.please-wait loading="openDayAttendanceModal"/>
+    <x-ui.please-wait loading="openDayAttendanceModal, openModal"/>
 </div>
