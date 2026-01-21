@@ -13,9 +13,7 @@
                     <span class="dot-anim dot3">.</span>
                 </div>
             </div>
-            
         </div>
     </div>
   </div>
-   </div>
 </div>

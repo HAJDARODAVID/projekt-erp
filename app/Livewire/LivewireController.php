@@ -7,6 +7,7 @@ use App\Traits\TabTrait;
 use App\Traits\ModalTrait;
 use App\Traits\ExplodeParams;
 use App\Traits\ValidationTrait;
+use App\Traits\ArraySearchTrait;
 
 class LivewireController extends Component
 {
@@ -14,6 +15,7 @@ class LivewireController extends Component
     use ModalTrait;
     use ExplodeParams;
     use ValidationTrait;
+    use ArraySearchTrait;
 
     /**
      * This will dispatch a message to the notifications component. 

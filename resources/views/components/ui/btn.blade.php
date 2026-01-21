@@ -18,8 +18,10 @@
         style="border-radius: 0px!Important;" wire:click="{{ $wClickMethod }}('{{ $wClickParam }}')" @if ($disabled) disabled @endif
         @if ($stopPropagation) onclick="event.stopPropagation();" @endif>
         <div class="d-flex align-items-center gap-2">
-            @if ($iconPosition == 'start')
-                <x-ui.bi-icon :icon=$iconName />
+            @if($iconName) 
+                @if ($iconPosition == 'start')
+                    <x-ui.bi-icon :icon=$iconName />
+                @endif
             @endif
             {{ $slot }}{{ $text }}
             @if ($iconPosition == 'end')

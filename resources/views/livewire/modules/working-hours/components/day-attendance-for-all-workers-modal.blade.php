@@ -5,6 +5,10 @@
             @foreach ($absenceType as $typeCode => $typeData)
                 <x-ui.btn type="dar.lg" text="{{ translator($typeData['short-text']) }}" wClickMethod="applyAbsenceAction" wClickParam="{{ $typeCode }}" />
             @endforeach
+            @if($showDeleteAtt) 
+                <x-v-divider px=0 />
+                <x-ui.btn type="dan.lg" icon="trash" wClickMethod="deleteAllAttendanceAction" />
+            @endif
         </div>
         
     </x-ui.card>
