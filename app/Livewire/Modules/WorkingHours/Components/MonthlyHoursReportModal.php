@@ -4,6 +4,8 @@ namespace App\Livewire\Modules\WorkingHours\Components;
 
 use App\Livewire\LivewireController;
 use App\Exceptions\ArraySearchTraitException;
+use App\Exports\Attendance\MonthlyHoursReportExport;
+use App\Services\Attendance\MonthlyHoursReportExportDto;
 use App\Services\Attendance\MonthlyHoursOverviewReportService;
 
 class MonthlyHoursReportModal extends LivewireController
@@ -53,6 +55,11 @@ class MonthlyHoursReportModal extends LivewireController
     {
         $this->workerSearch = NULL;
         $this->data = NULL;
+    }
+
+    public function exportMonthlyHoursAction()
+    {
+        return (new MonthlyHoursReportExport(new MonthlyHoursReportExportDto($this->data, ['month' => $this->month, 'year' => $this->year])));
     }
 
     public function updatedWorkerSearch($value)

@@ -62,11 +62,15 @@ class MonthlyHoursOverviewReportService extends BaseService
                 }
             }
 
-            /**Total work hours */
-            /**TODO: Do this over APP_CONFIG  */
+
             foreach ($output as $key => $data) {
+                /**Total work hours */
+                /**TODO: Do this over APP_CONFIG  */
                 $sum = $data['work-hours'] + ($data['PL'] * 8) + ($data['HD'] * 8);
                 $output[$key]['work-hours-total'] = $sum;
+
+                /**Bonus */
+                if ($data[AttendanceAbsenceType::setTypeSickLeave()->shortDesc()] > 0) $output[$key]['bonus'] = FALSE;
             }
         } catch (\Throwable $th) {
             $this->setErrorMessage($th->getMessage());

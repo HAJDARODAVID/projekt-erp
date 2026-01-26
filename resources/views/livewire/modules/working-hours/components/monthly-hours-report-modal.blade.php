@@ -14,7 +14,7 @@
                         </x-slot:append>
                     @endif
                 </x-ui.input>
-                <x-ui.btn type="suc.sm" icon="file-earmark-spreadsheet"  />
+                <x-ui.btn type="suc.sm" icon="file-earmark-spreadsheet"  wClickMethod="exportMonthlyHoursAction" />
             </div>
             <hr>
         </x-ui.card> 
@@ -23,14 +23,14 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>{{ translator('Bonus') }}</th>
-                        <th>{{ translator('Work hours') }}</th>
-                        <th>{{ translator('Home') }}</th>
-                        <th>{{ translator('Field') }}</th>
-                        <th>{{ translator('PL') }}</th>
-                        <th>{{ translator('SL') }}</th>
-                        <th>{{ translator('HD') }}</th>
-                        <th>{{ translator('Total') }}</th>
+                        <th style="text-align: center">{{ translator('Bonus') }}</th>
+                        <th style="text-align: center">{{ translator('Work hours') }}</th>
+                        <th style="text-align: center">{{ translator('Home') }}</th>
+                        <th style="text-align: center">{{ translator('Field') }}</th>
+                        <th style="text-align: center">{{ translator('PL') }}</th>
+                        <th style="text-align: center">{{ translator('SL') }}</th>
+                        <th style="text-align: center">{{ translator('HD') }}</th>
+                        <th style="text-align: center">{{ translator('Total') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,22 +46,20 @@
                                         <div class="">{{ $worker['name'] }}</div>
                                     </div>
                                 </td>
-                                <td></td>
-                                <td>{{ $worker['work-hours'] }}</td>
-                                <td>{{ $worker['work-home'] }}</td>
-                                <td>{{ $worker['work-field'] }}</td>
-                                <td>{{ $worker['PL'] }}</td>
-                                <td>{{ $worker['SL'] }}</td>
-                                <td>{{ $worker['HD'] }}</td>
-                                <td>{{ $worker['work-hours-total'] }}</td>
+                                <td style="text-align: center">@if ($worker['bonus']) <i class="bi bi-check-lg text-success"></i> @else <i class="bi bi-x-lg text-danger"></i> @endif </td>
+                                <td style="text-align: center">{{ $worker['work-hours'] }}</td>
+                                <td style="text-align: center">{{ $worker['work-home'] }}</td>
+                                <td style="text-align: center">{{ $worker['work-field'] }}</td>
+                                <td style="text-align: center">{{ $worker['PL'] }}</td>
+                                <td style="text-align: center">{{ $worker['SL'] }}</td>
+                                <td style="text-align: center">{{ $worker['HD'] }}</td>
+                                <td style="text-align: center">{{ $worker['work-hours-total'] }}</td>
                             </tr>
                         @endif
                     @endforeach
                 </tbody>
             </table>   
         @endisset
-               
-        {{-- <x-slot:footerRight><x-ui.btn type="suc" icon="save" wClickMethod="createNewDiary" /></x-slot:footerRight> --}}
     </x-ui.modal>
     <x-ui.please-wait loading="openModal"/>
 </div>
