@@ -15,6 +15,11 @@ class Table extends LivewireController
         $this->dispatch('open-day-attendance-for-all-workers-modal', $date, (new WorkerHoursDataObject($this->tableData))->getWorkers())->to(DayAttendanceForAllWorkersModal::class);
     }
 
+    public function openPerDayAndWorkerAttendanceModal($date)
+    {
+        $this->dispatch('open-per-day-and-worker-attendance-modal', $date, (new WorkerHoursDataObject($this->tableData))->getWorkers())->to(DayAttendanceForAllWorkersModal::class);
+    }
+
     public function render()
     {
         return view('livewire.modules.working-hours.components.table', [

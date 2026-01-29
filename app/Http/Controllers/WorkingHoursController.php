@@ -23,4 +23,9 @@ class WorkingHoursController extends Controller
     {
         return $this->module();
     }
+
+    public function getEmployeeWorkingHours()
+    {
+        return $this->module('employee');
+    }
 }

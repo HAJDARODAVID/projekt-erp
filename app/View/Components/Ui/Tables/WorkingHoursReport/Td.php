@@ -14,14 +14,17 @@ class Td extends Component
     private $styleObject;
     public $style = ['text-align' => 'center'];
     public $attendance = NULL;
+    public $action = NULL;
+    public $actionParam = NULL;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($att = NULL, $date = NULL, $attendance = NULl)
+    public function __construct($att = NULL, $date = NULL, $attendance = NULl, array|NULL $action = NULL)
     {
         $this->attendance = $attendance;
         $this->styleObject = new WorkingDayReportStyleService();
+        $this->setAction($action);
         if ($date->format('N') > 5 && $attendance == NULL) {
             $this->styleSetUp($this->styleObject->weekendStyle());
         } else {
@@ -86,6 +89,17 @@ class Td extends Component
         $this->style['border-' . $att[0]] = $output = $att[1] * 1 . "px " . $att[2] . " " . $att[3] . ' !Important';
         //dd($this->style);
         return;
+    }
+
+    private function setAction(array|NULL $action): void
+    {
+        /**Set action name */
+        if (isset($action[0])) {
+            $this->action = $action[0];
+            unset($action[0]);
+            /**Set action params */
+            if (!empty($action)) $this->actionParam = json_encode($action);
+        }
     }
 
     /**

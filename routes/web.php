@@ -352,7 +352,8 @@ Route::prefix('/')
                 Route::controller(WorkingHoursController::class)
                     ->prefix('/working-hours')
                     ->group(function () {
-                        Route::get('/', 'index')->name('getEmployeeWorkingHours');
+                        Route::get('/', 'index')->name('getAllEmployeeWorkingHours');
+                        Route::get('/employee', 'getEmployeeWorkingHours')->name('getEmployeeWorkingHours');
                     });
             });
     });

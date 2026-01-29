@@ -14,7 +14,7 @@
         <tbody>
             @foreach ($data->getWorkers() as $id => $worker)
                 <tr>
-                    <td>
+                    <td onclick="location.href='{{ route('getEmployeeWorkingHours', ['worker'=> $id]) }}';" style="cursor: pointer">
                         <div class="d-flex gap-2">
                             <x-ui.employees.status-indicator :empID=$id />
                             <x-v-divider px=0 />
@@ -29,11 +29,13 @@
                                 :date=$date 
                                 attendance="{{ $data->date($date)->worker($id)->attendance() }}" 
                                 att="border:left-03-double-#3f3f3f"
+                                :action="['test']"
                             />
                         @else
                             <x-ui.tables.working-hours-report.td 
                                 :date=$date 
                                 attendance="{{ $data->date($date)->worker($id)->attendance() }}" 
+                                :action="['test', $date, $id]"
                             />
                         @endif
                     @endforeach
