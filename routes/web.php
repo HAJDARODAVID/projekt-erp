@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BdeController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmployeesController;
@@ -354,6 +355,22 @@ Route::prefix('/')
                     ->group(function () {
                         Route::get('/', 'index')->name('getAllEmployeeWorkingHours');
                         Route::get('/employee', 'getEmployeeWorkingHours')->name('getEmployeeWorkingHours');
+                    });
+            });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reporting
+        |--------------------------------------------------------------------------
+        |
+        | Register the routes that will be for reporting purposes.
+        |
+        */
+        Route::prefix('/report')
+            ->group(function () {
+                Route::controller(ReportController::class)
+                    ->group(function () {
+                        Route::get('/construction-sites-report', 'getConstructionSiteReport')->name('getConstructionSiteReport');
                     });
             });
     });

@@ -20,9 +20,9 @@ class BaseService
     protected string $message = '';
 
     /**
-     * @var array The data payload to be returned.
+     * @var mixed The data payload to be returned.
      */
-    protected array $data = [];
+    protected mixed $data;
 
     /**
      * Sets a custom error message.
@@ -41,10 +41,10 @@ class BaseService
      * Sets a custom success message and optionally the data payload.
      *
      * @param string $message
-     * @param array $data
+     * @param mixed $data
      * @return $this
      */
-    protected function setSuccessMessage(string $message, array $data = []): self
+    protected function setSuccessMessage(string $message, mixed $data = []): self
     {
         $this->success = true;
         $this->message = $message;
@@ -55,10 +55,10 @@ class BaseService
     /**
      * Sets the data payload.
      *
-     * @param array $data
+     * @param mixed $data
      * @return $this
      */
-    protected function setData(array $data = []): self
+    protected function setData($data): self
     {
         $this->success = true;
         $this->data = $data;
@@ -66,7 +66,7 @@ class BaseService
     }
 
     /**
-     * Gets the complete structured response array.
+     * Gets the complete structured response mixed.
      * * @return array
      */
     public function getResponse(): array
