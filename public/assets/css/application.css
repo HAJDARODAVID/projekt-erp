@@ -203,3 +203,15 @@ body.livewire-loading {
         opacity: 1;
     }
 }
+
+.tableFixHead {
+    overflow: auto;
+    height: 78vh;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: rgb(180, 180, 180)
+}

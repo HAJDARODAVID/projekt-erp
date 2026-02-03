@@ -16,6 +16,7 @@ class ReportController extends Controller
 
     public function getConstructionSiteReport()
     {
+        $this->setMainTitle('Construction site report');
         return $this->module('construction-site-report');
     }
 }
