@@ -4,6 +4,7 @@ namespace App\Services\ConstructionSite;
 
 use App\Services\BaseService;
 use App\Models\Jobs\ConstructionSite;
+use App\Models\Jobs\ConstructionSiteStatus;
 
 /**
  * Class GetAllConstructionSiteReportDataService.
@@ -21,7 +22,7 @@ class GetAllConstructionSiteReportDataService extends BaseService
             $output = [];
 
             /**Get all construction sites */
-            $constructionSiteObj = ConstructionSite::orderBy('name')->get();
+            $constructionSiteObj = ConstructionSite::where('status', ConstructionSiteStatus::CONSTRUCTION_STATUS_ACTIVE)->orderBy('name')->get();
 
             foreach ($constructionSiteObj as $constructionSite) {
                 $service = (new GetConstructionSiteReportDataService($constructionSite))->execute();

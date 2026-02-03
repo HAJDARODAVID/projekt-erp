@@ -1,6 +1,6 @@
 <div>
     @isset($reportData)
-        <div class="row">
+        <div class="row px-2">
             <div class="col-md-2">
                 <x-ui.input placeholder="{{ translator('Search') }}..." size="sm" :removeAddOnXP=TRUE wire:model.live.debounce.250ms='search'> 
                     @if ($search != NULL || $search != "")
@@ -9,6 +9,9 @@
                         </x-slot:append>
                     @endif
                 </x-ui.input>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-end"><button>test</button></div>
             </div>
         </div>
         
@@ -32,8 +35,6 @@
                             <tr>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        {{-- <x-ui.employees.status-indicator :empID=$id />
-                                        <x-v-divider px=0 /> --}}
                                         <div class="">{{ str_pad($item['jobSiteID'], 4, '0', STR_PAD_LEFT) }}</div>
                                         <x-v-divider px=0 />
                                         <div class="">{{ $item['jobSiteName'] }}</div>
