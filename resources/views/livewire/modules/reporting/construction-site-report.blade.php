@@ -11,7 +11,9 @@
                 </x-ui.input>
             </div>
             <div class="col">
-                <div class="d-flex justify-content-end"><button>test</button></div>
+                <div class="d-flex justify-content-end">
+                    <x-ui.btn type="suc.sm" icon="file-earmark-spreadsheet"  wClickMethod="exportReportAction" />
+                </div>
             </div>
         </div>
         

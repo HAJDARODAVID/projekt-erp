@@ -3,8 +3,8 @@
 namespace App\Livewire\Modules\Reporting;
 
 use App\Livewire\LivewireController;
-use App\Models\Jobs\ConstructionSite;
-use App\Services\ConstructionSite\GetConstructionSiteReportDataService;
+use App\Exports\ConstructionSite\ConstructionSiteReportExport;
+use App\Services\ConstructionSite\ConstructionSiteReportExportDto;
 use App\Services\ConstructionSite\GetAllConstructionSiteReportDataService;
 
 class ConstructionSiteReport extends LivewireController
@@ -51,6 +51,12 @@ class ConstructionSiteReport extends LivewireController
             $this->showException($th->getMessage());
         }
     }
+
+    public function exportReportAction()
+    {
+        return (new ConstructionSiteReportExport(new ConstructionSiteReportExportDto($this->reportData)));
+    }
+
     public function render()
     {
         return view('livewire.modules.reporting.construction-site-report');

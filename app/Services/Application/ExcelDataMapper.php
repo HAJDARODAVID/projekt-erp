@@ -153,10 +153,55 @@ class ExcelDataMapper
     }
 
     /**
+     * Replace NULL value with zero value
+     * 
+     */
+    protected function replaceNullWithZero()
+    {
+        foreach ($this->rawData as $rawDataKey => $rawDataItem) {
+            foreach ($rawDataItem as $itemKey => $itemValue) {
+                if ($itemValue === NULL) $this->rawData[$rawDataKey][$itemKey] = 0;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Reorder the rawDate with a given set of key.
+     * The keys given will be added and the other keys, that are not in the user given set, will be added on the end.
+     */
+    protected function reorderByKeys(...$keys)
+    {
+        //Get the key from the first item
+        $rawDataKeys = array_keys($this->rawData[array_key_first($this->rawData)]);
+
+        //Check if the given keys are in the original array
+        foreach ($keys as $key => $value) {
+            if (!in_array($value, $rawDataKeys)) unset($keys[$key]);
+        }
+
+        //Set new order
+        $newOrder = array_merge($keys, array_diff($rawDataKeys, $keys));
+
+        //Here we will set the reordered array
+        $output = [];
+
+        foreach ($this->rawData as $rawDataKey => $rawDataItemArray) {
+            $reorderedArray = [];
+            foreach ($newOrder as $key) {
+                $reorderedArray[$key] = $rawDataItemArray[$key];
+            }
+            $output[$rawDataKey] = $reorderedArray;
+        }
+        $this->rawData = $output;
+        return $this;
+    }
+
+    /**
      * Used for development
      */
-    protected function devShow()
+    protected function devShow($enabled = TRUE)
     {
-        dd($this);
+        if ($enabled) dd($this);
     }
 }
