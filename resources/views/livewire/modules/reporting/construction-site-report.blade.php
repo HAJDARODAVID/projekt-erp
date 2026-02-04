@@ -40,12 +40,25 @@
                                         <div class="">{{ $item['jobSiteName'] }}</div>
                                     </div>
                                 </td>
-                                <td style="text-align: center">{{ number_format(floatval($item['onStockValue']),2,',','.') }}</td>
-                                <td style="text-align: center">{{ number_format(floatval($item['consumptionsValue']),2,',','.') }}</td>
-                                <td style="text-align: center">{{ number_format(floatval($item['workHours']),2,',','.') }}</td>
-                                <td style="text-align: center">{{ number_format(floatval($item['workHoursValue']),2,',','.') }}</td>
-                                <td style="text-align: center">{{ number_format(floatval($item['allocatedVehicleExpense']),2,',','.') }}</td>
-                                <td style="text-align: center">{{ number_format(floatval($item['total']),2,',','.') }}</td>
+
+                                <td style="text-align: center; @if($item['onStockValue']<0) color: rgb(175, 0, 0) @endif" >
+                                    {{ number_format(floatval($item['onStockValue']),2,',','.') }}
+                                </td>
+                                <td style="text-align: center; @if($item['consumptionsValue']<0) color: rgb(175, 0, 0) @endif" >
+                                    {{ number_format(floatval($item['consumptionsValue']),2,',','.') }}
+                                </td>
+                                <td style="text-align: center; @if($item['workHours']<0) color: rgb(175, 0, 0) @endif" >
+                                    {{ number_format(floatval($item['workHours']),2,',','.') }}
+                                </td>
+                                <td style="text-align: center; @if($item['workHoursValue']<0) color: rgb(175, 0, 0) @endif" >
+                                    {{ number_format(floatval($item['workHoursValue']),2,',','.') }}
+                                </td>
+                                <td style="text-align: center; @if($item['allocatedVehicleExpense']<0) color: rgb(175, 0, 0) @endif" >
+                                    {{ number_format(floatval($item['allocatedVehicleExpense']),2,',','.') }}
+                                </td>
+                                <td style="text-align: center; @if($item['total']<0) color: rgb(175, 0, 0) @endif" >
+                                    <b>{{ number_format(floatval($item['total']),2,',','.') }}</b>
+                                </td>
                             </tr>
                         @endif
                     @endforeach

@@ -5,6 +5,7 @@ namespace App\Services\ConstructionSite;
 use App\Services\BaseService;
 use App\Models\AppParametersModel;
 use App\Models\Jobs\ConstructionSite;
+use App\Services\Assets\Vehicles\GetVehicleMillageService;
 use App\Services\ConstructionSite\ConstructionSiteReportDto;
 use App\Services\ConstructionSite\ConstructionSiteMaterialsInfoService;
 use App\Services\ConstructionSite\GetConstructionSiteOverallHoursService;
@@ -43,6 +44,9 @@ class GetConstructionSiteReportDataService extends BaseService
             $constructionSiteMaterialsInfoService = (new ConstructionSiteMaterialsInfoService($this->constructionSite))->execute();
             $constructionSiteReportDto->setOnStockValue($constructionSiteMaterialsInfoService->getMaterialsOnStockValue())
                 ->setConsumptionsValue($constructionSiteMaterialsInfoService->getConsumedMaterialsValue());
+
+            $getVehicleMillageService = (new GetVehicleMillageService)->getByJobSite($this->constructionSite)->execute();
+            $constructionSiteReportDto->setAllocatedVehicleExpense($getVehicleMillageService->getMileageValue());
 
             $constructionSiteReportDto->setTotal($constructionSiteReportDto->getAllocatedVehicleExpense() + $constructionSiteReportDto->getWorkHoursValue() + $constructionSiteReportDto->getOnStockValue() + $constructionSiteReportDto->getConsumptionsValue());
 
