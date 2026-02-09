@@ -330,6 +330,7 @@ Route::prefix('/')
                     ->group(function () {
                         Route::get('/', 'index')->name('applicationDashboard');
                         Route::get('/modules', 'getAllApplicationModules')->name('getAllApplicationModules');
+                        Route::get('/translator', 'getTranslatorModules')->name('getTranslatorModules');
                     });
             });
 

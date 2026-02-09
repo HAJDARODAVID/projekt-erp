@@ -31,4 +31,12 @@ class ApplicationController extends Controller
     {
         return $this->module('modules');
     }
+
+    /**
+     * Show translations module.
+     */
+    public function getTranslatorModules()
+    {
+        return $this->module('translator');
+    }
 }
