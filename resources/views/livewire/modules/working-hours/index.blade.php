@@ -4,18 +4,16 @@
             <div class="d-flex gap-2 align-items-center">
                 <div class="">{{ translator('Month overview') }}</div>
                 <x-v-divider style="height: 31px"/>
-                <x-ui.select :options=$months class="form-select-sm" wModel='selectedMonth' />
-                <x-ui.select :options=$years class="form-select-sm"  wModel='selectedYear' />
+                <x-ui.select :options=$months class="form-select-sm" wModel='selectedMonth' style="width: 100px" />
+                <x-v-divider px=0 style="height: 31px"/>
+                <x-ui.select :options=$years class="form-select-sm"  wModel='selectedYear' style="width: 100px" />
             </div>
         </x-slot:title>
         <x-slot:headerActions>
             <div class="d-flex gap-2">
                 @livewire('modules.workday-diary.create-new-diary-modal')
                 @livewire('modules.working-hours.components.monthly-hours-report-modal', ['month' => $selectedMonth, 'year' => $selectedYear], key('monthly.report.'.now()))
-                <x-v-divider px=0 />
-                <x-ui.btn type="dan.sm" icon="trash" />
             </div>
-            
         </x-slot:headerActions>
         <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear, refreshMe">
             @livewire('modules.working-hours.components.table', ['tableData' => $data], key('working-hours'.now()))
