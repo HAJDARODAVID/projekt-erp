@@ -36,3 +36,9 @@ host('Production')
 // Hooks
 
 after('deploy:failed', 'deploy:unlock');
+
+task('deploy:build', function () {
+    run('cd {{release_path}} && npm install && npm run build');
+});
+
+after('deploy:update_code', 'deploy:build');
