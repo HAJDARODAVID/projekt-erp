@@ -7,7 +7,6 @@ use App\Services\Months;
 use Livewire\Attributes\Url;
 use App\Livewire\ExceptionModal;
 use App\Livewire\LivewireController;
-use App\Services\Attendance\WorkerHoursDataObject;
 use App\Services\Employees\GetWorkersMonthlyHoursReportService;
 use Livewire\Attributes\On;
 

@@ -22,7 +22,7 @@ class Table extends LivewireController
 
     public function test($param)
     {
-        dd('im in', $param);
+        dd('im in', $param, (new WorkerHoursDataObject($this->tableData))->getWorkers());
     }
 
     public function render()
