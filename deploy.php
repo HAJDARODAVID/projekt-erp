@@ -1,17 +1,36 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
 
 // Config
+set('application', 'deployer');
 
-set('repository', 'https://github.com/HAJDARODAVID/projekt-erp.git');
+// Project repository
+set('repository', 'git@github.com:HAJDARODAVID/hidro-projekt-erp.git');
 
+// [Optional] Allocate tty for git clone. Default value is false.
+set('git_tty', true);
+
+// Shared files/dirs between deploys 
 add('shared_files', []);
 add('shared_dirs', []);
-add('writable_dirs', []);
+
+// Writable dirs by web server 
+add('writable_dirs', [
+    'storage',
+    'bootstrap',
+]);
 
 // Hosts
+host('Production')
+    ->setHostname('165.245.223.177')
+    ->setRemoteUser('deployer')
+    ->setIdentityFile('~/.ssh/id_rsa')
+    ->set('deploy_path', '/var/www/hidro-projekt-erp')
+    ->set('branch', 'master')
+    ->set('ssh_multiplexing', false);
 
 
 // Hooks
