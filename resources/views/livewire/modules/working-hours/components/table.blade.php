@@ -43,7 +43,7 @@
             @endforeach
         </tbody>
     </table>
-    @livewire('modules.working-hours.components.day-attendance-for-all-workers-modal');
+    @livewire('modules.working-hours.components.day-attendance-for-all-workers-modal')
     
     <x-ui.please-wait loading="openDayAttendanceModal, openModal"/>
 </div>
