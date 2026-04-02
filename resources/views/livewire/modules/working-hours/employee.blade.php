@@ -48,8 +48,10 @@
                         
                     </x-slot:title>
                     @if ($selectedWorker)
-                        {{-- <b><i>{{ mb_strtoupper($workers[$selectedWorker]['firstName'].' '.$workers[$selectedWorker]['lastName']) }}</i></b> --}}
-                        <hr>
+                        <x-ui.nav-tab-content tabKey="monthly-overview" :selectedTab=$activeTab  divHeight='full' >
+                            @livewire('modules.working-hours.components.monthly-overview-card',['workerID'=> $selectedWorker], key('monthly-overview'.now()))
+                        </x-ui.nav-tab-content>
+                        <x-ui.nav-tab-content tabKey="overview" :selectedTab=$activeTab >overview</x-ui.nav-tab-content>
                     @else
                         <div class="d-flex justify-content-center"><div class="py-3"><i>{{ translator('No worker selected!') }}</i></div></div>
                     @endif

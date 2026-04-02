@@ -83,4 +83,24 @@ class WorkerHoursDataObject
         $dates = $this->data['info']['date'];
         return Months::daysOfMonth($dates['month'], $dates['year']);
     }
+
+    /**
+     * Get the month from the data.
+     * 
+     * @return int
+     */
+    public function getMonth()
+    {
+        return $this->data['info']['date']['month'];
+    }
+
+    /**
+     * Get the year from the data.
+     * 
+     * @return int
+     */
+    public function getYear()
+    {
+        return $this->data['info']['date']['year'];
+    }
 }

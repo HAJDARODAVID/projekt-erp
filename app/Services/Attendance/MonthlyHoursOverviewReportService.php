@@ -24,6 +24,9 @@ class MonthlyHoursOverviewReportService extends BaseService
     /** @var Attendance */
     private $attendance = NULL;
 
+    /**Store the worker ID whom you need a report */
+    private $workerID = [];
+
     public function __construct($month, $year)
     {
         $this->month = $month;
@@ -38,6 +41,7 @@ class MonthlyHoursOverviewReportService extends BaseService
      */
     public function execute(): MonthlyHoursOverviewReportService
     {
+        if (!empty($this->workerID)) $this->attendance = $this->attendance->whereIn('worker_id', $this->workerID);
         $output = [];
         try {
             //code...
@@ -103,5 +107,17 @@ class MonthlyHoursOverviewReportService extends BaseService
             $output[$absence] = 0;
         }
         return $output;
+    }
+
+    /**
+     * Assign workers for whom you need a report.
+     * Pass thru the worker ID. Can be one or many.
+     * 
+     * @return MonthlyHoursOverviewReportService
+     */
+    public function setSpecificWorkers(...$workerID)
+    {
+        $this->workerID = $workerID;
+        return $this;
     }
 }

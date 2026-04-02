@@ -22,7 +22,7 @@ class BaseService
     /**
      * @var mixed The data payload to be returned.
      */
-    protected mixed $data;
+    protected mixed $data = [];
 
     /**
      * Sets a custom error message.

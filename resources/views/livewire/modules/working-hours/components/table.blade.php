@@ -14,7 +14,7 @@
         <tbody>
             @foreach ($data->getWorkers() as $id => $worker)
                 <tr>
-                    <td onclick="location.href='{{ route('getEmployeeWorkingHours', ['worker'=> $id]) }}';" style="cursor: pointer">
+                    <td onclick="location.href='{{ route('getEmployeeWorkingHours', ['worker'=> $id,'month' => $data->getMonth(),'year'=>$data->getYear()]) }}';" style="cursor: pointer">
                         <div class="d-flex gap-2">
                             <x-ui.employees.status-indicator :empID=$id />
                             <x-v-divider px=0 />

@@ -215,3 +215,19 @@ body.livewire-loading {
     z-index: 1;
     background-color: rgb(180, 180, 180)
 }
+
+.table-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #e4e4e4;
+    background: linear-gradient(to top, #d6d6d6, #ececec);
+
+}
+
+.table-border-sides {
+    border-left: 1px solid #d5dbe2;
+    /* Left border */
+    border-right: 1px solid #d5dbe2;
+    /* Right border */
+}

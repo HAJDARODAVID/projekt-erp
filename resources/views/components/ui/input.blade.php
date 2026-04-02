@@ -16,10 +16,10 @@
         <input 
             type="{{ $type }}" 
             {{ $attributes->merge([
-                'class' => 'form-control '
+                'class' => 'form-control ',
+                'style' => implode("; ", $style).'; '
                 ]) }} 
-            placeholder="{{ $placeholder }}" 
-            style="{{ implode('; ', $style) }}"
+            placeholder="{{ $placeholder }}"
             @if($wModel)
             wire:model.{{ $wModelEvent }} = '{{ $wModel }}'
             @endif

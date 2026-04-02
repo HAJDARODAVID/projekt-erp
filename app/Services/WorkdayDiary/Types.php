@@ -30,6 +30,8 @@ class Types
         self::TYPE_MISC_WORK  => 'work-misc'
     ];
 
+    const EXCLUDE_TYPES = [self::TYPE_MISC_WORK];
+
     private function __construct($type)
     {
         if (key_exists($type, self::WORK_TYPES)) $this->type = $type;
@@ -79,5 +81,14 @@ class Types
     public static function bdeType()
     {
         return self::AVAILABLE_TYPE_BDE;
+    }
+
+    public static function getTypes($exclude = TRUE)
+    {
+        $output = self::WORK_TYPES;
+        foreach (self::EXCLUDE_TYPES as $type) {
+            unset($output[$type]);
+        }
+        return $output;
     }
 }

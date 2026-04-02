@@ -1,0 +1,94 @@
+<x-ui.card :noBodyPadding=TRUE class="h-100 d-flex flex-column">
+    <x-slot:title>
+        <div class="d-flex gap-2 align-items-center">
+            <div class="">{{ translator('Month') }}:</div>
+            <x-v-divider style="height: 31px"/>
+            <x-ui.select :options=$months class="form-select-sm" wModel='selectedMonth' style="width: 100px" />
+            <x-v-divider px=0 style="height: 31px"/>
+            <x-ui.select :options=$years class="form-select-sm"  wModel='selectedYear' style="width: 100px" />
+        </div>
+    </x-slot:title>
+    <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear, refreshMe, deleteAttendanceAction">
+        
+        <div class="p-3 pt-0" style="position: absolute;top: 0; right: 0; bottom: 0; left: 0; margin-top: 10px;margin-bottom: 10px; overflow-y: auto">
+            @isset($attendance['report'])
+            <table class="table table-sm table-striped" style="text-align: center">
+                    <tbody>
+                        <tr class="table-header">
+                            <th class="table-border-sides">WORK HOURS[h]</th>
+                            <th class="table-border-sides">TOTAL HOURS[h]</th>
+                            <th class="table-border-sides">HOME[d]</th>
+                            <th class="table-border-sides">FIELD[d]</th>
+                            <th class="table-border-sides">SL[d]</th>
+                            <th class="table-border-sides">PL[d]</th>
+                            <th class="table-border-sides">HD[d]</th>
+                            <th class="table-border-sides">BONUS</th>
+                        </tr>
+                        <tr>
+                            <td class="table-border-sides">{{ $attendance['report']['work-hours'] }}</td>
+                            <td class="table-border-sides">{{ $attendance['report']['work-hours-total'] }}</td>
+                            <td class="table-border-sides">{{ $attendance['report']['work-home'] }}</td>
+                            <td class="table-border-sides">{{ $attendance['report']['work-field'] }}</td>
+                            <td class="table-border-sides">{{ $attendance['report']['SL'] }}</td>
+                            <td class="table-border-sides">{{ $attendance['report']['PL'] }}</td>
+                            <td class="table-border-sides">{{ $attendance['report']['HD'] }}</td>
+                            <td class="table-border-sides">{{ $attendance['report']['bonus'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+            @endisset
+            @isset($attendance['per-day'])
+                <table class="table table-sm table-striped">
+            
+                    <thead class="table-header">
+                        
+                        <tr style="vertical-align: middle;">
+                            <th style="width:10px" class="table-border-sides">#</th>
+                            <th class="table-border-sides" style="width:95px; text-align: center">{{ translator('DATE') }}</th>
+                            <th  class="table-border-sides"style="width:80px; text-align: center">#{{ translator('WDR') }}</th>
+                            <th class="table-border-sides">{{ translator('CONSTRUCTION SITE') }}</th>
+                            <th class="table-border-sides" style="width:100px; text-align: center">{{ translator('WORK HOURS') }}</th>
+                            <th class="table-border-sides" style="width:100px; text-align: center">{{ translator('TYPE') }}</th>
+                            <th class="table-border-sides" style="width:50px; text-align: center">{{ translator('SL') }}</th>
+                            <th class="table-border-sides" style="width:50px; text-align: center">{{ translator('PL') }}</th>
+                            <th class="table-border-sides" style="width:50px; text-align: center">{{ translator('HD') }}</th>
+                            <th class="table-border-sides" style="width:10px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($attendance['per-day'] as $attID => $att)
+                            <tr>
+                                <td class="table-border-sides" style="">{{ $att['id'] }}</td>
+                                <td class="table-border-sides" style="padding: 4px 10px;text-align: center ">{{ $att['date'] }}</td>
+                                <td class="table-border-sides" style="padding: 4px 10px;text-align: center ">{{ $att['wdr'] }}</td>
+                                <td class="table-border-sides">{{ $att['cs_name'] }}</td>
+                                <td class="table-border-sides px-2" style="text-align: center;">
+                                    <x-ui.input type="number" size="sm" wModel="attendance.per-day.{{ $attID }}.hours" style="text-align: center"/>
+                                </td>
+                                <td class="table-border-sides px-2" style="text-align: center;">
+                                    <x-ui.select :options=$attTypes class="form-select-sm" wModel="attendance.per-day.{{ $attID }}.type" />
+                                </td>
+                                <td class="table-border-sides" style="text-align: center;">
+                                    <input class="form-check-input" type="checkbox" wire:model="attendance.per-day.{{ $attID }}.abs-sl">
+                                </td>
+                                <td class="table-border-sides" style="text-align: center;">
+                                    <input class="form-check-input" type="checkbox" wire:model="attendance.per-day.{{ $attID }}.abs-pl">
+                                </td>
+                                <td class="table-border-sides" style="text-align: center;">
+                                    <input class="form-check-input" type="checkbox" wire:model="attendance.per-day.{{ $attID }}.abs-hd">
+                                </td>
+                                <td class="table-border-sides">
+                                    <div class="d-flex gap-2 px-2">
+                                        <x-ui.btn type="dan.sm" icon="trash" wClickMethod="deleteAttendanceAction" wClickParam="{{ $attID }}" />
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endisset
+        
+        </div>
+    </x-ui.card>
+</x-ui.card>

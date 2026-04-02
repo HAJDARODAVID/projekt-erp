@@ -45,4 +45,23 @@ class DeleteAttendanceService extends BaseService
         $this->setSuccessMessage('Attendance successfully deleted!');
         return $this;
     }
+
+    /**
+     * Creates the service by the attendance id.
+     * 
+     * @return DeleteAttendanceService
+     */
+    public static function byID($id, $type = 'myWorkers'): self
+    {
+        $attendance = null;
+        switch ($type) {
+            case 'myWorkers':
+                $attendance = Attendance::find($id);
+                break;
+            case 'co-op':
+                $attendance = AttendanceCoOpModel::find($id);
+                break;
+        }
+        return new self($attendance);
+    }
 }
