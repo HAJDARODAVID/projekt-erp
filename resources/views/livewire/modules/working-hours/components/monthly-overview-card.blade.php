@@ -8,9 +8,14 @@
             <x-ui.select :options=$years class="form-select-sm"  wModel='selectedYear' style="width: 100px" />
         </div>
     </x-slot:title>
-    <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear, refreshMe, deleteAttendanceAction">
+    <x-slot:headerActions>
+        <div class="d-flex gap-2 align-items-center">
+            <x-ui.btn type="suc.sm" icon="file-earmark-spreadsheet" />
+        </div>
+    </x-slot:headerActions>
+    <x-ui.card class="flex-fill d-flex flex-column" loading="selectedMonth, selectedYear, refreshMe, deleteAttendanceAction, attendance">
         
-        <div class="p-3 pt-0" style="position: absolute;top: 0; right: 0; bottom: 0; left: 0; margin-top: 10px;margin-bottom: 10px; overflow-y: auto">
+        <div class="p-3 pt-0" style="position: absolute;top: 0; right: 0; bottom: 0; left: 0; margin-top: 10px;margin-bottom: 10px; overflow-y: auto" wire:key="container-{{ now() }}">
             @isset($attendance['report'])
             <table class="table table-sm table-striped" style="text-align: center">
                     <tbody>
@@ -46,14 +51,14 @@
                         <tr style="vertical-align: middle;">
                             <th style="width:10px" class="table-border-sides">#</th>
                             <th class="table-border-sides" style="width:95px; text-align: center">{{ translator('DATE') }}</th>
-                            <th  class="table-border-sides"style="width:80px; text-align: center">#{{ translator('WDR') }}</th>
+                            <th  class="table-border-sides"style="width:100px; text-align: center">#{{ translator('WDR') }}</th>
                             <th class="table-border-sides">{{ translator('CONSTRUCTION SITE') }}</th>
                             <th class="table-border-sides" style="width:100px; text-align: center">{{ translator('WORK HOURS') }}</th>
                             <th class="table-border-sides" style="width:100px; text-align: center">{{ translator('TYPE') }}</th>
                             <th class="table-border-sides" style="width:50px; text-align: center">{{ translator('SL') }}</th>
                             <th class="table-border-sides" style="width:50px; text-align: center">{{ translator('PL') }}</th>
                             <th class="table-border-sides" style="width:50px; text-align: center">{{ translator('HD') }}</th>
-                            <th class="table-border-sides" style="width:10px"></th>
+                            <th class="table-border-sides" style="width:10px; text-align: center"><x-ui.btn type="pri.sm" icon="plus-square" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,22 +66,41 @@
                             <tr>
                                 <td class="table-border-sides" style="">{{ $att['id'] }}</td>
                                 <td class="table-border-sides" style="padding: 4px 10px;text-align: center ">{{ $att['date'] }}</td>
-                                <td class="table-border-sides" style="padding: 4px 10px;text-align: center ">{{ $att['wdr'] }}</td>
+                                <td class="table-border-sides" style="padding: 4px 10px;text-align: center ">
+                                    <div class="d-flex justify-content-center gap-1">
+                                        {{ $att['wdr'] }}
+                                        @if ($att['wdr'])
+                                            <x-v-divider />
+                                            <i class="bi bi-pencil bg-primary-subtle" style="cursor: pointer;padding: 0px 4px"></i>
+                                        @else
+                                            <i class="bi bi-plus-square" style="cursor: pointer;padding: 0px 4px" wire:click="openEditDiaryModalAction('{{ $attID }}')"></i>
+                                        @endif
+                                        
+                                    </div>
+                                </td>
                                 <td class="table-border-sides">{{ $att['cs_name'] }}</td>
                                 <td class="table-border-sides px-2" style="text-align: center;">
-                                    <x-ui.input type="number" size="sm" wModel="attendance.per-day.{{ $attID }}.hours" style="text-align: center"/>
+                                    <x-ui.input 
+                                        type="number" 
+                                        size="sm"
+                                        style="text-align: center" 
+                                        class="{{ isset($saved['attendance.per-day.'.$attID.'.hours']) ?  'is-valid' : NULL }}"
+                                        wModel="attendance.per-day.{{ $attID }}.hours" />
                                 </td>
                                 <td class="table-border-sides px-2" style="text-align: center;">
-                                    <x-ui.select :options=$attTypes class="form-select-sm" wModel="attendance.per-day.{{ $attID }}.type" />
+                                    <x-ui.select 
+                                    :options=$attTypes 
+                                    class="form-select-sm {{ isset($saved['attendance.per-day.'.$attID.'.type']) ?  'is-valid' : NULL }}" 
+                                    wModel="attendance.per-day.{{ $attID }}.type" />
                                 </td>
                                 <td class="table-border-sides" style="text-align: center;">
-                                    <input class="form-check-input" type="checkbox" wire:model="attendance.per-day.{{ $attID }}.abs-sl">
+                                    <input class="form-check-input" type="checkbox" wire:model.change="attendance.per-day.{{ $attID }}.abs-sl">
                                 </td>
                                 <td class="table-border-sides" style="text-align: center;">
-                                    <input class="form-check-input" type="checkbox" wire:model="attendance.per-day.{{ $attID }}.abs-pl">
+                                    <input class="form-check-input" type="checkbox" wire:model.change="attendance.per-day.{{ $attID }}.abs-pl">
                                 </td>
                                 <td class="table-border-sides" style="text-align: center;">
-                                    <input class="form-check-input" type="checkbox" wire:model="attendance.per-day.{{ $attID }}.abs-hd">
+                                    <input class="form-check-input" type="checkbox" wire:model.change="attendance.per-day.{{ $attID }}.abs-hd">
                                 </td>
                                 <td class="table-border-sides">
                                     <div class="d-flex gap-2 px-2">
@@ -91,4 +115,5 @@
         
         </div>
     </x-ui.card>
+    @livewire('modules.working-hours.components.edit-work-diary-on-attendance-modal',['displayIcon'=>FALSE])
 </x-ui.card>

@@ -221,13 +221,13 @@ body.livewire-loading {
     top: 0;
     z-index: 1;
     background-color: #e4e4e4;
-    background: linear-gradient(to top, #d6d6d6, #ececec);
+    background: linear-gradient(to top, #e6e6e6, #F2F2F2);
 
 }
 
 .table-border-sides {
-    border-left: 1px solid #d5dbe2;
+    border-left: 1px solid #c4cad1;
     /* Left border */
-    border-right: 1px solid #d5dbe2;
+    border-right: 1px solid #c4cad1;
     /* Right border */
 }
