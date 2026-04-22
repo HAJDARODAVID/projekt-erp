@@ -50,7 +50,7 @@
                         
                         <tr style="vertical-align: middle;">
                             <th style="width:10px" class="table-border-sides">#</th>
-                            <th class="table-border-sides" style="width:95px; text-align: center">{{ translator('DATE') }}</th>
+                            <th class="table-border-sides" style="width:95px; text-align: center">{{ translator("DATE") }}</th>
                             <th  class="table-border-sides"style="width:100px; text-align: center">#{{ translator('WDR') }}</th>
                             <th class="table-border-sides">{{ translator('CONSTRUCTION SITE') }}</th>
                             <th class="table-border-sides" style="width:100px; text-align: center">{{ translator('WORK HOURS') }}</th>
@@ -71,7 +71,8 @@
                                         {{ $att['wdr'] }}
                                         @if ($att['wdr'])
                                             <x-v-divider />
-                                            <i class="bi bi-pencil bg-primary-subtle" style="cursor: pointer;padding: 0px 4px"></i>
+                                            <i class="bi bi-pencil bg-primary-subtle" style="cursor: pointer;padding: 0px 4px"
+                                            wire:click="openEditDiaryModalAction('{{ $attID }}')"></i>
                                         @else
                                             <i class="bi bi-plus-square" style="cursor: pointer;padding: 0px 4px" wire:click="openEditDiaryModalAction('{{ $attID }}')"></i>
                                         @endif

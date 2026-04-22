@@ -3,6 +3,7 @@
 namespace App\Livewire\Modules\WorkingHours\Components;
 
 use App\Livewire\LivewireController;
+use App\Services\Attendance\AttendanceUpdateService;
 use App\Services\Attendance\GetAttendanceService;
 use App\Services\WorkdayDiary\GetAllWorkDiariesForDateService;
 use App\Services\WorkdayDiary\Transformers\WorkDiariesToSelectTransformer;
@@ -14,12 +15,20 @@ class EditWorkDiaryOnAttendanceModal extends LivewireController
     public $displayIcon = TRUE;
 
     public $attendance = NULL;
+
+    /**The selected diary */
+    public $workDiary = NULL;
+
+    /**All work diaries for this date */
     public $allWorkDiariesOptions = [];
 
     #[On('open-edit-work-diary-on-attendance-modal')]
     public function init($attID)
     {
-        $this->getAttendance($attID)->getAvailableDiaries()->openModal();
+        $this->getAttendance($attID)
+            ->getAvailableDiaries()
+            ->savedSuccess('testis')
+            ->openModal();
     }
 
     /**
@@ -51,7 +60,7 @@ class EditWorkDiaryOnAttendanceModal extends LivewireController
             $this->blockModelOpening()->notifyMe(translator('No attendance found for the given ID!'), 'danger');
             return $this;
         }
-        /**set the work diaries */
+        /**Set the work diaries */
         try {
             $getAllWorkDiariesForDateService = (new GetAllWorkDiariesForDateService(new \DateTime($this->attendance->date)))->with('constructionSite', 'user')->execute();
             $workDiariesToSelectTransformer = new WorkDiariesToSelectTransformer($getAllWorkDiariesForDateService->getWorkDayDiaries());
@@ -59,7 +68,43 @@ class EditWorkDiaryOnAttendanceModal extends LivewireController
         } catch (\Throwable $th) {
             $this->showException($th->getMessage());
         }
+        /**Set the current work diary from the attendance */
+        $this->workDiary = $this->attendance->working_day_record_id;
         return $this;
+    }
+
+    /**
+     * Action for removing the work diary from the attendance
+     * 
+     * @return void
+     */
+    public function removeWorkDiaryFromAttendanceAction(): void
+    {
+        try {
+            $service = AttendanceUpdateService::worker($this->attendance->id)->removeWorkDiary();
+            $this->dispatch('refresh-attendance-data')->to(MonthlyOverviewCard::class);
+            $this->reset('attendance', 'workDiary', 'allWorkDiariesOptions');
+            $this->closeModal();
+        } catch (\Throwable $th) {
+            $this->showException($th->getMessage());
+        }
+    }
+
+    /**
+     * Update action for the property $workDiary 
+     * 
+     * @return void
+     */
+    public function updatedWorkDiary($value)
+    {
+        try {
+            $service = AttendanceUpdateService::worker($this->attendance->id)->updateWorkDiary($value);
+            $this->dispatch('refresh-attendance-data')->to(MonthlyOverviewCard::class);
+            $this->reset('attendance', 'workDiary', 'allWorkDiariesOptions');
+            $this->closeModal();
+        } catch (\Throwable $th) {
+            $this->showException($th->getMessage());
+        }
     }
 
     public function render()

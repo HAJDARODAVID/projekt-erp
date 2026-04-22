@@ -6,13 +6,14 @@ use App\Exceptions\ErrorMessage;
 use App\Livewire\LivewireController;
 use App\Models\Employees\AttendanceAbsenceType;
 use App\Models\Employees\Worker;
+use App\Services\Attendance\AttendanceUpdateService;
 use App\Services\Attendance\DeleteAttendanceService;
 use App\Services\Attendance\GetWorkerMonthlyAttendanceService;
-use App\Services\Attendance\AttendanceUpdateService;
 use App\Services\Months;
-use App\Services\Years;
-use Livewire\Attributes\Url;
 use App\Services\WorkdayDiary\Types as AttendanceType;
+use App\Services\Years;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 
 class MonthlyOverviewCard extends LivewireController
 {
@@ -161,6 +162,17 @@ class MonthlyOverviewCard extends LivewireController
             $this->showException($th->getMessage());
         }
         return;
+    }
+
+    /**
+     * Call the getAttendanceDataAction method, to refresh the data
+     * 
+     * @return void
+     */
+    #[On('refresh-attendance-data')]
+    public function refreshData(): void
+    {
+        $this->getAttendanceDataAction();
     }
 
     /**

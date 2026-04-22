@@ -104,4 +104,30 @@ class AttendanceUpdateService extends BaseService
         $this->setSuccessTrue();
         return $this;
     }
+
+    /**
+     * Remove the work diary ID from the attendance.
+     * 
+     * @return AttendanceUpdateService
+     */
+    public function removeWorkDiary(): self
+    {
+        $this->attendance->working_day_record_id = \NULL;
+        $this->attendance->save();
+        $this->setSuccessTrue();
+        return $this;
+    }
+
+    /**
+     * Update the work diary ID .
+     * 
+     * @return AttendanceUpdateService
+     */
+    public function updateWorkDiary($newValue): self
+    {
+        $this->attendance->working_day_record_id = $newValue;
+        $this->attendance->save();
+        $this->setSuccessTrue();
+        return $this;
+    }
 }

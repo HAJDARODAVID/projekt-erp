@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use App\Traits\TabTrait;
-use App\Traits\ModalTrait;
-use App\Traits\ExplodeParams;
-use App\Traits\ValidationTrait;
 use App\Traits\ArraySearchTrait;
+use App\Traits\ExplodeParams;
+use App\Traits\ModalTrait;
+use App\Traits\SavedStatementTrait;
+use App\Traits\TabTrait;
+use App\Traits\ValidationTrait;
+use Livewire\Component;
 
 class LivewireController extends Component
 {
@@ -16,6 +17,7 @@ class LivewireController extends Component
     use ExplodeParams;
     use ValidationTrait;
     use ArraySearchTrait;
+    use SavedStatementTrait;
 
     /**
      * This will dispatch a message to the notifications component. 
