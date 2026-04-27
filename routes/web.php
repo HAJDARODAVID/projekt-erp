@@ -317,6 +317,26 @@ Route::prefix('/')
 
         /*
         |--------------------------------------------------------------------------
+        | Developer routes
+        |--------------------------------------------------------------------------
+        |
+        | Here are the routes for the developer..
+        | You can do where whatever, this will be only available on the local or dev environment.
+        |
+        */
+        Route::prefix('/dev')
+            ->middleware(['only-local'])
+            ->group(function () {
+                Route::get('/', function () {
+                    return 'DEVELOPER ROUTE!';
+                });
+                Route::get('/elements', function () {
+                    return view('developer');
+                });
+            });
+
+        /*
+        |--------------------------------------------------------------------------
         | Application settings
         |--------------------------------------------------------------------------
         |
