@@ -11,10 +11,9 @@
         <x-slot:title>{{strtoupper(translator("Attendance work diary")) }}</x-slot:title>
         <x-ui.card :noBodyPadding=TRUE loading="diaryInfo" :border=FALSE loading="removeWorkDiaryFromAttendanceAction">
             <div class="d-flex gap-2 m-2" wire:key="container-{{ now() }}">
-                <x-ui.select 
-                :options=$allWorkDiariesOptions 
-                class="form-select-sm" 
-                wModel="workDiary"
+                <x-ui-select 
+                :options=$allWorkDiariesOptions
+                model="workDiary" size='sm'
                 :saved=$saved
                 />
                 <x-ui.btn type="dan.sm" icon="trash"  wClickMethod="removeWorkDiaryFromAttendanceAction"/>

@@ -27,7 +27,7 @@ class EditWorkDiaryOnAttendanceModal extends LivewireController
     {
         $this->getAttendance($attID)
             ->getAvailableDiaries()
-            ->savedSuccess('testis')
+            ->resetSaveStatement()
             ->openModal();
     }
 
@@ -100,6 +100,7 @@ class EditWorkDiaryOnAttendanceModal extends LivewireController
         try {
             $service = AttendanceUpdateService::worker($this->attendance->id)->updateWorkDiary($value);
             $this->dispatch('refresh-attendance-data')->to(MonthlyOverviewCard::class);
+            $this->savedSuccess('workDiary');
             $this->reset('attendance', 'workDiary', 'allWorkDiariesOptions');
             $this->closeModal();
         } catch (\Throwable $th) {
