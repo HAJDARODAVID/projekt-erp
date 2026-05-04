@@ -4,6 +4,7 @@ namespace App\Livewire\Components\Modal;
 
 use App\Livewire\LivewireController;
 use App\Services\Application\CalendarService;
+use DateTime;
 
 class Calendar extends LivewireController
 {
@@ -16,7 +17,7 @@ class Calendar extends LivewireController
 
     public function mount()
     {
-        $this->selectedDate = now();
+        $this->selectedDate = new DateTime('2026-04-27');
         $this->getDates();
         $this->openModal();
     }
@@ -38,9 +39,9 @@ class Calendar extends LivewireController
         return $this;
     }
 
-    public function testWireClick()
+    public function selectDate()
     {
-        dd("this");
+        dd("selectDate");
     }
 
     public function render()

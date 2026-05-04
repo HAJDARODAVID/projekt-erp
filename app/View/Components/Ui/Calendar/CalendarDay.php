@@ -11,14 +11,17 @@ class CalendarDay extends Component
     public array $info;
     public array $calendarClass = [];
     public array $dayClass = [];
+    public string $method;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(array $info)
+    public function __construct(array $info, ?string $method = 'selectDate')
     {
         $this->info = $info;
+        $this->method = $method;
         $this->setCalendarClass()->setDayClass();
+        dd($this);
     }
 
     private function setCalendarClass()
@@ -26,7 +29,7 @@ class CalendarDay extends Component
         $this->calendarClass[] = 'calendar-day';
         if ($this->info['today']) $this->calendarClass[] = 'today';
         if ($this->info['month'] != $this->info['setMonth']) $this->calendarClass[] = 'empty';
-        if ($this->info['day'] == $this->info['selectedDate']->format('j')) $this->calendarClass[] = 'selected';
+        if ($this->info['day'] == $this->info['selectedDate']->format('j') && $this->info['month'] == $this->info['selectedDate']->format('n')) $this->calendarClass[] = 'selected';
         return $this;
     }
 
